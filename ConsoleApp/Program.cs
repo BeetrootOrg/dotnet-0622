@@ -6,7 +6,11 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, Vika!");
+            Console.WriteLine("Hello, 5 times!");
+            Console.WriteLine("Hello, 5 times!");
+            Console.WriteLine("Hello, 5 times!");
+            Console.WriteLine("Hello, 5 times!");
+            Console.WriteLine("Hello, 5 times!");
         }
     }
 }
