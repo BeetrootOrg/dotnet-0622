@@ -22,3 +22,16 @@ byte b1 = 5;
 short s1 = 6;
 long l1 = 129030192;
 ulong u1 = 129030192;
+uint i2 = 6;
+
+// logikal operation
+bool first = true;
+bool second = false;
+
+System.Console.WriteLine("logical not");
+System.Console.WriteLine(!first);
+System.Console.WriteLine(!second);
+
+System.Console.WriteLine("logical And");
+System.Console.WriteLine(first && second);
+System.Console.WriteLine(!second);
