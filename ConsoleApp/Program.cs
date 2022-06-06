@@ -17,3 +17,10 @@ System.Console.WriteLine(c % d);
 System.Console.WriteLine(d % c);
 // error below if you try to uncoment
 // System.Console.WriteLine(100 / 0);
+
+int i1 = 7;
+byte b1 = 5;
+short s1 = 6;
+long l1 = 129030192;
+ulong l2 = 129030192;
+uint i2 = 6;
