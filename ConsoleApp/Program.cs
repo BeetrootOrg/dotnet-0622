@@ -28,8 +28,8 @@ System.Console.WriteLine(Math.Max(x,y));
 
 System.Console.WriteLine("Task Extra");
 DateTime date = DateTime.Today;
-DateTime pastYear = new DateTime(2022,01,01);
-DateTime followingYear = new DateTime(2023,01,01);
+DateTime pastYear = new DateTime(DateTime.Now.Year,01,01);
+DateTime followingYear = new DateTime(DateTime.Now.Year + 1,01,01);
 TimeSpan days;
 
 days = date.Subtract(pastYear);
