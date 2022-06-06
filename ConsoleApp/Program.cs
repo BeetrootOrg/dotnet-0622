@@ -94,3 +94,7 @@ System.Console.WriteLine(var1--); // 6 5 6 -> right is 7
 var1 = var1 + 1;
 var1 += 1;
 var1++;
+
+
+// I need to increment var1 by 10
+var1 += 10; // the same as var1 = var1 + 10
