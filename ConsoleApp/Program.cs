@@ -1,4 +1,6 @@
-﻿int a = 5;
+﻿int a = 6;
 int b = 6;
-int sum = a+b;
-System.Console.WriteLine(sum);
+System.Console.WriteLine(a++); //6->7
+System.Console.WriteLine(++a); //
+System.Console.WriteLine(--a);
+
