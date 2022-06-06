@@ -86,9 +86,3 @@ System.Console.WriteLine(Math.Round(4.2));
 System.Console.WriteLine(Math.Floor(4.2));
 System.Console.WriteLine(Math.Ceiling(4.2));
 System.Console.WriteLine(Math.Truncate(4.2));
-
-
-
- 
- 
- 
