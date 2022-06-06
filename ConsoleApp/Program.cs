@@ -18,4 +18,19 @@ long l1 = 129021492;
 long l2 = 544124;
 uint i2 = 6;
 
+//logical operation
+bool first = true;
+bool second = false;
+bool third = true;
+bool fourth = false;
+
+
+System.Console.WriteLine("Logical NOT");
+System.Console.WriteLine(!first);
+System.Console.WriteLine(!second);
+
+System.Console.WriteLine(first && second);
+System.Console.WriteLine(first || second);
+System.Console.WriteLine(third && fourth);
+
 
