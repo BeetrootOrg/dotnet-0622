@@ -1,11 +1,40 @@
-﻿// See https://aka.ms/new-console-template for more information
-DateTime dateNow = DateTime.Now;
-DateTime lastDayOfYear = new DateTime(DateTime.Now.Year, 12, 31);
-int x = lastDayOfYear.DayOfYear - dateNow.DayOfYear;
-int y = dateNow.DayOfYear;
-Console.WriteLine("days left to New Year (x = " + x + ")\ndays passed from New Year (y = " + y + ")");
+﻿Console.Write("x = ");
+int x;
+try {
+    x = Convert.ToInt32(Console.ReadLine());
+} catch {
+    Console.WriteLine("Invalid input");
+    return;
+}
 
-Console.WriteLine("-6*x^3+5*x^2-10*x+15 = " + (-6*Math.Pow(x,3)+5*Math.Pow(x,2)-10*x + 15));
-Console.WriteLine("abs(x)*sin(x) = " + Math.Abs(x)*Math.Sin(x));
-Console.WriteLine("2*pi*x = " + 2*Math.PI*x);
-Console.WriteLine("max(x, y) = " + Math.Max(x,y));
+Console.Write("y = ");
+int y;
+try {
+    y = Convert.ToInt32(Console.ReadLine());
+} catch {
+    Console.WriteLine("Invalid input");
+    return;
+}
+// Also i could add filter for negative input values if it necessary
+
+int sum = 0;
+Console.Write("Sum = ");
+if (x > y) {
+    for (int i = y; i<=x; i++) {
+        sum += i;
+        if (i == x)
+            Console.Write(i);
+        else
+            Console.Write(i + " + ");
+    }
+} else {    
+    for (int i = x; i<=y; i++) {
+        sum += i;        
+        if (i == y)
+            Console.Write(i);
+        else
+            Console.Write(i + " + ");
+    }
+}
+
+Console.Write(" = " + sum);
