@@ -45,3 +45,11 @@ System.Console.WriteLine(var1 | var2);
 System.Console.WriteLine(var1 ^ var2);
 System.Console.WriteLine(var1 << var2);
 System.Console.WriteLine(var1 >> var2);
+
+System.Console.WriteLine("Increment");
+System.Console.WriteLine(++var1);
+System.Console.WriteLine(var1++);
+System.Console.WriteLine(--var1);
+System.Console.WriteLine(var1--);
+
+
