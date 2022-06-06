@@ -34,3 +34,14 @@ System.Console.WriteLine(first || second);
 System.Console.WriteLine(third && fourth);
 
 
+//bit operations
+
+var var1 = 5; //101
+var var2 = 2; //010
+
+System.Console.WriteLine("Binar operations");
+System.Console.WriteLine(var1 & var2);
+System.Console.WriteLine(var1 | var2);
+System.Console.WriteLine(var1 ^ var2);
+System.Console.WriteLine(var1 << var2);
+System.Console.WriteLine(var1 >> var2);
