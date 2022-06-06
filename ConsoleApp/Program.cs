@@ -110,3 +110,19 @@ System.Console.WriteLine(dd3);
 
 System.Console.WriteLine(12f / 5f);
 System.Console.WriteLine(11f / 3f);
+
+System.Console.WriteLine(+var1);
+System.Console.WriteLine(-var1);
+
+var nineteen = 19;
+var twenty = 21;
+System.Console.WriteLine("Equality");
+System.Console.WriteLine(var1 == nineteen);
+System.Console.WriteLine(var1 == twenty);
+System.Console.WriteLine(var1 != nineteen);
+System.Console.WriteLine(var1 != twenty);
+System.Console.WriteLine("Greater");
+System.Console.WriteLine(var1 > nineteen);
+System.Console.WriteLine(var1 > twenty);
+System.Console.WriteLine(var1 >= nineteen);
+System.Console.WriteLine(var1 >= twenty);
