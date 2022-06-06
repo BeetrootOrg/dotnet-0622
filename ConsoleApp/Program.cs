@@ -80,3 +80,17 @@ System.Console.WriteLine(var1 ^ var2); // 110 ^ 010 = 100 -> 4
 System.Console.WriteLine(var1 << var2); // 110 << 2 = 11000 -> 24
 System.Console.WriteLine(var1 >> var2); // 110 >> 2 = 001 -> 1
 
+System.Console.WriteLine("Increment");
+// first we take var1 = 6; increment it to 7; write 7
+System.Console.WriteLine(++var1); // 7 7 7 -> right is 7
+// first we take var1 = 7; write 7; increment it to 8
+System.Console.WriteLine(var1++); // 6 7 7 -> right is 7
+// first we take var1 = 8; decrement it to 7; write 7
+System.Console.WriteLine(--var1); // 5 5 6 -> right is 7
+// first we take var1 = 7; write 7; decrement it to 6
+System.Console.WriteLine(var1--); // 6 5 6 -> right is 7
+
+// below is the same (almost)
+var1 = var1 + 1;
+var1 += 1;
+var1++;
