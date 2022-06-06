@@ -112,3 +112,38 @@ System.Console.WriteLine(dd3);
 
 System.Console.WriteLine(12f / 5f);
 System.Console.WriteLine(11f / 3f);
+
+System.Console.WriteLine(+var1);
+System.Console.WriteLine(-var1);
+
+var nineteen = 19;
+var twenty = 21; // fake
+System.Console.WriteLine("Equality");
+System.Console.WriteLine(var1 = nineteen);
+System.Console.WriteLine(var1 = twenty);
+System.Console.WriteLine(var1 != nineteen);
+System.Console.WriteLine(var1 != twenty);
+System.Console.WriteLine("Greater");
+System.Console.WriteLine(var1 > nineteen);
+System.Console.WriteLine(var1 > twenty);
+System.Console.WriteLine(var1 >= nineteen);
+System.Console.WriteLine(var1 >= twenty);
+
+System.Console.WriteLine("Math");
+System.Console.WriteLine(Math.Abs(-42));
+System.Console.WriteLine(Math.Abs(5));
+System.Console.WriteLine(Math.Log10(100));
+System.Console.WriteLine(Math.Cos(Math.PI));
+System.Console.WriteLine(Math.Sin(Math.PI));
+
+System.Console.WriteLine("round positive");
+System.Console.WriteLine(Math.Round(4.2));
+System.Console.WriteLine(Math.Floor(4.2));
+System.Console.WriteLine(Math.Ceiling(4.2));
+System.Console.WriteLine(Math.Truncate(4.2));
+
+System.Console.WriteLine("round negative");
+System.Console.WriteLine(Math.Round(-4.2));
+System.Console.WriteLine(Math.Floor(-4.2));
+System.Console.WriteLine(Math.Ceiling(-4.2));
+System.Console.WriteLine(Math.Truncate(-4.2));
