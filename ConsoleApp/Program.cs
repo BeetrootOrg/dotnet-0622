@@ -5,3 +5,5 @@ int b = 6;
 int sum = a + b;
 
 Console.WriteLine(sum);
+Console.WriteLine(a + b);
+Console.WriteLine(a * b);
