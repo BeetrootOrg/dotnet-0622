@@ -98,3 +98,15 @@ var1++;
 
 // I need to increment var1 by 10
 var1 += 10; // the same as var1 = var1 + 10
+
+float f3 = 135.45f;
+double d3 = 135.45;
+decimal dd3 = 135.45m;
+
+System.Console.WriteLine("Floats");
+System.Console.WriteLine(f3);
+System.Console.WriteLine(d3);
+System.Console.WriteLine(dd3);
+
+System.Console.WriteLine(12f / 5f);
+System.Console.WriteLine(11f / 3f);
