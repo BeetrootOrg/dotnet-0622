@@ -38,6 +38,10 @@ bool second = false;
 bool third = true;
 bool fourth = false;
 
+System.Console.WriteLine("Boolean");
+System.Console.WriteLine(first);
+System.Console.WriteLine(second);
+
 System.Console.WriteLine("Logical NOT");
 System.Console.WriteLine(!first);
 System.Console.WriteLine(!second);
@@ -53,3 +57,26 @@ System.Console.WriteLine("Logical OR");
 System.Console.WriteLine(second || first);
 System.Console.WriteLine(second || third);
 System.Console.WriteLine(second || fourth);
+
+// complex operation
+System.Console.WriteLine("Complex Logical Operation");
+
+// 1. (first || second)
+// 2. (third || fourth)
+// 3. ... && ...
+System.Console.WriteLine((first || second) && (third || fourth));
+
+// 1. second && third
+// 2. first || ... || fourth
+System.Console.WriteLine(first || second && third || fourth);
+
+// bit operations
+var var1 = 6; // 110
+var var2 = 2; // 010
+System.Console.WriteLine("Bitwise algebra");
+System.Console.WriteLine(var1 & var2); // 110 & 010 = 010 -> 2
+System.Console.WriteLine(var1 | var2); // 110 | 010 = 110 -> 6
+System.Console.WriteLine(var1 ^ var2); // 110 ^ 010 = 100 -> 4
+System.Console.WriteLine(var1 << var2); // 110 << 2 = 11000 -> 24
+System.Console.WriteLine(var1 >> var2); // 110 >> 2 = 001 -> 1
+
