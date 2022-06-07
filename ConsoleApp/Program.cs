@@ -16,3 +16,21 @@ System.Console.WriteLine(myInt * myDecimal);
 System.Console.WriteLine(myBool || myFalseBool);
 System.Console.WriteLine(myDouble / myInt);
 System.Console.WriteLine(myInt % myShort);
+
+// Math function 1
+double x = -15;
+double firstFunctionResult = -6 * Math.Pow(x,3) + 5 * Math.Pow(x, 2) - 10 * x + 15;
+System.Console.WriteLine(firstFunctionResult);
+
+// Math function 2
+double secondFunctionResult = Math.Abs(x) * Math.Sin(x);
+System.Console.WriteLine(secondFunctionResult);
+
+//Math function 3
+double thirdFunctionResult = 2 * Math.PI * x;
+System.Console.WriteLine(thirdFunctionResult);
+
+//Math function 4
+double y = 144;
+double fourthFunctionResult = Math.Max(x, y);
+System.Console.WriteLine(fourthFunctionResult);
