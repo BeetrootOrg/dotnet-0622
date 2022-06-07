@@ -11,7 +11,10 @@ if (int.TryParse(console, out x))
     Console.WriteLine("x="+ x);
 } 
 else 
-Console.WriteLine("x is not an integer number");
+{ 
+Console.WriteLine("x is not an integer number, run again and put right value");
+return;
+}   
 
 // Entering y
 Console.WriteLine("Now enter whole number y:");
@@ -22,8 +25,11 @@ if (int.TryParse(console, out y))
 {
     Console.WriteLine("y="+ y);
 } 
-else 
-Console.WriteLine("y is not an integer number");
+else
+{ 
+Console.WriteLine("y is not an integer number, run again and put right value");
+return;
+}
 
 int length;
 length = (x > y) ? x - y : y - x; 
