@@ -11,9 +11,9 @@ Console.WriteLine((l1-s1)+(i1*b1));
 
 int x = 15;
 int y = 10;
-Console.WriteLine(-6*x^3+5*x^2-10*x+15);
-Console.WriteLine(Math.Abs(x)*Math.Sin(x));
-Console.WriteLine(2*Math.PI*x);
+Console.WriteLine(-6 * Math.Pow(x,3) + 5 * Math.Pow(x,2) - 10 * x + 15);
+Console.WriteLine(Math.Abs(x) * Math.Sin(x));
+Console.WriteLine(2 * Math.PI * x);
 Console.WriteLine(Math.Max(x, y));
 
 DateTime now = DateTime.Now;
