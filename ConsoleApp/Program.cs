@@ -32,7 +32,7 @@ System.Console.WriteLine("several math functions");
 var x = 13;
 var y = 7;
 
-System.Console.WriteLine((-6*x)^(3+5*x)^(2-10*x+15));
-System.Console.WriteLine((Math.Abs(x))*(Math.Sin(x)));
-System.Console.WriteLine(2*Math.PI*x);
+System.Console.WriteLine(-6 * Math.Pow(x,3) + 5 * Math.Pow(x,2) - 10 * x + 15);
+System.Console.WriteLine(Math.Abs(x) * Math.Sin(x));
+System.Console.WriteLine(2 * Math.PI * x);
 System.Console.WriteLine(Math.Max(x, y));
