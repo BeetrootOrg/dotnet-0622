@@ -29,3 +29,16 @@ int y = 73;
     Console.WriteLine("abs(x)*sin(x): " + Math.Abs(x) * Math.Sin(x));
     Console.WriteLine();
     Console.WriteLine("-6*x^3+5*x^2-10*x+15: " + (-6 * Math.Pow(x, 3) + 5 * Math.Pow(x, 2) - 10 * x + 15));
+
+//Бонус
+
+DateTime now = DateTime.Now;
+DateTime newYear2022 = new DateTime(2022, 1, 1);
+DateTime newYear2023 = new DateTime(2023, 1, 1);
+
+TimeSpan fromnewyear = now.Subtract(newYear2022);
+TimeSpan tonewyear = newYear2023.Subtract(now);
+
+Console.WriteLine("З початку 2022 року пройшло: " + fromnewyear.Days.ToString() + " днiв.");
+Console.WriteLine("До 2023 року залишилось: " + tonewyear.Days.ToString() + " днiв.");
+
