@@ -33,10 +33,8 @@ int sum = 0;
 
 for (int i = 0; i <= length; i++)
 {
-   if (length != 0)
     sum += (x > y) ? y++ : x++; 
-   else
-    sum = x + y;
+
 }
 
 Console.WriteLine($"The sum is {sum}");
