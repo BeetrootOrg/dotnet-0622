@@ -34,3 +34,14 @@ System.Console.WriteLine(thirdFunctionResult);
 double y = 144;
 double fourthFunctionResult = Math.Max(x, y);
 System.Console.WriteLine(fourthFunctionResult);
+
+//DateTime: countdown to New Year
+DateTime today = DateTime.Today;
+DateTime newYearDate = new DateTime(2023, 1, 1);
+
+int daysToNewYear = (newYearDate - today).Days;
+int daysInCurrentYear = DateTime.IsLeapYear(today.Year) ? 366 : 365;
+int daysPassedFromNewYear = daysInCurrentYear - daysToNewYear;
+
+System.Console.WriteLine($"{daysToNewYear} days left to New Year");
+System.Console.WriteLine($"{daysPassedFromNewYear} days passed from New Year");
