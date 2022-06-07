@@ -1,14 +1,38 @@
-﻿// Numeric Variables
+﻿// Integral Numeric types
 byte a = 8;
-short c = -56;
-int e = 451318;
-long g = 1598798;
+short b = 56;
+int c = 451318;
+long d = 1598798;
 
-// Arithmetic operations 
+System.Console.WriteLine("Arithmetic operations with integral numeric types");
 System.Console.WriteLine(a + c);
-System.Console.WriteLine(e - c);
-System.Console.WriteLine(e * a);
-System.Console.WriteLine(g / a);
-// Remaining 
-System.Console.WriteLine(g % a);
-System.Console.WriteLine(a % g);
+System.Console.WriteLine(b - c);
+System.Console.WriteLine(d * a);
+System.Console.WriteLine(c * a);
+
+// floating-point numeric types
+float e = 2.102f; 
+double f = 3.516;
+decimal j = 31.47482m;
+
+System.Console.WriteLine("Arithmetic operations with floating-point numeric types");
+System.Console.WriteLine(e + f);
+System.Console.WriteLine(e - f);
+System.Console.WriteLine ((decimal)j * (decimal)f);
+
+bool first = true;
+bool second = false;
+
+System.Console.WriteLine("Logical operations");
+System.Console.WriteLine(first && second);
+
+
+System.Console.WriteLine("several math functions");
+
+var x = 13;
+var y = 7;
+
+System.Console.WriteLine((-6*x)^(3+5*x)^(2-10*x+15));
+System.Console.WriteLine((Math.Abs(x))*(Math.Sin(x)));
+System.Console.WriteLine(2*Math.PI*x);
+System.Console.WriteLine(Math.Max(x, y));
