@@ -18,7 +18,7 @@ decimal j = 31.47482m;
 System.Console.WriteLine("Arithmetic operations with floating-point numeric types");
 System.Console.WriteLine(e + f);
 System.Console.WriteLine(e - f);
-System.Console.WriteLine ((decimal)j * (decimal)f);
+System.Console.WriteLine (j * (decimal)f);
 
 bool first = true;
 bool second = false;
@@ -36,3 +36,13 @@ System.Console.WriteLine(-6 * Math.Pow(x,3) + 5 * Math.Pow(x,2) - 10 * x + 15);
 System.Console.WriteLine(Math.Abs(x) * Math.Sin(x));
 System.Console.WriteLine(2 * Math.PI * x);
 System.Console.WriteLine(Math.Max(x, y));
+
+// Extra DateTime
+System.Console.WriteLine("Date Time");
+DateTime thisDay = DateTime.Today; 
+DateTime lastNewYear = new DateTime(2022, 1, 1);
+DateTime nextNewYear = new DateTime(2023, 1, 1);
+int afterLastNewYear = (thisDay - lastNewYear).Days;
+System.Console.WriteLine($"{afterLastNewYear} days passed from New Year");
+int beforeNextNewYear = (nextNewYear - thisDay).Days;
+System.Console.WriteLine($"{beforeNextNewYear} days left to New Year");
