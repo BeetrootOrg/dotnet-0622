@@ -161,3 +161,8 @@ do
 {
     System.Console.WriteLine("I'm inside");
 } while (sum < 0);
+
+double d = 0.1 + 0.1 + 0.1;
+float f = 0.1f * 0.1f * 0.1f;
+System.Console.WriteLine(d);
+System.Console.WriteLine(f);
