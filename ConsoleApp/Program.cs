@@ -11,13 +11,21 @@ max(x, y)
 */
 // Start * HomeWokr 1Part *
 int aByte = 11;
+int bByte = 24;
 int aShort = -12;
 int aInt = 5569938;
-int aLong = -6643434343425342334;
+var aLong = -6643434343425342334;
 bool aBool = true;
 bool bBool = false;
 float afloat = 134.45E-2f;
+double aDouble = 25.5;
+decimal aDecimal = 156.43;
+decimal bDecimal = 324.43;
 
+
+System.Console.WriteLine(aByte+bByte);
+System.Console.WriteLine(bDecimal-aDecimal);
+System.Console.WriteLine(aByte*bByte);
 
 
 
