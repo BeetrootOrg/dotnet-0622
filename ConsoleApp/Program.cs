@@ -47,3 +47,19 @@ else if (a == 44)
     System.Console.WriteLine("A is 44");
 }
 
+switch (a)
+{
+    case 42:
+        System.Console.WriteLine("A is 42");
+        break;
+    case 43:
+        System.Console.WriteLine("A is 43");
+        break;
+    case 44:
+        System.Console.WriteLine("A is 44");
+        break;
+    default:
+        System.Console.WriteLine("A is unknown");
+        break;
+}
+
