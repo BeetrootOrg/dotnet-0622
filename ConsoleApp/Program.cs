@@ -106,3 +106,23 @@ for(int  i = 0 ; i < 10; ++i)
     sum += i;
 }
 System.Console.WriteLine($"Sum from 0 to 9 equals = {sum}");
+
+System.Console.WriteLine("Loop While");
+int j = 0;
+sum = 0;
+while (j < 10)
+{
+ sum += j;
+ ++j;
+}
+System.Console.WriteLine($"Sum is {sum}");
+
+System.Console.WriteLine("Loop Do-While");
+j = 0;
+sum = 0;
+do 
+{
+    sum += j;
+    ++j;
+} while(j < 10);
+System.Console.WriteLine($"Sum is {sum}");
