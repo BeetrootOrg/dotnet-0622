@@ -116,3 +116,13 @@ switch (a)
         c = 5;
         break;
 }
+
+c = a > 40 && b >= 5 ? 15 : 10;
+
+// Error below
+// a switch
+// {
+//     45 => Console.WriteLine("A"),
+//     50 => Console.WriteLine("B"),
+//     _ => Console.WriteLine("C")
+// };
