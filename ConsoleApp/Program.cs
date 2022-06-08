@@ -78,3 +78,39 @@ switch(a)
         c = 5;
         break;    
 }
+
+int sum = 0;
+for (; sum < 50; sum +=3)
+{
+    
+}
+Console.WriteLine (sum);
+
+// let's make mess
+sum = int.MaxValue;
+Console.WriteLine (sum + 1);
+Console.WriteLine (sum - 1);
+
+int j = 0;
+sum = 0;
+while (j < 10)
+{
+    sum += j;
+    ++j;
+}
+
+Console.WriteLine ($"Sum is {sum}");
+
+
+j = 0;
+sum = 0;
+do {
+    sum += j;
+    ++j;
+} while (j <10);
+Console.WriteLine ($"Sum is {sum}");
+
+float f = 0.1f * 0.1f * 0.1f;
+double d = 0.1 + 0.1 + 0.1;
+Console.WriteLine(d);
+Console.WriteLine(f);
