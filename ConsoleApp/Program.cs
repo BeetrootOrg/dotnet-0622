@@ -131,3 +131,33 @@ sum = int.MaxValue;
 System.Console.WriteLine(sum + 1);
 System.Console.WriteLine(sum - 1);
 
+System.Console.WriteLine("Loop WHILE");
+int j = 0;
+sum = 0;
+while (j < 10)
+{
+    sum += j;
+    ++j;
+}
+
+System.Console.WriteLine($"Sum is {sum}");
+
+while (sum < 0)
+{
+    System.Console.WriteLine("I'm inside");
+}
+
+System.Console.WriteLine("Loop DO-WHILE");
+j = 0;
+sum = 0;
+do
+{
+    sum += j;
+    ++j;
+} while (j < 10);
+System.Console.WriteLine($"Sum is {sum}");
+
+do
+{
+    System.Console.WriteLine("I'm inside");
+} while (sum < 0);
