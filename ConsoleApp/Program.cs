@@ -63,3 +63,33 @@ switch (a)
         break;
 }
 
+// assign variable
+// 1st option
+int c;
+if (a == 45) c = 10;
+else c = 5;
+
+System.Console.WriteLine(c);
+
+// 2nd option - ternary
+c = a == 45 ? 10 : 5;
+System.Console.WriteLine(c);
+
+// 3rd option - switch expression
+c = a switch
+{
+    45 => 10,
+    _ => 5
+};
+
+// 4rd option - switch operator
+switch (a)
+{
+    case 45:
+        c = 10;
+        break;
+    default:
+        c = 5;
+        break;
+}
+
