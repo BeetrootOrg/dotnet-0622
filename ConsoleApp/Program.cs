@@ -196,3 +196,87 @@ double d = 0.1 + 0.1 + 0.1;
 float f = 0.1f * 0.1f * 0.1f;
 System.Console.WriteLine(d);
 System.Console.WriteLine(f);
+
+// 1st option
+sum = 0;
+for (int counter = 0; counter < 100; counter += 2)
+{
+    sum += counter;
+}
+
+System.Console.WriteLine(sum);
+
+// 2nd option
+sum = 0;
+for (int counter = 0; counter < 100; counter++)
+{
+    if (counter % 2 != 0)
+    {
+        continue;
+    }
+
+    sum += counter;
+}
+
+System.Console.WriteLine(sum);
+
+// 3rd option
+sum = 0;
+j = 0;
+while (j < 100)
+{
+    sum += j;
+    j += 2;
+}
+
+System.Console.WriteLine(sum);
+
+// 4th option
+sum = 0;
+j = 0;
+while (++j < 100)
+{
+    if (j % 2 != 0)
+    {
+        continue;
+    }
+
+    sum += j;
+}
+
+System.Console.WriteLine(sum);
+
+// 5th option
+sum = (0 + 100) / 2 * 49;
+System.Console.WriteLine(sum);
+
+// console input
+System.Console.WriteLine("Input something: ");
+var s = Console.ReadLine();
+System.Console.WriteLine($"Your input: {s}");
+
+System.Console.WriteLine("Enter number: ");
+var numberStr = Console.ReadLine();
+System.Console.WriteLine($"Your number + 42 = {numberStr + 42}");
+
+var number = int.Parse(numberStr);
+System.Console.WriteLine($"Your number + 42 = {number + 42}");
+
+System.Console.WriteLine("Enter number (please): ");
+numberStr = Console.ReadLine();
+if (int.TryParse(numberStr, out number))
+{
+    System.Console.WriteLine($"You've entered number {number}");
+}
+else
+{
+    System.Console.WriteLine("You're stupid");
+}
+
+bool result;
+do
+{
+    System.Console.WriteLine("Enter number (please): ");
+    numberStr = Console.ReadLine();
+    result = int.TryParse(numberStr, out number);
+} while (!result);
