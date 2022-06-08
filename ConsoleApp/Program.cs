@@ -1,4 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿
+
+
+//  
+
+
+
+/*
+// See https://aka.ms/new-console-template for more information
 Console.WriteLine("Старт тест, змінні");
 // simple variable
 // int simpleNumber = 42;
@@ -40,3 +48,6 @@ bool f1 = true;
 bool f2 = false;
 System.Console.WriteLine(f1);
 System.Console.WriteLine(f2);
+
+*/
+
