@@ -280,3 +280,8 @@ do
     numberStr = Console.ReadLine();
     result = int.TryParse(numberStr, out number);
 } while (!result);
+
+System.Console.WriteLine("Enter boolean:");
+var boolStr = Console.ReadLine();
+var boolean = bool.Parse(boolStr);
+System.Console.WriteLine($"Your boolean is {boolean}");
