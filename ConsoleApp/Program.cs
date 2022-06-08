@@ -46,3 +46,22 @@ else if (a == 44)
 {
     System.Console.WriteLine("A is 44");
 }
+
+int b = 10;
+if (a > 40 && b > 10)
+{
+    System.Console.WriteLine("a > 40 && b > 10 = TRUE");
+}
+else
+{
+    System.Console.WriteLine("a > 40 && b > 10 = FALSE");
+}
+
+if (a > 40 || b > 10)
+{
+    System.Console.WriteLine("a > 40 || b > 10 = TRUE");
+}
+else
+{
+    System.Console.WriteLine("a > 40 || b > 10 = FALSE");
+}
