@@ -92,4 +92,17 @@ switch(a)
     break;
 }
 
-c = a > 40 && b >= 5 ? 15 : 10; // 
+c = a > 40 && b >= 5 ? 15 : 10; // any dificult
+
+System.Console.WriteLine("Loop For");
+for (int i = 0; i < 10; ++i) //pre increment compiles faster than increment
+{ 
+    System.Console.WriteLine(i);
+}
+
+var sum = 0;
+for(int  i = 0 ; i < 10; ++i)
+{
+    sum += i;
+}
+System.Console.WriteLine($"Sum from 0 to 9 equals = {sum}");
