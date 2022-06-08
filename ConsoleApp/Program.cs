@@ -19,15 +19,13 @@ bool aBool = true;
 bool bBool = false;
 float afloat = 134.45E-2f;
 double aDouble = 25.5;
-decimal aDecimal = 156.43;
-decimal bDecimal = 324.43;
+decimal aDecimal = 156.43m;
+decimal bDecimal = 324.43m;
 
 
 System.Console.WriteLine(aByte+bByte);
 System.Console.WriteLine(bDecimal-aDecimal);
 System.Console.WriteLine(aByte*bByte);
-
-
 
 
 // Start *Write to console result of several math functions* 
@@ -53,5 +51,6 @@ System.Console.WriteLine(2*Math.PI*x);
 //Result4 max(x, y)
 System.Console.WriteLine("------- max(x, y) ------");
 System.Console.WriteLine(Math.Max(x, y));
+
 
 
