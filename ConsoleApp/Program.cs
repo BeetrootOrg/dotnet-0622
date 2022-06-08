@@ -126,3 +126,81 @@ do
     ++j;
 } while(j < 10);
 System.Console.WriteLine($"Sum is {sum}");
+
+sum = 0;
+for (int counter = 0; counter < 100; counter += 2)
+{
+    sum += counter;
+}
+System.Console.WriteLine(sum);
+
+//2nd - option
+sum = 0;
+
+for (int counter = 0; counter < 100; counter += 2)
+{
+    if(counter % 2 != 0)
+    {
+        continue;
+    }
+    sum += counter;
+}
+System.Console.WriteLine(sum);
+
+//3rd option
+sum = 0;
+j = 0;
+while(j < 100)
+{
+    sum += j;
+    j+=2;
+}
+System.Console.WriteLine(sum);
+
+//4rd option
+sum = 0;
+j = 0;
+/*while(j < 100)
+{
+    if(j%2 != 0)
+    {
+        continue;
+    }
+    sum += j;
+    ++j;
+}
+System.Console.WriteLine(sum);*/
+
+//5rd option
+//sum = (0+100) / 2* 49;
+//System.Console.WriteLine(sum);
+
+System.Console.WriteLine("Input something: ");
+var s = Console.ReadLine();
+System.Console.WriteLine($"Input : {s}");
+
+System.Console.WriteLine("Enter number: ");
+var numberstr = Console.ReadLine();
+System.Console.WriteLine($"Your number = {numberstr +42}");
+
+var number = int.Parse(numberstr);
+System.Console.WriteLine($"Your number = {number + 42}");
+
+System.Console.WriteLine("enter number (please)");
+numberstr = Console.ReadLine();
+if(int.TryParse(numberstr, out number))
+{
+    System.Console.WriteLine($"You`ve entered number {number}");
+}
+else
+{
+    System.Console.WriteLine("Yo`re stupid");
+}
+
+bool result;
+do
+{
+    System.Console.WriteLine("enter number (please)");
+    numberstr = Console.ReadLine();
+    result = int.TryParse(numberstr, out number);
+}while (!result);
