@@ -86,18 +86,20 @@ switch (a)
 // 1st option
 int c;
 if (a == 45) c = 10;
+else if (a == 50) c = 15;
 else c = 5;
 
 System.Console.WriteLine(c);
 
 // 2nd option - ternary
-c = a == 45 ? 10 : 5;
+c = a == 45 ? 10 : (a == 50 ? 15 : 5);
 System.Console.WriteLine(c);
 
 // 3rd option - switch expression
 c = a switch
 {
     45 => 10,
+    50 => 15,
     _ => 5
 };
 
@@ -106,6 +108,9 @@ switch (a)
 {
     case 45:
         c = 10;
+        break;
+    case 50:
+        c = 15;
         break;
     default:
         c = 5;
