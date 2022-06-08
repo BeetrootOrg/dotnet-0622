@@ -97,3 +97,37 @@ switch (a)
         break;
 }
 
+System.Console.WriteLine("Loop FOR");
+for (int i = 0; i < 10; ++i)
+{
+    System.Console.WriteLine(i);
+}
+
+var sum = 0;
+for (int i = 0; i < 10; ++i)
+{
+    sum += i;
+}
+System.Console.WriteLine($"Sum from 0 to 9 equals to {sum}");
+
+// infinite loop below
+// for (;;)
+// {
+
+// }
+
+for (; sum < 50; sum += 3)
+{
+}
+
+System.Console.WriteLine(sum);
+
+// for (; ; ++sum)
+// {
+//     System.Console.WriteLine(sum);
+// }
+
+sum = int.MaxValue;
+System.Console.WriteLine(sum + 1);
+System.Console.WriteLine(sum - 1);
+
