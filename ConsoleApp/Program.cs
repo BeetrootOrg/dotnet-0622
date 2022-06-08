@@ -10,17 +10,23 @@ max(x, y)
 
 */
 // Start * HomeWokr 1Part *
+int aByte = 11;
+int aShort = -12;
+int aInt = 5569938;
+int aLong = -6643434343425342334;
+bool aBool = true;
+bool bBool = false;
+float afloat = 134.45E-2f;
 
 
 
 
 
-// Start *Homework Math* 
-System.Console.WriteLine("Start Homework Math");
+// Start *Write to console result of several math functions* 
+System.Console.WriteLine("Write to console result of several math functions: ");
 //variables x and y
 int x = 51;
 int y = 65;
-
 System.Console.WriteLine("x="+x);
 System.Console.WriteLine("y="+y);
 
