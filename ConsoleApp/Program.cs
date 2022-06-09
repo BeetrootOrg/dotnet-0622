@@ -45,7 +45,7 @@
             finalOutput = x != y ? $"Sum of numbers between {x} and {y} is {sum}" : $"Both X and Y are equal to {x}";
             Console.WriteLine(finalOutput);
         }
-        catch (Exception)
+        catch (FormatException)
         {
             Console.WriteLine("Invalid Input");
         }
