@@ -23,7 +23,7 @@ if (int.TryParse(variableX, out x))
             {
                 sum += i;
             }
-            System.Console.WriteLine("In IF"); // to check, which condition works 
+            System.Console.WriteLine("first condition"); // to check, which condition works 
         }
         else if (x > y) // x = 5, y = 2
         {
@@ -31,7 +31,7 @@ if (int.TryParse(variableX, out x))
             {
                 sum += i;
             }
-            System.Console.WriteLine("In Else If"); // to check, which condition works 
+            System.Console.WriteLine("second condition"); // to check, which condition works 
         }
         else
         {
