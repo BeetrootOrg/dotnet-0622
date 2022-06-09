@@ -1,4 +1,5 @@
-﻿int GetMaxValue(int a, int b, int c)
+﻿
+int GetMaxValue(int a, int b, int c)
 {
     Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c}");
     int maxValue;
@@ -96,3 +97,43 @@ Console.WriteLine($"x={x}, y={y}");
 
 int sum;
 if (isInputOk) Console.WriteLine($"The TrySumIsOdd is: {TrySumIfOdd(x , y, out sum)} because the sum is {sum}");
+
+//Let's overload
+Console.WriteLine($"Overloaded results");
+
+int GetMaxValue(int a, int b, int c, int d)
+{
+    Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c} d={d}");
+    int maxValue;
+    if (a >= b && a >= c && a >= d)
+    {
+        maxValue = a;
+    }
+    else if (d >= b && d >= c) 
+    {
+        maxValue = d;
+    } else
+
+    maxValue = (b >= c) ? b : c;
+
+    return maxValue;
+}
+
+int GetMinValue(int a, int b, int c, int d)
+{
+    Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c}");
+    int minValue;
+    if (a <= b && a <= c)
+    {
+        minValue = a;
+    }
+    else minValue = (b <= c) ? b : c;
+
+    return minValue;
+}
+
+
+result = GetMaxValue(40, 51, c: 40, 55);
+Console.WriteLine("Maximum value is: " + result);
+result = GetMinValue(40, 51, 3);
+Console.WriteLine("Minimum value is: " + result);
