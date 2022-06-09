@@ -19,9 +19,18 @@ else
     Environment.Exit(0);
 }
 
+ for (var i = 0; i < 10; i++)
+
+            {
+
+                if (i > 5) break;
+
+                Console.Write(i);
+
+            }
+
 void GetSum(int a, int b)
 {
-    System.Console.WriteLine($"max number: {Math.Max(a,b)}");
     int sum = 0;
     for (int i = Math.Min(a,b); i <= Math.Max(a,b); ++i)
     {
