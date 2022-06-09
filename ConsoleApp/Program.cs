@@ -4,7 +4,7 @@ var num1 = Console.ReadLine();
 System.Console.Write("Input second num(only numbers):");
 var num2 = Console.ReadLine();
 
-if(num1 == num2) System.Console.WriteLine($"Numbers are equal {num1}");
+if(num1 == num2) System.Console.WriteLine($"Numbers are equal {num1}"); //or System.Console.WriteLine($"Numbers are equal");
 
 else if (int.TryParse(num1, out int pNumber1) && int.TryParse(num2, out int pNumber2))
 {
