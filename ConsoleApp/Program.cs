@@ -14,7 +14,7 @@ else
 }
 
 Console.WriteLine("Please type in your second number: ");
-var yString = Console.ReadLine();
+string yString = Console.ReadLine();
 int yNubmer;
 bool ySuccess = int.TryParse(yString, out yNubmer);
 
