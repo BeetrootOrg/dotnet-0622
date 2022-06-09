@@ -19,15 +19,6 @@ else
     Environment.Exit(0);
 }
 
- for (var i = 0; i < 10; i++)
-
-            {
-
-                if (i > 5) break;
-
-                Console.Write(i);
-
-            }
 
 void GetSum(int a, int b)
 {
