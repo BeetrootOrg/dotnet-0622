@@ -19,8 +19,7 @@ else if (x < y)
     System.Console.WriteLine($"Sum of the elements from x to y equals = {sum}");
 }
 else 
-{
- 
+{ 
     sum = x;
     System.Console.WriteLine($"Sum of the elements from y to x equals = {sum}, because x = y");
 }
@@ -46,7 +45,7 @@ else
     else
     {
         if (x > y)
-         {
+        {
             for(int i = y;  i <= x; i++)
             {
                 sum += i;
@@ -63,8 +62,7 @@ else
         }
         else 
         {
- 
-           sum = x;
+            sum = x;
             System.Console.WriteLine($"Sum of the elements from y to x equals = {sum}, because x = y");
         }       
     }
