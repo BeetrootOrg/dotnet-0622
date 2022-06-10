@@ -159,6 +159,7 @@
             if (isInputOk) Console.WriteLine($"The TrySumIsOdd is: {myMethod.TrySumIfOdd(x , y, out sum)} because the sum is {sum}");
 
             Console.WriteLine(myMethod.Repeat("string", 3));
+            Console.WriteLine(myMethod.Repeat("Some other text", 5));
 
         }
 
