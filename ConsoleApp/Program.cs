@@ -1,4 +1,6 @@
-﻿
+﻿class Program 
+{
+ 
 int GetMaxValue(int a, int b, int c)
 {
     Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c}");
@@ -25,11 +27,41 @@ int GetMinValue(int a, int b, int c)
     return minValue;
 }
 
-int result;
-result = GetMaxValue(40, 51, 40);
-Console.WriteLine("Maximum value is: " + result);
-result = GetMinValue(40, 51, 3);
-Console.WriteLine("Minimum value is: " + result);
+int GetMaxValue(int a, int b, int c, int d)
+{
+    Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c} d={d}");
+    int maxValue;
+    if (a >= b && a >= c && a >= d)
+    {
+        maxValue = a;
+    }
+    else if (d >= b && d >= c) 
+    {
+        maxValue = d;
+    } else
+
+    maxValue = (b >= c) ? b : c;
+
+    return maxValue;
+}
+
+int GetMinValue(int a, int b, int c, int d)
+{
+    Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c} d={d}");
+    int minValue;
+    if (a <= b && a <= c && a <= d)
+    {
+        minValue = a;
+    }
+    else if (d <= b && d <= c)
+    {
+        minValue = d;
+    }   
+    else minValue = (b <= c) ? b : c;
+
+    return minValue;
+}
+
 
 // TrySumIfOdd
 
@@ -89,51 +121,32 @@ bool Get2Values (out int x, out int y)
 return true;
 }
 
-int x;
-int y;
-bool isInputOk;
-isInputOk = (Get2Values(out x,out y));
-Console.WriteLine($"x={x}, y={y}");
+    static void Main()
+    {   
+        Program myOvr = new Program();
 
-int sum;
-if (isInputOk) Console.WriteLine($"The TrySumIsOdd is: {TrySumIfOdd(x , y, out sum)} because the sum is {sum}");
+        int result;
+        result = myOvr.GetMaxValue(40, 51, 40);
+        Console.WriteLine("Maximum value is: " + result);
+        result = myOvr.GetMinValue(40, 51, 3);
+        Console.WriteLine("Minimum value is: " + result);
 
-//Let's overload
-Console.WriteLine($"Overloaded results");
+        //Let's overload
+        Console.WriteLine($"Overloaded results:");
+        result = myOvr.GetMaxValue(40, 51, c: 40, 55);
+        Console.WriteLine("Maximum value is: " + result);
+        result = myOvr.GetMinValue(40, 51, 3, -3);
+        Console.WriteLine("Minimum value is: " + result);
 
-int GetMaxValue(int a, int b, int c, int d)
-{
-    Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c} d={d}");
-    int maxValue;
-    if (a >= b && a >= c && a >= d)
-    {
-        maxValue = a;
+        int x;
+        int y;
+        bool isInputOk;
+        isInputOk = (myOvr.Get2Values(out x,out y));
+        Console.WriteLine($"x={x}, y={y}");
+
+        int sum;
+        if (isInputOk) Console.WriteLine($"The TrySumIsOdd is: {myOvr.TrySumIfOdd(x , y, out sum)} because the sum is {sum}");
+
     }
-    else if (d >= b && d >= c) 
-    {
-        maxValue = d;
-    } else
 
-    maxValue = (b >= c) ? b : c;
-
-    return maxValue;
 }
-
-int GetMinValue(int a, int b, int c, int d)
-{
-    Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c}");
-    int minValue;
-    if (a <= b && a <= c)
-    {
-        minValue = a;
-    }
-    else minValue = (b <= c) ? b : c;
-
-    return minValue;
-}
-
-
-result = GetMaxValue(40, 51, c: 40, 55);
-Console.WriteLine("Maximum value is: " + result);
-result = GetMinValue(40, 51, 3);
-Console.WriteLine("Minimum value is: " + result);
