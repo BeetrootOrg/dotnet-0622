@@ -1,152 +1,165 @@
 ﻿class Program 
 {
- 
-int GetMaxValue(int a, int b, int c)
-{
-    Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c}");
-    int maxValue;
-    if (a >= b && a >= c)
+     int GetMaxValue(int a, int b, int c)
     {
-        maxValue = a;
+        Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c}");
+        int maxValue;
+        if (a >= b && a >= c)
+        {
+            maxValue = a;
+        }
+        else maxValue = (b >= c) ? b : c;
+
+        return maxValue;
     }
-    else maxValue = (b >= c) ? b : c;
 
-    return maxValue;
-}
-
-int GetMinValue(int a, int b, int c)
-{
-    Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c}");
-    int minValue;
-    if (a <= b && a <= c)
+    int GetMinValue(int a, int b, int c)
     {
-        minValue = a;
+        Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c}");
+        int minValue;
+        if (a <= b && a <= c)
+        {
+            minValue = a;
+        }
+        else minValue = (b <= c) ? b : c;
+
+        return minValue;
     }
-    else minValue = (b <= c) ? b : c;
 
-    return minValue;
-}
-
-int GetMaxValue(int a, int b, int c, int d)
-{
-    Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c} d={d}");
-    int maxValue;
-    if (a >= b && a >= c && a >= d)
+    int GetMaxValue(int a, int b, int c, int d)
     {
-        maxValue = a;
+        Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c} d={d}");
+        int maxValue;
+        if (a >= b && a >= c && a >= d)
+        {
+            maxValue = a;
+        }
+        else if (d >= b && d >= c) 
+        {
+            maxValue = d;
+        } else
+
+        maxValue = (b >= c) ? b : c;
+
+        return maxValue;
     }
-    else if (d >= b && d >= c) 
+
+    int GetMinValue(int a, int b, int c, int d)
     {
-        maxValue = d;
-    } else
+        Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c} d={d}");
+        int minValue;
+        if (a <= b && a <= c && a <= d)
+        {
+            minValue = a;
+        }
+        else if (d <= b && d <= c)
+        {
+            minValue = d;
+        }   
+        else minValue = (b <= c) ? b : c;
 
-    maxValue = (b >= c) ? b : c;
-
-    return maxValue;
-}
-
-int GetMinValue(int a, int b, int c, int d)
-{
-    Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c} d={d}");
-    int minValue;
-    if (a <= b && a <= c && a <= d)
-    {
-        minValue = a;
+        return minValue;
     }
-    else if (d <= b && d <= c)
+
+
+    // TrySumIfOdd
+
+    bool TrySumIfOdd(int x, int y, out int sum)
     {
-        minValue = d;
-    }   
-    else minValue = (b <= c) ? b : c;
-
-    return minValue;
-}
-
-
-// TrySumIfOdd
-
-bool TrySumIfOdd(int x, int y, out int sum)
-{
-    sum = Math.Min(x , y);
-    while (x != y)
-    {
-        sum += (x > y) ? ++y : ++x;
+        sum = Math.Min(x , y);
+        while (x != y)
+        {
+            sum += (x > y) ? ++y : ++x;
+        }
+        //Console.WriteLine($"The sum is {sum}");
+        if (sum % 2 != 0) 
+        {   
+            return true;
+        } 
+        else
+        {
+            return false;
+        } 
+        
     }
-    //Console.WriteLine($"The sum is {sum}");
-    if (sum % 2 != 0) 
-    {   
-        return true;
-    } 
-    else
+
+    bool Get2Values (out int x, out int y)
     {
-        return false;
-    } 
-    
-}
+        x = 0;
+        y = 0;
+        
+        // Entering x
+        Console.WriteLine("Hello, let's do some loops, please enter whole number x:");
 
-bool Get2Values (out int x, out int y)
-{
-    x = 0;
-    y = 0;
-    
-    // Entering x
-    Console.WriteLine("Hello, let's do some loops, please enter whole number x:");
+        var console = Console.ReadLine();
 
-    var console = Console.ReadLine();
+        if (int.TryParse(console, out x))
+        {
+        // Console.WriteLine("x="+ x);
+        } 
+        else 
+        { 
+            Console.WriteLine("x is not an integer number, run again and put right value");
+            return false;
+        }   
 
-    if (int.TryParse(console, out x))
-    {
-       // Console.WriteLine("x="+ x);
-    } 
-    else 
-    { 
-        Console.WriteLine("x is not an integer number, run again and put right value");
-        return false;
-    }   
+        // Entering y
+        Console.WriteLine("Now enter whole number y:");
 
-    // Entering y
-    Console.WriteLine("Now enter whole number y:");
+        console = Console.ReadLine();
 
-    console = Console.ReadLine();
-
-    if (int.TryParse(console, out y))
-    {
-        //Console.WriteLine("y="+ y);
-    } 
-    else
-    { 
-        Console.WriteLine("y is not an integer number, run again and put right value");
-        return false;
+        if (int.TryParse(console, out y))
+        {
+            //Console.WriteLine("y="+ y);
+        } 
+        else
+        { 
+            Console.WriteLine("y is not an integer number, run again and put right value");
+            return false;
+        }
+    return true;
     }
-return true;
-}
 
-    static void Main()
-    {   
-        Program myOvr = new Program();
+    string Repeat(string x, int n)
+        {   
+            string result = $"Hello, gonna do Repeat method and show you \"{x}\" {n} times \n";
+            for (int i = 0; i < n; i++)
+            {
+                result += x+"\n";
+            }
+            return result;
+        }
 
-        int result;
-        result = myOvr.GetMaxValue(40, 51, 40);
-        Console.WriteLine("Maximum value is: " + result);
-        result = myOvr.GetMinValue(40, 51, 3);
-        Console.WriteLine("Minimum value is: " + result);
 
-        //Let's overload
-        Console.WriteLine($"Overloaded results:");
-        result = myOvr.GetMaxValue(40, 51, c: 40, 55);
-        Console.WriteLine("Maximum value is: " + result);
-        result = myOvr.GetMinValue(40, 51, 3, -3);
-        Console.WriteLine("Minimum value is: " + result);
 
-        int x;
-        int y;
-        bool isInputOk;
-        isInputOk = (myOvr.Get2Values(out x,out y));
-        Console.WriteLine($"x={x}, y={y}");
+        static void Main()
+        {   
+            Program myMethod = new Program();
 
-        int sum;
-        if (isInputOk) Console.WriteLine($"The TrySumIsOdd is: {myOvr.TrySumIfOdd(x , y, out sum)} because the sum is {sum}");
+            int result;
+            result = myMethod.GetMaxValue(40, 51, 40);
+            Console.WriteLine("Maximum value is: " + result);
+            result = myMethod.GetMinValue(40, 51, 3);
+            Console.WriteLine("Minimum value is: " + result);
 
-    }
+            //Let's overload
+            Console.WriteLine($"Overloaded results:");
+            result = myMethod.GetMaxValue(40, 51, c: 40, 55);
+            Console.WriteLine("Maximum value is: " + result);
+            result = myMethod.GetMinValue(40, 51, 3, -3);
+            Console.WriteLine("Minimum value is: " + result);
+
+            int x;
+            int y;
+            bool isInputOk;
+            isInputOk = (myMethod.Get2Values(out x,out y));
+            Console.WriteLine($"x={x}, y={y}");
+
+            int sum;
+            if (isInputOk) Console.WriteLine($"The TrySumIsOdd is: {myMethod.TrySumIfOdd(x , y, out sum)} because the sum is {sum}");
+
+            Console.WriteLine(myMethod.Repeat("string", 3));
+
+        }
 
 }
