@@ -1,103 +1,128 @@
-﻿static void HelloWorld()
+﻿internal class Program
 {
-    System.Console.WriteLine("Hello, world");
-}
-
-static void HelloToSomebody(string somebody) => System.Console.WriteLine($"Hello, {somebody}");
-
-static int Square(int x)
-{
-    return x * x;
-}
-
-static void Add3(int initial)
-{
-    initial += 3;
-}
-
-static void Add5(ref int initial)
-{
-    initial += 3;
-}
-
-static bool TryParseInt(string str, out int result) => int.TryParse(str, out result);
-static bool TryDivideBy3(int number, out int result)
-{
-    if (number % 3 == 0)
+    static void HelloWorld()
     {
-        result = number / 3;
-        return true;
+        Console.WriteLine("Hello, world");
     }
 
-    result = 0;
-    return false;
-}
+    static void HelloToSomebody(string somebody) => Console.WriteLine($"Hello, {somebody}");
 
-static bool TryDivideBy4(int number, out int result)
-{
-    result = number / 4;
-    return number % 4 == 0;
-}
-
-static void TryRef(ref int value)
-{
-    if (value > 10)
+    static int Square(int x)
     {
-        value += 20;
+        return x * x;
+    }
+
+    static void Add3(int initial)
+    {
+        initial += 3;
+    }
+
+    static void Add5(ref int initial)
+    {
+        initial += 3;
+    }
+
+    static bool TryParseInt(string str, out int result) => int.TryParse(str, out result);
+    static bool TryDivideBy3(int number, out int result)
+    {
+        if (number % 3 == 0)
+        {
+            result = number / 3;
+            return true;
+        }
+
+        result = 0;
+        return false;
+    }
+
+    static bool TryDivideBy4(int number, out int result)
+    {
+        result = number / 4;
+        return number % 4 == 0;
+    }
+
+    static void TryRef(ref int value)
+    {
+        if (value > 10)
+        {
+            value += 20;
+        }
+    }
+
+    // Compilation error
+    // static void TryOut(out int value)
+    // {
+    //     if (value > 10)
+    //     {
+    //         value += 20;
+    //     }
+    // }
+
+    static int SumOfTwo(int a = 1, int b = 2) => a + b;
+
+    static double Multiply() => 42;
+    static double Multiply(double a) => a * 42;
+    static double Multiply(double a, double b, double c) => a * b * c;
+    static int Multiply(int a, int b, int c) => a * b * c;
+    static int Multiply(int a, int b) => a * b;
+    static int Multiply(int a) => a * 42;
+
+    static void Main(string[] args)
+    {
+        HelloWorld();
+
+        HelloToSomebody("Dima");
+        HelloToSomebody("Class");
+
+        var square3 = Square(3);
+        Console.WriteLine(square3);
+
+        // the same as above
+        Console.WriteLine(Square(3));
+
+        var initial = 5;
+        Console.WriteLine("ADD 3");
+        Add3(initial);
+        Console.WriteLine(initial);
+
+        Console.WriteLine("ADD 5");
+        Add5(ref initial);
+        Console.WriteLine(initial);
+
+        // parsing
+        var success = TryParseInt("42", out var result);
+        Console.WriteLine($"Success: {success}. Result: {result}");
+
+        success = TryDivideBy3(6, out initial);
+        Console.WriteLine($"Success: {success}. Result: {initial}");
+
+        success = TryDivideBy3(7, out initial);
+        Console.WriteLine($"Success: {success}. Result: {initial}");
+
+        success = TryDivideBy4(8, out initial);
+        Console.WriteLine($"Success: {success}. Result: {initial}");
+
+        success = TryDivideBy4(9, out initial);
+        Console.WriteLine($"Success: {success}. Result: {initial}");
+
+        TryRef(ref initial);
+        Console.WriteLine(initial);
+        initial = 30;
+        TryRef(ref initial);
+        Console.WriteLine(initial);
+
+        // Compilation error
+        // int newValue;
+        // TryRef(ref newValue);
+
+        Console.WriteLine(SumOfTwo(5, 6));
+        Console.WriteLine(SumOfTwo());
+        Console.WriteLine(SumOfTwo(5));
+        Console.WriteLine(SumOfTwo(b: 6));
+
+        Console.WriteLine(Multiply());
+        Console.WriteLine(Multiply(5));
+        Console.WriteLine(Multiply(5, 6, 2));
+        Console.WriteLine(Multiply(5.5, 6, 2));
     }
 }
-
-// Compilation error
-// static void TryOut(out int value)
-// {
-//     if (value > 10)
-//     {
-//         value += 20;
-//     }
-// }
-
-HelloWorld();
-
-HelloToSomebody("Dima");
-HelloToSomebody("Class");
-
-var square3 = Square(3);
-System.Console.WriteLine(square3);
-
-// the same as above
-System.Console.WriteLine(Square(3));
-
-var initial = 5;
-System.Console.WriteLine("ADD 3");
-Add3(initial);
-System.Console.WriteLine(initial);
-
-System.Console.WriteLine("ADD 5");
-Add5(ref initial);
-System.Console.WriteLine(initial);
-
-// parsing
-var success = TryParseInt("42", out var result);
-System.Console.WriteLine($"Success: {success}. Result: {result}");
-
-success = TryDivideBy3(6, out initial);
-System.Console.WriteLine($"Success: {success}. Result: {initial}");
-
-success = TryDivideBy3(7, out initial);
-System.Console.WriteLine($"Success: {success}. Result: {initial}");
-
-success = TryDivideBy4(8, out initial);
-System.Console.WriteLine($"Success: {success}. Result: {initial}");
-
-success = TryDivideBy4(9, out initial);
-System.Console.WriteLine($"Success: {success}. Result: {initial}");
-
-TryRef(ref initial);
-System.Console.WriteLine(initial);
-initial = 30;
-TryRef(ref initial);
-System.Console.WriteLine(initial);
-
-// Compilation error
-// int newValue;
-// TryRef(ref newValue);
