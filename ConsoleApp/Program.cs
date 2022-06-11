@@ -1,35 +1,15 @@
-﻿
-System.Console.Write("Input first num(only numbers):");
-var num1 = Console.ReadLine();
-System.Console.Write("Input second num(only numbers):");
-var num2 = Console.ReadLine();
+﻿const int N = 1;
+var result = 0;
 
-if(num1 == num2) System.Console.WriteLine($"Numbers are equal {num1}"); //or System.Console.WriteLine($"Numbers are equal");
+var prev = 1;
+result = 1;
+var counter = N - 1;
 
-else if (int.TryParse(num1, out int pNumber1) && int.TryParse(num2, out int pNumber2))
+while (--counter > 0)
 {
-    GetSum(pNumber1,pNumber2);
+    var temp = result;
+    result += prev;
+    prev = temp;
 }
 
-else
-{
-    System.Console.WriteLine("You're stupid!");
-    System.Console.WriteLine("Press any button to exit the program...");
-    Console.ReadKey();
-    Environment.Exit(0);
-}
-
-
-void GetSum(int a, int b)
-{
-    int sum = 0;
-    int num1 = Math.Min(a,b);
-    int num2 = Math.Max(a,b);
-    for (int i = num1; i <= num2; ++i)
-    {
-        sum += i;
-    }
-    System.Console.WriteLine($"Sum from {a} to {b} = {sum}");
-}
-
-
+Console.WriteLine($"{N}-th Fibonacci number is {result}");
