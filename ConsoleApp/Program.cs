@@ -19,26 +19,28 @@ Sum=10
 */
 //Example 1
 
-int namber1, namber2, x, y; // распарсеные значения которые ввел юзер на первый и второй ответ
+
+int x = 0, y = 0;
+int namber1 = 0, namber2 = 0; // распарсеные значения которые ввел юзер на первый и второй ответ
 int sum = 0; // сума значений между числами которые ввел юзер
 int countTimes = 0; // количество итераций цикла которое посути равно разнице между значениями которые ввел юзер
 bool number1Correct = false; // если юзер ввел коректно ответ на первый вопрос то проставим 1 в эту переменную.
 bool number2Correct = false; // если юзер ввел коректно ответ на второй вопрос то проставим 1 в эту переменную.
-int correctAnswer = 0; // усли оба ответа были коректны то эту переменную поставим в 1, это означает что юзер не балван и можно перейти к вычислению суммы
+bool correctAnswer = false; // усли оба ответа были коректны то эту переменную поставим в 1, это означает что юзер не балван и можно перейти к вычислению суммы
 
 
-// итак, задаем юзеру первый вопрос, считываем его и получаем ответ и проверям коректно он ввел или нет, если корректно то ставим number1Correct=1, и запоминаем ответ
+// задаем юзеру первый вопрос, считываем его и получаем ответ и проверям коректно он ввел или нет, если корректно то ставим number1Correct=1, и запоминаем ответ
 System.Console.WriteLine("Input number X");
 var answer1 = System.Console.ReadLine();
 //var x = int.Parse(answer1);
 if (int.TryParse(answer1, out namber1))
 {
-    int x = namber1;
+    var x = namber1;
     number1Correct = true;
 }
 
 
-// итак, задаем юзеру второй вопрос, считываем его и получаем ответ и проверям коректно он ввел или нет, если корректно то ставим number2Correct=1, и запоминаем ответ
+// задаем юзеру второй вопрос, считываем его и получаем ответ и проверям коректно он ввел или нет, если корректно то ставим number2Correct=1, и запоминаем ответ
 System.Console.WriteLine("Input namber Y");
 var answer2 = System.Console.ReadLine();
 //var y = int.Parse(answer2);
@@ -51,7 +53,7 @@ if (int.TryParse(answer2, out namber2))
 // проверяем дал ли юзер 2 коректных ответа и если таки да, тогда ставим признак correctAnswer = 1;
 if (number1Correct == true && number2Correct == true)
 {
-    correctAnswer = 1;
+    correctAnswer = true;
     System.Console.WriteLine("вы ввели ответы верно, сейчас просчитаем результат");
 }
 
@@ -60,7 +62,7 @@ if (number1Correct == true && number2Correct == true)
 
 
 
-if (x < y && correctAnswer = 1 ) // сюда попадаем если первая меньше второй
+if (x < y && correctAnswer ) // сюда попадаем если первая меньше второй
 {
     System.Console.WriteLine("Первая меньше второй");
     countTimes = y - x;
@@ -72,7 +74,7 @@ for (int i = 0; i <= countTimes; ++i)
  System.Console.WriteLine(sum);
 }
 
-else if  (x > y) //сюда если вторая меньше первой
+else if  (x > y && correctAnswer) //сюда если вторая меньше первой
 {
 
     System.Console.WriteLine("Первая больше второй");
@@ -86,10 +88,9 @@ System.Console.WriteLine(sum);
 }
 
 
-else if (x == y) // сюда зайдем если  обе одинаковые и просто выводим значение любой из переменных
+else if (x == y && correctAnswer) // сюда зайдем если  обе одинаковые и просто выводим значение любой из переменных
 {
     System.Console.WriteLine($"одинаковые: {x}");
-    
 }
 
 else // сюда заходим если полная дичь творится и шлем всех лесом за дичь
