@@ -8,8 +8,10 @@
         var num2 = Console.ReadLine();
         if (int.TryParse(num1, out int pNumber1) && int.TryParse(num2, out int pNumber2))
         {
-            System.Console.WriteLine(GetMinNumb(pNumber1, pNumber2));
-            System.Console.WriteLine(GetMaxNumb(pNumber1, pNumber2));
+            System.Console.WriteLine($"Min number: {GetMinNumb(pNumber1, pNumber2)}");
+            System.Console.WriteLine($"Max number: {GetMaxNumb(pNumber1, pNumber2)}");
+            var success = TrySumIfOdd(pNumber1, pNumber2, out int sum);
+            System.Console.WriteLine($"Сheck for odd numbers: {!success} sum numbers: {sum}");
         }
         else
         {
@@ -48,8 +50,6 @@
             {
                 sum += i;
             }
-            System.Console.WriteLine($"Sum from {x} to {y} = {sum}");
-
             return sum % 2 == 0;
         }
 
