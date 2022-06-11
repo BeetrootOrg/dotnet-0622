@@ -39,6 +39,23 @@ static bool TryDivideBy4(int number, out int result)
     return number % 4 == 0;
 }
 
+static void TryRef(ref int value)
+{
+    if (value > 10)
+    {
+        value += 20;
+    }
+}
+
+// Compilation error
+// static void TryOut(out int value)
+// {
+//     if (value > 10)
+//     {
+//         value += 20;
+//     }
+// }
+
 HelloWorld();
 
 HelloToSomebody("Dima");
@@ -74,3 +91,13 @@ System.Console.WriteLine($"Success: {success}. Result: {initial}");
 
 success = TryDivideBy4(9, out initial);
 System.Console.WriteLine($"Success: {success}. Result: {initial}");
+
+TryRef(ref initial);
+System.Console.WriteLine(initial);
+initial = 30;
+TryRef(ref initial);
+System.Console.WriteLine(initial);
+
+// Compilation error
+// int newValue;
+// TryRef(ref newValue);
