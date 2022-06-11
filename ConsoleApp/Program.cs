@@ -11,22 +11,23 @@
             System.Console.WriteLine($"Min number: {GetMinNumb(pNumber1, pNumber2)}");
             System.Console.WriteLine($"Max number: {GetMaxNumb(pNumber1, pNumber2)}");
             var success = TrySumIfOdd(pNumber1, pNumber2, out int sum);
-            System.Console.WriteLine($"Сheck for odd numbers: {!success} sum numbers: {sum}");
+            System.Console.WriteLine($"Check for odd numbers: {!success} sum numbers: {sum}");
         }
         else
         {
-            System.Console.WriteLine("error");
+            System.Console.WriteLine("Error you entered an incorrect number, please try again!");
+            Console.ReadKey();
         }
 
         static int GetMinNumb(int x, int y)
         {
             if (x > y)
             {
-                return x;
+                return y;
             }
             else
             {
-                return y;
+                return x;
             }
         }
 
@@ -34,11 +35,11 @@
         {
             if (x < y)
             {
-                return x;
+                return y;
             }
             else
             {
-                return y;
+                return x;
             }
         }
 
@@ -46,6 +47,8 @@
         static bool TrySumIfOdd(int x, int y, out int sum)
         {
             sum = 0;
+            int num1 = Math.Min(x, y);
+            int num2 = Math.Max(x, y);
             for (int i = x; i <= y; ++i)
             {
                 sum += i;
