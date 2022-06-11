@@ -8,33 +8,50 @@
         var num2 = Console.ReadLine();
         if (int.TryParse(num1, out int pNumber1) && int.TryParse(num2, out int pNumber2))
         {
-            GetMaxMin(pNumber1,pNumber2);
+            System.Console.WriteLine(GetMinNumb(pNumber1, pNumber2));
+            System.Console.WriteLine(GetMaxNumb(pNumber1, pNumber2));
         }
-        else 
+        else
         {
             System.Console.WriteLine("error");
         }
 
+        static int GetMinNumb(int x, int y)
+        {
+            if (x > y)
+            {
+                return x;
+            }
+            else
+            {
+                return y;
+            }
+        }
 
+        static int GetMaxNumb(int x, int y)
+        {
+            if (x < y)
+            {
+                return x;
+            }
+            else
+            {
+                return y;
+            }
+        }
+
+
+        static bool TrySumIfOdd(int x, int y, out int sum)
+        {
+            sum = 0;
+            for (int i = x; i <= y; ++i)
+            {
+                sum += i;
+            }
+            System.Console.WriteLine($"Sum from {x} to {y} = {sum}");
+
+            return sum % 2 == 0;
+        }
 
     }
-
-    static void GetMaxMin (int num1, int num2)
-    {
-        if(num1 > num2)
-        {
-            System.Console.WriteLine($"First number {num1} is greater than second number: {num2}");
-        }
-        else
-        {
-            System.Console.WriteLine($"Second number {num2} is greater than first number: {num1}");
-        }
-    }
-
-        static bool TrySumIfOdd (int x, int y,  out int sum)
-        {
-            sum;
-        }
-
-    
 }
