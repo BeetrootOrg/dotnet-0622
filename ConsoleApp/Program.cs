@@ -23,7 +23,9 @@ else
 void GetSum(int a, int b)
 {
     int sum = 0;
-    for (int i = Math.Min(a,b); i <= Math.Max(a,b); ++i)
+    int num1 = Math.Min(a,b);
+    int num2 = Math.Max(a,b);
+    for (int i = num1; i <= num2; ++i)
     {
         sum += i;
     }
