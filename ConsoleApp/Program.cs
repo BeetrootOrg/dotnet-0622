@@ -20,7 +20,8 @@ Sum=10
 //Example 1
 
 
-int x = 0, y = 0;
+//int x = 0, y = 0;
+
 int namber1 = 0, namber2 = 0; // распарсеные значения которые ввел юзер на первый и второй ответ
 int sum = 0; // сума значений между числами которые ввел юзер
 int countTimes = 0; // количество итераций цикла которое посути равно разнице между значениями которые ввел юзер
@@ -35,8 +36,9 @@ var answer1 = System.Console.ReadLine();
 //var x = int.Parse(answer1);
 if (int.TryParse(answer1, out namber1))
 {
-    var x = namber1;
+    //x == namber1;
     number1Correct = true;
+    System.Console.WriteLine("Браво, первое число ввели верно");
 }
 
 
@@ -46,8 +48,9 @@ var answer2 = System.Console.ReadLine();
 //var y = int.Parse(answer2);
 if (int.TryParse(answer2, out namber2))
 {
-    int y = namber2;
+    //y == namber2;
     number2Correct = true;
+    System.Console.WriteLine("Браво, второе число ввели верно");
 }
 
 // проверяем дал ли юзер 2 коректных ответа и если таки да, тогда ставим признак correctAnswer = 1;
@@ -56,41 +59,41 @@ if (number1Correct == true && number2Correct == true)
     correctAnswer = true;
     System.Console.WriteLine("вы ввели ответы верно, сейчас просчитаем результат");
 }
+else
+{
+   System.Console.WriteLine("ошибка ввода целого числа"); 
+}
 
 
-//int x = 10, y = 15;
-
-
-
-if (x < y && correctAnswer ) // сюда попадаем если первая меньше второй
+if (namber1 < namber2 && correctAnswer ) // сюда попадаем если первая меньше второй
 {
     System.Console.WriteLine("Первая меньше второй");
-    countTimes = y - x;
+    countTimes = namber2 - namber1;
 for (int i = 0; i <= countTimes; ++i)
 {
-    sum = sum + x;
-    x = x + 1; 
+    sum = sum + namber1;
+    namber1 = namber1 + 1; 
 }
  System.Console.WriteLine(sum);
 }
 
-else if  (x > y && correctAnswer) //сюда если вторая меньше первой
+else if  (namber1 > namber2 && correctAnswer) //сюда если вторая меньше первой
 {
 
     System.Console.WriteLine("Первая больше второй");
-    countTimes = x - y;
+    countTimes = namber1 - namber2;
 for (int i = 0; i <= countTimes; ++i)
 {
-    sum = sum + y;
-    y = y + 1; 
+    sum = sum + namber2;
+    namber2 = namber2 + 1; 
 }
 System.Console.WriteLine(sum);
 }
 
 
-else if (x == y && correctAnswer) // сюда зайдем если  обе одинаковые и просто выводим значение любой из переменных
+else if (namber1 == namber2 && correctAnswer) // сюда зайдем если  обе одинаковые и просто выводим значение любой из переменных
 {
-    System.Console.WriteLine($"одинаковые: {x}");
+    System.Console.WriteLine($"одинаковые: {namber1}");
 }
 
 else // сюда заходим если полная дичь творится и шлем всех лесом за дичь
