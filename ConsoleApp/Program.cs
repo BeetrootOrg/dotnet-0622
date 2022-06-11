@@ -10,15 +10,16 @@ do
     if (!checkParse) 
     {
         System.Console.WriteLine($"You have to enter number!");
-    }
+    } 
 }
+    
 while(!checkParse);
 
 do 
 {
     System.Console.WriteLine("Enter second value:");
-    var firstValue = Console.ReadLine();
-    checkParse = int.TryParse(firstValue, out y);
+    var secondValue = Console.ReadLine();
+    checkParse = int.TryParse(secondValue, out y);
     if (!checkParse) 
     {
         System.Console.WriteLine($"You have to enter number!");
