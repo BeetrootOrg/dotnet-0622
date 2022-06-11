@@ -67,6 +67,41 @@
     static int Multiply(int a, int b) => a * b;
     static int Multiply(int a) => a * 42;
 
+    static long Fibonacci(long n)
+    {
+        if (n <= 0)
+        {
+            return -1;
+        }
+
+        long result = 1, prev = 1, counter = n - 1;
+
+        while (--counter > 0)
+        {
+            var temp = result;
+            result += prev;
+            prev = temp;
+        }
+
+        return result;
+    }
+
+    static long FibonacciRecursive(long n)
+    {
+        if (n <= 0) return -1;
+        if (n == 1 || n == 2)
+        {
+            System.Console.WriteLine($"F({n}) = 1");
+            return 1;
+        }
+
+        System.Console.WriteLine($"Count F({n}) = F({n - 1}) + F({n - 2})");
+        var result = FibonacciRecursive(n - 1) + FibonacciRecursive(n - 2);
+        System.Console.WriteLine($"Result F({n}) = {result}");
+
+        return result;
+    }
+
     static void Main(string[] args)
     {
         HelloWorld();
@@ -124,5 +159,33 @@
         Console.WriteLine(Multiply(5));
         Console.WriteLine(Multiply(5, 6, 2));
         Console.WriteLine(Multiply(5.5, 6, 2));
+
+        System.Console.WriteLine("Fibonacci");
+        System.Console.WriteLine(Fibonacci(1));
+        System.Console.WriteLine(Fibonacci(2));
+        System.Console.WriteLine(Fibonacci(3));
+        System.Console.WriteLine(Fibonacci(8));
+        System.Console.WriteLine(Fibonacci(0));
+        System.Console.WriteLine(Fibonacci(-2));
+
+        System.Console.WriteLine(Fibonacci(1000));
+
+        System.Console.WriteLine("Fibonacci Reccursive");
+        System.Console.WriteLine("FOR 1");
+        System.Console.WriteLine(FibonacciRecursive(1));
+
+        System.Console.WriteLine("FOR 2");
+        System.Console.WriteLine(FibonacciRecursive(2));
+
+        System.Console.WriteLine("FOR 3");
+        System.Console.WriteLine(FibonacciRecursive(3));
+
+        System.Console.WriteLine("FOR 8");
+        System.Console.WriteLine(FibonacciRecursive(8));
+
+        System.Console.WriteLine(FibonacciRecursive(0));
+        System.Console.WriteLine(FibonacciRecursive(-2));
+
+        // System.Console.WriteLine(FibonacciRecursive(1000));
     }
 }
