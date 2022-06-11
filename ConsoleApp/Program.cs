@@ -1,50 +1,23 @@
-﻿int x, y;
-int sum = 0;
-bool checkParse;
-
-do 
+﻿public class Program
 {
-    System.Console.WriteLine("Enter first value:");
-    var firstValue = Console.ReadLine();
-    checkParse = int.TryParse(firstValue, out x);
-    if (!checkParse) 
+    public static int MaxValue(int firstParam, int secondParam)
     {
-        System.Console.WriteLine($"You have to enter number!");
-    } 
-}
-    
-while(!checkParse);
+        int maxValue;
+        return maxValue = Math.Max(firstParam, secondParam);
+    }
+    public static int MinValue(int firstParam, int secondParam)
+    {
+        int minValue;
+        return minValue = Math.Min(firstParam, secondParam);
+    }
 
-do 
-{
-    System.Console.WriteLine("Enter second value:");
-    var secondValue = Console.ReadLine();
-    checkParse = int.TryParse(secondValue, out y);
-    if (!checkParse) 
+    static void Main(string[] args)
     {
-        System.Console.WriteLine($"You have to enter number!");
+   
+        int maxValue = MaxValue(6, 4);
+        System.Console.WriteLine(maxValue);
+        int minValue = MinValue(6, 4);
+        System.Console.WriteLine(minValue);
+
     }
 }
-while(!checkParse);
-
-if (x < y)
-{
-    for(int i = x; i <= y; i++)
-    {
-     sum += i;
-    }
-}
-else if (x == y) 
-{
-    sum = x;
-}
-
-else 
-{
-    for (int i = y; i <= x; i++)
-    {
-     sum += i;
-    }
-}
-
-System.Console.WriteLine($"Sum of all numbers between values: {sum}");
