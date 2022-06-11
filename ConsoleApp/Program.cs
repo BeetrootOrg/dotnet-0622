@@ -1,17 +1,15 @@
 ﻿Console.Write("x = ");
 int x;
-try {
-    x = Convert.ToInt32(Console.ReadLine());
-} catch {
+var buffer = Console.ReadLine();
+if (!int.TryParse(buffer, out x)) {
     Console.WriteLine("Invalid input");
     return;
 }
 
-Console.Write("y = ");
 int y;
-try {
-    y = Convert.ToInt32(Console.ReadLine());
-} catch {
+Console.Write("y = ");
+buffer = Console.ReadLine();
+if (!int.TryParse(buffer, out y)) {
     Console.WriteLine("Invalid input");
     return;
 }
