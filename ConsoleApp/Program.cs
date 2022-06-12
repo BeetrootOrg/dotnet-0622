@@ -2,13 +2,28 @@
 {
     class Program
     {
-        static int MaxValue(params int[] temparray )
+        static int MaxValue(int firstValue, int secondValue)
         {
             int max = 0;
-            max = temparray.Max();
-
+            max = firstValue > secondValue ? firstValue : secondValue;
             return max;
+        }
 
+        static int MaxValue(int firstValue, int secondValue, int thirdValue)
+        {
+            int max = 0;
+            max = firstValue > secondValue ? firstValue : secondValue;
+            max = max > thirdValue ? max : thirdValue;
+            return max;
+        }
+
+        static int MaxValue(int firstValue, int secondValue, int thirdValue, int fourthValue)
+        {
+            int max = 0;
+            max = firstValue > secondValue ? firstValue : secondValue;
+            max = max > thirdValue ? max : thirdValue;
+            max = max > fourthValue ? max : fourthValue;
+            return max;
         }
 
         static int MinValue(int firstValue, int secondValue)
@@ -24,16 +39,17 @@
         }
         static int MinValue(int firstValue, int secondValue, int thirdValue)
         {
-            int[] temparray = new int[3] { firstValue, secondValue, thirdValue };
-
-            return temparray.Min();
+            int min = 0;
+            min = firstValue < secondValue ? firstValue : secondValue;
+            min = min < thirdValue ? min : thirdValue;
+            return min;
 
         }
 
         static int MinValue(int firstValue, int secondValue, int thirdValue, int fourthValue)
         {
             int min = 0;
-            min = firstValue > secondValue ? firstValue : secondValue;
+            min = firstValue < secondValue ? firstValue : secondValue;
             min = min < thirdValue ? min : thirdValue;
             min = min < fourthValue ? min : fourthValue;
             return min;
@@ -52,26 +68,38 @@
             }
         }
 
-        static void Repeat( string teststr, int count)
+        static string Repeat( string teststr, int count)
         {
+            string repstring = "";
             if (count > 0 && teststr != "")
             {
                 for (int i = 0; i < count; i++)
                 {
-                Console.Write(teststr);
-                }
+                repstring += teststr;
+                }               
             }
             else
             {
                 Console.WriteLine("Perevirte vvedeni dani, i sprobuyte sche");
             }
+            return repstring;
         }
         static void Main(string[] args)
         {
-            Console.WriteLine(MaxValue(11111, 42333, 125251));   //  тестування max/min
 
+            /*  тестування max/min
+
+            Console.WriteLine(MaxValue(11111, 33, 51));
+            Console.WriteLine(MaxValue(11111, 42333, 251,1241));
+            Console.WriteLine(MaxValue(11111, 42333));
+            Console.WriteLine(MinValue(11111, 43, 125251));
+            Console.WriteLine(MinValue(11111, 42333, 125251, 1241));
+            Console.WriteLine(MinValue(11111, 433));
+            */
             int sum, firstParam = 0, secondParam = 0;
 
+            Console.WriteLine("TrySumIfOdd method");
+            Console.WriteLine();
             Console.WriteLine("Vvedit' pershiy parametr");
 
             if (int.TryParse(Console.ReadLine(), out firstParam))
@@ -94,6 +122,9 @@
             }
 
             //EXTRA
+            Console.WriteLine();
+            Console.WriteLine("EXTRA ");
+            Console.WriteLine();
 
             int count = 0;
             string teststr;
@@ -106,7 +137,7 @@
 
             int.TryParse(Console.ReadLine(), out count);
 
-            Repeat(teststr, count);
+            Console.WriteLine(Repeat(teststr, count)); 
 
         }
     } 
