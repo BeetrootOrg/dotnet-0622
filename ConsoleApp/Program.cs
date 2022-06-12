@@ -35,7 +35,7 @@
             var text = Console.ReadLine();
             System.Console.Write("Enter number of repetitions of the text:");
             var count = Convert.ToInt32(Console.ReadLine());
-            Repeat(text, count);
+           System.Console.Write(Repeat(text, count)); 
         }
         else
         {
@@ -51,10 +51,7 @@
         {
             return num1;
         }
-        else
-        {
-            return num2;
-        }
+        return num2;
     }
 
     static int GetMinNumb(int num1, int num2, int num3) //3
@@ -63,7 +60,7 @@
         {
             return num1;
         }
-        else if (num2 < num1 && num2 < num3)
+        if (num2 < num1 && num2 < num3)
         {
             return num2;
         }
@@ -91,6 +88,7 @@
         {
             return num4;
         }
+
     }
 
     static int GetMaxNumb(int num1, int num2) //2
@@ -153,12 +151,11 @@
         }
         return sum % 2 == 0;
     }
-    static void Repeat(string text, int count)
+
+    static string Repeat(string text, int count)
     {
-        for (int i = 0; i < count; i++)
-        {
-            System.Console.Write(text);
-        }
+        if (count <= 0) return "";
+        return text + "\n" + Repeat(text, count - 1);
     }
 
 }
