@@ -2,28 +2,26 @@
 {
     static int GetMaxValue(int a, int b)
     {
-        return Math.Max(a, b);
+        return (a > b) ? a : b;
     }
 
         static int GetMinValue(int a, int b)
     {
-        return Math.Min(a, b);
+        return (a > b) ? b : a;
     }
 
     static int GetMaxValue(int a, int b, int c)
     {
         int maxValue;
-        maxValue = Math.Max (a, b);
-        maxValue = Math.Max (maxValue, c);
-
+        maxValue = (GetMaxValue (a, b) > c) ? GetMaxValue (a, b) : c;
+    
         return maxValue;
     }
 
     static int GetMinValue(int a, int b, int c)
     {
         int minValue;
-        minValue = Math.Min (a, b);
-        minValue = Math.Min (minValue, c);
+        minValue = (GetMinValue (a, b) < c) ? GetMinValue (a, b) : c;
 
         return minValue;
     }
@@ -31,9 +29,8 @@
     static int GetMaxValue(int a, int b, int c, int d)
     {
         int maxValue;
-        maxValue = Math.Max (a, b);
-        maxValue = Math.Max (maxValue, c);
-        maxValue = Math.Max (maxValue, d);
+        maxValue = GetMaxValue (a, b, c);
+        maxValue = (maxValue > d) ? maxValue : d;
 
         return maxValue;
     }
@@ -41,9 +38,8 @@
    static int GetMinValue(int a, int b, int c, int d)
     {
         int minValue;
-        minValue = Math.Min (a, b);
-        minValue = Math.Min (minValue, c);
-        minValue = Math.Min (minValue, d);
+        minValue = GetMinValue (a, b, c);
+        minValue = (minValue < d) ? minValue : d;
 
         return minValue;
     }
