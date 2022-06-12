@@ -41,6 +41,12 @@ System.Console.WriteLine(2*Math.PI*x);
         x = 7;
         int y = 8;
          System.Console.WriteLine (Math.Max(x, y));
+
+ var dateTime1 = new DateTime (2022,1,1);
+ var dateTime2 = new DateTime (2023,1,1);
+ var today = DateTime.Today;
+ System.Console.WriteLine($"{(today - dateTime1).Days} days passed from New Year");
+ System.Console.WriteLine($"{(dateTime2 - today).Days} days left to New Year");
   
         }
     }
