@@ -93,14 +93,8 @@
 
     static string Repeat(string x, int n)
         {   
-
-            if (n > 0) 
-            {
-              Console.WriteLine($"n:{n} " + x);
-              Repeat(x, n-1);
-              return "Well Done";
-            }
-            else return "Wrong n";
+            if (n <= 0) return "";    
+            return x + "\n"+ Repeat(x, n-1);
         }
 
 
@@ -132,7 +126,7 @@
             if (isInputOk) Console.WriteLine($"The TrySumIsOdd is: {TrySumIfOdd(x , y, out int sum)} because the sum is {sum}");
             
             string someText = "Some text that we gonna repeat";
-            int n = -5;
+            int n = 3;
             Console.WriteLine($"Hello, gonna do Repeat method and show you \"{someText}\" {n} times \n");
             Console.WriteLine(Repeat(someText, n));
         }
