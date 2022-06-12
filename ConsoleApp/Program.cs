@@ -114,6 +114,5 @@
         Console.WriteLine(evenSmallerNumber);
         string something = Repeat("str", 10);
         Console.WriteLine(something);
-        
     }
 }
