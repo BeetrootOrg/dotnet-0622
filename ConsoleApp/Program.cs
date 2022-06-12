@@ -2,56 +2,10 @@
 {
     class Program
     {
-        static int MaxValue(int firstValue, int secondValue)
-        {
-
-            if (firstValue > secondValue)
-            {
-                return firstValue;
-            }
-            else
-            {
-                return secondValue;
-            }
-        }
-        static int MaxValue(int firstValue, int secondValue, int thirdValue)
+        static int MaxValue(params int[] temparray )
         {
             int max = 0;
-            if (firstValue > secondValue && firstValue > thirdValue)
-            {
-                max = firstValue;
-            }
-            else if (secondValue > firstValue && secondValue > thirdValue)
-            {
-                max = secondValue;
-            }
-            else if (thirdValue > firstValue && thirdValue > secondValue)
-            {
-                max = thirdValue;
-            }
-
-            return max;
-
-        }
-        static int MaxValue(int firstValue, int secondValue, int thirdValue, int fourthValue)
-        {
-            int max = 0;
-            if (firstValue > secondValue && firstValue > thirdValue && firstValue > fourthValue)
-            {
-                max = firstValue;
-            }
-            else if (secondValue > firstValue && secondValue > thirdValue && secondValue > fourthValue)
-            {
-                max = secondValue;
-            }
-            else if (thirdValue > firstValue && thirdValue > secondValue && thirdValue > fourthValue)
-            {
-                max = thirdValue;
-            }
-            else if (fourthValue > firstValue && fourthValue > secondValue && fourthValue > thirdValue)
-            {
-                max = fourthValue;
-            }
+            max = temparray.Max();
 
             return max;
 
@@ -114,7 +68,7 @@
         }
         static void Main(string[] args)
         {
-            //Console.WriteLine(MinValue(11111, 42333, 333, 11));     тестування max/min
+            Console.WriteLine(MaxValue(11111, 42333, 125251));   //  тестування max/min
 
             int sum, firstParam = 0, secondParam = 0;
 
