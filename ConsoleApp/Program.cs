@@ -12,26 +12,26 @@
 
     static int SumBetweenNumbers(int a, int b)
     {
-        int sum = 0;
+        int sumBetween = 0;
         if (a < b)
         {
             for (int i = a; i <= b; ++i)
             {
-                sum += i;
+                sumBetween += i;
             }
         }
         else if (a > b)
         {
             for (int i = b; i <= a; ++i)
             {
-                sum += i;
+                sumBetween += i;
             }
         }
         else
         {
-            sum = a;
+            sumBetween = a;
         }
-        return sum;
+        return sumBetween;
     }
     static bool TrySumIfOdd(int a, int b, out int sum)
     {
@@ -60,11 +60,11 @@
         }
         Console.WriteLine($"{N}-th Fibonacci number is {result}");
 
-
+        int sum = 0;
         Console.WriteLine(MaxValueAmong(56, 76));
         Console.WriteLine(MaxValueAmong(12, 853, 852));
         Console.WriteLine(MaxValueAmong(12, 25, 1, 85));
-        Console.WriteLine(TrySumIfOdd(5, 8, out int sum));
-        System.Console.WriteLine(TrySumIfOdd(10, 12, out int sum));
+        Console.WriteLine(TrySumIfOdd(5, 8, out sum));
+        Console.WriteLine(TrySumIfOdd(10, 12, out sum));
     }
 }
