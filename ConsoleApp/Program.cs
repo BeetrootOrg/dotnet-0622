@@ -1,19 +1,21 @@
 ﻿internal class Program
 {
     // 1st part of the task
-    static int MaxValueAmong(int a, int b) => Math.Max(a, b);
-    static int MaxValueAmong(int a, int b, int c) => Math.Max(Math.Max(a, b), c);
-    static int MaxValueAmong(int a, int b, int c, int d) => Math.Max(Math.Max(a, b), Math.Max(c, d));
+    static int MaxValueAmong(int a, int b) => a >= b ? a : b;
+    static int MaxValueAmong(int a, int b, int c) => MaxValueAmong(MaxValueAmong(a, b), c);
+
+    static int MaxValueAmong(int a, int b, int c, int d) => MaxValueAmong(MaxValueAmong(a, b), MaxValueAmong(c, d));
     // second part of the task
-    static int MinValueAmong(int a, int b) => Math.Min(a, b);
-    static int MinValueAmong(int a, int b, int c) => Math.Min(Math.Min(a, b), c);
-    static int MinValueAmong(int a, int b, int c, int d) => Math.Min(Math.Min(a, b), Math.Min(c, d));
+    static int MinValueAmong(int a, int b) => a >= b ?  b :  a;
+    static int MinValueAmong(int a, int b, int c) => MinValueAmong(MinValueAmong(a, b), c);
+    static int MinValueAmong(int a, int b, int c, int d) => MinValueAmong(MinValueAmong(a, b), MinValueAmong(c, d));
+
     //third part of the task
 
     static int SumBetweenNumbers(int a, int b)
     {
         int sumBetween = 0;
-        if (a < b)
+        if (a <= b)
         {
             for (int i = a; i <= b; ++i)
             {
@@ -27,10 +29,7 @@
                 sumBetween += i;
             }
         }
-        else
-        {
-            sumBetween = a;
-        }
+
         return sumBetween;
     }
     static bool TrySumIfOdd(int a, int b, out int sum)
@@ -45,6 +44,8 @@
             return false;
         }
     }
+    // Extra task
+
     private static void Main(string[] args)
     {
 
@@ -61,10 +62,11 @@
         Console.WriteLine($"{N}-th Fibonacci number is {result}");
 
         int sum = 0;
-        Console.WriteLine(MaxValueAmong(56, 76));
-        Console.WriteLine(MaxValueAmong(12, 853, 852));
+        Console.WriteLine(MaxValueAmong(12, 25, 41));
         Console.WriteLine(MaxValueAmong(12, 25, 1, 85));
+        Console.WriteLine(MinValueAmong(14, 25, 36));
         Console.WriteLine(TrySumIfOdd(5, 8, out sum));
         Console.WriteLine(TrySumIfOdd(10, 12, out sum));
+        
     }
 }
