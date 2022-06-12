@@ -76,7 +76,9 @@ static string Repeat(string x, int n)
         Console.WriteLine(MinValueAmong(14, 25, 36));
         Console.WriteLine(TrySumIfOdd(5, 8, out int sum));
         Console.WriteLine(TrySumIfOdd(10, 12, out sum));
-        Console.WriteLine(Repeat("Bang ", 2) + "he shot me down");
-        Console.WriteLine(Repeat("Bang ", 2) + "I hit the ground");
+        string firstLineOfTheChorus = Repeat("Bang ", 2);
+        Console.WriteLine($"{firstLineOfTheChorus.Substring(0, firstLineOfTheChorus.Length - 1)}, he shot me down");
+        Console.WriteLine($"{firstLineOfTheChorus.Substring(0, firstLineOfTheChorus.Length - 1)}, I hit the ground");
+        
     }
 }
