@@ -1,77 +1,51 @@
-﻿class Program 
+﻿internal class Program 
 {
-     int GetMaxValue(int a, int b, int c)
+    static int GetMaxValue(int a, int b)
+    {
+        Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b}");
+        return Math.Max(a, b);
+    }
+
+        static int GetMinValue(int a, int b)
+    {
+        Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b}");
+        return Math.Min(a, b);
+    }
+
+    static int GetMaxValue(int a, int b, int c)
     {
         Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c}");
-        int maxValue;
-        if (a >= b && a >= c)
-        {
-            maxValue = a;
-        }
-        else maxValue = (b >= c) ? b : c;
-
-        return maxValue;
+        return new int [] {a, b, c}.Max();
     }
 
-    int GetMinValue(int a, int b, int c)
+    static int GetMinValue(int a, int b, int c)
     {
         Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c}");
-        int minValue;
-        if (a <= b && a <= c)
-        {
-            minValue = a;
-        }
-        else minValue = (b <= c) ? b : c;
-
-        return minValue;
+        return new int [] {a, b, c}.Min();
     }
 
-    int GetMaxValue(int a, int b, int c, int d)
+    static int GetMaxValue(int a, int b, int c, int d)
     {
         Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c} d={d}");
-        int maxValue;
-        if (a >= b && a >= c && a >= d)
-        {
-            maxValue = a;
-        }
-        else if (d >= b && d >= c) 
-        {
-            maxValue = d;
-        } else
-
-        maxValue = (b >= c) ? b : c;
-
-        return maxValue;
+        return new int [] {a, b, c, d}.Max();
     }
 
-    int GetMinValue(int a, int b, int c, int d)
+   static int GetMinValue(int a, int b, int c, int d)
     {
         Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c} d={d}");
-        int minValue;
-        if (a <= b && a <= c && a <= d)
-        {
-            minValue = a;
-        }
-        else if (d <= b && d <= c)
-        {
-            minValue = d;
-        }   
-        else minValue = (b <= c) ? b : c;
-
-        return minValue;
+        return new int [] {a, b, c, d}.Min();
     }
-
-
     // TrySumIfOdd
 
-    bool TrySumIfOdd(int x, int y, out int sum)
+    static bool TrySumIfOdd(int x, int y, out int sum)
     {
         sum = Math.Min(x , y);
+
         while (x != y)
         {
             sum += (x > y) ? ++y : ++x;
         }
-        //Console.WriteLine($"The sum is {sum}");
+
         if (sum % 2 != 0) 
         {   
             return true;
@@ -83,7 +57,7 @@
         
     }
 
-    bool Get2Values (out int x, out int y)
+    static bool Get2Values (out int x, out int y)
     {
         x = 0;
         y = 0;
@@ -93,11 +67,7 @@
 
         var console = Console.ReadLine();
 
-        if (int.TryParse(console, out x))
-        {
-        // Console.WriteLine("x="+ x);
-        } 
-        else 
+        if (!int.TryParse(console, out x))
         { 
             Console.WriteLine("x is not an integer number, run again and put right value");
             return false;
@@ -108,11 +78,7 @@
 
         console = Console.ReadLine();
 
-        if (int.TryParse(console, out y))
-        {
-            //Console.WriteLine("y="+ y);
-        } 
-        else
+        if (!int.TryParse(console, out y))
         { 
             Console.WriteLine("y is not an integer number, run again and put right value");
             return false;
@@ -120,46 +86,49 @@
     return true;
     }
 
-    string Repeat(string x, int n)
+    static void Repeat(string x, int n)
         {   
-            string result = $"Hello, gonna do Repeat method and show you \"{x}\" {n} times \n";
-            for (int i = 0; i < n; i++)
+            if (n > 0) 
             {
-                result += x+"\n";
+              Console.WriteLine($"n:{n} " + x);
+              Repeat(x, n-1);  
+              return;
             }
-            return result;
+            else return;
         }
 
 
 
-        static void Main()
+        static void Main(string[] args)
         {   
-            Program myMethod = new Program();
-
             int result;
-            result = myMethod.GetMaxValue(40, 51, 40);
+            result = GetMaxValue(49, -10);
             Console.WriteLine("Maximum value is: " + result);
-            result = myMethod.GetMinValue(40, 51, 3);
+            result = GetMinValue(42, 59);
             Console.WriteLine("Minimum value is: " + result);
 
             //Let's overload
             Console.WriteLine($"Overloaded results:");
-            result = myMethod.GetMaxValue(40, 51, c: 40, 55);
+
+            result = GetMaxValue(40, 51, 40);
             Console.WriteLine("Maximum value is: " + result);
-            result = myMethod.GetMinValue(40, 51, 3, -3);
+            result = GetMinValue(40, 51, 3);
+            Console.WriteLine("Minimum value is: " + result);
+            result = GetMaxValue(40, 51, c: 40, 55);
+            Console.WriteLine("Maximum value is: " + result);
+            result = GetMinValue(40, 51, 3, -3);
             Console.WriteLine("Minimum value is: " + result);
 
-            int x;
-            int y;
             bool isInputOk;
-            isInputOk = (myMethod.Get2Values(out x,out y));
+            isInputOk = (Get2Values(out int x,out int y));
             Console.WriteLine($"x={x}, y={y}");
 
-            int sum;
-            if (isInputOk) Console.WriteLine($"The TrySumIsOdd is: {myMethod.TrySumIfOdd(x , y, out sum)} because the sum is {sum}");
-
-            Console.WriteLine(myMethod.Repeat("string", 3));
-            Console.WriteLine(myMethod.Repeat("Some other text", 5));
+            if (isInputOk) Console.WriteLine($"The TrySumIsOdd is: {TrySumIfOdd(x , y, out int sum)} because the sum is {sum}");
+            
+            string someText = "Some text that we gonna repeat";
+            int n = 5;
+            Console.WriteLine($"Hello, gonna do Repeat method and show you \"{someText}\" {n} times \n");
+            Repeat(someText, n);
 
         }
 
