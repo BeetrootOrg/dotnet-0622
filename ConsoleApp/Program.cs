@@ -35,17 +35,28 @@
     static bool TrySumIfOdd(int a, int b, out int sum)
     {
         sum = SumBetweenNumbers(a, b);
-        if (sum % 2 == 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return sum % 2 == 0;
     }
     // Extra task
-
+static string Repeat(string x, int n) 
+{
+    string y = "";
+    for (int i = 0; i < n; i++)
+    {
+        y += x;
+    }
+    return y;
+}
+/* Recursion option (but with FOR it's better and faster)
+static string Repeat(string x, int n)
+{
+    if(n == 1)
+    {
+        return x;
+    }
+    return x += Repeat(x, n - 1);
+}
+*/
     private static void Main(string[] args)
     {
 
@@ -60,13 +71,11 @@
             f2 = result;
         }
         Console.WriteLine($"{N}-th Fibonacci number is {result}");
-
-        int sum = 0;
         Console.WriteLine(MaxValueAmong(12, 25, 41));
         Console.WriteLine(MaxValueAmong(12, 25, 1, 85));
         Console.WriteLine(MinValueAmong(14, 25, 36));
-        Console.WriteLine(TrySumIfOdd(5, 8, out sum));
+        Console.WriteLine(TrySumIfOdd(5, 8, out int sum));
         Console.WriteLine(TrySumIfOdd(10, 12, out sum));
-        
+        System.Console.WriteLine(Repeat("a", 10));
     }
 }
