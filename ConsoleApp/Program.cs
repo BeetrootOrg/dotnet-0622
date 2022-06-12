@@ -35,7 +35,7 @@
     static bool TrySumIfOdd(int a, int b, out int sum)
     {
         sum = SumBetweenNumbers(a, b);
-        return sum % 2 == 0;
+        return sum % 2 != 0;
     }
     // Extra task
 static string Repeat(string x, int n) 
