@@ -13,7 +13,8 @@
     static int GetMaxValue(int a, int b, int c)
     {
         int maxValue;
-        maxValue = (GetMaxValue (a, b) > c) ? GetMaxValue (a, b) : c;
+        maxValue = GetMaxValue (a, b);
+        maxValue = (maxValue > c) ? GetMaxValue (a, b) : c;
     
         return maxValue;
     }
@@ -21,7 +22,8 @@
     static int GetMinValue(int a, int b, int c)
     {
         int minValue;
-        minValue = (GetMinValue (a, b) < c) ? GetMinValue (a, b) : c;
+        minValue = GetMinValue (a, b);
+        minValue = (minValue < c) ? GetMinValue (a, b) : c;
 
         return minValue;
     }
