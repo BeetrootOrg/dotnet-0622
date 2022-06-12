@@ -12,8 +12,8 @@ if (int.TryParse(console, out x))
 } 
 else 
 { 
-Console.WriteLine("x is not an integer number, run again and put right value");
-return;
+    Console.WriteLine("x is not an integer number, run again and put right value");
+    return;
 }   
 
 // Entering y
@@ -27,8 +27,8 @@ if (int.TryParse(console, out y))
 } 
 else
 { 
-Console.WriteLine("y is not an integer number, run again and put right value");
-return;
+    Console.WriteLine("y is not an integer number, run again and put right value");
+    return;
 }
 
 
