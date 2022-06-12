@@ -10,34 +10,12 @@
 
     static int MaxBetween (int a, int b, int c)
     {
-        int[] numbers = new int[] {a, b, c};
-        for (int i=0; i<numbers.Length-1; i++)
-            for (int j=0; j<numbers.Length-1; j++)
-            {
-                if (numbers[j]<numbers[j+1])
-                {
-                    int buffer = numbers[j];
-                    numbers[j] = numbers[j+1];
-                    numbers[j+1] = buffer;
-                }
-            }
-        return numbers[0];
+        return MaxBetween(MaxBetween(a,b),c);
     }
 
     static int MaxBetween (int a, int b, int c, int d)
     {
-        int[] numbers = new int[] {a, b, c, d};
-        for (int i=0; i<numbers.Length-1; i++)
-            for (int j=0; j<numbers.Length-1; j++)
-            {
-                if (numbers[j]<numbers[j+1])
-                {
-                    int buffer = numbers[j];
-                    numbers[j] = numbers[j+1];
-                    numbers[j+1] = buffer;
-                }
-            }
-        return numbers[0];
+        return MaxBetween(MaxBetween(a,b),MaxBetween(c,d));
     }
 
     static int MinBetween (int a, int b)
@@ -50,56 +28,29 @@
 
     static int MinBetween (int a, int b, int c)
     {
-        int[] numbers = new int[] {a, b, c};
-        for (int i=0; i<numbers.Length-1; i++)
-            for (int j=0; j<numbers.Length-1; j++)
-            {
-                if (numbers[j]>numbers[j+1])
-                {
-                    int buffer = numbers[j];
-                    numbers[j] = numbers[j+1];
-                    numbers[j+1] = buffer;
-                }
-            }
-        return numbers[0];
+        return MinBetween(MinBetween(a,b),c);
     }
 
     static int MinBetween (int a, int b, int c, int d)
     {
-        int[] numbers = new int[] {a, b, c, d};
-        for (int i=0; i<numbers.Length-1; i++)
-            for (int j=0; j<numbers.Length-1; j++)
-            {
-                if (numbers[j]>numbers[j+1])
-                {
-                    int buffer = numbers[j];
-                    numbers[j] = numbers[j+1];
-                    numbers[j+1] = buffer;
-                }
-            }
-        return numbers[0];
+        return MinBetween(MinBetween(a,b),MinBetween(c,d));
     }
 
     static bool TrySumIfOdd (int a, int b, out int sum)
     {
-        bool result;
         if (b>a) {
             sum = (Math.Abs(b-a+1)*(b+a))/2;
-            result = (sum % 2 == 0) ? false : true;
-            return result;
+            return sum % 2 != 0;
         } else {
             sum = (Math.Abs(a-b+1)*(a+b))/2;
-            result = (sum % 2 == 0) ? false : true;
-            return result;
+            return sum % 2 != 0;
         }
     }
 
     static string Repeat (string str, int n)
-    {
-        string result = "";        
+    {      
         if ( n <= 0 ) return "";
-        result = str + Repeat(str, n-1);
-        return result;
+        return str + Repeat(str, n-1);
     }
     private static void Main(string[] args)
     {        
@@ -127,6 +78,7 @@
         Console.WriteLine(Repeat("Pasha", 0));      
         Console.WriteLine(Repeat("Vasya", -1));    
         Console.WriteLine("---------------------------------------------");
+      
         
     }
 }
