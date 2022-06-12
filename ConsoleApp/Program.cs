@@ -2,38 +2,50 @@
 {
     static int GetMaxValue(int a, int b)
     {
-        Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b}");
         return Math.Max(a, b);
     }
 
         static int GetMinValue(int a, int b)
     {
-        Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b}");
         return Math.Min(a, b);
     }
 
     static int GetMaxValue(int a, int b, int c)
     {
-        Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c}");
-        return new int [] {a, b, c}.Max();
+        int maxValue;
+        maxValue = Math.Max (a, b);
+        maxValue = Math.Max (maxValue, c);
+
+        return maxValue;
     }
 
     static int GetMinValue(int a, int b, int c)
     {
-        Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c}");
-        return new int [] {a, b, c}.Min();
+        int minValue;
+        minValue = Math.Min (a, b);
+        minValue = Math.Min (minValue, c);
+
+        return minValue;
     }
 
     static int GetMaxValue(int a, int b, int c, int d)
     {
-        Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c} d={d}");
-        return new int [] {a, b, c, d}.Max();
+        int maxValue;
+        maxValue = Math.Max (a, b);
+        maxValue = Math.Max (maxValue, c);
+        maxValue = Math.Max (maxValue, d);
+
+        return maxValue;
     }
 
    static int GetMinValue(int a, int b, int c, int d)
     {
-        Console.WriteLine ($"Method was called and it got follow parameters: a={a} b={b} c={c} d={d}");
-        return new int [] {a, b, c, d}.Min();
+        int minValue;
+        minValue = Math.Min (a, b);
+        minValue = Math.Min (minValue, c);
+        minValue = Math.Min (minValue, d);
+
+        return minValue;
     }
     // TrySumIfOdd
 
@@ -46,14 +58,7 @@
             sum += (x > y) ? ++y : ++x;
         }
 
-        if (sum % 2 != 0) 
-        {   
-            return true;
-        } 
-        else
-        {
-            return false;
-        } 
+        return sum % 2 != 0;
         
     }
 
@@ -86,15 +91,16 @@
     return true;
     }
 
-    static void Repeat(string x, int n)
+    static string Repeat(string x, int n)
         {   
+
             if (n > 0) 
             {
               Console.WriteLine($"n:{n} " + x);
-              Repeat(x, n-1);  
-              return;
+              Repeat(x, n-1);
+              return "Well Done";
             }
-            else return;
+            else return "Wrong n";
         }
 
 
@@ -126,10 +132,9 @@
             if (isInputOk) Console.WriteLine($"The TrySumIsOdd is: {TrySumIfOdd(x , y, out int sum)} because the sum is {sum}");
             
             string someText = "Some text that we gonna repeat";
-            int n = 5;
+            int n = -5;
             Console.WriteLine($"Hello, gonna do Repeat method and show you \"{someText}\" {n} times \n");
-            Repeat(someText, n);
-
+            Console.WriteLine(Repeat(someText, n));
         }
 
 }
