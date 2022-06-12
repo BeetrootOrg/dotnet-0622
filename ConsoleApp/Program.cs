@@ -25,3 +25,6 @@ System.Console.WriteLine(-6 * x ^ 3 + 5 * x ^ 2 - 10 * x + 15);
 System.Console.WriteLine(Math.Abs(x) * Math.Sin(x));
 System.Console.WriteLine(2 * Math.PI * x);
 System.Console.WriteLine(Math.Max(x, y));
+
+System.Console.WriteLine("{0} days left to New Year", (new DateTime(DateTime.Now.Year + 1, 1, 1) - DateTime.Now).Days);
+System.Console.WriteLine("{0} days left to New Year", (DateTime.Now - (new DateTime(DateTime.Now.Year, 1, 1))).Days);
