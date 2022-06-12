@@ -76,6 +76,7 @@ static string Repeat(string x, int n)
         Console.WriteLine(MinValueAmong(14, 25, 36));
         Console.WriteLine(TrySumIfOdd(5, 8, out int sum));
         Console.WriteLine(TrySumIfOdd(10, 12, out sum));
-        System.Console.WriteLine(Repeat("a", 10));
+        Console.WriteLine(Repeat("Bang ", 2) + "he shot me down");
+        Console.WriteLine(Repeat("Bang ", 2) + "I hit the ground");
     }
 }
