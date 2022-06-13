@@ -7,6 +7,11 @@ void WriteLine(int n)
 }
 
 // 2. create method int Factorial(int n) that will count n! = n * (n - 1) * (n - 2) * ... * 2 * 1, e.g. 5! = 5 * 4 * 3 * 2 * 1 = 120;
+// n! = n * (n - 1)!
+// (n - 1)! = (n - 1) * (n - 2)!
+// 3! = 3 * 2!
+// 2! = 2 * 1!
+// 1! = 1
 int Factorial(int n)
 {
     if (n < 0) return -1;
