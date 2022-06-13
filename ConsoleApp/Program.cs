@@ -10,7 +10,7 @@ System.Console.WriteLine(random.NextDouble() * 70 + 30); // random * (length of 
 // from 0 to 100: [0; 100)
 System.Console.WriteLine(random.NextDouble() * 100);
 
-const double probability = 1;
+const double probability = 100 / 6f;
 while (true)
 {
     var chance = random.NextDouble() * 100;
@@ -23,4 +23,6 @@ while (true)
     {
         System.Console.WriteLine("You're alive");
     }
+
+    Console.ReadKey();
 }
