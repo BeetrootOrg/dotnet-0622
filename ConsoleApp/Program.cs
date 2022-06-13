@@ -6,48 +6,46 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-     // Define several variables
+try
+        {
+             Console.WriteLine("Please enter X:");
+            string xstring = Console.ReadLine();
+            int x = int.Parse(xstring);
 
-      byte a = 126;
-      short b = - 126;
-      int c = 12;
-      long d = 1234;
-      bool bool1 = true;
-      bool bool2 = false;
-      float e = 7.52f;
-      double f = 6.1d;
-      decimal g = 12.22m;
+            Console.WriteLine("Please enter Y:");
+            string ystring = Console.ReadLine();
+            int y = int.Parse(ystring);
+            int sum = 0 ;
+    if (x!=y)
+    { 
+        if (x < y)
+    {
+    { 
+        for ( int i = x; i <= y; i++ ) 
+         sum += i;
+    }
+    System.Console.WriteLine($" The sum of all numbers between x and y: {sum} ");
+        }
 
-    //   addition, subtraction, multiplication of several of them
-
-System.Console.WriteLine(d - a);
-System.Console.WriteLine(a + b);
-System.Console.WriteLine(d / c);
-System.Console.WriteLine(f * c);
-System.Console.WriteLine( bool1 || bool2);
-
-    //  result of several math functions
-
-
-        int x = 5;
-System.Console.WriteLine(-6*x^3+5*x^2-10*x+15);
-
-        x = 100;
-System.Console.WriteLine(Math.Abs(x)*Math.Sin(x));
-
-        x = -11;
-System.Console.WriteLine(2*Math.PI*x);
-
-        x = 7;
-        int y = 8;
-         System.Console.WriteLine (Math.Max(x, y));
-
- var dateTime1 = new DateTime (2022,1,1);
- var dateTime2 = new DateTime (2023,1,1);
- var today = DateTime.Today;
- System.Console.WriteLine($"{(today - dateTime1).Days} days passed from New Year");
- System.Console.WriteLine($"{(dateTime2 - today).Days} days left to New Year");
-  
+    else if (x > y)
+    {
+    {
+        for ( int i = y; i <= x; i++ )
+         sum += i;
+    }
+    System.Console.WriteLine($" The sum of all numbers between y and x: {sum} ");
+    }
+    }
+    else 
+    System.Console.WriteLine($" The sum of all numbers between x and y: {x} ");
+            
+        }
+ catch (System.Exception)
+        {
+            System.Console.WriteLine($" Invalid output ");
+            
+            throw;
+        }
         }
     }
 }
