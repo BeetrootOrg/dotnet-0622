@@ -1,4 +1,4 @@
-﻿static int MultiplyWorst(int a)
+﻿int MultiplyWorst(int a)
 {
     if (a >= 10)
     {
@@ -12,7 +12,7 @@
     return a;
 }
 
-static int MultiplyWorse(int a)
+int MultiplyWorse(int a)
 {
     if (a >= 10)
     {
@@ -28,7 +28,7 @@ static int MultiplyWorse(int a)
 }
 
 
-static int Multiply(int a) => a >= 10 ? a * 10 : a * 20;
+int Multiply(int a) => a >= 10 ? a * 10 : a * 20;
 
 System.Console.WriteLine(MultiplyWorst(20));
 System.Console.WriteLine(MultiplyWorse(20));
