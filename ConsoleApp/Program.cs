@@ -4,9 +4,9 @@ System.Console.Write("Enter count: ");
 var num = Console.ReadLine();
 int.Parse(num);
 
-static void WR(int a)
+static void WR(int count)
 {
-    
+    if (count <= 0) => return ""; 
 }
 
 static string Repeat(string text, int count)
