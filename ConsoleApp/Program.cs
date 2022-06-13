@@ -1,16 +1,13 @@
 ﻿System.Console.Write("Enter your text: ");
 var text = Console.ReadLine();
 System.Console.Write("Enter count: ");
-var num = Console.ReadLine();
-int.Parse(num);
+int num = Convert.ToInt32(Console.ReadLine());
+WR(num,text);
 
-static void WR(int count)
+static void WR(int num, string text)
 {
-    if (count <= 0) => return ""; 
+    if (num >= 0)  System.Console.WriteLine("");
+    System.Console.WriteLine(text);
+    WR(num -1,text);
 }
 
-static string Repeat(string text, int count)
-    {
-        if (count <= 0) return "";
-        return text + "\n" + Repeat(text, count - 1);
-    }
