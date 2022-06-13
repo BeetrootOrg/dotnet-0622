@@ -28,11 +28,14 @@ int MultiplyWorse(int a)
 }
 
 
-int Multiply(int a) => a >= 10 ? a * 10 : a * 20;
+int MultiplyBest(int a) => a >= 10 ? a * 10 : a * 20;
+int Multiply(int a, int b) => a * b;
+
+int Sum(int a, int b) => a + b;
 
 System.Console.WriteLine(MultiplyWorst(20));
 System.Console.WriteLine(MultiplyWorse(20));
-System.Console.WriteLine(Multiply(20));
+System.Console.WriteLine(MultiplyBest(20));
 
 string str = "hello";
 string concatenated = "hello" + ", " + "Dima";
@@ -43,3 +46,12 @@ System.Console.WriteLine(example.TrimEnd('f'));
 System.Console.WriteLine(example.Substring(0, example.Length - 1));
 
 System.Console.WriteLine(string.Format("{0}, {1}. {0}, {2}", "Hello", "Dima", "Class"));
+
+// (5 + 6) * (4 + 5)
+var result1 = Sum(5, 6);
+var result2 = Sum(4, 5);
+var result = Multiply(result1, result2);
+System.Console.WriteLine($"(5 + 6) * (4 + 5) = {result}");
+
+// the same as above
+System.Console.WriteLine($"(5 + 6) * (4 + 5) = {Multiply(Sum(5, 6), Sum(4, 5))}");
