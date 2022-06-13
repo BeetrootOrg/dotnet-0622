@@ -41,3 +41,5 @@ concatenated = $"{str}, Dima";
 string example = "example    f";
 System.Console.WriteLine(example.TrimEnd('f'));
 System.Console.WriteLine(example.Substring(0, example.Length - 1));
+
+System.Console.WriteLine(string.Format("{0}, {1}. {0}, {2}", "Hello", "Dima", "Class"));
