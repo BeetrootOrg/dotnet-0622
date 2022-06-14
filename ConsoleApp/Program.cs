@@ -14,15 +14,13 @@
         switch (sort)
         {
             case 0:
-            {
                 Selection(array);
                 break;
-            }    
+                
             case 1:
-            {
                 Bubble(array);
                 break;
-            }    
+                
             default: 
                 Insertion(array); 
                 break;
