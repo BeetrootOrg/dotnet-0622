@@ -45,5 +45,45 @@ static int Square(int x)
 Square(3);// ось так просто викликаємо з параметром
 System.Console.WriteLine(Square(3));// а соь так виклиємо його з параметром в середині вже іншої функціі
 
+// ВАЖЛИВО. два приклади але в один ми передаємо змінну як value тип і а іншу як ref тип.
+/*
+тут різниця в тому що в add3 ми отримуемо не посилання на значення а саме значення і працюємо з ним в середині метода а за межами метода це значення ніяк не знімиться..
+взяли initial = 5 дадали в методі 5+3 в методі стало 8 але за межами initial так і лишився дорівнювати 5
+а в методі add5 ми передали вже initial як реф тип і тому за межами метода результат вже не буде 5 а стане 8, 5+3 = 8
+
+*/
+static void add3(int initial)
+{
+ initial += 3;
+}
+
+static void add5(ref int initial)
+{
+ initial += 3;
+}
+
+var initial = 5; //ми цю змінну передамо по різному тому вона після обробки матиме потім різне значення.
+add3(initial);
+add5(ref initial);
 
 
+//перерка ділення на 3 без залишку.. так само можна перевірити ділення на будь-що(на 2 на 5 і тд)
+static bool TryDivideBy3(int number, out int result)
+{
+    if (number % 3 == 0)
+    {
+    result = number / 3;
+    return true;
+    }
+    
+    result = 0;
+    return false;
+    
+}
+
+bool success;
+success = TryDivideBy3(6, out initial);
+System.Console.WriteLine($"Success:{success}. Result: {initial}");
+
+success = TryDivideBy3(7, out initial);
+System.Console.WriteLine($"Success:{success}. Result: {initial}");
