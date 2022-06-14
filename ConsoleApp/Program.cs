@@ -1,5 +1,37 @@
 ﻿internal class Program
 {
+    enum SortAlgorithmType
+    {
+        selection,
+        bubble,
+        insertion
+    }
+
+    static int[] Sort (int[] array, SortAlgorithmType sortType, string orderBy = "asc")
+    {  
+        int sort = (int) sortType;
+        
+        switch (sort)
+        {
+            case 0:
+            {
+                Selection(array);
+                break;
+            }    
+            case 1:
+            {
+                Bubble(array);
+                break;
+            }    
+            default: 
+                Insertion(array); 
+                break;
+        }
+
+        if (orderBy == "desc") Array.Reverse(array);
+        
+        return array;
+    }
     static int[] Selection(int[] array)
         {
             for (int i = 0; i < array.Length; i++)
@@ -54,29 +86,21 @@
                             array[j] = array[j - 1];
                             array[j - 1] = temp;        
                         }
-                        
+                        else break;   
                     }
             }
             return array;
-        }
-            
-        
-
-
-
-
-    
+        }           
     static void Main(string[] args)
     {
         int[] array = new int[] { 9, -3, 5, 4, 6, -7, -8 };
-        //Selection(array);
-        //Bubble(array);
-        Insertion(array);
+
+        string orderBy = "desc";
+        Sort(array, SortAlgorithmType.insertion, orderBy);
 
         foreach (int item in array)
         {
             Console.WriteLine(item);
         }
-    }
-        
+    }   
 }
