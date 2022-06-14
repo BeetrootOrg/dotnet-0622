@@ -1,191 +1,80 @@
 ﻿internal class Program
 {
-    static void HelloWorld()
+    static int MaxValueAmong(int a, int b) 
     {
-        Console.WriteLine("Hello, world");
+        return a >= b ? a : b;
     }
-
-    static void HelloToSomebody(string somebody) => Console.WriteLine($"Hello, {somebody}");
-
-    static int Square(int x)
+    static int MaxValueAmong(int a, int b, int c) 
     {
-        return x * x;
+        return MaxValueAmong(MaxValueAmong(a, b), c);
     }
-
-    static void Add3(int initial)
+    static int MaxValueAmong(int a, int b, int c, int d) 
     {
-        initial += 3;
+        return MaxValueAmong(MaxValueAmong(a, b), MaxValueAmong(c, d));
     }
-
-    static void Add5(ref int initial)
+    static int MinValueAmong(int a, int b) 
     {
-        initial += 3;
+        return a <= b ? a : b;
     }
-
-    static bool TryParseInt(string str, out int result) => int.TryParse(str, out result);
-    static bool TryDivideBy3(int number, out int result)
+    static int MinValueAmong(int a, int b, int c) 
     {
-        if (number % 3 == 0)
+        return MinValueAmong(MinValueAmong(a, b), c);
+    }
+    static int MinValueAmong(int a, int b, int c, int d) 
+    {
+        return MinValueAmong(MinValueAmong(a, b), MinValueAmong(c, d));
+    }
+    static bool TrySumIfOdd(int a, int b, out int sum) 
+    {
+        sum = CheckHowToCountSum(a, b);
+        return sum % 2 != 0;
+    }
+    static int CheckHowToCountSum(int fromNumber, int toNumber) 
+    {        
+        if (fromNumber <= toNumber)
         {
-            result = number / 3;
-            return true;
+            return CountSumBetweenIntegers(fromNumber, toNumber);
+        }
+        return CountSumBetweenIntegers(toNumber, fromNumber);
+    }
+    static int CountSumBetweenIntegers(int fromNumber, int toNumber)
+    {
+        int sum = 0;
+
+        for (int i = fromNumber; i <= toNumber; ++i)
+        {
+            sum += i;
         }
 
-        result = 0;
-        return false;
+        return sum;
     }
-
-    static bool TryDivideBy4(int number, out int result)
+    static string Repeat(string x, int n) 
     {
-        result = number / 4;
-        return number % 4 == 0;
-    }
-
-    static void TryRef(ref int value)
-    {
-        if (value > 10)
+        string stringToReturn = "";
+        for (int i = 0; i < n; i++)
         {
-            value += 20;
+            stringToReturn += x;
         }
+        return stringToReturn;
     }
 
-    // Compilation error
-    // static void TryOut(out int value)
-    // {
-    //     if (value > 10)
-    //     {
-    //         value += 20;
-    //     }
-    // }
-
-    static int SumOfTwo(int a = 1, int b = 2) => a + b;
-
-    static double Multiply() => 42;
-    static double Multiply(double a) => a * 42;
-    static double Multiply(double a, double b, double c) => a * b * c;
-    static int Multiply(int a, int b, int c) => a * b * c;
-    static int Multiply(int a, int b) => a * b;
-    static int Multiply(int a) => a * 42;
-
-    static long Fibonacci(long n)
+    private static void Main(string[] args)
     {
-        if (n <= 0)
-        {
-            return -1;
-        }
+        // Max Values
+        System.Console.WriteLine(MaxValueAmong(1, 2));
+        System.Console.WriteLine(MaxValueAmong(1, 2, 3));
+        System.Console.WriteLine(MaxValueAmong(1, 2, 3, 4));
 
-        long result = 1, prev = 1, counter = n - 1;
+        // Min Values
+        System.Console.WriteLine(MinValueAmong(4, 3));
+        System.Console.WriteLine(MinValueAmong(4, 3, 2));
+        System.Console.WriteLine(MinValueAmong(4, 3, 2, 1));
 
-        while (--counter > 0)
-        {
-            var temp = result;
-            result += prev;
-            prev = temp;
-        }
+        // Try Sum If Odd
+        bool isOdd = TrySumIfOdd(10, 15, out int sum);
+        System.Console.WriteLine($"{sum} % 2 != 0 is {isOdd}");
 
-        return result;
-    }
-
-    static long FibonacciRecursive(long n)
-    {
-        if (n <= 0) return -1;
-        if (n == 1 || n == 2)
-        {
-            System.Console.WriteLine($"F({n}) = 1");
-            return 1;
-        }
-
-        System.Console.WriteLine($"Count F({n}) = F({n - 1}) + F({n - 2})");
-        var result = FibonacciRecursive(n - 1) + FibonacciRecursive(n - 2);
-        System.Console.WriteLine($"Result F({n}) = {result}");
-
-        return result;
-    }
-
-    static void Main(string[] args)
-    {
-        HelloWorld();
-
-        HelloToSomebody("Dima");
-        HelloToSomebody("Class");
-
-        var square3 = Square(3);
-        Console.WriteLine(square3);
-
-        // the same as above
-        Console.WriteLine(Square(3));
-
-        var initial = 5;
-        Console.WriteLine("ADD 3");
-        Add3(initial);
-        Console.WriteLine(initial);
-
-        Console.WriteLine("ADD 5");
-        Add5(ref initial);
-        Console.WriteLine(initial);
-
-        // parsing
-        var success = TryParseInt("42", out var result);
-        Console.WriteLine($"Success: {success}. Result: {result}");
-
-        success = TryDivideBy3(6, out initial);
-        Console.WriteLine($"Success: {success}. Result: {initial}");
-
-        success = TryDivideBy3(7, out initial);
-        Console.WriteLine($"Success: {success}. Result: {initial}");
-
-        success = TryDivideBy4(8, out initial);
-        Console.WriteLine($"Success: {success}. Result: {initial}");
-
-        success = TryDivideBy4(9, out initial);
-        Console.WriteLine($"Success: {success}. Result: {initial}");
-
-        TryRef(ref initial);
-        Console.WriteLine(initial);
-        initial = 30;
-        TryRef(ref initial);
-        Console.WriteLine(initial);
-
-        // Compilation error
-        // int newValue;
-        // TryRef(ref newValue);
-
-        Console.WriteLine(SumOfTwo(5, 6));
-        Console.WriteLine(SumOfTwo());
-        Console.WriteLine(SumOfTwo(5));
-        Console.WriteLine(SumOfTwo(b: 6));
-
-        Console.WriteLine(Multiply());
-        Console.WriteLine(Multiply(5));
-        Console.WriteLine(Multiply(5, 6, 2));
-        Console.WriteLine(Multiply(5.5, 6, 2));
-
-        System.Console.WriteLine("Fibonacci");
-        System.Console.WriteLine(Fibonacci(1));
-        System.Console.WriteLine(Fibonacci(2));
-        System.Console.WriteLine(Fibonacci(3));
-        System.Console.WriteLine(Fibonacci(8));
-        System.Console.WriteLine(Fibonacci(0));
-        System.Console.WriteLine(Fibonacci(-2));
-
-        System.Console.WriteLine(Fibonacci(1000));
-
-        System.Console.WriteLine("Fibonacci Reccursive");
-        System.Console.WriteLine("FOR 1");
-        System.Console.WriteLine(FibonacciRecursive(1));
-
-        System.Console.WriteLine("FOR 2");
-        System.Console.WriteLine(FibonacciRecursive(2));
-
-        System.Console.WriteLine("FOR 3");
-        System.Console.WriteLine(FibonacciRecursive(3));
-
-        System.Console.WriteLine("FOR 8");
-        System.Console.WriteLine(FibonacciRecursive(8));
-
-        System.Console.WriteLine(FibonacciRecursive(0));
-        System.Console.WriteLine(FibonacciRecursive(-2));
-
-        // System.Console.WriteLine(FibonacciRecursive(1000));
+        //Extra
+        System.Console.WriteLine(Repeat("Oo", 5));
     }
 }
