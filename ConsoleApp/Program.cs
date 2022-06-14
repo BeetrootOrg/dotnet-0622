@@ -1,37 +1,39 @@
-﻿public class Program
+﻿class Program
 {
-    public static int MaxValue(int firstParam, int secondParam)
-    {
-        int maxValue;
-        return maxValue = Math.Max(firstParam, secondParam);
+    static int MaxValue(int firstParam, int secondParam)
+    {       
+        if (firstParam > secondParam) return firstParam;
+        if (firstParam < secondParam) return secondParam;
+        else return firstParam;        
     }
-    public static int MinValue(int firstParam, int secondParam)
+    static int MinValue(int firstParam, int secondParam)
     {
-        int minValue;
-        return minValue = Math.Min(firstParam, secondParam);
+        if (firstParam < secondParam) return firstParam;
+        if (firstParam > secondParam) return secondParam;
+        else return firstParam;
     }
     
-    public static int MaxValue(int firstParam, int secondParam, int thirdParam)
+    static int MaxValue(int firstParam, int secondParam, int thirdParam)
     {
         int maxValue;
-        return maxValue = Math.Max(Math.Max(firstParam, secondParam), thirdParam);
+        return maxValue = MaxValue(MaxValue(firstParam, secondParam), thirdParam);
     }
-    public static int MaxValue(int firstParam, int secondParam, int thirdParam, int fourthParam)
+    static int MaxValue(int firstParam, int secondParam, int thirdParam, int fourthParam)
     {
         int maxValue;
-        return maxValue = Math.Max(Math.Max(Math.Max(firstParam, secondParam), thirdParam), fourthParam);
+        return maxValue = MaxValue(MaxValue(MaxValue(firstParam, secondParam), thirdParam), fourthParam);
     }
-    public static int MinValue(int firstParam, int secondParam, int thirdParam)
+    static int MinValue(int firstParam, int secondParam, int thirdParam)
     {
         int minValue;
-        return minValue = Math.Min(Math.Min(firstParam, secondParam), thirdParam);
+        return minValue = MinValue(MinValue(firstParam, secondParam), thirdParam);
     }
-    public static int MinValue(int firstParam, int secondParam, int thirdParam, int fourthParam)
+    static int MinValue(int firstParam, int secondParam, int thirdParam, int fourthParam)
     {
         int minValue;
-        return minValue = Math.Min(Math.Min(Math.Min(firstParam, secondParam), thirdParam), fourthParam);
+        return minValue = MinValue(MinValue(MinValue(firstParam, secondParam), thirdParam), fourthParam);
     }
-    public static bool TrySumIfOdd(int firstParam, int secondParam, out int sumResult)
+    static bool TrySumIfOdd(int firstParam, int secondParam, out int sumResult)
     {
         if ((firstParam + secondParam) % 2 != 0)
         {
@@ -45,10 +47,10 @@
         }
     }
 
-    public static string Repeat(string str, int n)
+    static string Repeat(string str, int n)
     { 
         int i = 0;
-        if (i >= n) 
+        if (i >= n)
         {
             return "";
         } 
@@ -57,7 +59,7 @@
 
     }
 
-    public static void Main(string[] args)
+    static void Main(string[] args)
     {
    
         int maxValue = MaxValue(6, 4);
@@ -80,11 +82,10 @@
 
         int sumResult;
         TrySumIfOdd(2, 3, out sumResult);
-        Console.WriteLine($"sum of 2 numbers : {sumResult}");
+        Console.WriteLine($"Sum of 2 numbers : {sumResult}");
 
         //recursion        
         Console.WriteLine(Repeat("bla", 3));
-
-         
+        
     }
 }
