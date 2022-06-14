@@ -42,15 +42,36 @@
 
         }
 
+        static int[] Insertion(int[] array)
+        {
+            for (int i = 1; i < array.Length; i++)
+            {
+                    for ( int j = i; j > 0; j--)
+                    {   
+                        if (array[j] < array[j - 1])
+                        {
+                            int temp = array[j];
+                            array[j] = array[j - 1];
+                            array[j - 1] = temp;        
+                        }
+                        
+                    }
+            }
+            return array;
+        }
+            
         
+
+
 
 
     
     static void Main(string[] args)
     {
-        int[] array = new int[] { 2, -3, 5, 4, 6, -7, 8 };
+        int[] array = new int[] { 9, -3, 5, 4, 6, -7, -8 };
         //Selection(array);
-        Bubble(array);
+        //Bubble(array);
+        Insertion(array);
 
         foreach (int item in array)
         {
