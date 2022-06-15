@@ -17,9 +17,17 @@
             arr[i] = random.Next(100);
         }
     }
+
+    static int[] CopyArray (int[] arr)
+    {
+        int[] copy = new int[arr.Length];
+        for (int i=0; i<copy.Length; i++)
+            copy[i] = arr[i];
+        return copy;
+    }
     
     static int[] Selection (int[] arr, OrderBy orderBy = OrderBy.Asc)
-    {        
+    {
         switch (orderBy)
         {
             case (OrderBy.Asc):
@@ -152,27 +160,28 @@
 
     static int[] Sort(int[] arr, SortAlgorithmType sortAlgorithmType = SortAlgorithmType.Selection, OrderBy orderBy = OrderBy.Asc)
     {
+        int[] copy = CopyArray(arr);
         switch (sortAlgorithmType)
         {
             case (SortAlgorithmType.Selection):
             {
-                Selection(arr, orderBy);                
+                Selection(copy, orderBy);                
                 break;
             }
 
             case (SortAlgorithmType.Bubble):
             {
-                Bubble(arr, orderBy);
+                Bubble(copy, orderBy);
                 break;
             }
             
             case (SortAlgorithmType.Insertion):
             {
-                Insertion(arr, orderBy);
+                Insertion(copy, orderBy);
                 break;
             }
         }
-        return arr;
+        return copy;
     }
 
     enum OrderBy {
@@ -197,6 +206,7 @@
         WriteArray(array);
         WriteArray(Sort(array, SortAlgorithmType.Selection));
         WriteArray(Sort(array, SortAlgorithmType.Selection, OrderBy.Desc));
+        WriteArray(array);
 
         Console.WriteLine("-----------------------------------------------------");
         Console.WriteLine("BUBBLE SORT:");
@@ -204,6 +214,7 @@
         WriteArray(array);
         WriteArray(Sort(array, SortAlgorithmType.Bubble));
         WriteArray(Sort(array, SortAlgorithmType.Bubble, OrderBy.Desc));
+        WriteArray(array);
 
         Console.WriteLine("-----------------------------------------------------");
         Console.WriteLine("Insertion SORT:");
@@ -211,6 +222,7 @@
         WriteArray(array);
         WriteArray(Sort(array, SortAlgorithmType.Insertion));
         WriteArray(Sort(array, SortAlgorithmType.Insertion, OrderBy.Desc));
+        WriteArray(array);
 
         Console.WriteLine("-----------------------------------------------------");
     }
