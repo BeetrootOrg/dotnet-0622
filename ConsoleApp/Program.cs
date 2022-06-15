@@ -53,6 +53,17 @@ void Add3ToAllWithReplaceRef(ref int[] arr)
     arr = copy;
 }
 
+int[] MulBy2(int[] arr)
+{
+    var copy = new int[arr.Length];
+
+    for (var index = 0; index < arr.Length; ++index)
+    {
+        copy[index] = arr[index] * 2;
+    }
+
+    return copy;
+}
 
 // analogues how to initialize array
 int[] array1 = { 1, 2, 3 };
@@ -95,3 +106,9 @@ WriteLineArray(array1);
 System.Console.WriteLine("Resize");
 Array.Resize(ref array1, 5);
 WriteLineArray(array1);
+
+// Multiply
+System.Console.WriteLine("MULTIPLY");
+var result1 = MulBy2(array1);
+WriteLineArray(array1);
+WriteLineArray(result1);
