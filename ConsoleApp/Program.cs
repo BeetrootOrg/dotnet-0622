@@ -1,24 +1,20 @@
-﻿// 1. create method void WriteLine(int n) and write to console numbers from 1 to n using recurssion
-void WriteLine(int n)
+﻿void WriteLineArray(int[] arr)
 {
-    if (n <= 0) return;
-    WriteLine(n - 1);
-    System.Console.Write(n);
+    foreach (var element in arr)
+    {
+        System.Console.WriteLine(element);
+    }
 }
 
-// 2. create method int Factorial(int n) that will count n! = n * (n - 1) * (n - 2) * ... * 2 * 1, e.g. 5! = 5 * 4 * 3 * 2 * 1 = 120;
-// n! = n * (n - 1)!
-// (n - 1)! = (n - 1) * (n - 2)!
-// 3! = 3 * 2!
-// 2! = 2 * 1!
-// 1! = 1
-int Factorial(int n)
-{
-    if (n < 0) return -1;
-    if (n == 0) return 1;
-    return n * Factorial(n - 1);
-}
+// analogues how to initialize array
+int[] array1 = { 1, 2, 3 };
+var array2 = new[] { 1, 2, 3 };
+var array3 = new int[] { 1, 2, 3 };
+var array4 = new int[3] { 1, 2, 3 };
+var array5 = new int[3];
 
-WriteLine(9);
-System.Console.WriteLine();
-System.Console.WriteLine(Factorial(5));
+WriteLineArray(array1);
+WriteLineArray(array2);
+WriteLineArray(array3);
+WriteLineArray(array4);
+WriteLineArray(array5);
