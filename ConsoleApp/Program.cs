@@ -1,4 +1,5 @@
-﻿byte micro = 3;
+﻿
+byte micro = 3;
 short mini = 2;
 int normal = 10;
 long elongate = 123;
