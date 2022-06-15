@@ -90,3 +90,8 @@ WriteLineArray(array1);
 System.Console.WriteLine("ADD 3 (WITH REPLACE REF)");
 Add3ToAllWithReplaceRef(ref array1);
 WriteLineArray(array1);
+
+// Change length
+System.Console.WriteLine("Resize");
+Array.Resize(ref array1, 5);
+WriteLineArray(array1);
