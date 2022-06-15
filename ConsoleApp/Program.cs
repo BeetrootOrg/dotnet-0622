@@ -140,6 +140,36 @@ int[] ReverseRecursive(int[] arr)
     return copy;
 }
 
+int[] SelectionSort(int[] arr)
+{
+    var copy = new int[arr.Length];
+    Array.Copy(arr, copy, arr.Length);
+
+    for (var i = 1; i < copy.Length; ++i)
+    {
+        var current = copy[i];
+        var minIndex = i;
+        for (var j = i - 1; j >= 0; --j)
+        {
+            var element = copy[j];
+
+            if (element > current)
+            {
+                minIndex = j;
+                copy[j + 1] = element;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        copy[minIndex] = current;
+    }
+
+    return copy;
+}
+
 // analogues how to initialize array
 int[] array1 = { 1, 2, 3 };
 var array2 = new[] { 1, 2, 3 };
@@ -214,3 +244,11 @@ ReverseReverse(array1);
 
 // REVERSE RECURSIVE
 ReverseRecursive(array1);
+
+// SORT
+System.Console.WriteLine("SORTED");
+WriteLineArray(SelectionSort(new[] { 1, 2, 3, 4, 5 }));
+System.Console.WriteLine("REVERSE SORTED");
+WriteLineArray(SelectionSort(new[] { 5, 4, 3, 2, 1 }));
+System.Console.WriteLine("RANDOM SORTED");
+WriteLineArray(SelectionSort(new[] { 1, 5, 0, 42, 6, 6, 5, 4, 2, 6 }));
