@@ -84,6 +84,19 @@
             }
             return repstring;
         }
+
+        static void Repeatrecursive(string teststr, int count)
+        {
+            
+            if (count == 0)
+            {
+                return;
+            }
+            Console.Write(teststr);
+            Repeatrecursive(teststr, count - 1);
+            
+
+        }
         static void Main(string[] args)
         {
 
@@ -122,6 +135,7 @@
             }
 
             //EXTRA
+
             Console.WriteLine();
             Console.WriteLine("EXTRA ");
             Console.WriteLine();
@@ -138,7 +152,33 @@
             int.TryParse(Console.ReadLine(), out count);
 
             Console.WriteLine(Repeat(teststr, count)); 
+            
+            //EXTRA RECURSIVE
 
+            Console.WriteLine();
+            Console.WriteLine("EXTRA RECURSIVE");
+            Console.WriteLine();
+
+            count = 0;
+            teststr = null;
+
+            Console.WriteLine("vvedit' symvoly, yaki budut' povtoryuvatis");
+
+            teststr = Console.ReadLine();
+
+             Console.WriteLine("Vvedit' skil'ki raziv treba povtoriti tekst (chislo)");
+
+            int.TryParse(Console.ReadLine(), out count);
+            if (count > 0 && teststr != "")
+            {
+                Repeatrecursive(teststr, count);
+            }
+            else
+            {
+                Console.WriteLine("Perevirte vvedeni dani, i sprobuyte sche");
+            }
+
+            
         }
     } 
 }
