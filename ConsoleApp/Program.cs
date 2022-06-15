@@ -252,3 +252,32 @@ System.Console.WriteLine("REVERSE SORTED");
 WriteLineArray(InsertionSort(new[] { 5, 4, 3, 2, 1 }));
 System.Console.WriteLine("RANDOM SORTED");
 WriteLineArray(InsertionSort(new[] { 1, 5, 0, 42, 6, 6, 5, 4, 2, 6 }));
+
+System.Console.WriteLine("MULTI");
+int[,] multi1 = new int[4, 2] { { 1, 2 }, { 3, 4 }, { 5, 6 }, { 7, 8 } };
+foreach (var item in multi1)
+{
+    System.Console.WriteLine(item);
+}
+
+System.Console.WriteLine($"Length: {multi1.Length}");
+System.Console.WriteLine($"Length: {multi1.GetLength(0)}");
+System.Console.WriteLine($"Length: {multi1.GetLength(1)}");
+
+System.Console.WriteLine("JAGGED");
+int[][] jagged1 = new int[][]
+{
+    new [] { 1, 2},
+    new [] { 3, 4, 5},
+    new [] { 3, 4, 5, 6}
+};
+
+foreach (var arr in jagged1)
+{
+    foreach (var item in arr)
+    {
+        System.Console.WriteLine(item);
+    }
+}
+
+System.Console.WriteLine($"Length: {jagged1.Length}");
