@@ -1,5 +1,4 @@
-﻿public void 
-int[] reverseIt(int index , int [] main_Arr)
+﻿void (int[] reverseIt(int index , int [] main_Arr))
 {
     if(index==(main_Arr.length)/2)
     {
