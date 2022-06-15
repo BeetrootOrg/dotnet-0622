@@ -21,6 +21,39 @@ void WriteLineArrayRecurssion(int[] arr)
     WriteLineArrayRecurssion(arr[1..]);
 }
 
+void Add3ToAll(int[] arr)
+{
+    for (var index = 0; index < arr.Length; ++index)
+    {
+        arr[index] += 3;
+    }
+}
+
+void Add3ToAllWithReplace(int[] arr)
+{
+    var copy = new int[arr.Length];
+
+    for (var index = 0; index < arr.Length; ++index)
+    {
+        copy[index] = arr[index] + 3;
+    }
+
+    arr = copy;
+}
+
+void Add3ToAllWithReplaceRef(ref int[] arr)
+{
+    var copy = new int[arr.Length];
+
+    for (var index = 0; index < arr.Length; ++index)
+    {
+        copy[index] = arr[index] + 3;
+    }
+
+    arr = copy;
+}
+
+
 // analogues how to initialize array
 int[] array1 = { 1, 2, 3 };
 var array2 = new[] { 1, 2, 3 };
@@ -40,3 +73,20 @@ WriteLineArrayFor(array1);
 
 System.Console.WriteLine("RECURSION");
 WriteLineArrayRecurssion(array1);
+
+// empty array
+var empty1 = new int[0];
+var empty2 = Array.Empty<int>();
+
+// add 3
+System.Console.WriteLine("ADD 3");
+Add3ToAll(array1);
+WriteLineArray(array1);
+
+System.Console.WriteLine("ADD 3 (WITH REPLACE)");
+Add3ToAllWithReplace(array1);
+WriteLineArray(array1);
+
+System.Console.WriteLine("ADD 3 (WITH REPLACE REF)");
+Add3ToAllWithReplaceRef(ref array1);
+WriteLineArray(array1);
