@@ -65,6 +65,19 @@ int[] MulBy2(int[] arr)
     return copy;
 }
 
+int[] MulBy3(int[] arr)
+{
+    var copy = new int[arr.Length];
+    Array.Copy(arr, copy, arr.Length);
+
+    for (var index = 0; index < arr.Length; ++index)
+    {
+        copy[index] *= 3;
+    }
+
+    return copy;
+}
+
 // analogues how to initialize array
 int[] array1 = { 1, 2, 3 };
 var array2 = new[] { 1, 2, 3 };
@@ -112,3 +125,9 @@ System.Console.WriteLine("MULTIPLY");
 var result1 = MulBy2(array1);
 WriteLineArray(array1);
 WriteLineArray(result1);
+
+// Multiply
+System.Console.WriteLine("MULTIPLY3");
+var result2 = MulBy3(array1);
+WriteLineArray(array1);
+WriteLineArray(result2);
