@@ -281,3 +281,9 @@ foreach (var arr in jagged1)
 }
 
 System.Console.WriteLine($"Length: {jagged1.Length}");
+
+// Compilation error below
+// foreach (var elem in array1)
+// {
+//     elem = 0;
+// }
