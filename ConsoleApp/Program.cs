@@ -18,27 +18,43 @@
 // Extra:
 // Read values of X and Y from the console. If output is invalid - write to console Invalid input and exit the program.
 
-int x =5;
-int y = 2;
+int x =0;
+int y = 0;
 int num = 0;
 long sum = 0;
 
-if (x < y)
+System.Console.WriteLine("Please input X: ");
+if (int.TryParse(Console.ReadLine(), out x))
 {
-    num = y - x;
-    while(num > -1)
+    System.Console.WriteLine("Please input Y: ");
+    if (int.TryParse(Console.ReadLine(), out y))
     {
-        sum += y - num;
-        --num;
+         if (x < y)
+        {
+            num = y - x;
+            while(num > -1)
+            {
+                sum += y - num;
+                --num;
+            }
+        }
+        else
+        {
+            num = x - y;
+            while(num > -1)
+            {
+                sum += x - num;
+                --num;
+            }
+        }   
+    }
+    else
+    {
+        System.Console.WriteLine("Invalid input");
     }
 }
 else
-{
-    num = x - y;
-    while(num > -1)
-    {
-        sum += x - num;
-        --num;
-    }
+{ 
+    System.Console.WriteLine("Invalid input");
 }
 //System.Console.WriteLine ($"X = {x}, Y = {y}, Sum = {sum}, Num = {num}");
