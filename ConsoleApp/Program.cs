@@ -140,7 +140,7 @@ int[] ReverseRecursive(int[] arr)
     return copy;
 }
 
-int[] SelectionSort(int[] arr)
+int[] InsertionSort(int[] arr)
 {
     var copy = new int[arr.Length];
     Array.Copy(arr, copy, arr.Length);
@@ -247,8 +247,8 @@ ReverseRecursive(array1);
 
 // SORT
 System.Console.WriteLine("SORTED");
-WriteLineArray(SelectionSort(new[] { 1, 2, 3, 4, 5 }));
+WriteLineArray(InsertionSort(new[] { 1, 2, 3, 4, 5 }));
 System.Console.WriteLine("REVERSE SORTED");
-WriteLineArray(SelectionSort(new[] { 5, 4, 3, 2, 1 }));
+WriteLineArray(InsertionSort(new[] { 5, 4, 3, 2, 1 }));
 System.Console.WriteLine("RANDOM SORTED");
-WriteLineArray(SelectionSort(new[] { 1, 5, 0, 42, 6, 6, 5, 4, 2, 6 }));
+WriteLineArray(InsertionSort(new[] { 1, 5, 0, 42, 6, 6, 5, 4, 2, 6 }));
