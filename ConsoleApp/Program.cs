@@ -78,6 +78,29 @@ int[] MulBy3(int[] arr)
     return copy;
 }
 
+int SumAll(int[] values)
+{
+    var sum = 0;
+    foreach (var item in values)
+    {
+        sum += item;
+    }
+
+    return sum;
+}
+
+
+int SumAllParams(params int[] values)
+{
+    var sum = 0;
+    foreach (var item in values)
+    {
+        sum += item;
+    }
+
+    return sum;
+}
+
 // analogues how to initialize array
 int[] array1 = { 1, 2, 3 };
 var array2 = new[] { 1, 2, 3 };
@@ -131,3 +154,14 @@ System.Console.WriteLine("MULTIPLY3");
 var result2 = MulBy3(array1);
 WriteLineArray(array1);
 WriteLineArray(result2);
+
+// SUM
+SumAll(new[] { 1, 2, 3 });
+// compilation error below
+// SumAll(1, 2, 3);
+// SumAll();
+
+SumAllParams(new[] { 1, 2, 3 });
+SumAllParams(1, 2, 3);
+SumAllParams();
+SumAllParams(1);
