@@ -101,6 +101,45 @@ int SumAllParams(params int[] values)
     return sum;
 }
 
+System.Console.WriteLine($"{5.67890:N2}");
+double b = Math.Round(5.67890, 2);
+
+int[] Reverse(int[] arr)
+{
+    var copy = new int[arr.Length];
+    for (var index = 0; index < arr.Length; index++)
+    {
+        copy[arr.Length - 1 - index] = arr[index];
+    }
+
+    return copy;
+}
+
+int[] ReverseReverse(int[] arr)
+{
+    var copy = new int[arr.Length];
+    for (var index = arr.Length - 1; index >= 0; index--)
+    {
+        copy[index] = arr[arr.Length - index - 1];
+    }
+
+    return copy;
+}
+
+void ReverseRecursiveInternal(int[] arr, int[] result, int index = 0)
+{
+    if (index >= arr.Length) return;
+    result[arr.Length - index - 1] = arr[index];
+    ReverseRecursiveInternal(arr, result, index + 1);
+}
+
+int[] ReverseRecursive(int[] arr)
+{
+    var copy = new int[arr.Length];
+    ReverseRecursiveInternal(arr, copy);
+    return copy;
+}
+
 // analogues how to initialize array
 int[] array1 = { 1, 2, 3 };
 var array2 = new[] { 1, 2, 3 };
@@ -165,3 +204,13 @@ SumAllParams(new[] { 1, 2, 3 });
 SumAllParams(1, 2, 3);
 SumAllParams();
 SumAllParams(1);
+
+// REVERSE
+System.Console.WriteLine("REVERSE");
+result1 = Reverse(array1);
+WriteLineArray(result1);
+
+ReverseReverse(array1);
+
+// REVERSE RECURSIVE
+ReverseRecursive(array1);
