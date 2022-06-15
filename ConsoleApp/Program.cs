@@ -26,7 +26,7 @@
         return copy;
     }
     
-    static int[] Selection (int[] arr, OrderBy orderBy = OrderBy.Asc)
+    static void Selection (int[] arr, OrderBy orderBy = OrderBy.Asc)
     {
         switch (orderBy)
         {
@@ -65,10 +65,9 @@
                 break;
             }
         }
-        return arr;
     }
 
-    static int[] Bubble (int[] arr, OrderBy orderBy = OrderBy.Asc)
+    static void Bubble (int[] arr, OrderBy orderBy = OrderBy.Asc)
     {
         switch (orderBy)
         {
@@ -107,11 +106,10 @@
                 }
                 break;
             }
-        }
-        return arr;        
+        }       
     }
 
-    static int[] Insertion (int[] arr, OrderBy orderBy = OrderBy.Asc)
+    static void Insertion (int[] arr, OrderBy orderBy = OrderBy.Asc)
     {
         switch (orderBy)
         {
@@ -155,7 +153,71 @@
                 break;
             }
         }
-        return arr;
+    }
+
+    static void Qsort (int[] arr, OrderBy orderBy = OrderBy.Asc)
+    {
+        switch (orderBy)
+        {
+            case (OrderBy.Asc):
+            {
+                QsortAsc(arr).CopyTo(arr,0);                
+                break;
+            }
+
+            case (OrderBy.Desc):
+            {
+                QsortDesc(arr).CopyTo(arr,0);
+                break;
+            }            
+        }
+    }
+
+    static int[] AddItem(int[] arr, int item) 
+    {
+        int[] result = new int[arr.Length+1];
+        arr.CopyTo(result, 0);
+        result[arr.Length] = item;
+        return result;
+    }
+
+    static int[] QsortAsc (int[] arr)
+    {
+        if (arr.Length == 0) return Array.Empty<int>();
+        if (arr.Length == 1) return arr;
+        int[] lower = Array.Empty<int>();
+        int[] equal = new int[] {arr[0]};
+        int[] greater = Array.Empty<int>();
+        for (int i = 1; i < arr.Length; i++)
+        {
+            if (arr[i] < arr[0]) lower = AddItem(lower, arr[i]);
+            if (arr[i] == arr[0]) equal = AddItem(equal, arr[i]);
+            if (arr[i] > arr[0]) greater = AddItem(greater, arr[i]);
+        }
+        int[] result = new int[arr.Length];
+        QsortAsc(lower).CopyTo(result, 0);
+        QsortAsc(equal).CopyTo(result, lower.Length);
+        QsortAsc(greater).CopyTo(result, lower.Length+equal.Length);
+        return result;
+    }
+    static int[] QsortDesc (int[] arr)
+    {
+        if (arr.Length == 0) return Array.Empty<int>();
+        if (arr.Length == 1) return arr;
+        int[] lower = Array.Empty<int>();
+        int[] equal = new int[] {arr[0]};
+        int[] greater = Array.Empty<int>();
+        for (int i = 1; i < arr.Length; i++)
+        {
+            if (arr[i] < arr[0]) lower = AddItem(lower, arr[i]);
+            if (arr[i] == arr[0]) equal = AddItem(equal, arr[i]);
+            if (arr[i] > arr[0]) greater = AddItem(greater, arr[i]);
+        }
+        int[] result = new int[arr.Length];
+        QsortDesc(greater).CopyTo(result, 0);
+        QsortDesc(equal).CopyTo(result, greater.Length);
+        QsortDesc(lower).CopyTo(result, greater.Length+equal.Length);
+        return result;
     }
 
     static int[] Sort(int[] arr, SortAlgorithmType sortAlgorithmType = SortAlgorithmType.Selection, OrderBy orderBy = OrderBy.Asc)
@@ -180,6 +242,12 @@
                 Insertion(copy, orderBy);
                 break;
             }
+
+            case (SortAlgorithmType.Qsort):
+            {
+                Qsort(copy, orderBy);
+                break;
+            }
         }
         return copy;
     }
@@ -192,7 +260,8 @@
     enum SortAlgorithmType{
         Selection,
         Bubble,
-        Insertion
+        Insertion,
+        Qsort
     }
     
     private static void Main(string[] args)
@@ -221,6 +290,14 @@
         RandomArray(array);
         WriteArray(array);
         WriteArray(Sort(array, SortAlgorithmType.Insertion));
+        WriteArray(Sort(array, SortAlgorithmType.Insertion, OrderBy.Desc));
+        WriteArray(array);
+
+        Console.WriteLine("-----------------------------------------------------");
+        Console.WriteLine("QUICK SORT:");
+        RandomArray(array);
+        WriteArray(array);
+        WriteArray(Sort(array, SortAlgorithmType.Qsort));
         WriteArray(Sort(array, SortAlgorithmType.Insertion, OrderBy.Desc));
         WriteArray(array);
 
