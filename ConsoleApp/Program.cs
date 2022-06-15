@@ -7,3 +7,29 @@ Define and call with different parameters next methods:
     Overload first two methods with 3 and 4 parameters
 
 */
+
+
+
+int number1 = 7;
+int number2 = 19;
+
+//медод получил 2 числа сравнит их и скажет какое больше
+static int MM1(int number1, int number2)
+
+{
+if (number1 > 0)
+{
+   return number1;
+
+}
+
+}
+
+
+MM1(number1, number2);
+
+
+
+
+//System.Console.WriteLine(MethodMax(number1));
+
