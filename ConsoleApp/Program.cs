@@ -49,7 +49,8 @@ if (int.TryParse(Console.ReadLine(), out x))
                 sum += num;
                 --num;
             }
-        }   
+        }
+        System.Console.WriteLine ($"The sum of the two constants {x} and {y} is equal to {sum}");
     }
     else
     {
@@ -60,4 +61,3 @@ else
 { 
     System.Console.WriteLine("Invalid input");
 }
-System.Console.WriteLine ($"The sum of the two constants {x} and {y} is equal to {sum}");
