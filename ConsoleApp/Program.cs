@@ -65,3 +65,54 @@ static int MinValueFor(int a, int b, int c, int d)
 }
 System.Console.WriteLine($"Min value from for number {MinValueFor(x, y, z, q)}");
 
+// Try sum of odd
+static bool TrySumofOdd(int a, int b)
+
+{
+    int sum = 0;
+    if (a < b)
+    {
+        for (int i = b; i <= a; i++)
+        {
+            sum +=i;
+        }
+    }
+    if (a > b)
+    {
+        for (int i = a; i <= b; i++)
+        {
+            sum +=i;
+        }
+    }
+    if (a == b)
+    {
+        sum = a + b;
+    }
+
+    bool m = (sum % 2) > 0 ? true : false;
+    return m;
+}
+
+System.Console.WriteLine($"Sum of numbers between inputs is odd:{TrySumofOdd(x, y)} ");
+
+// Extra 
+
+System.Console.WriteLine("Please enter repited value");
+string s = Console.ReadLine();
+System.Console.WriteLine("Please enter quantyty of repeats");
+int d;
+int.TryParse(Console.ReadLine(), out d);
+
+
+static string Repeat(string m, int n)
+{
+   int i = 0;
+        if (i >= n)
+        {
+            return "";
+        } 
+        i++;
+        return m + Repeat(m, n-1);
+}
+
+ Console.WriteLine(Repeat(s, d));
