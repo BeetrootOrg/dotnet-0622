@@ -15,7 +15,7 @@ WriteLineN(10);
 // {
 //     if (n == 1) return;
 //     {
-//         System.Console.WriteLine(n);
+//         System.Console.Write(n);
 //     }
 //     Console.Write(WriteLineN(n - 1));
 // }
