@@ -60,4 +60,4 @@ else
 { 
     System.Console.WriteLine("Invalid input");
 }
-System.Console.WriteLine ($"X = {x}, Y = {y}, Sum = {sum}, Num = {num}");
+System.Console.WriteLine ($"The sum of the two constants {x} and {y} is equal to {sum}");
