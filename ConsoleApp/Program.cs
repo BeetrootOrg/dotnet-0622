@@ -130,6 +130,42 @@ internal class Program
              return resultOn3End;
         }
 
+        static int MinMath(int numb1, int numb2, int numb3, int numb4)
+        {
+            int resultOn3End;
+            int resultOn31;
+            int resultOn32;
+
+            if (numb1 > numb2)// спочатку порівняємо перший і другий в результат переможця запишем
+            {
+                resultOn31 = numb2;
+            }
+
+            else
+            {
+                resultOn31 = numb1;
+            }
+            
+            if (numb3 > numb4)// потім  порівняємо третій і четвертий в результат переможця запишем
+            {
+                resultOn32 = numb4;
+            }
+           else
+            {
+                resultOn32 = numb3;
+            }
+            if (resultOn31 > resultOn32)
+             {
+            resultOn3End = resultOn32;
+             }
+            else
+            {
+                resultOn3End = resultOn31;
+            }
+
+             return resultOn3End;
+        }
+
 
 
         /*
@@ -210,7 +246,8 @@ internal class Program
         Console.WriteLine(MinMath(numb1, numb2, numb3));
         Console.WriteLine("MaxMath для 4 чисел");
         Console.WriteLine(MaxMath(numb1, numb2, numb3, numb4));
-
+        Console.WriteLine("MinMath для 4 чисел");
+        Console.WriteLine(MinMath(numb1, numb2, numb3, numb4));
 
 
     }
