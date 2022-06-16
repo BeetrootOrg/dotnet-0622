@@ -1,4 +1,5 @@
-﻿//03-conditions
+﻿
+//03-conditions
 //HOMEWORK
 // Not your boring middle school homework — these tasks will help you in real life! Have fun with your assignment for this topic:
 // Create a program that will start with declaration of two constants (X and Y) and will count the sum of all numbers between these constants. If they are equal then sum should be one of them
@@ -20,7 +21,7 @@
 
 int x =0;
 int y = 0;
-int num = 0;
+long num = 0;
 long sum = 0;
 
 System.Console.WriteLine("Please input X: ");
@@ -29,21 +30,23 @@ if (int.TryParse(Console.ReadLine(), out x))
     System.Console.WriteLine("Please input Y: ");
     if (int.TryParse(Console.ReadLine(), out y))
     {
-         if (x < y)
+        if (x < y)
         {
-            num = y - x;
-            while(num > -1)
+            num = y;
+            while(num >= x)
             {
-                sum += y - num;
+                //sum += num < 0 ? (num * -1) : num;
+                sum += num;
                 --num;
             }
         }
         else
         {
-            num = x - y;
-            while(num > -1)
+            num = x;
+            while(num >= y)
             {
-                sum += x - num;
+                //sum += num < 0 ? (num * -1) : num;
+                sum += num;
                 --num;
             }
         }   
@@ -57,4 +60,4 @@ else
 { 
     System.Console.WriteLine("Invalid input");
 }
-//System.Console.WriteLine ($"X = {x}, Y = {y}, Sum = {sum}, Num = {num}");
+System.Console.WriteLine ($"X = {x}, Y = {y}, Sum = {sum}, Num = {num}");
