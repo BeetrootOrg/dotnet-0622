@@ -10,28 +10,31 @@
 
     static int[] Sort (int[] array, SortAlgorithmType sortType, string orderBy = "asc")
     {  
+        var copy = new int[array.Length];
+        Array.Copy(array, copy, array.Length);
+        
         switch ((int) sortType)
         {
             case 0:
-                Selection(array);
+                Selection(copy);
                 break;
                 
             case 1:
-                Bubble(array);
+                Bubble(copy);
                 break;
                 
             case 2: 
-                Insertion(array); 
+                Insertion(copy); 
                 break;
             
             default: 
-            Quick(array); 
+            Quick(copy); 
             break;
         }
 
-        if (orderBy == "desc") Array.Reverse(array);
+        if (orderBy == "desc") Array.Reverse(copy);
         
-        return array;
+        return copy;
     }
     static int[] Selection(int[] array)
         {
@@ -122,9 +125,16 @@
         int[] array = new int[] {10, 9, -8, -7, 6, -5, 4, 3, -2, 1};
 
         string orderBy = "asc";
-        Sort(array, SortAlgorithmType.quick, orderBy);
+        
+        
+        var result = Sort(array, SortAlgorithmType.quick, orderBy);
 
         foreach (int item in array)
+        {
+            Console.WriteLine(item);
+        }
+
+        foreach (int item in result)
         {
             Console.WriteLine(item);
         }
