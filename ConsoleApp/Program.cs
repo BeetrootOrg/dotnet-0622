@@ -4,14 +4,13 @@
     {
         selection,
         bubble,
-        insertion
+        insertion,
+        quick
     }
 
     static int[] Sort (int[] array, SortAlgorithmType sortType, string orderBy = "asc")
     {  
-        int sort = (int) sortType;
-        
-        switch (sort)
+        switch ((int) sortType)
         {
             case 0:
                 Selection(array);
@@ -21,9 +20,13 @@
                 Bubble(array);
                 break;
                 
-            default: 
+            case 2: 
                 Insertion(array); 
                 break;
+            
+            default: 
+            Quick(array); 
+            break;
         }
 
         if (orderBy == "desc") Array.Reverse(array);
@@ -63,13 +66,11 @@
                         array[i + 1] = temp;
                         sorted = true;
                     }
-                    
                 }
                 j++;
             }
             while (j < array.Length && sorted);    
             return array;
-
         }
 
         static int[] Insertion(int[] array)
@@ -88,13 +89,40 @@
                     }
             }
             return array;
-        }           
+        }
+
+        static int[] Quick(int[] array, int start = 0, int end = 0)
+        {   
+   
+            if (end == 0) end = array.Length - 1;
+            
+            int pivot = array[end];
+
+            int i = start - 1;
+
+            for (int j = start; j <= end; j++)
+            {
+              if (pivot >= array[j])
+              {
+                    i++;
+                    int temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+              }
+            }
+
+            if (i > 1) Quick (array, 0, (i - 1)); // left part
+            if ((end - i) > 1) Quick (array, (i + 1), end); // right part
+ 
+            return array;
+        }
+                   
     static void Main(string[] args)
     {
-        int[] array = new int[] { 9, -3, 5, 4, 6, -7, -8 };
+        int[] array = new int[] {10, 9, -8, -7, 6, -5, 4, 3, -2, 1};
 
-        string orderBy = "desc";
-        Sort(array, SortAlgorithmType.insertion, orderBy);
+        string orderBy = "asc";
+        Sort(array, SortAlgorithmType.quick, orderBy);
 
         foreach (int item in array)
         {
