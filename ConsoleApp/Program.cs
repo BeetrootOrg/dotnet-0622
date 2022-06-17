@@ -165,19 +165,20 @@ internal class Program
 
     private static void Main(string[] args)
     {
-        // long res;
-        // Console.WriteLine(Define_Max(23, 76));
-        // Console.WriteLine(Define_Max(23, 76, 88.88f));
-        // Console.WriteLine(Define_Max(23, 76, 88.88f, 99.99));
-        // Console.WriteLine(Define_Min(99, 77));
-        // Console.WriteLine(Define_Min(99, 77, 55.55f));
-        // Console.WriteLine(Define_Min(99, 77, 55.55f, 33.33));
+/*         long res;
+        Console.WriteLine(Define_Max(23, 76));
+        Console.WriteLine(Define_Max(23, 76, 88.88f));
+        Console.WriteLine(Define_Max(23, 76, 88.88f, 99.99));
+        Console.WriteLine(Define_Min(99, 77));
+        Console.WriteLine(Define_Min(99, 77, 55.55f));
+        Console.WriteLine(Define_Min(99, 77, 55.55f, 33.33));
 
-        // Console.WriteLine($"{TrySumIfOdd(1, 2, out res)}, res = {res}");
-        // Console.WriteLine($"res = {res}, {TrySumIfOdd(1, 2, out res)}");
+        Console.WriteLine($"{TrySumIfOdd(1, 2, out res)}, res = {res}");
+        Console.WriteLine($"{TrySumIfOdd(0, -1, out res)}, res = {res}");
+        Console.WriteLine($"{TrySumIfOdd(2, -1, out res)}, res = {res}");
 
-        // Console.WriteLine($"{Repeat("abc ", 4)}");
-        string abc = Repeat_Recursion("abc ", 4);
-        Console.WriteLine($"{abc}");
+        Console.WriteLine($"{Repeat("abc ", 4)}");
+
+        Console.WriteLine($"{Repeat_Recursion("abc ", 4)}"); */
     }
 }
