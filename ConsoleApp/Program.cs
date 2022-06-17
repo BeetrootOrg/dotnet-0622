@@ -114,7 +114,7 @@ internal class Program
         if (a < b)
         {
             num = b;
-            while(num >= a)
+            while (num >= a)
             {
                 res += num;
                 --num;
@@ -123,7 +123,7 @@ internal class Program
         else
         {
             num = a;
-            while(num >= b)
+            while (num >= b)
             {
                 res += num;
                 --num;
@@ -139,18 +139,31 @@ internal class Program
         }
         return succ;
     }
-    
+
+    static string Repeat(string x, int n)
+    {
+        string res = string.Empty;
+        while (n > 0)
+        {
+            res += x;
+            --n;
+        }
+        return res;
+    }
+
     private static void Main(string[] args)
     {
-        long res;
-        Console.WriteLine(Define_Max(23, 76));
-        Console.WriteLine(Define_Max(23, 76, 88.88f));
-        Console.WriteLine(Define_Max(23, 76, 88.88f, 99.99));
-        Console.WriteLine(Define_Min(99, 77));
-        Console.WriteLine(Define_Min(99, 77, 55.55f));
-        Console.WriteLine(Define_Min(99, 77, 55.55f, 33.33));
+        // long res;
+        // Console.WriteLine(Define_Max(23, 76));
+        // Console.WriteLine(Define_Max(23, 76, 88.88f));
+        // Console.WriteLine(Define_Max(23, 76, 88.88f, 99.99));
+        // Console.WriteLine(Define_Min(99, 77));
+        // Console.WriteLine(Define_Min(99, 77, 55.55f));
+        // Console.WriteLine(Define_Min(99, 77, 55.55f, 33.33));
 
-        Console.WriteLine($"{TrySumIfOdd(1, 2, out res)}, res = {res}");
-        Console.WriteLine($"res = {res}, {TrySumIfOdd(1, 2, out res)}");
+        // Console.WriteLine($"{TrySumIfOdd(1, 2, out res)}, res = {res}");
+        // Console.WriteLine($"res = {res}, {TrySumIfOdd(1, 2, out res)}");
+
+        Console.WriteLine($"{Repeat("abc ", 4)}");
     }
 }
