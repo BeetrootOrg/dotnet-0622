@@ -1,32 +1,59 @@
-﻿void WriteLineArray(int[] arr)
+﻿public class Program
 {
-    foreach (var a in arr)
+
+    static int myMin(int a, int b)=>  a <= b ? a : b;
+    static int myMin(int a, int b, int c) => a <= b ? a <= c ? a : c : (b < c ? b : c);
+    static int myMin(int a, int b, int c, int d) => a <= b ? a <= c ? a <= d ? a : d : (c <= d ? c : d) : (b < c ? b < d ? b : d : (d < c ? d : c)); 
+
+    static int myMax(int a, int b)=> a > b ? a : b;
+    static int myMax(int a, int b, int c)=> a >= b ? a >= c ? a : c : (b > c ? b : c);
+    static int myMax(int a, int b, int c, int d) => a >= b ? a >= c ? a >= d ? a : d : (c > d ? c : d) : (b > c ? b > d ? b : d : (c > d ? c : d));
+
+
+    static bool TrySumIfOdd(int a, int b, out int sum)
     {
-        System.Console.WriteLine(a);
+        sum = 0;
+        for(int i = myMin(a,b); i <= myMax(a,b); ++i)
+        {
+            sum += i;
+        }
+
+        return (sum % 2) != 0 ? true : false; 
+    }
+
+
+    static string Repeat1(string str, int count)
+    {
+        string repeater = str;
+        while(count > 1)
+        {
+            count--;
+            str += repeater;
+            
+        }
+
+        return str;
+    }
+
+    static string RepeatRec(string str, int count, out string outStr)
+    {
+        outStr = "";
+        if(count <= 0) return outStr;
+        RepeatRec(str, count - 1, out outStr);
+        return outStr += str;
+    }   
+    static void Main()
+    {
+
+        bool b = TrySumIfOdd(1,1, out int sum);
+        Console.WriteLine(b);
+        Console.WriteLine(sum);
+        b = TrySumIfOdd(1,3, out sum);
+        Console.WriteLine(b);
+        Console.WriteLine(sum);
+        Console.WriteLine(Repeat1("str", 8));
+        RepeatRec("str",8,out string str);
+        Console.WriteLine(str);
+
     }
 }
-
-void WriteLineArrayFor(int[] arr)
-{
-    for(int i = 0; i < arr.Length; i++)
-    {
-        System.Console.WriteLine(arr[i]);
-    }
-}
-
-void WriteLineArrayRecursion(int[] arr)
-{
-    if (arr.Length == 0) return;
-    System.Console.WriteLine(arr[0]);
-    WriteLineArrayRecursion(arr[1..]);
-}
-
-//initialize
-int[] array = { 1, 2, 3 };
-var array2 = new[] { 1, 2, 3 };
-var array3 = new int[] { 1, 2, 3 };
-var array4 = new int[3] { 1, 2, 3 };
-var array5 = new int [3];
-WriteLineArray(array);
-WriteLineArrayFor(array);
-WriteLineArrayRecursion(array);
