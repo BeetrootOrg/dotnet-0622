@@ -151,6 +151,18 @@ internal class Program
         return res;
     }
 
+    static string Repeat_Recursion(string x, int n)
+    {
+        if (n > 1)
+        {
+            return x += Repeat_Recursion(x, --n);
+        }
+        else
+        {
+            return x;
+        }
+    }
+
     private static void Main(string[] args)
     {
         // long res;
@@ -164,6 +176,8 @@ internal class Program
         // Console.WriteLine($"{TrySumIfOdd(1, 2, out res)}, res = {res}");
         // Console.WriteLine($"res = {res}, {TrySumIfOdd(1, 2, out res)}");
 
-        Console.WriteLine($"{Repeat("abc ", 4)}");
+        // Console.WriteLine($"{Repeat("abc ", 4)}");
+        string abc = Repeat_Recursion("abc ", 4);
+        Console.WriteLine($"{abc}");
     }
 }
