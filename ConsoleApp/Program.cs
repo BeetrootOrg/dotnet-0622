@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using System.Threading;
 
@@ -173,3 +174,16 @@ sw.Stop();
 
 System.Console.WriteLine($"SB Ellapsed: {sw.Elapsed}");
 sw.Reset();
+
+var now = DateTime.Now;
+System.Console.WriteLine(now.ToString());
+System.Console.WriteLine(now.ToString("o"));
+System.Console.WriteLine($"{now:o}");
+
+Thread.CurrentThread.CurrentCulture = new CultureInfo("ja-JP");
+var formats = new[] { "G", "C", "D8", "F", "N", "X" };
+var number = 42;
+foreach (var format in formats)
+{
+    WriteLine("{0}: {1}", format, number.ToString(format));
+}
