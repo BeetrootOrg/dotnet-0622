@@ -95,5 +95,14 @@ WriteLine($"\tEndsWith('st') = {test1.EndsWith("st")}");
 WriteLine($"\tEndsWith('ST') = {test1.EndsWith("ST")}");
 WriteLine($"\tEndsWith('ST', OrdinalIgnoreCase) = {test1.EndsWith("ST", StringComparison.OrdinalIgnoreCase)}");
 
+// string equality
+WriteLine("Equality:");
+WriteLine($"'{test1}'=='{test2}'={test1 == test2}");
+WriteLine($"'{test1}'.Equals('{test2}')={test1.Equals(test2)}");
+WriteLine($"string.Equals('6', 6)={string.Equals("6", 6)}");
+WriteLine($"string.Equals('{test1}', '{test2}')={string.Equals(test1, test2)}");
+WriteLine($"string.Equals('{test1}', '{test2}', OrdinalIgnoreCase)={string.Equals(test1, test2, StringComparison.OrdinalIgnoreCase)}");
+WriteLine($"'6'.Equals(6)={"6".Equals(6)}");
+
 WriteLine(Thread.CurrentThread.CurrentCulture);
 WriteLine(DateTime.Now.ToString());
