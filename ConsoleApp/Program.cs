@@ -40,3 +40,8 @@ CharCheck('1');
 CharCheck(',');
 CharCheck('/');
 CharCheck('\u1234');
+
+// transformations
+System.Console.WriteLine("TRANSFORMATIONS");
+System.Console.WriteLine(char.ToLower('A'));
+System.Console.WriteLine(char.ToUpper('a'));
