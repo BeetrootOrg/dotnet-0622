@@ -197,3 +197,7 @@ for (int i = 0; i < test1.Length; i++)
 {
     WriteLine(test1[i]);
 }
+
+var arr = test1.ToCharArray();
+Array.Sort(arr);
+Array.Sort(arr);
