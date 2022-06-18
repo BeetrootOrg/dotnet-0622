@@ -67,3 +67,12 @@ System.Console.WriteLine("SUM");
 System.Console.WriteLine(a + "+" + b + "=" + sum);
 System.Console.WriteLine(string.Format("{0}+{1}={2}", a, b, sum));
 System.Console.WriteLine($"{a}+{b}={sum}");
+
+System.Console.WriteLine("BACKSLASH");
+System.Console.WriteLine(@"\");
+System.Console.WriteLine("\\");
+System.Console.WriteLine("\\n");
+System.Console.WriteLine(@"\n");
+System.Console.WriteLine($"{'\\'}{'n'}");
+
+// methods in string
