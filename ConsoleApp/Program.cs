@@ -187,3 +187,13 @@ foreach (var format in formats)
 {
     WriteLine("{0}: {1}", format, number.ToString(format));
 }
+
+foreach (var s in test1)
+{
+    WriteLine(s);
+}
+
+for (int i = 0; i < test1.Length; i++)
+{
+    WriteLine(test1[i]);
+}
