@@ -45,3 +45,15 @@ CharCheck('\u1234');
 System.Console.WriteLine("TRANSFORMATIONS");
 System.Console.WriteLine(char.ToLower('A'));
 System.Console.WriteLine(char.ToUpper('a'));
+
+var str = "some string";
+System.Console.WriteLine(str);
+
+// new line string
+var str1 = "Long text\r\n" + "next line.";
+var str2 = "Long text\r\nnext line.";
+var str3 = @"Long text
+next line.";
+
+System.Console.WriteLine(str1 == str2);
+System.Console.WriteLine(str2 == str3);
