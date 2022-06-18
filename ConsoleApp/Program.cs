@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Text;
 using System.Threading;
 
 using static System.Console;
@@ -81,8 +83,8 @@ WriteLine(@"\n");
 WriteLine($"{'\\'}{'n'}");
 
 // methods in string
-var test1 = "test";
-var test2 = "TEST";
+var test1 = "test REAL TEST";
+var test2 = "TEST real test";
 WriteLine($"Testing string {test1}");
 WriteLine($"\tClone() = {test1.Clone()}");
 WriteLine($"\t't'.CompareTo('T') = {'t'.CompareTo('T')}");
@@ -94,6 +96,80 @@ WriteLine($"\tContains('be') = {test1.Contains("be")}");
 WriteLine($"\tEndsWith('st') = {test1.EndsWith("st")}");
 WriteLine($"\tEndsWith('ST') = {test1.EndsWith("ST")}");
 WriteLine($"\tEndsWith('ST', OrdinalIgnoreCase) = {test1.EndsWith("ST", StringComparison.OrdinalIgnoreCase)}");
+WriteLine($"\tIndexOf('e') = {test1.IndexOf('e')}");
+WriteLine($"\tIndexOf('E') = {test1.IndexOf('E')}");
+WriteLine($"\tLastIndexOf('e') = {test1.LastIndexOf('e')}");
+WriteLine($"\tLastIndexOf('E') = {test1.LastIndexOf('E')}");
+WriteLine($"\tIndexOf('e', 2) = {test1.IndexOf('e', 2)}");
+WriteLine($"\tLastIndexOf('te', 2) = {test1.LastIndexOf("te", StringComparison.OrdinalIgnoreCase)}");
+WriteLine($"\tInsert(6, '<<inserted>>') = {test1.Insert(6, "<<inserted>>")}");
+WriteLine($"\tReplace('REAL', '<<inserted>>') = {test1.Replace("REAL", "<<inserted>>")}");
+WriteLine($"\tPadLeft(30) = {test1.PadLeft(30)}");
+WriteLine($"\tRemove(5, 4) = {test1.Remove(5, 4)}");
+WriteLine($"\tSubstring(5, 4) = {test1.Substring(5, 4)}");
+WriteLine($"\ttest1[5..9] = {test1[5..9]}");
+WriteLine($"\tToLower() = {test1.ToLower()}");
+WriteLine($"\tToUpper() = {test1.ToUpper()}");
+WriteLine($"\tTrim('t') = {test1.Trim('t')}");
+
+// string equality
+WriteLine("Equality:");
+WriteLine($"'{test1}'=='{test2}'={test1 == test2}");
+WriteLine($"'{test1}'.Equals('{test2}')={test1.Equals(test2)}");
+WriteLine($"string.Equals('6', 6)={string.Equals("6", 6)}");
+WriteLine($"string.Equals('{test1}', '{test2}')={string.Equals(test1, test2)}");
+WriteLine($"string.Equals('{test1}', '{test2}', OrdinalIgnoreCase)={string.Equals(test1, test2, StringComparison.OrdinalIgnoreCase)}");
+WriteLine($"'6'.Equals(6)={"6".Equals(6)}");
 
 WriteLine(Thread.CurrentThread.CurrentCulture);
 WriteLine(DateTime.Now.ToString());
+
+var sw = new Stopwatch();
+
+// bad option
+sw.Start();
+var allSymbols = string.Empty;
+for (char c = 'A'; c <= 'z'; ++c)
+{
+    allSymbols += c;
+}
+sw.Stop();
+
+System.Console.WriteLine($"Result: {allSymbols}. Ellapsed: {sw.Elapsed}");
+sw.Reset();
+
+// good option
+sw.Start();
+var allSymbolsBuilder = new StringBuilder();
+for (char c = 'A'; c <= 'z'; ++c)
+{
+    allSymbolsBuilder.Append(c);
+}
+sw.Stop();
+
+System.Console.WriteLine($"Result: {allSymbolsBuilder.ToString()}. Ellapsed: {sw.Elapsed}");
+sw.Reset();
+
+sw.Start();
+var index = 0;
+while (index < 100000)
+{
+    allSymbols += 'a';
+    ++index;
+}
+sw.Stop();
+
+System.Console.WriteLine($"NO SB Ellapsed: {sw.Elapsed}");
+sw.Reset();
+
+sw.Start();
+index = 0;
+while (index < 100000)
+{
+    allSymbolsBuilder.Append('a');
+    ++index;
+}
+sw.Stop();
+
+System.Console.WriteLine($"SB Ellapsed: {sw.Elapsed}");
+sw.Reset();
