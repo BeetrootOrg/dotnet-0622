@@ -100,6 +100,15 @@ WriteLine($"\tLastIndexOf('e') = {test1.LastIndexOf('e')}");
 WriteLine($"\tLastIndexOf('E') = {test1.LastIndexOf('E')}");
 WriteLine($"\tIndexOf('e', 2) = {test1.IndexOf('e', 2)}");
 WriteLine($"\tLastIndexOf('te', 2) = {test1.LastIndexOf("te", StringComparison.OrdinalIgnoreCase)}");
+WriteLine($"\tInsert(6, '<<inserted>>') = {test1.Insert(6, "<<inserted>>")}");
+WriteLine($"\tReplace('REAL', '<<inserted>>') = {test1.Replace("REAL", "<<inserted>>")}");
+WriteLine($"\tPadLeft(30) = {test1.PadLeft(30)}");
+WriteLine($"\tRemove(5, 4) = {test1.Remove(5, 4)}");
+WriteLine($"\tSubstring(5, 4) = {test1.Substring(5, 4)}");
+WriteLine($"\ttest1[5..9] = {test1[5..9]}");
+WriteLine($"\tToLower() = {test1.ToLower()}");
+WriteLine($"\tToUpper() = {test1.ToUpper()}");
+WriteLine($"\tTrim('t') = {test1.Trim('t')}");
 
 // string equality
 WriteLine("Equality:");
