@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Text;
 using System.Threading;
 
 using static System.Console;
@@ -121,3 +123,53 @@ WriteLine($"'6'.Equals(6)={"6".Equals(6)}");
 
 WriteLine(Thread.CurrentThread.CurrentCulture);
 WriteLine(DateTime.Now.ToString());
+
+var sw = new Stopwatch();
+
+// bad option
+sw.Start();
+var allSymbols = string.Empty;
+for (char c = 'A'; c <= 'z'; ++c)
+{
+    allSymbols += c;
+}
+sw.Stop();
+
+System.Console.WriteLine($"Result: {allSymbols}. Ellapsed: {sw.Elapsed}");
+sw.Reset();
+
+// good option
+sw.Start();
+var allSymbolsBuilder = new StringBuilder();
+for (char c = 'A'; c <= 'z'; ++c)
+{
+    allSymbolsBuilder.Append(c);
+}
+sw.Stop();
+
+System.Console.WriteLine($"Result: {allSymbolsBuilder.ToString()}. Ellapsed: {sw.Elapsed}");
+sw.Reset();
+
+sw.Start();
+var index = 0;
+while (index < 100000)
+{
+    allSymbols += 'a';
+    ++index;
+}
+sw.Stop();
+
+System.Console.WriteLine($"NO SB Ellapsed: {sw.Elapsed}");
+sw.Reset();
+
+sw.Start();
+index = 0;
+while (index < 100000)
+{
+    allSymbolsBuilder.Append('a');
+    ++index;
+}
+sw.Stop();
+
+System.Console.WriteLine($"SB Ellapsed: {sw.Elapsed}");
+sw.Reset();
