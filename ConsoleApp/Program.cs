@@ -33,18 +33,37 @@
         int minValue;
         return minValue = MinValue(MinValue(MinValue(firstParam, secondParam), thirdParam), fourthParam);
     }
+
     static bool TrySumIfOdd(int firstParam, int secondParam, out int sumResult)
     {
-        if ((firstParam + secondParam) % 2 != 0)
+        sumResult = 0;
+        if (firstParam < secondParam)
         {
-            sumResult = firstParam + secondParam;
+            for(int i = firstParam; i <= secondParam; i++)
+            {
+                sumResult += i;
+            }
+        }
+        else if (firstParam == secondParam) 
+        {
+            sumResult = firstParam;
+        }
+        else 
+        {
+            for (int i = secondParam; i <= firstParam; i++)
+            {
+                sumResult += i;
+            }
+        }
+
+        if (sumResult % 2 != 0)
+        {
             return true;
         }
         else
         {
-            sumResult = firstParam + secondParam;
             return false;
-        }
+        }       
     }
 
     static string Repeat(string str, int n)
@@ -81,7 +100,7 @@
         Console.WriteLine($"Min value fo four parameters: {minValue2}");
 
         int sumResult;
-        TrySumIfOdd(2, 3, out sumResult);
+        TrySumIfOdd(2, 5, out sumResult);
         Console.WriteLine($"Sum of 2 numbers : {sumResult}");
 
         //recursion        
