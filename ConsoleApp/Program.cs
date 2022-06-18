@@ -57,3 +57,13 @@ next line.";
 
 System.Console.WriteLine(str1 == str2);
 System.Console.WriteLine(str2 == str3);
+
+// put variable in string
+var a = 1;
+var b = 2;
+var sum = a + b;
+
+System.Console.WriteLine("SUM");
+System.Console.WriteLine(a + "+" + b + "=" + sum);
+System.Console.WriteLine(string.Format("{0}+{1}={2}", a, b, sum));
+System.Console.WriteLine($"{a}+{b}={sum}");
