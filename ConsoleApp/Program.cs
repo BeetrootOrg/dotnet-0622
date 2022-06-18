@@ -45,3 +45,33 @@ CharCheck('\u1234');
 System.Console.WriteLine("Transformations");
 System.Console.WriteLine(char.ToLower('A'));
 System.Console.WriteLine(char.ToUpper('a'));
+
+var str = "some string";
+System.Console.WriteLine(str);
+
+//new line string
+var str1 = "Long text\r\n" + "next line.";
+var str2 = "Long text\r\nnext line.";
+var str3 = @"Long text
+next line.";
+
+System.Console.WriteLine(str1 == str2);
+System.Console.WriteLine(str2 == str3);
+//put variable in string
+var a = 1;
+var b = 2;
+var sum = a + b;
+
+System.Console.WriteLine("SUM");
+System.Console.WriteLine(a + "+" + b + "=" + sum);
+System.Console.WriteLine(string.Format("{0}+{1}={2}", a, b, sum));
+System.Console.WriteLine($"{a}+{b}={sum}");
+
+System.Console.WriteLine("Backslash");
+System.Console.WriteLine(@"\");
+System.Console.WriteLine("\\");
+System.Console.WriteLine("\\n");
+System.Console.WriteLine(@"\n");
+System.Console.WriteLine($"{'\\'}{'n'}");
+
+//methods in string
