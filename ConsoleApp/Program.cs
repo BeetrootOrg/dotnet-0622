@@ -81,8 +81,8 @@ WriteLine(@"\n");
 WriteLine($"{'\\'}{'n'}");
 
 // methods in string
-var test1 = "test";
-var test2 = "TEST";
+var test1 = "test REAL TEST";
+var test2 = "TEST real test";
 WriteLine($"Testing string {test1}");
 WriteLine($"\tClone() = {test1.Clone()}");
 WriteLine($"\t't'.CompareTo('T') = {'t'.CompareTo('T')}");
@@ -94,6 +94,12 @@ WriteLine($"\tContains('be') = {test1.Contains("be")}");
 WriteLine($"\tEndsWith('st') = {test1.EndsWith("st")}");
 WriteLine($"\tEndsWith('ST') = {test1.EndsWith("ST")}");
 WriteLine($"\tEndsWith('ST', OrdinalIgnoreCase) = {test1.EndsWith("ST", StringComparison.OrdinalIgnoreCase)}");
+WriteLine($"\tIndexOf('e') = {test1.IndexOf('e')}");
+WriteLine($"\tIndexOf('E') = {test1.IndexOf('E')}");
+WriteLine($"\tLastIndexOf('e') = {test1.LastIndexOf('e')}");
+WriteLine($"\tLastIndexOf('E') = {test1.LastIndexOf('E')}");
+WriteLine($"\tIndexOf('e', 2) = {test1.IndexOf('e', 2)}");
+WriteLine($"\tLastIndexOf('te', 2) = {test1.LastIndexOf("te", StringComparison.OrdinalIgnoreCase)}");
 
 // string equality
 WriteLine("Equality:");
