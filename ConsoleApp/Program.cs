@@ -140,6 +140,36 @@ int[] ReverseRecursive(int[] arr)
     return copy;
 }
 
+int[] InsertionSort(int[] arr)
+{
+    var copy = new int[arr.Length];
+    Array.Copy(arr, copy, arr.Length);
+
+    for (var i = 1; i < copy.Length; ++i)
+    {
+        var current = copy[i];
+        var minIndex = i;
+        for (var j = i - 1; j >= 0; --j)
+        {
+            var element = copy[j];
+
+            if (element > current)
+            {
+                minIndex = j;
+                copy[j + 1] = element;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        copy[minIndex] = current;
+    }
+
+    return copy;
+}
+
 // analogues how to initialize array
 int[] array1 = { 1, 2, 3 };
 var array2 = new[] { 1, 2, 3 };
@@ -214,3 +244,38 @@ ReverseReverse(array1);
 
 // REVERSE RECURSIVE
 ReverseRecursive(array1);
+
+// SORT
+System.Console.WriteLine("SORTED");
+WriteLineArray(InsertionSort(new[] { 1, 2, 3, 4, 5 }));
+System.Console.WriteLine("REVERSE SORTED");
+WriteLineArray(InsertionSort(new[] { 5, 4, 3, 2, 1 }));
+System.Console.WriteLine("RANDOM SORTED");
+WriteLineArray(InsertionSort(new[] { 1, 5, 0, 42, 6, 6, 5, 4, 2, 6 }));
+int[,] multi1 = new int[4, 2] { { 1, 2 }, { 3, 4 }, { 5, 6 }, { 7, 8 } };
+foreach (var item in multi1)
+{
+    System.Console.WriteLine(item);
+}
+
+System.Console.WriteLine($"lenght: {multi1.Length}");
+System.Console.WriteLine($"lenght: {multi1.GetLength(0)}");
+System.Console.WriteLine($"lenght: {multi1.GetLength(1)}");
+
+System.Console.WriteLine("JAGGED");
+int[][] jagged1 = new int[][]
+{
+    new [] { 1, 2},
+    new [] { 3, 4, 5},
+    new [] { 3, 4, 5, 6}
+};
+
+foreach (var arr in jagged1)
+{
+    foreach (var item in arr)
+    {
+        System.Console.WriteLine(item);
+    }
+}
+
+System.Console.WriteLine($"Length: {jagged1.Length}");
