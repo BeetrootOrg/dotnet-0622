@@ -54,6 +54,18 @@
          return sum % 2 == 0 ? false : true;
 
     }
+    static string Repeat (string x, int n )
+    {
+        string result = "";
+        for ( int i = 1 ; i <= n ; i++ )
+        {
+            result += x;
+        }
+
+        return result;
+
+    }
+    
      static public void Main (string[] args)
    {
     System.Console.WriteLine(MaxValue (1, 2, 3, 4));
@@ -65,6 +77,8 @@
     int sum = 0;
     bool result = TrySumIfOdd (1, 98, out sum);
     System.Console.WriteLine($"Is sum odd? It is {result}");
+    System.Console.WriteLine(Repeat ("x", 6));
+    System.Console.WriteLine(Repeat ("x", 0));
    }
 }
 
