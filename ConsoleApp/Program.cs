@@ -173,3 +173,25 @@ sw.Stop();
 
 System.Console.WriteLine($"SB Ellapsed: {sw.Elapsed}");
 sw.Reset();
+
+var now = DateTime.Now;
+System.Console.WriteLine(now.ToString());
+System.Console.WriteLine(now.ToString("o"));
+System.Console.WriteLine($"{now:o}");
+
+var formats = new[] { "G", "C", "D8", "F", "N", "X" };
+var number = 42;
+foreach(var format in formats)
+{
+    WriteLine("{0}: {1}", format, number.ToString(format));
+}
+
+foreach (var s in test1)
+{
+    WriteLine(s);
+}
+
+for (int i = 0; i < test1.Length; i++)
+{
+    WriteLine(test1[i]);
+}
