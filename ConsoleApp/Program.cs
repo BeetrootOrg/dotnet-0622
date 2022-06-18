@@ -1,51 +1,70 @@
-﻿using System;
+﻿internal class Program
 
-namespace ConsoleApp
-{
-    class Program
+{   static int MaxValue (int a, int b)
     {
-        static void Main(string[] args)
-        {
-try
-        {
-             Console.WriteLine("Please enter X:");
-            string xstring = Console.ReadLine();
-            int x = int.Parse(xstring);
+        return a >= b ? a : b;
+    }
+    static int MaxValue (int a, int b, int c)
+    {
+        int max2values = MaxValue ( a, b );
+        return MaxValue  (max2values, c);
 
-            Console.WriteLine("Please enter Y:");
-            string ystring = Console.ReadLine();
-            int y = int.Parse(ystring);
-            int sum = 0 ;
-    if (x!=y)
-    { 
-        if (x < y)
-    {
-    { 
-        for ( int i = x; i <= y; i++ ) 
-         sum += i;
     }
-    System.Console.WriteLine($" The sum of all numbers between x and y: {sum} ");
-        }
+    static int MaxValue (int a, int b, int c, int d)
+    {
+        int max3values = MaxValue (a, b, c);
+        return MaxValue (max3values, d );
+    }
+    static int MinValue (int a, int b)
 
-    else if (x > y)
     {
+        return a <= b ? a : b;
+    }
+    static int MinValue (int a, int b, int c)
     {
-        for ( int i = y; i <= x; i++ )
-         sum += i;
+        int min2values = MinValue ( a, b );
+        return MinValue  (min2values, c);
+
     }
-    System.Console.WriteLine($" The sum of all numbers between y and x: {sum} ");
+    static int MinValue (int a, int b, int c, int d)
+    {
+        int min3values = MinValue (a, b, c);
+        return MinValue (min3values, d );
     }
+    static bool TrySumIfOdd (int a, int b, out int sum)
+    {
+         int start;
+         int end;
+         if (a>=b)
+         { 
+            start = b;
+            end = a;
+         }
+         else
+         {
+            start = a;
+            end = b;
+         }
+         sum = 0;
+         for (int i = start; i<= end; i++) 
+         {
+            sum += i;
+         }
+
+         return sum % 2 == 0 ? false : true;
+
     }
-    else 
-    System.Console.WriteLine($" The sum of all numbers between x and y: {x} ");
-            
-        }
- catch (System.Exception)
-        {
-            System.Console.WriteLine($" Invalid output ");
-            
-            throw;
-        }
-        }
-    }
+     static public void Main (string[] args)
+   {
+    System.Console.WriteLine(MaxValue (1, 2, 3, 4));
+    System.Console.WriteLine(MaxValue (99, 100, 34));
+    System.Console.WriteLine(MaxValue (-15, 0));
+    System.Console.WriteLine(MinValue (1, 2, 3, 4));
+    System.Console.WriteLine(MinValue (-1, 1, 0));
+    System.Console.WriteLine(MinValue (9999, 10000));
+    int sum = 0;
+    bool result = TrySumIfOdd (1, 98, out sum);
+    System.Console.WriteLine($"Is sum odd? It is {result}");
+   }
 }
+
