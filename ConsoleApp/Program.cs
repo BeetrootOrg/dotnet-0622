@@ -1,34 +1,54 @@
-﻿//define some variables
+﻿using System.Text.RegularExpressions; 			
+public class Program
+{
+	public static void Main()
+	{
+		SumNumbers();
+	}
+	
+	private static void SumNumbers()
+	{
+		int fNumber, sNumber;
+		Console.WriteLine("\nPlease, enter the first number: ");
+		do
+		{
+			var input1 = Console.ReadLine();
+			if (Regex.IsMatch(input1, @"^\d+$")) // ^ beginning of string, \d single digit, $ end of string
+			{
+				fNumber = Convert.ToInt32(input1); 
+                break;
+			}
+			else
+			{
+				Console.WriteLine("Input provided is invalid. Please enter a correct first integer number and run again ");
+                return;
+			}
+		} while (true);
 
-byte bt = 88;
-short shrt = 111;
-int i = 222;
-long lng = 232323232323;
-float flt = 888.88f;
-double dbl = 567.32323;
-decimal dcm = 8M;
+		Console.WriteLine("\nPlease,enter second number: ");
+		do
+		{
+			var input2 = Console.ReadLine();
+			if (Regex.IsMatch(input2, @"^\d+$")) // ^ beginning of string, \d single digit, $ end of string
+			{
+				sNumber = Convert.ToInt32(input2); 
+                break;
+			}
+			else
+			{
+				Console.WriteLine("Input provided is invalid. Please enter a correct second integer number and run again ");
+                return;
+			}
+		} while (true);
 
-System.Console.WriteLine("---result of some simple operations---");
-System.Console.WriteLine(lng + shrt);
-System.Console.WriteLine(i - flt);
-System.Console.WriteLine(shrt * dcm);
-System.Console.WriteLine(dbl % bt);
-System.Console.WriteLine();
+		int min = Math.Min(fNumber, sNumber);
+		int max = Math.Max(fNumber, sNumber);
+		int result = 0;
+		for (int i = min; i <= max; i++)
+		{
+			result = result + i;
+		}
 
-//math functions
-
-int x = 8;
-int y = 12345;
-System.Console.WriteLine("---Math functions---");
-System.Console.WriteLine(-6 * Math.Pow(x, 3) + 5 * Math.Pow(x, 2) - 10 * x + 15);
-System.Console.WriteLine(Math.Abs(x) * Math.Sin(x));
-System.Console.WriteLine(2 * Math.PI * x);
-System.Console.WriteLine(Math.Max(x, y));
-
-// NewYear date time
-
-var now = DateTime.Today.DayOfYear;
-var DaysInYear = 365;
-System.Console.WriteLine("---DateTime operations---");
-System.Console.WriteLine($"{++DaysInYear - now} days left to New Year");
-System.Console.WriteLine($"{--now} days passed from New Year");
+		Console.WriteLine("The sum of Numbers between " + min + " and " + max + " is: " + result.ToString());
+	}
+}
