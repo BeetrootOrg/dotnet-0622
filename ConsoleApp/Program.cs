@@ -5,3 +5,6 @@ var randomArray = new[] { (1, true), (2, false) };
 var binaryFormatter = new BinaryFormatter();
 using var file = File.OpenWrite("text.bin");
 binaryFormatter.Serialize(file, randomArray);
+
+using var streamWritter = new StreamWriter(file);
+streamWritter.WriteLine("dimas");
