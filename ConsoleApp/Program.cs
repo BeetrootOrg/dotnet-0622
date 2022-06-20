@@ -7,6 +7,12 @@ void Exit()
     Environment.Exit(0);
 }
 
+void ShowRow((string, string, string) row)
+{
+    var (firstName, lastName, phone) = row;
+    WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
+}
+
 void ShowAll()
 {
     // 1. read content from file
@@ -20,10 +26,10 @@ void ShowAll()
         ("F", "L", "+12039039"),
     };
 
-    WriteLine("{0,-15} {1,-15} {2,-15}", "First Name", "Last Name", "Phone");
-    foreach (var (firstName, lastName, phone) in contacts)
+    ShowRow(("First Name", "Last Name", "Phone"));
+    foreach (var contact in contacts)
     {
-        WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
+        ShowRow(contact);
     }
 
     WriteLine("Press any key to continue...");
