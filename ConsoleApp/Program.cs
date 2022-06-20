@@ -1,11 +1,4 @@
-﻿// create next methods:
-
-// Compare that will return true if 2 strings are equal, otherwise false, but do not use build-in method
-// Analyze that will return (write in console) number of alphabetic chars in string, digits and another special characters
-// Sort that will return string that contains all characters from input string sorted in alphabetical order (e.g. 'Hello' -> 'ehllo')
-// Duplicate that will return array of characters that are duplicated in input string (e.g. 'Hello and hi' -> ['h', 'l'])
-using System.Text;
-
+﻿using System;
 bool Compare (string str1, string str2)
 {
     if (str1.Length != str2.Length)
@@ -55,6 +48,32 @@ string Sort (string str)
     str1 = string.Join("", arr);
     return str1;
 }
-
-var a = "asdasdasdpsaogjkapoierjhmgaoegkbp";
-Console.WriteLine(Sort(a));
+string[] Duplicate (string str)
+{
+    string intermediateResult = "";
+    string str1 = str.ToLower();
+    for (int i = 0; i < str1.Length; i++)
+    {
+        char currentChar = str1[i];
+        for (int j = i + 1; j < str1.Length; j++)
+        {
+            if (str1[j] == currentChar)
+            {
+                intermediateResult += currentChar;
+            }
+        }
+    }
+    var resiltString = "";
+    var unique = new HashSet<char>(intermediateResult);
+    foreach (char c in unique)
+    {
+        resiltString += c;
+    }
+    string[] result = null;
+    Array.Resize(ref result, resiltString.Length);
+    for (int i = 0; i < resiltString.Length; i++)
+    {
+        result[i] = new string(resiltString[i], 1);
+    }
+    return result;
+}
