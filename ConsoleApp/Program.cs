@@ -1,54 +1,40 @@
-﻿using System.Text.RegularExpressions; 			
-public class Program
+﻿using System;
+using System.Text;
+using System.Text.RegularExpressions;
+
+void WriteArray(byte[] arr)
 {
-	public static void Main()
-	{
-		SumNumbers();
-	}
-	
-	private static void SumNumbers()
-	{
-		int fNumber, sNumber;
-		Console.WriteLine("\nPlease, enter the first number: ");
-		do
-		{
-			var input1 = Console.ReadLine();
-			if (Regex.IsMatch(input1, @"^\d+$")) // ^ beginning of string, \d single digit, $ end of string
-			{
-				fNumber = Convert.ToInt32(input1); 
-                break;
-			}
-			else
-			{
-				Console.WriteLine("Input provided is invalid. Please enter a correct first integer number and run again ");
-                return;
-			}
-		} while (true);
+    Console.WriteLine($"Length: {arr.Length}");
+    Console.WriteLine(string.Join(", ", arr));
+}
 
-		Console.WriteLine("\nPlease,enter second number: ");
-		do
-		{
-			var input2 = Console.ReadLine();
-			if (Regex.IsMatch(input2, @"^\d+$")) // ^ beginning of string, \d single digit, $ end of string
-			{
-				sNumber = Convert.ToInt32(input2); 
-                break;
-			}
-			else
-			{
-				Console.WriteLine("Input provided is invalid. Please enter a correct second integer number and run again ");
-                return;
-			}
-		} while (true);
+var text = @"Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+Impedit iste nihil, soluta illum mollitia excepturi voluptatum officiis dignissimos 
+libero dicta ut atque aut dolore alias molestiae adipisci debitis. 
+Voluptatum repellendus ipsam cumque fugit quisquam accusantium laborum delectus, 
+unde ullam nesciunt. Iure aut cumque, illum dicta accusamus atque ipsum et provident.";
 
-		int min = Math.Min(fNumber, sNumber);
-		int max = Math.Max(fNumber, sNumber);
-		int result = 0;
-		for (int i = min; i <= max; i++)
-		{
-			result = result + i;
-		}
+var bytes = Encoding.UTF8.GetBytes(text);
+WriteArray(bytes);
 
-		Console.WriteLine("The sum of Numbers between " + min + " and " + max + " is: " + result.ToString());
-	}
+var result = Encoding.UTF8.GetString(bytes);
+Console.WriteLine(result);
+
+var regex = new Regex(@"^[-]*\d+$");
+var strings = new[]
+{
+    "",
+    "-",
+    "1",
+    "123",
+    "000",
+    "abc",
+    "-1",
+    "---1",
+    "12a"
+};
+
+foreach (var item in strings)
+{
+    Console.WriteLine($"{item}: {regex.IsMatch(item)}");
 }
