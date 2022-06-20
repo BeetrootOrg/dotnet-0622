@@ -46,17 +46,15 @@ bool Compare (string str1, string str2)
     }
     return (charCount, didgitCount, specCount);
 }
-
 string Sort (string str)
 {
     str = str.ToLower();
     var arr = str.ToCharArray();
     Array.Sort(arr);
     var str1 = string.Empty;
-    for (var index = 0; index < arr.Length; index++)
-    {
-        str1 = string.Join("", arr);
-    }
+    str1 = string.Join("", arr);
     return str1;
 }
 
+var a = "asdasdasdpsaogjkapoierjhmgaoegkbp";
+Console.WriteLine(Sort(a));
