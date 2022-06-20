@@ -23,11 +23,13 @@ void ShowAll()
     // 3. show contact rows
     Clear();
 
-    var contacts = new[]
+    var lines = File.ReadAllLines(filename);
+    var contacts = new (string, string, string)[lines.Length];
+    for (int i = 0; i < lines.Length; i++)
     {
-        ("First", "Last", "+3801234567"),
-        ("F", "L", "+12039039"),
-    };
+        var items = lines[i].Split(',');
+        contacts[i] = (items[0], items[1], items[2]);
+    }
 
     ShowRow(("First Name", "Last Name", "Phone"));
     foreach (var contact in contacts)
@@ -52,7 +54,7 @@ void AddNewContact()
     WriteLine("Enter phone:");
     var phone = Console.ReadLine();
 
-    File.WriteAllLines(filename, new[] { $"{firstName},{lastName},{phone}" });
+    File.AppendAllLines(filename, new[] { $"{firstName},{lastName},{phone}" });
 
     WriteLine("Contact saved, press any key to continue");
     ReadKey();
