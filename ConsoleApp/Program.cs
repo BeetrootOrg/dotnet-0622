@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 void WriteArray(byte[] arr)
 {
@@ -18,3 +19,20 @@ WriteArray(bytes);
 
 var result = Encoding.UTF8.GetString(bytes);
 Console.WriteLine(result);
+
+var regex = new Regex(@"^\d+$");
+var strings = new[]
+{
+    "",
+    "1",
+    "123",
+    "000",
+    "abc",
+    "-1",
+    "12a"
+};
+
+foreach (var item in strings)
+{
+    Console.WriteLine($"{item}: {regex.IsMatch(item)}");
+}
