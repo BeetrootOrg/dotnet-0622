@@ -20,15 +20,17 @@ WriteArray(bytes);
 var result = Encoding.UTF8.GetString(bytes);
 Console.WriteLine(result);
 
-var regex = new Regex(@"^\d+$");
+var regex = new Regex(@"^[-]*\d+$");
 var strings = new[]
 {
     "",
+    "-",
     "1",
     "123",
     "000",
     "abc",
     "-1",
+    "---1",
     "12a"
 };
 
