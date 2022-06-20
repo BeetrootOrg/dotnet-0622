@@ -13,9 +13,9 @@ Console.WriteLine(i1 * f3 );
 Console.WriteLine( b1 % i1 );
 Console.WriteLine (l1 / s1);
 
-Console.WriteLine(bfirst && bsecond);
+Console.WriteLine(bfirst & bsecond);
 Console.WriteLine(!bfirst);
-Console.WriteLine(bsecond || bfirst);
+Console.WriteLine(bsecond | bfirst);
 
 
 //Write to console result of several math functions:
