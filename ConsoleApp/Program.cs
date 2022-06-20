@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 using static System.Console;
 
@@ -16,6 +17,19 @@ void ShowRow((string, string, string) row)
     WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
 }
 
+(string, string, string)[] ReadContacts(string file)
+{
+    var lines = File.ReadAllLines(file);
+    var contacts = new (string, string, string)[lines.Length];
+    for (int i = 0; i < lines.Length; i++)
+    {
+        var items = lines[i].Split(',');
+        contacts[i] = (items[0], items[1], items[2]);
+    }
+
+    return contacts;
+}
+
 void ShowAll()
 {
     // 1. read content from file
@@ -23,13 +37,7 @@ void ShowAll()
     // 3. show contact rows
     Clear();
 
-    var lines = File.ReadAllLines(filename);
-    var contacts = new (string, string, string)[lines.Length];
-    for (int i = 0; i < lines.Length; i++)
-    {
-        var items = lines[i].Split(',');
-        contacts[i] = (items[0], items[1], items[2]);
-    }
+    var contacts = ReadContacts(filename);
 
     ShowRow(("First Name", "Last Name", "Phone"));
     foreach (var contact in contacts)
@@ -40,6 +48,8 @@ void ShowAll()
     WriteLine("Press any key to continue...");
     ReadKey();
 }
+
+string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
 
 void AddNewContact()
 {
@@ -54,9 +64,47 @@ void AddNewContact()
     WriteLine("Enter phone:");
     var phone = Console.ReadLine();
 
-    File.AppendAllLines(filename, new[] { $"{firstName},{lastName},{phone}" });
+    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
 
     WriteLine("Contact saved, press any key to continue");
+    ReadKey();
+}
+
+void RemoveContact()
+{
+    Clear();
+
+    WriteLine("Enter phone to remove:");
+    var phoneToRemove = Console.ReadLine();
+
+    var contacts = ReadContacts(filename);
+    var newContacts = new (string, string, string)[contacts.Length];
+    Array.Copy(contacts, newContacts, contacts.Length);
+
+    var index = 0;
+
+    while (index < newContacts.Length)
+    {
+        if (newContacts[index].Item3 == phoneToRemove)
+        {
+            newContacts[index] = newContacts[^1];
+            Array.Resize(ref newContacts, newContacts.Length - 1);
+        }
+        else
+        {
+            ++index;
+        }
+    }
+
+    var csvBuilder = new StringBuilder();
+    foreach (var contact in newContacts)
+    {
+        csvBuilder.AppendLine(Serialize(contact));
+    }
+
+    File.WriteAllText(filename, csvBuilder.ToString());
+
+    WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
     ReadKey();
 }
 
@@ -85,6 +133,9 @@ void MainMenu()
             break;
         case ConsoleKey.D2:
             AddNewContact();
+            break;
+        case ConsoleKey.D4:
+            RemoveContact();
             break;
         default:
             break;
