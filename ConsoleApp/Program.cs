@@ -1,4 +1,11 @@
-﻿using static System.Console;
+﻿using System;
+
+using static System.Console;
+
+void Exit()
+{
+    Environment.Exit(0);
+}
 
 void MainMenu()
 {
@@ -10,6 +17,18 @@ void MainMenu()
     WriteLine("\t3 - Update contact");
     WriteLine("\t4 - Remove contact");
     WriteLine("\t0 - Exit");
+
+    var key = ReadKey();
+
+    switch (key.Key)
+    {
+        case ConsoleKey.D0:
+            Exit();
+            break;
+        default:
+            MainMenu();
+            break;
+    }
 }
 
 MainMenu();
