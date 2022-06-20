@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
 
 using static System.Console;
+
+const string filename = "data.csv";
 
 void Exit()
 {
@@ -36,6 +39,25 @@ void ShowAll()
     ReadKey();
 }
 
+void AddNewContact()
+{
+    Clear();
+
+    WriteLine("Enter first name:");
+    var firstName = Console.ReadLine();
+
+    WriteLine("Enter last name:");
+    var lastName = Console.ReadLine();
+
+    WriteLine("Enter phone:");
+    var phone = Console.ReadLine();
+
+    File.WriteAllLines(filename, new[] { $"{firstName},{lastName},{phone}" });
+
+    WriteLine("Contact saved, press any key to continue");
+    ReadKey();
+}
+
 void MainMenu()
 {
     Clear();
@@ -58,6 +80,9 @@ void MainMenu()
             break;
         case ConsoleKey.D1:
             ShowAll();
+            break;
+        case ConsoleKey.D2:
+            AddNewContact();
             break;
         default:
             break;
