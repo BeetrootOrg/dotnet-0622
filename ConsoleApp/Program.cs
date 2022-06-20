@@ -1,6 +1,6 @@
 ﻿
      
-int[] MyArray = { 25, 0, 90, -5, 3 }; // declare array
+int[] MyArray = { 25, 0, 90, -5, 3, 11 }; // declare array
 int tempValue; 
 var MyCopyArr = new int[MyArray.Length];// then copy 
 Array.Copy(MyArray, MyCopyArr, MyArray.Length);
