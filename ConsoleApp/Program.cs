@@ -1,78 +1,148 @@
-﻿internal class Program
+﻿using System;
+using System.IO;
+using System.Text;
+
+using static System.Console;
+
+const string filename = "data.csv";
+
+void Exit()
 {
-    static bool Compare (string str1, string str2)
-    {
-        if (str1.Length != str2.Length) return false;
+    Environment.Exit(0);
+}
 
-        for (int i = 0; i < str1.Length; i++)
+void ShowRow((string, string, string) row)
+{
+    var (firstName, lastName, phone) = row;
+    WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
+}
+
+(string, string, string)[] ReadContacts(string file)
+{
+    var lines = File.ReadAllLines(file);
+    var contacts = new (string, string, string)[lines.Length];
+    for (int i = 0; i < lines.Length; i++)
+    {
+        var items = lines[i].Split(',');
+        contacts[i] = (items[0], items[1], items[2]);
+    }
+
+    return contacts;
+}
+
+void ShowAll()
+{
+    // 1. read content from file
+    // 2. iterate in array of contacts
+    // 3. show contact rows
+    Clear();
+
+    var contacts = ReadContacts(filename);
+
+    ShowRow(("First Name", "Last Name", "Phone"));
+    foreach (var contact in contacts)
+    {
+        ShowRow(contact);
+    }
+
+    WriteLine("Press any key to continue...");
+    ReadKey();
+}
+
+string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
+
+void AddNewContact()
+{
+    Clear();
+
+    WriteLine("Enter first name:");
+    var firstName = Console.ReadLine();
+
+    WriteLine("Enter last name:");
+    var lastName = Console.ReadLine();
+
+    WriteLine("Enter phone:");
+    var phone = Console.ReadLine();
+
+    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+
+    WriteLine("Contact saved, press any key to continue");
+    ReadKey();
+}
+
+void RemoveContact()
+{
+    Clear();
+
+    WriteLine("Enter phone to remove:");
+    var phoneToRemove = Console.ReadLine();
+
+    var contacts = ReadContacts(filename);
+    var newContacts = new (string, string, string)[contacts.Length];
+    Array.Copy(contacts, newContacts, contacts.Length);
+
+    var index = 0;
+
+    while (index < newContacts.Length)
+    {
+        if (newContacts[index].Item3 == phoneToRemove)
         {
-            if (str1[i] != str2[i]) return false;
+            newContacts[index] = newContacts[^1];
+            Array.Resize(ref newContacts, newContacts.Length - 1);
         }
-        
-        return true;        
-    }
-
-    static Tuple<int, int, int> Analyze (string str)
-    {
-        int letters = 0;
-        int numbers = 0;
-        int other = 0;
-        foreach (var item in str)
+        else
         {
-            if (char.IsLetter(item)) letters++;
-            else if (char.IsNumber(item)) numbers++;
-            else other++;
+            ++index;
         }
-    return Tuple.Create(letters, numbers, other);     
     }
 
-    static string Sort(string str)
+    var csvBuilder = new StringBuilder();
+    foreach (var contact in newContacts)
     {
-        str = str.ToLower();
-        var strArray = str.ToCharArray();
-        Array.Sort(strArray);
-        return new String(strArray);
+        csvBuilder.AppendLine(Serialize(contact));
     }
 
-    static char[] Duplicate (string str)
+    File.WriteAllText(filename, csvBuilder.ToString());
+
+    WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
+    ReadKey();
+}
+
+void MainMenu()
+{
+    Clear();
+
+    WriteLine("Welcome to phone book!");
+    WriteLine();
+    WriteLine("Menu:");
+    WriteLine("\t1 - Show all contacts");
+    WriteLine("\t2 - Add new contact");
+    WriteLine("\t3 - Update contact");
+    WriteLine("\t4 - Remove contact");
+    WriteLine("\t0 - Exit");
+
+    var key = ReadKey();
+
+    switch (key.Key)
     {
-        string dubs = "";
-        str = str.ToLower();
-        string strSub = "";
-        
-        for (int i = 0; i < str.Length; i++)
-        {   
-            strSub = str.Substring(i+1);
-        
-            if (strSub.Contains(str[i]) && !dubs.Contains(str[i]))
-            {
-                if (str[i] != ' ') dubs += str[i];
-            } 
-        }
-        
-        return dubs.ToCharArray();
+        case ConsoleKey.D0:
+            Exit();
+            break;
+        case ConsoleKey.D1:
+            ShowAll();
+            break;
+        case ConsoleKey.D2:
+            AddNewContact();
+            break;
+        case ConsoleKey.D4:
+            RemoveContact();
+            break;
+        default:
+            break;
     }
-                   
-    static void Main(string[] args)
-    {
-        string string1 ="SOme 123 excelledt 4567 string here!";
-        string string2 ="SOme 123 excelledt 45 string here!!!";
-        Console.WriteLine(Compare (string1, string2));
-        
-        var analyzeRes = Analyze(string1);
-        
-        Console.WriteLine($"String [{string1}] contains:");
-        Console.WriteLine($"Letters: {analyzeRes.Item1}");
-        Console.WriteLine($"Digits: {analyzeRes.Item2}");
-        Console.WriteLine($"Spaces and other: {analyzeRes.Item3}");
+}
 
-        Console.WriteLine(Sort("Hello"));
-
-        foreach (var item in Duplicate("Hello and hi o"))
-        {
-            Console.WriteLine (item);
-        }
-
-    }    
-      
+while (true)
+{
+    MainMenu();
 }
