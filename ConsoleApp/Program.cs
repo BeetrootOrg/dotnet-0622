@@ -111,7 +111,7 @@ void RemoveContact()
 void SearchContact()
 {
     Clear();
-    WriteLine("Enter first/last name for search:");
+    WriteLine("Enter first/last name or phone number for search:");
     var request = ReadLine();
     Clear();
     var contacts = ReadContacts(filename);
@@ -119,7 +119,7 @@ void SearchContact()
     WriteLine($"Result for {request}:");
     foreach (var contact in contacts)
     {
-        if ((contact.Item1 + " " + contact.Item2).Contains(request)) ShowRow(contact);
+        if ((contact.Item1 + " " + contact.Item2 + " " + contact.Item3).Contains(request)) ShowRow(contact);
     }
 
     WriteLine("\nPress any key to continue...");
