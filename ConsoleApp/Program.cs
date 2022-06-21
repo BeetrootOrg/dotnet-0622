@@ -119,7 +119,7 @@ void SearchContact()
     WriteLine($"Result for {request}:");
     foreach (var contact in contacts)
     {
-        if (contact.Item1.Contains(request) || contact.Item2.Contains(request)) ShowRow(contact);
+        if ((contact.Item1 + " " + contact.Item2).Contains(request)) ShowRow(contact);
     }
 
     WriteLine("\nPress any key to continue...");
