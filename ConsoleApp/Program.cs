@@ -35,6 +35,7 @@ void ShowAll()
     // 1. read content from file
     // 2. iterate in array of contacts
     // 3. show contact rows
+    // 4. search
     Clear();
 
     var contacts = ReadContacts(filename);
@@ -50,6 +51,39 @@ void ShowAll()
 }
 
 string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
+
+void SearchContact()
+{
+    Clear();
+
+    WriteLine("Enter name or phone:");
+    var query = "";
+    query = Console.ReadLine();
+
+    var contacts = ReadContacts(filename);
+
+    WriteLine($"The result of searching for {query} is:");
+    ShowRow(("First Name", "Last Name", "Phone"));
+
+    bool isResult = false;
+    foreach (var contact in contacts)
+    {
+        if (query != null)
+        {
+            if (contact.Item1.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                contact.Item2.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                contact.Item3.Contains(query, StringComparison.OrdinalIgnoreCase))
+            {
+                ShowRow(contact);
+                isResult = true;
+            }
+        }
+    }
+
+    if (!isResult) WriteLine ("No such contacts");
+    WriteLine("Press any key to continue");
+    ReadKey();
+}
 
 void AddNewContact()
 {
@@ -119,6 +153,7 @@ void MainMenu()
     WriteLine("\t2 - Add new contact");
     WriteLine("\t3 - Update contact");
     WriteLine("\t4 - Remove contact");
+    WriteLine("\t5 - Search for contact");
     WriteLine("\t0 - Exit");
 
     var key = ReadKey();
@@ -136,6 +171,9 @@ void MainMenu()
             break;
         case ConsoleKey.D4:
             RemoveContact();
+            break;
+        case ConsoleKey.D5:
+            SearchContact();
             break;
         default:
             break;
