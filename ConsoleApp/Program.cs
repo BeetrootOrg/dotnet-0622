@@ -115,11 +115,24 @@ void SearchContact()
     var request = ReadLine();
     Clear();
     var contacts = ReadContacts(filename);
+    bool result = false;
 
     WriteLine($"Result for {request}:");
     foreach (var contact in contacts)
     {
-        if ((contact.Item1 + " " + contact.Item2 + " " + contact.Item3).Contains(request)) ShowRow(contact);
+        if ((contact.Item1 + " " + contact.Item2 + " " + contact.Item3).Contains(request)) 
+        {   
+            result = true;
+            ShowRow(contact);
+        }
+
+    }
+
+    if (!result)
+    {
+        WriteLine("Contact not found, press any key to continue...");
+        ReadKey();
+        return;
     }
 
     WriteLine("\nPress any key to continue...");
