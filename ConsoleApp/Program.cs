@@ -8,7 +8,6 @@ void ShowRow((string, string, string) row)
     var (firstName, lastName, phone) = row;
     System.Console.WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
 }
-
 (string, string, string)[] ReadContacts(string file)
 {
     var lines = File.ReadAllLines(file);
@@ -36,7 +35,6 @@ void showAllContacts()
     System.Console.WriteLine("Press any key to continue...");
     Console.ReadKey();
 }
-
 void exitProg()
 {
     Environment.Exit(0);
@@ -53,6 +51,7 @@ void addNewContacts()
     var phone = Console.ReadLine();
     File.AppendAllLines(filePath, new[] { Serialize((firstName, lastName, phone)) });
 }
+
 void RemoveContact()
 {
     Console.Clear();
@@ -90,6 +89,7 @@ void RemoveContact()
     System.Console.WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
     Console.ReadKey();
 }
+
 void searchContact()
 {
     System.Console.WriteLine("Enter Last\\second name or number: ");
@@ -186,7 +186,6 @@ void MainlMenu()
             break;
 
         default:
-            MainlMenu();
             break;
     }
 };
