@@ -74,24 +74,12 @@
         {
             for (int j = 0; j < text.Length; ++j)
             {
-                if (char.IsLetter(text[i]) && char.IsLetter(text[j]))
+                if (char.IsLetter(text[i]) && char.IsLetter(text[j]) && !newText.Contains(text[i]))
                 {
-                    if (text[i] == text[j])
+                    if (text[i] == text[j] && i != j)
                     {
-                        if (i == j)
-                        {
-                            continue;
-                        }
-                        if (newText.Contains(text[i]))
-                        {
-                            continue;
-                        }
                         newText += text[j].ToString();
                     }
-                }
-                else
-                {
-                    continue;
                 }
             }
         }
@@ -106,8 +94,6 @@
 Letters: {result1.Item1} 
 Digits: {result1.Item2}
 Symbols: {result1.Item3}");
-        System.Console.WriteLine(Sort("Veronika"));
-        System.Console.WriteLine(Sort("Tikhon"));
         System.Console.WriteLine(Duplicate("Hello humans! We came with peace"));
     }
 }
