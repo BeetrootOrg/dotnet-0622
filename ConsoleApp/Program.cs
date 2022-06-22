@@ -1,14 +1,31 @@
 ﻿using System;
 
-var x = 3;
-Console.WriteLine($"x^3={x}");
-Console.WriteLine($"x*x*x={x * x * x}");
-Console.WriteLine($"Math.Pow(x, 3)={Math.Pow(x, 3)}");
-Console.WriteLine($"WRONG: -6*x^3+5*x^2-10*x+15={-6 * x ^ 3 + 5 * x ^ 2 - 10 * x + 15}");
-Console.WriteLine($"RIGHT: -6*x^3+5*x^2-10*x+15={-6 * x * x * x + 5 * x * x - 10 * x + 15}");
+using static System.Console;
 
-var now = DateTime.Now;
-var nextNewYear = new DateTime(2023, 1, 1);
+string buffer;
+WriteLine("X:");
+buffer = ReadLine();
 
-Console.WriteLine($"{(nextNewYear - now).Days} days left to New Year");
-Console.WriteLine($"{now.DayOfYear} days passed from New Year");
+if (!int.TryParse(buffer, out var x))
+{
+    WriteLine("Invalid input");
+    return;
+}
+
+WriteLine("Y:");
+buffer = ReadLine();
+
+if (!int.TryParse(buffer, out var y))
+{
+    WriteLine("Invalid input");
+    return;
+}
+
+int sum = 0;
+var max = Math.Max(x, y);
+for (var i = Math.Min(x, y); i <= max; i++)
+{
+    sum += i;
+}
+
+WriteLine($"Sum = {sum}");
