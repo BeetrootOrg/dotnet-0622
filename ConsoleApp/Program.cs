@@ -17,17 +17,56 @@ void ShowRow((string, string, string) row)
     WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
 }
 
-(string, string, string)[] ReadContacts(string file)
+(string, string, string)[] ReadContactsTemp(string file)
 {
+    if (!File.Exists(file))
+    {
+        return Array.Empty<(string, string, string)>();
+    }
+
     var lines = File.ReadAllLines(file);
     var contacts = new (string, string, string)[lines.Length];
     for (int i = 0; i < lines.Length; i++)
     {
         var items = lines[i].Split(',');
+        if (items.Length != 3)
+        {
+            WriteLine($"ERROR WHILE READING {i + 1} LINE FROM {filename}.");
+            continue;
+        }
+
         contacts[i] = (items[0], items[1], items[2]);
     }
 
     return contacts;
+}
+
+(string, string, string)[] ReadContacts(string file)
+{
+    try
+    {
+        var lines = File.ReadAllLines(file);
+        var contacts = new (string, string, string)[lines.Length];
+        for (int i = 0; i < lines.Length; i++)
+        {
+            var items = lines[i].Split(',');
+
+            try
+            {
+                contacts[i] = (items[0], items[1], items[2]);
+            }
+            catch (IndexOutOfRangeException ioore)
+            {
+                WriteLine($"ERROR WHILE READING {i + 1} LINE FROM {filename}. Message: {ioore.Message}");
+            }
+        }
+
+        return contacts;
+    }
+    catch (FileNotFoundException)
+    {
+        return Array.Empty<(string, string, string)>();
+    }
 }
 
 void ShowAll()
@@ -37,7 +76,7 @@ void ShowAll()
     // 3. show contact rows
     Clear();
 
-    var contacts = ReadContacts(filename);
+    var contacts = ReadContactsTemp(filename);
 
     ShowRow(("First Name", "Last Name", "Phone"));
     foreach (var contact in contacts)
@@ -51,23 +90,46 @@ void ShowAll()
 
 string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
 
+void ValidateNonEmpty(string value, string message = null)
+{
+    if (string.IsNullOrWhiteSpace(value))
+    {
+        throw new ArgumentException(message, nameof(value));
+    }
+}
+
 void AddNewContact()
 {
-    Clear();
+    try
+    {
+        Clear();
 
-    WriteLine("Enter first name:");
-    var firstName = Console.ReadLine();
+        WriteLine("Enter first name:");
+        var firstName = Console.ReadLine();
+        ValidateNonEmpty(firstName, "First name should be non-empty");
 
-    WriteLine("Enter last name:");
-    var lastName = Console.ReadLine();
+        WriteLine("Enter last name:");
+        var lastName = Console.ReadLine();
+        ValidateNonEmpty(lastName, "Last name should be non-empty");
 
-    WriteLine("Enter phone:");
-    var phone = Console.ReadLine();
+        WriteLine("Enter phone:");
+        var phone = Console.ReadLine();
+        ValidateNonEmpty(lastName, "Phone should be non-empty");
 
-    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+        File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
 
-    WriteLine("Contact saved, press any key to continue");
-    ReadKey();
+        WriteLine("Contact saved, press any key to continue");
+        ReadKey();
+    }
+    catch (ArgumentException)
+    {
+        WriteLine("baran");
+        throw;
+    }
+    finally
+    {
+        WriteLine("finally done");
+    }
 }
 
 void RemoveContact()
@@ -144,5 +206,13 @@ void MainMenu()
 
 while (true)
 {
-    MainMenu();
+    try
+    {
+        MainMenu();
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Unhandled error: {e.Message}");
+        ReadKey();
+    }
 }
