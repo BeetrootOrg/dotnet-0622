@@ -1,0 +1,46 @@
+//Task: Implement Bubble sort algorithm
+
+int[] myIntArray = { 29, 22, 13, 4, 15 };
+int countNumber = myIntArray.Length;
+
+System.Console.WriteLine("--------START-----------");
+for (int i = 0; i < myIntArray.Length; ++i)
+{
+    System.Console.WriteLine("iteration1 " + i);
+
+    int currentVallue = myIntArray [i];
+    System.Console.WriteLine(currentVallue);
+    int nextVallue = currentVallue + 1;
+    System.Console.WriteLine(nextVallue);
+
+        for (int count = 0; count < countNumber; ++count)
+        {
+            System.Console.WriteLine("iteration2 " + count);
+        }
+
+
+/*if (currentVallue > nextVallue) // if current vallue more then next, swop them 
+{
+    myIntArray [i] = nextVallue;
+    myIntArray [i+1] = currentVallue;
+    System.Console.WriteLine(nextVallue);
+    System.Console.WriteLine(currentVallue);
+
+}
+else if (true)
+{
+    
+}
+*/
+
+}
+
+
+
+
+System.Console.WriteLine("--------END-----------");
+
+// for (int i = 0; i < myIntArray.Length; ++i)
+// {
+// System.Console.WriteLine(myIntArray [i]);
+// }
