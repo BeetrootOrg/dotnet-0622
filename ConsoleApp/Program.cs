@@ -15,15 +15,12 @@ bool Compare (string str1, string str2)
     }
     return true;
 }
-
 (int alphabeticChars, int digits, int specChar) Analyze (string str)
 {
     int charCount = 0;
     int didgitCount = 0;
     int specCount = 0;
     for (var item = 0; item < str.Length; item++)
-    {
-        
         if (char.IsLetter(str[item]))
         {
             charCount++;
@@ -36,7 +33,6 @@ bool Compare (string str1, string str2)
         {
             specCount++;
         }
-    }
     return (charCount, didgitCount, specCount);
 }
 string Sort (string str)
@@ -76,4 +72,4 @@ string[] Duplicate (string str)
         result[i] = new string(resiltString[i], 1);
     }
     return result;
-}
+} 
