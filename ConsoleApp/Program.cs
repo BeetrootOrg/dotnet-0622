@@ -17,6 +17,30 @@ void ShowRow((string, string, string) row)
     WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
 }
 
+(string, string, string)[] ReadContactsTemp(string file)
+{
+    if (!File.Exists(file))
+    {
+        return Array.Empty<(string, string, string)>();
+    }
+
+    var lines = File.ReadAllLines(file);
+    var contacts = new (string, string, string)[lines.Length];
+    for (int i = 0; i < lines.Length; i++)
+    {
+        var items = lines[i].Split(',');
+        if (items.Length != 3)
+        {
+            WriteLine($"ERROR WHILE READING {i + 1} LINE FROM {filename}.");
+            continue;
+        }
+
+        contacts[i] = (items[0], items[1], items[2]);
+    }
+
+    return contacts;
+}
+
 (string, string, string)[] ReadContacts(string file)
 {
     try
@@ -52,7 +76,7 @@ void ShowAll()
     // 3. show contact rows
     Clear();
 
-    var contacts = ReadContacts(filename);
+    var contacts = ReadContactsTemp(filename);
 
     ShowRow(("First Name", "Last Name", "Phone"));
     foreach (var contact in contacts)
