@@ -90,23 +90,44 @@ void ShowAll()
 
 string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
 
+void ValidateNonEmpty(string value, string message = null)
+{
+    if (string.IsNullOrWhiteSpace(value))
+    {
+        throw new ArgumentException(message, nameof(value));
+    }
+}
+
 void AddNewContact()
 {
-    Clear();
+    try
+    {
+        Clear();
 
-    WriteLine("Enter first name:");
-    var firstName = Console.ReadLine();
+        WriteLine("Enter first name:");
+        var firstName = Console.ReadLine();
+        ValidateNonEmpty(firstName, "First name should be non-empty");
 
-    WriteLine("Enter last name:");
-    var lastName = Console.ReadLine();
+        WriteLine("Enter last name:");
+        var lastName = Console.ReadLine();
+        ValidateNonEmpty(lastName, "Last name should be non-empty");
 
-    WriteLine("Enter phone:");
-    var phone = Console.ReadLine();
+        WriteLine("Enter phone:");
+        var phone = Console.ReadLine();
+        ValidateNonEmpty(lastName, "Phone should be non-empty");
 
-    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+        File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
 
-    WriteLine("Contact saved, press any key to continue");
-    ReadKey();
+        WriteLine("Contact saved, press any key to continue");
+    }
+    catch (ArgumentException)
+    {
+        WriteLine("baran");
+    }
+    finally
+    {
+        ReadKey();
+    }
 }
 
 void RemoveContact()
