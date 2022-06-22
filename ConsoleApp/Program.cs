@@ -70,14 +70,40 @@ void AddNewContact()
     ReadKey();
 }
 
+void Findcontact()
+{
+    Clear();
+    WriteLine("Enter phone to find contact:");
+    var phoneTofindcontact = Console.ReadLine();
+
+    var contacts = ReadContacts(filename);
+    var index = 0;
+
+    while (index < contacts.Length)
+    {
+        if (contacts[index].Item3 == phoneTofindcontact)
+        {
+            Console.WriteLine($"Contact: name {contacts[index].Item1} surname { contacts[index].Item2} number {contacts[index].Item3}");
+            break;
+        }
+
+        index++;
+
+    }
+    ReadKey();
 
 
-void RenameContact()
+}
+
+void UpdateContact()
 {
     Clear();
 
-    WriteLine("Enter phone to rename:");
-    var phoneToRename = Console.ReadLine();
+    WriteLine("Enter name to find contact:");
+    var nametoupdate = Console.ReadLine();
+
+    WriteLine("Enter surname to find contact:");
+    var lastnametoupdate = Console.ReadLine();
 
     var contacts = ReadContacts(filename);
     var newContacts = new (string, string, string)[contacts.Length];
@@ -96,7 +122,7 @@ void RenameContact()
     var phone = Console.ReadLine();
     while (index < newContacts.Length)
     {
-        if (newContacts[index].Item3 == phoneToRename)
+        if (newContacts[index].Item1 == nametoupdate && newContacts[index].Item2 == lastnametoupdate)
         {
 
            
@@ -174,6 +200,7 @@ void MainMenu()
     WriteLine("\t2 - Add new contact");
     WriteLine("\t3 - Update contact");
     WriteLine("\t4 - Remove contact");
+    WriteLine("\t5 - Find contact by number");
     WriteLine("\t0 - Exit");
 
     var key = ReadKey();
@@ -190,10 +217,13 @@ void MainMenu()
             AddNewContact();
             break;
         case ConsoleKey.D3:
-            RenameContact();
+            UpdateContact();
             break;
         case ConsoleKey.D4:
             RemoveContact();
+            break;
+        case ConsoleKey.D5:
+            Findcontact();
             break;
         default:
             break;
