@@ -119,14 +119,16 @@ void AddNewContact()
         File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
 
         WriteLine("Contact saved, press any key to continue");
+        ReadKey();
     }
     catch (ArgumentException)
     {
         WriteLine("baran");
+        throw;
     }
     finally
     {
-        ReadKey();
+        WriteLine("finally done");
     }
 }
 
@@ -204,5 +206,13 @@ void MainMenu()
 
 while (true)
 {
-    MainMenu();
+    try
+    {
+        MainMenu();
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Unhandled error: {e.Message}");
+        ReadKey();
+    }
 }
