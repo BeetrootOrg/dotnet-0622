@@ -2,21 +2,18 @@
 {
     static bool Compare(string a, string b)
     {
-        if (a.Length == b.Length)
-        {
-            for (int i = 0; i < a.Length; ++i)
-            {
-                if (a[i] != b[i])
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        else
+        if (a.Length != b.Length)
         {
             return false;
         }
+        for (int i = 0; i < a.Length; ++i)
+        {
+            if (a[i] != b[i])
+            {
+                return false;
+            }
+        }
+        return true;
     }
     static (int, int, int) Analyze(string text)
     {
