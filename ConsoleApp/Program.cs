@@ -70,7 +70,7 @@ void AddNewContact()
     ReadKey();
 }
 
-void Findcontact()
+void FindContact()
 {
     Clear();
     WriteLine("Enter phone to find contact:");
@@ -223,7 +223,7 @@ void MainMenu()
             RemoveContact();
             break;
         case ConsoleKey.D5:
-            Findcontact();
+            FindContact();
             break;
         default:
             break;
