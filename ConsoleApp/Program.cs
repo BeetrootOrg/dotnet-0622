@@ -1,5 +1,25 @@
 ﻿class Program
 {
+    //bubbleSort
+    static int[] BubbleSort(int[] array)
+    {
+        int temp;
+        for (int i = 0; i < array.Length; i++)
+        {
+            for (int j = 0; j < array.Length-1; j++)
+            {
+                if (array[j] > array[j + 1])
+                {
+                    temp = array[j];
+                    array[j] = array[j+1];
+                    array[j+1] = temp;
+                } 
+            }
+        }
+        return array;
+    }
+
+    //QuickSort
     static int[] QuickSort(int[] array, int minIndex, int maxIndex)
     {
         if (minIndex >= maxIndex) return array; 
@@ -49,13 +69,19 @@
     }
         
     static void Main()
-    {
+    {   
+
+        int[] inputArray = InputArray();
         
-        int[] inputArray =  InputArray();
-        int[] sortedArray = QuickSort(inputArray, 0, inputArray.Length - 1);
-        System.Console.WriteLine();
-        Console.WriteLine("Sordered array: ");
-        foreach (int element in sortedArray) Console.Write($"{element}, ");
+        int[] sortedArrayBubble = BubbleSort(inputArray);
+        Console.WriteLine();
+        Console.WriteLine("BubbleSort: ");
+        foreach (int element in sortedArrayBubble) Console.Write($"{element}, ");
+
+        int[] sortedArrayQuick = QuickSort(inputArray, 0, inputArray.Length - 1);
+        Console.WriteLine();
+        Console.WriteLine("QuickSort: ");
+        foreach (int element in sortedArrayQuick) Console.Write($"{element}, ");
 
         Console.ReadKey();
     }
