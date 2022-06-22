@@ -70,14 +70,15 @@
         
     static void Main()
     {   
-
+        //BubbleSort
         int[] inputArray = InputArray();
         
         int[] sortedArrayBubble = BubbleSort(inputArray);
         Console.WriteLine();
         Console.WriteLine("BubbleSort: ");
         foreach (int element in sortedArrayBubble) Console.Write($"{element}, ");
-
+        
+        //QuickSort
         int[] sortedArrayQuick = QuickSort(inputArray, 0, inputArray.Length - 1);
         Console.WriteLine();
         Console.WriteLine("QuickSort: ");
