@@ -119,7 +119,7 @@ void UpdateContact()
 
     WriteLine("Enter new phone:");
 
-    var phone = Console.ReadLine();
+    var newphone = Console.ReadLine();
     while (index < newContacts.Length)
     {
         if (newContacts[index].Item1 == nametoupdate && newContacts[index].Item2 == lastnametoupdate)
@@ -128,7 +128,7 @@ void UpdateContact()
            
             newContacts[index].Item1 = firstName;
             newContacts[index].Item2 = lastName;
-            newContacts[index].Item3 = phone;
+            newContacts[index].Item3 = newphone;
             break;
         }
 
