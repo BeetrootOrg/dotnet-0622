@@ -1,91 +1,59 @@
 ﻿class Program
 {
-    static int MaxValue(int firstParam, int secondParam)
-    {       
-        if (firstParam > secondParam) return firstParam;
-        if (firstParam < secondParam) return secondParam;
-        else return firstParam;        
-    }
-    static int MinValue(int firstParam, int secondParam)
+    static int[] QuickSort(int[] array, int minIndex, int maxIndex)
     {
-        if (firstParam < secondParam) return firstParam;
-        if (firstParam > secondParam) return secondParam;
-        else return firstParam;
+        if (minIndex >= maxIndex) return array;
+            
+        int pivotIndex = GetPivotIndex(array, minIndex, maxIndex);
+        //left sort
+        QuickSort(array, minIndex, pivotIndex - 1);
+        //right sort
+        QuickSort(array, pivotIndex + 1, maxIndex);
+
+        return array;
     }
-    
-    static int MaxValue(int firstParam, int secondParam, int thirdParam)
+
+    static int GetPivotIndex(int[] array, int minIndex, int maxIndex)
     {
-        int maxValue;
-        return maxValue = MaxValue(MaxValue(firstParam, secondParam), thirdParam);
-    }
-    static int MaxValue(int firstParam, int secondParam, int thirdParam, int fourthParam)
-    {
-        int maxValue;
-        return maxValue = MaxValue(MaxValue(MaxValue(firstParam, secondParam), thirdParam), fourthParam);
-    }
-    static int MinValue(int firstParam, int secondParam, int thirdParam)
-    {
-        int minValue;
-        return minValue = MinValue(MinValue(firstParam, secondParam), thirdParam);
-    }
-    static int MinValue(int firstParam, int secondParam, int thirdParam, int fourthParam)
-    {
-        int minValue;
-        return minValue = MinValue(MinValue(MinValue(firstParam, secondParam), thirdParam), fourthParam);
-    }
-    static bool TrySumIfOdd(int firstParam, int secondParam, out int sumResult)
-    {
-        if ((firstParam + secondParam) % 2 != 0)
+        int pivot = minIndex - 1;
+
+        for (int i = minIndex; i <= maxIndex; i++)
         {
-            sumResult = firstParam + secondParam;
-            return true;
+            if (array[i] < array[maxIndex])
+            {
+                pivot++;
+                Swap(ref array[pivot], ref array[i]);
+            }
         }
-        else
-        {
-            sumResult = firstParam + secondParam;
-            return false;
-        }
+
+        pivot++;
+        Swap(ref array[pivot], ref array[maxIndex]);
+
+        return pivot;
     }
 
-    static string Repeat(string str, int n)
-    { 
-        int i = 0;
-        if (i >= n)
-        {
-            return "";
-        } 
-        i++;
-        return str + Repeat (str, n-1);
-
-    }
-
-    static void Main(string[] args)
+    static void Swap(ref int leftItem, ref int rightItem)
     {
-   
-        int maxValue = MaxValue(6, 4);
-        Console.WriteLine($"Max value fo two parameters: {maxValue}");
-                
-        int minValue = MinValue(6, 4);
-        Console.WriteLine($"Min value fo two parameters: {minValue}");
-                
-        int maxValue1 = MaxValue(1, 2, 3);
-        Console.WriteLine($"Max value fo three parameters: {maxValue1}");
+        int temp = leftItem;
 
-        int minValue1 = MinValue(6, 4, 1);
-        Console.WriteLine($"Min value fo three parameters: {minValue1}");
+        leftItem = rightItem;
 
-        int maxValue2 = MaxValue(1, 5, 3, 4);
-        Console.WriteLine($"Max value fo four parameters: {maxValue2}");
-
-        int minValue2 = MinValue(6, 4, 8, 7);
-        Console.WriteLine($"Min value fo four parameters: {minValue2}");
-
-        int sumResult;
-        TrySumIfOdd(2, 3, out sumResult);
-        Console.WriteLine($"Sum of 2 numbers : {sumResult}");
-
-        //recursion        
-        Console.WriteLine(Repeat("bla", 3));
+        rightItem = temp;
+    }
         
+    static void Main()
+    {
+        Console.Write("Input size array: ");
+        int n = Convert.ToInt16(Console.ReadLine());
+        int[]  inputArray = new int[n];
+        Random rnd = new Random();
+        for (int i = 0; i < n; i++) inputArray[i] = rnd.Next(-10, 10);
+        
+        Console.WriteLine($"Disordered array: {string.Join(", ", inputArray)}");
+
+        int[] sortedArray = QuickSort(inputArray, 0, inputArray.Length - 1);
+
+        Console.WriteLine($"Sorted array: {string.Join(", ", sortedArray)}");
     }
+
 }
