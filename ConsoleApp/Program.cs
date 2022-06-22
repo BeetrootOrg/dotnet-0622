@@ -19,15 +19,30 @@ void ShowRow((string, string, string) row)
 
 (string, string, string)[] ReadContacts(string file)
 {
-    var lines = File.ReadAllLines(file);
-    var contacts = new (string, string, string)[lines.Length];
-    for (int i = 0; i < lines.Length; i++)
+    try
     {
-        var items = lines[i].Split(',');
-        contacts[i] = (items[0], items[1], items[2]);
-    }
+        var lines = File.ReadAllLines(file);
+        var contacts = new (string, string, string)[lines.Length];
+        for (int i = 0; i < lines.Length; i++)
+        {
+            var items = lines[i].Split(',');
 
-    return contacts;
+            try
+            {
+                contacts[i] = (items[0], items[1], items[2]);
+            }
+            catch (IndexOutOfRangeException ioore)
+            {
+                WriteLine($"ERROR WHILE READING {i + 1} LINE FROM {filename}. Message: {ioore.Message}");
+            }
+        }
+
+        return contacts;
+    }
+    catch (FileNotFoundException)
+    {
+        return Array.Empty<(string, string, string)>();
+    }
 }
 
 void ShowAll()
