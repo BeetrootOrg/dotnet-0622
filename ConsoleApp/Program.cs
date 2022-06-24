@@ -16,15 +16,16 @@ string testText5 = "pnszAaygfvceYdlG";
 int thisIsChar = 0;
 int thisIsDigic = 0;
 int thisIsSpS = 0;
+var resstring = "";
 
-System.Console.WriteLine("---- COMPARE ---");
+
+System.Console.WriteLine("------------------ COMPARE ---");
 static bool CompareMeth(string param1, string param2)
 {
     if (param1.Length != param2.Length)
     {
         return false;
     }
-
     else
     {
         for (int i = 0; i < param1.Length; i++)
@@ -39,7 +40,9 @@ static bool CompareMeth(string param1, string param2)
 }
 System.Console.WriteLine(CompareMeth(testText1, testText2));
 
-System.Console.WriteLine("---- Analyze ---");
+
+
+System.Console.WriteLine("------------------- Analyze ---");
 static bool AnalyzeStringMeth(string TextForAnalyze, out int leter, out int digi, out int symb)
 {
     leter = 0;
@@ -63,14 +66,12 @@ static bool AnalyzeStringMeth(string TextForAnalyze, out int leter, out int digi
     }
     return true;
 }
-
-
-System.Console.WriteLine("---START ANALYZE STRING " + testText3);
 AnalyzeStringMeth(testText3, out thisIsChar, out thisIsDigic, out thisIsSpS);
 System.Console.WriteLine("Char= " + thisIsChar + " : Digic= " + thisIsDigic + " : Symbols =" + thisIsSpS);
 
 
-System.Console.WriteLine("---- SORTE ---");
+
+System.Console.WriteLine("------------------- SORTE ---");
 static void SortString(string testText4)
 {
     string lowerForm = testText4.ToLower();
@@ -86,10 +87,36 @@ static void SortString(string testText4)
 }
 SortString(testText4);
 
-System.Console.WriteLine("---- Duplicate ---");
 
-string lowerForm1 = testText5.ToLower(); 
-for (int i = 0; i < lowerForm1.Length; ++i)
+
+System.Console.WriteLine("------------------ Duplicate ---");
+if (testText5.Length > 0)
 {
-    
+    string lowerForm1 = testText5.ToLower();
+    for (int i = 0; i < lowerForm1.Length; ++i)
+    {
+        var symbProgres = lowerForm1[i];
+        int findCount = 0;
+
+        for (int p = 0; p < lowerForm1.Length; p++)
+        {
+            if (symbProgres == lowerForm1[p])
+            {
+                findCount = findCount + 1;
+            }
+        }
+        if (findCount >= 2)
+        {
+            if (!resstring.Contains(symbProgres))
+            {
+                resstring = resstring + symbProgres;
+            }
+        }
+    }
 }
+if (resstring.Length > 0)
+{
+    var arreyDublicate = resstring.ToCharArray();
+    System.Console.WriteLine("---  " + resstring);
+}
+
