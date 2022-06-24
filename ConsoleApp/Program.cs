@@ -1,6 +1,6 @@
 ﻿class Program
 {
-    //bubbleSort
+    //BubbleSort
     static int[] BubbleSort(int[] array)
     {
         int temp;
@@ -42,7 +42,6 @@
                 Swap(ref array[pivot], ref array[i]);
             }
         }
-
         pivot++;
         Swap(ref array[pivot], ref array[maxIndex]);
         return pivot;
@@ -62,7 +61,6 @@
         int[] inputArray = new int[n];
         Random rnd = new Random();
         for (int i = 0; i < n; i++) inputArray[i] = rnd.Next(-10, 10);
-
         Console.WriteLine("Disordered array: ");
         foreach (int element in inputArray) Console.Write($"{element}, ");
         return inputArray;
@@ -72,12 +70,10 @@
     {   
         //BubbleSort
         int[] inputArray = InputArray();
-        
         int[] sortedArrayBubble = BubbleSort(inputArray);
         Console.WriteLine();
         Console.WriteLine("BubbleSort: ");
         foreach (int element in sortedArrayBubble) Console.Write($"{element}, ");
-        
         //QuickSort
         int[] sortedArrayQuick = QuickSort(inputArray, 0, inputArray.Length - 1);
         Console.WriteLine();
