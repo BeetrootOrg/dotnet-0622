@@ -72,7 +72,6 @@ internal class Program
 
         return analyzer;
     }
-
     static string Sort(string str)
     {
         if (String.IsNullOrEmpty(str))
@@ -82,7 +81,6 @@ internal class Program
 
         return new string(SelectionSort(str.ToLower().ToCharArray()));
     }
-
     static char[] Duplicate(string str)
     {
         if (String.IsNullOrEmpty(str))
