@@ -24,32 +24,24 @@ int[] SelectionSort(int[] arr)
     return copy;
 }
 
-int[] SelectionSort(int[] arr)
+int[] BubbleSort(int[] arr)
 {
-    int a, b, min;
+    int a, b, min = 0;
     int[] copy;
 
     copy = new int[arr.Length];
     Array.Copy(arr, copy, arr.Length);
     for (a = 0; a < copy.Length; ++a)
     {
-        for (b = min = a; b < copy.Length; ++b)
+        for (b = 0; b < copy.Length - 1; ++b)
         {
-            if (copy[min] > copy[b])
+            if (copy[b] > copy[b + 1])
             {
-                min = b;
+                min = copy[b];
+                copy[b] = copy[b + 1];
+                copy[b + 1] = min;
             }
         }
-        b = min;
-        min = copy[b];
-        copy[b] = copy[a];
-        copy[a] = min;
     }
     return copy;
 }
-Console.WriteLine();
-foreach (var pos in SelectionSort(orig))
-{
-    Console.Write($"{pos}, ");
-}
-Console.WriteLine();
