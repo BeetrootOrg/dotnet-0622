@@ -3,194 +3,242 @@ using System.Text;
 
 const string filePath = "baseContacts.csv";
 
-void ShowRow((string, string, string) row)
-{
-    var (firstName, lastName, phone) = row;
-    System.Console.WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
-}
-(string, string, string)[] ReadContacts(string file)
-{
-    var lines = File.ReadAllLines(file);
-    var contacts = new (string, string, string)[lines.Length];
-    for (int i = 0; i < lines.Length; i++)
-    {
-        var items = lines[i].Split(',');
-        contacts[i] = (items[0], items[1], items[2]);
-    }
-
-    return contacts;
-}
-
-string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
-
-void showAllContacts()
-{
-    var lines = ReadContacts(filePath);
-    ShowRow(("First Name", "Last Name", "Phone"));
-    foreach (var contact in lines)
-    {
-        ShowRow(contact);
-    }
-
-    System.Console.WriteLine("Press any key to continue...");
-    Console.ReadKey();
-}
-void exitProg()
+void ExitProg()
 {
     Environment.Exit(0);
 };
 
-void addNewContacts()
+string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
+
+void ShowAllContacts()
 {
     Console.Clear();
-    System.Console.Write("Enter first name: ");
-    var firstName = Console.ReadLine();
-    System.Console.Write("Enter second name: ");
-    var lastName = Console.ReadLine();
-    System.Console.Write("Enter phone: ");
-    var phone = Console.ReadLine();
-    File.AppendAllLines(filePath, new[] { Serialize((firstName, lastName, phone)) });
+    try
+    {
+        var lines = ReadContacts(filePath);
+
+
+        ShowRow(("First Name", "Last Name", "Phone"));
+        foreach (var contact in lines)
+        {
+            ShowRow(contact);
+        }
+
+        System.Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
+    }
+    catch (FileNotFoundException fnfe)
+    {
+        System.Console.WriteLine($"File not found {fnfe.Message}");
+        Console.ReadKey();
+    }
 }
 
-void RemoveContact()
-{
-    Console.Clear();
-
-    System.Console.WriteLine("Enter phone to remove:");
-    var phoneToRemove = Console.ReadLine();
-
-    var contacts = ReadContacts(filePath);
-    var newContacts = new (string, string, string)[contacts.Length];
-    Array.Copy(contacts, newContacts, contacts.Length);
-
-    var index = 0;
-
-    while (index < newContacts.Length)
+    void AddNewContacts()
     {
-        if (newContacts[index].Item3 == phoneToRemove)
+        Console.Clear();
+
+        System.Console.Write("Enter first name: ");
+        var firstName = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(firstName)) { CheckCorrectInput(firstName, "incorrect name output"); }
+        System.Console.Write("Enter second name: ");
+        var lastName = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(lastName)) { CheckCorrectInput(lastName, "incorrect last name output"); }
+        System.Console.Write("Enter phone: +");
+        var phone = Console.ReadLine();
+        if (!int.TryParse(phone, out int value)) { throw new ArgumentException("the phone should contain only numbers", nameof(value)); }
+        File.AppendAllLines(filePath, new[] { Serialize((firstName, lastName, phone)) });
+    }
+
+    void CheckCorrectInput(string value, string errorText = null)
+    {
+        if (string.IsNullOrWhiteSpace(value))
         {
-            newContacts[index] = newContacts[^1];
-            Array.Resize(ref newContacts, newContacts.Length - 1);
-        }
-        else
-        {
-            ++index;
+            throw new ArgumentException(errorText, nameof(value));
         }
     }
 
-    var csvBuilder = new StringBuilder();
-    foreach (var contact in newContacts)
+    void ShowRow((string, string, string) row)
     {
-        csvBuilder.AppendLine(Serialize(contact));
+        var (firstName, lastName, phone) = row;
+        System.Console.WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
     }
 
-    File.WriteAllText(filePath, csvBuilder.ToString());
-
-    System.Console.WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
-    Console.ReadKey();
-}
-
-void searchContact()
-{
-    System.Console.WriteLine("Enter Last\\second name or number: ");
-    string searchContact = Console.ReadLine();
-    var contacts = ReadContacts(filePath);
-    var index = 0;
-
-    for (int i = 0; i < contacts.Length; i++)
+    (string, string, string)[] ReadContacts(string file)
     {
-        if (contacts[index].Item1 == searchContact
-        || contacts[index].Item2 == searchContact
-        || contacts[index].Item3 == searchContact)
+        try
         {
-            ShowRow(contacts[i]);
+            var lines = File.ReadAllLines(file);
+            var contacts = new (string, string, string)[lines.Length];
+            for (int i = 0; i < lines.Length; i++)
+            {
+                var items = lines[i].Split(',');
+                try
+                {
+                    contacts[i] = (items[0], items[1], items[2]);
+                }
+                catch (IndexOutOfRangeException ioore)
+                {
+                    System.Console.WriteLine(ioore.Message);
+                }
+            }
+
+            return contacts;
+        }
+        catch (FileNotFoundException fnfe)
+        {
+            System.Console.WriteLine(fnfe.Message);
+            Console.ReadKey();
+            return Array.Empty<(string, string, string)>();
+        }
+        catch (Exception ex)
+        {
+            System.Console.WriteLine(ex.Message);
+            Console.ReadKey();
+            return Array.Empty<(string, string, string)>();
         }
     }
-    System.Console.WriteLine("Press any key to continue...");
-    Console.ReadKey();
 
-}
-
-void UpdateContact()
-{
-    var contacts = ReadContacts(filePath);
-    ShowRow(("First Name", "Last Name", "Phone"));
-    foreach (var contact in contacts)
+    void RemoveContact()
     {
-        ShowRow(contact);
-    }
-    System.Console.WriteLine("Enter the contact's number: ");
-    string searchNumbContact = Console.ReadLine();
-    System.Console.WriteLine("enter a new name:");
-    string contactNewName = Console.ReadLine();
-    System.Console.WriteLine("enter a new last name:");
-    string contactNewLastName = Console.ReadLine();
-    var index = 0;
+        Console.Clear();
+        ShowAllContacts();
+        System.Console.WriteLine("Enter phone to remove:");
+        var phoneToRemove = Console.ReadLine();
+        if (!int.TryParse(phoneToRemove, out int value)) { throw new ArgumentException("the phone should contain only numbers", nameof(value)); }
+        var contacts = ReadContacts(filePath);
+        var newContacts = new (string, string, string)[contacts.Length];
+        Array.Copy(contacts, newContacts, contacts.Length);
 
-    for (int i = 0; i < contacts.Length; i++)
-    {
-        if (contacts[index].Item3 == searchNumbContact)
+        var index = 0;
+
+        while (index < newContacts.Length)
         {
-            contacts[index].Item1 = contactNewName;
-            contacts[index].Item2 = contactNewLastName;
+            if (newContacts[index].Item3 == phoneToRemove)
+            {
+                newContacts[index] = newContacts[^1];
+                Array.Resize(ref newContacts, newContacts.Length - 1);
+            }
+            else
+            {
+                ++index;
+            }
         }
-        else { System.Console.WriteLine("no contacts found"); }
+
+        var csvBuilder = new StringBuilder();
+        foreach (var contact in newContacts)
+        {
+            csvBuilder.AppendLine(Serialize(contact));
+        }
+        File.WriteAllText(filePath, csvBuilder.ToString());
+        System.Console.WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
+        Console.ReadKey();
     }
-    var csvBuilder = new StringBuilder();
-    foreach (var contact in contacts)
+
+    void SearchContact()
     {
-        csvBuilder.AppendLine(Serialize(contact));
+        Console.Clear();
+        System.Console.WriteLine("Enter Last\\second name or number: ");
+        string searchContact = Console.ReadLine();
+        CheckCorrectInput(searchContact,"invalid input");
+        var contacts = ReadContacts(filePath);
+        var index = 0;
+        for (int i = 0; i < contacts.Length; i++)
+        {
+            if (contacts[index].Item1 == searchContact
+            || contacts[index].Item2 == searchContact
+            || contacts[index].Item3 == searchContact)
+            {
+                ShowRow(contacts[i]);
+            }
+            else{System.Console.WriteLine("Contact not found...");}
+        }
+        System.Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
     }
-    File.WriteAllText(filePath, csvBuilder.ToString());
-    System.Console.WriteLine("Press any key to continue...");
-    Console.ReadKey();
-}
 
-void MainlMenu()
-{
-    Console.Clear();
-    System.Console.WriteLine("Phone Book");
-    System.Console.WriteLine("Menu.");
-    System.Console.WriteLine("1 - Show all contacts.");
-    System.Console.WriteLine("2 - Add new contacts.");
-    System.Console.WriteLine("3 - Update contacts.");
-    System.Console.WriteLine("4 - Remove contacts.");
-    System.Console.WriteLine("5 - Search contact.");
-    System.Console.WriteLine("0 - Exit.");
-
-    var keyPress = Console.ReadKey();
-
-    switch (keyPress.Key)
+    void UpdateContact()
     {
-        case ConsoleKey.D0:
-            exitProg();
-            break;
+        Console.Clear();
+        ShowAllContacts();
+        var contacts = ReadContacts(filePath);
 
-        case ConsoleKey.D1:
-            showAllContacts();
-            break;
+        System.Console.WriteLine("Enter the contact's number: +");
+        string searchNumbContact = Console.ReadLine();
+        if (!int.TryParse(searchNumbContact, out int value)) { throw new ArgumentException("the phone should contain only numbers", nameof(value)); }
+        System.Console.WriteLine("enter a new name:");
+        string contactNewName = Console.ReadLine();
+        CheckCorrectInput(contactNewName, "incorrect last name output");
+        System.Console.WriteLine("enter a new last name:");
+        string contactNewLastName = Console.ReadLine();
+        CheckCorrectInput(contactNewLastName, "incorrect last name output");
 
-        case ConsoleKey.D2:
-            addNewContacts();
-            break;
+        var index = 0;
+        for (int i = 0; i < contacts.Length; i++)
+        {
+            if (contacts[index].Item3 == searchNumbContact)
+            {
+                contacts[index].Item1 = contactNewName;
+                contacts[index].Item2 = contactNewLastName;
+            }
+            else { System.Console.WriteLine("contacts no found"); }
+        }
 
-        case ConsoleKey.D3:
-            UpdateContact();
-            break;
-
-        case ConsoleKey.D4:
-            RemoveContact();
-            break;
-        case ConsoleKey.D5:
-            searchContact();
-            break;
-
-        default:
-            break;
+        var csvBuilder = new StringBuilder();
+        foreach (var contact in contacts)
+        {
+            csvBuilder.AppendLine(Serialize(contact));
+        }
+        File.WriteAllText(filePath, csvBuilder.ToString());
+        System.Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
     }
-};
 
-while (true)
-{
-    MainlMenu();
-};
+    void MainlMenu()
+    {
+        Console.Clear();
+        System.Console.WriteLine("Phone Book");
+        System.Console.WriteLine("Menu.");
+        System.Console.WriteLine("1 - Show all contacts.");
+        System.Console.WriteLine("2 - Add new contacts.");
+        System.Console.WriteLine("3 - Update contacts.");
+        System.Console.WriteLine("4 - Remove contacts.");
+        System.Console.WriteLine("5 - Search contact.");
+        System.Console.WriteLine("0 - Exit.");
+
+        var keyPress = Console.ReadKey();
+
+        switch (keyPress.Key)
+        {
+            case ConsoleKey.D0:
+                ExitProg();
+                break;
+
+            case ConsoleKey.D1:
+                ShowAllContacts();
+                break;
+
+            case ConsoleKey.D2:
+                AddNewContacts();
+                break;
+
+            case ConsoleKey.D3:
+                UpdateContact();
+                break;
+
+            case ConsoleKey.D4:
+                RemoveContact();
+                break;
+            case ConsoleKey.D5:
+                SearchContact();
+                break;
+
+            default:
+                break;
+        }
+    };
+
+    while (true)
+    {
+        MainlMenu();
+    };
