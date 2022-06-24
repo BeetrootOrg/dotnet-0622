@@ -13,8 +13,8 @@ void Exit()
 
 void ShowRow((string, string, string, string) row)
 {
-    var (No, firstName, lastName, phone) = row;
-    WriteLine("{0,-15} {1,-15} {2,-15} {3,-15}", No, firstName, lastName, phone);
+    var (no, firstName, lastName, phone) = row;
+    WriteLine("{0,-15} {1,-15} {2,-15} {3,-15}", no, firstName, lastName, phone);
 }
 
 (string, string, string, string)[] ReadContacts(string file)
@@ -50,7 +50,7 @@ void ShowAll()
     ReadKey();
 }
 
-string Serialize((string No, string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
+string Serialize((string no, string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
 
 void SearchContact()
 {
