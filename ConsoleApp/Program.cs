@@ -165,7 +165,7 @@ internal class Program
 
     private static void Main(string[] args)
     {
-/*         long res;
+        long res;
         Console.WriteLine(Define_Max(23, 76));
         Console.WriteLine(Define_Max(23, 76, 88.88f));
         Console.WriteLine(Define_Max(23, 76, 88.88f, 99.99));
@@ -179,6 +179,6 @@ internal class Program
 
         Console.WriteLine($"{Repeat("abc ", 4)}");
 
-        Console.WriteLine($"{Repeat_Recursion("abc ", 4)}"); */
+        Console.WriteLine($"{Repeat_Recursion("abc ", 4)}");
     }
 }
