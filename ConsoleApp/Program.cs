@@ -11,20 +11,20 @@ void Exit()
     Environment.Exit(0);
 }
 
-void ShowRow((string, string, string) row)
+void ShowRow((string, string, string, string) row)
 {
-    var (firstName, lastName, phone) = row;
-    WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
+    var (No, firstName, lastName, phone) = row;
+    WriteLine("{0,-15} {1,-15} {2,-15} {3,-15}", No, firstName, lastName, phone);
 }
 
-(string, string, string)[] ReadContacts(string file)
+(string, string, string, string)[] ReadContacts(string file)
 {
     var lines = File.ReadAllLines(file);
-    var contacts = new (string, string, string)[lines.Length];
+    var contacts = new (string, string, string, string)[lines.Length];
     for (int i = 0; i < lines.Length; i++)
     {
         var items = lines[i].Split(',');
-        contacts[i] = (items[0], items[1], items[2]);
+        contacts[i] = ((i + 1).ToString(), items[0], items[1], items[2]);
     }
 
     return contacts;
@@ -40,7 +40,7 @@ void ShowAll()
 
     var contacts = ReadContacts(filename);
 
-    ShowRow(("First Name", "Last Name", "Phone"));
+    ShowRow(("No", "First Name", "Last Name", "Phone"));
     foreach (var contact in contacts)
     {
         ShowRow(contact);
@@ -50,7 +50,7 @@ void ShowAll()
     ReadKey();
 }
 
-string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
+string Serialize((string No, string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
 
 void SearchContact()
 {
@@ -63,7 +63,7 @@ void SearchContact()
     var contacts = ReadContacts(filename);
 
     WriteLine($"The result of searching for {query} is:");
-    ShowRow(("First Name", "Last Name", "Phone"));
+    ShowRow(("No", "First Name", "Last Name", "Phone"));
 
     bool isResult = false;
     foreach (var contact in contacts)
@@ -85,6 +85,49 @@ void SearchContact()
     ReadKey();
 }
 
+void UpdateContact()
+{
+    Clear();
+
+    ShowAll();
+
+    WriteLine("Enter row to update:");
+    var console = Console.ReadLine();
+
+    int rowToUpdate;
+    if (!int.TryParse(console, out rowToUpdate))
+        { 
+            Console.WriteLine("is not an integer number, run again and put right value");
+        }   
+
+    var contacts = ReadContacts(filename);
+    var newContacts = new (string, string, string, string)[contacts.Length];
+    Array.Copy(contacts, newContacts, contacts.Length);
+    
+    WriteLine("Enter first name:");
+    var firstName = Console.ReadLine();
+
+    WriteLine("Enter last name:");
+    var lastName = Console.ReadLine();
+
+    WriteLine("Enter phone:");
+    var phone = Console.ReadLine();
+        
+    newContacts[rowToUpdate - 1] = ((rowToUpdate).ToString(), firstName, lastName, phone);
+
+    var csvBuilder = new StringBuilder();
+
+    foreach (var contact in newContacts)
+    {
+        csvBuilder.AppendLine(Serialize(contact));
+    }
+
+    File.WriteAllText(filename, csvBuilder.ToString());
+
+    WriteLine($"{rowToUpdate} contact was updated, press any key to continue");
+    ReadKey();
+}
+
 void AddNewContact()
 {
     Clear();
@@ -98,7 +141,7 @@ void AddNewContact()
     WriteLine("Enter phone:");
     var phone = Console.ReadLine();
 
-    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+    File.AppendAllLines(filename, new[] { Serialize(("", firstName, lastName, phone)) });
 
     WriteLine("Contact saved, press any key to continue");
     ReadKey();
@@ -112,7 +155,7 @@ void RemoveContact()
     var phoneToRemove = Console.ReadLine();
 
     var contacts = ReadContacts(filename);
-    var newContacts = new (string, string, string)[contacts.Length];
+    var newContacts = new (string, string, string, string)[contacts.Length];
     Array.Copy(contacts, newContacts, contacts.Length);
 
     var index = 0;
@@ -154,6 +197,7 @@ void MainMenu()
     WriteLine("\t3 - Update contact");
     WriteLine("\t4 - Remove contact");
     WriteLine("\t5 - Search for contact");
+    WriteLine("\t6 - Update contact");
     WriteLine("\t0 - Exit");
 
     var key = ReadKey();
@@ -174,6 +218,9 @@ void MainMenu()
             break;
         case ConsoleKey.D5:
             SearchContact();
+            break;
+        case ConsoleKey.D6:
+            UpdateContact();
             break;
         default:
             break;
