@@ -1,80 +1,40 @@
 ﻿internal class Program
 {
-    static int MaxValueAmong(int a, int b) 
+    static void WriteArray(int[] arr)
     {
-        return a >= b ? a : b;
-    }
-    static int MaxValueAmong(int a, int b, int c) 
-    {
-        return MaxValueAmong(MaxValueAmong(a, b), c);
-    }
-    static int MaxValueAmong(int a, int b, int c, int d) 
-    {
-        return MaxValueAmong(MaxValueAmong(a, b), MaxValueAmong(c, d));
-    }
-    static int MinValueAmong(int a, int b) 
-    {
-        return a <= b ? a : b;
-    }
-    static int MinValueAmong(int a, int b, int c) 
-    {
-        return MinValueAmong(MinValueAmong(a, b), c);
-    }
-    static int MinValueAmong(int a, int b, int c, int d) 
-    {
-        return MinValueAmong(MinValueAmong(a, b), MinValueAmong(c, d));
-    }
-    static bool TrySumIfOdd(int a, int b, out int sum) 
-    {
-        sum = CheckHowToCountSum(a, b);
-        return sum % 2 != 0;
-    }
-    static int CheckHowToCountSum(int fromNumber, int toNumber) 
-    {        
-        if (fromNumber <= toNumber)
+        foreach (var item in arr)
         {
-            return CountSumBetweenIntegers(fromNumber, toNumber);
+            Console.Write($"{item} ");
         }
-        return CountSumBetweenIntegers(toNumber, fromNumber);
-    }
-    static int CountSumBetweenIntegers(int fromNumber, int toNumber)
+        System.Console.WriteLine();
+    }     
+    static int[] SelectionSort(int[] arr)
     {
-        int sum = 0;
+        int[] copyArr = new int[arr.Length];
+        Array.Copy(arr, copyArr, arr.Length);
 
-        for (int i = fromNumber; i <= toNumber; ++i)
+        for (int i = 0; i < copyArr.Length - 1; i++)
         {
-            sum += i;
-        }
+            var smallestNumberIndex = i;
 
-        return sum;
-    }
-    static string Repeat(string x, int n) 
-    {
-        string stringToReturn = "";
-        for (int i = 0; i < n; i++)
-        {
-            stringToReturn += x;
-        }
-        return stringToReturn;
-    }
+            for (int j = i + 1; j < copyArr.Length; j++)
+            {
+                if (copyArr[j] < copyArr[smallestNumberIndex])
+                {
+                    smallestNumberIndex = j;
+                }
+            }
 
+            var temp = copyArr[smallestNumberIndex];
+            copyArr[smallestNumberIndex] = copyArr[i];
+            copyArr[i] = temp;
+        }
+        return copyArr;
+    }
     private static void Main(string[] args)
-    {
-        // Max Values
-        System.Console.WriteLine(MaxValueAmong(1, 2));
-        System.Console.WriteLine(MaxValueAmong(1, 2, 3));
-        System.Console.WriteLine(MaxValueAmong(1, 2, 3, 4));
-
-        // Min Values
-        System.Console.WriteLine(MinValueAmong(4, 3));
-        System.Console.WriteLine(MinValueAmong(4, 3, 2));
-        System.Console.WriteLine(MinValueAmong(4, 3, 2, 1));
-
-        // Try Sum If Odd
-        bool isOdd = TrySumIfOdd(10, 15, out int sum);
-        System.Console.WriteLine($"{sum} % 2 != 0 is {isOdd}");
-
-        //Extra
-        System.Console.WriteLine(Repeat("Oo", 5));
+    {       
+        int[] myArray = {159, 433, 187, 58, 367};
+        WriteArray(myArray);
+        WriteArray(SelectionSort(myArray));
     }
 }
