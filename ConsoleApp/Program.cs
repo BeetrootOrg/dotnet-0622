@@ -6,11 +6,13 @@
     Duplicate that will return array of characters that are duplicated in input string (e.g. 'Hello and hi' -> ['h', 'l'])
 */
 
-
+//using System.Text;
 string testText1 = "pnMvm21sse9812G";
 string testText2 = "pnMvm23sse9812G";
 string testText3 = "pnsdf345*))2,23sse9812G";
-string testText4 = "pnsdf345*))2,23sse9812G";
+string testText4 = "pnszAfvceYdlG";
+string testText5 = "pnszAaygfvceYdlG";
+
 int thisIsChar = 0;
 int thisIsDigic = 0;
 int thisIsSpS = 0;
@@ -69,3 +71,25 @@ System.Console.WriteLine("Char= " + thisIsChar + " : Digic= " + thisIsDigic + " 
 
 
 System.Console.WriteLine("---- SORTE ---");
+static void SortString(string testText4)
+{
+    string lowerForm = testText4.ToLower();
+    var arr = lowerForm.ToCharArray();
+    Array.Sort(arr);
+
+    var allSymbolsBuilder = new System.Text.StringBuilder();
+    foreach (var item in arr)
+    {
+        allSymbolsBuilder.Append(item);
+    }
+    System.Console.WriteLine(allSymbolsBuilder);
+}
+SortString(testText4);
+
+System.Console.WriteLine("---- Duplicate ---");
+
+string lowerForm1 = testText5.ToLower(); 
+for (int i = 0; i < lowerForm1.Length; ++i)
+{
+    
+}
