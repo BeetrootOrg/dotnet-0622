@@ -1,125 +1,53 @@
-﻿internal class Program
+﻿int[] test = new int[] { 64, 25, 12, 22, 11 };
+int[] test_1 = new int[] { 23, 2, 19, 0, 7 };
+
+Console.WriteLine("Sorted array (bubble sort): ");
+BubbleSort(test);
+PrintArray(test);
+Console.WriteLine();
+
+Console.WriteLine("Sorted array (selection sort): ");
+SelectionSort(test_1);
+PrintArray(test_1);
+
+static void BubbleSort(int[] arr)
 {
-    static int MaxValue(int a, int b) => a > b ? a : b;
-    static int MaxValue(int a, int b, int c)
+    for (int i = 0; i < arr.Length - 1; i++)
     {
-        int temp = MaxValue(a,b);
-        return MaxValue(temp,c);
-    }
-    static int MaxValue(int a, int b, int c, int d)
-    {
-        int temp_1 = MaxValue(a,b);
-        int temp_2 = MaxValue(c,d);
-        return MaxValue(temp_1,temp_2);
-    }
-
-
-    static int MinValue(int a, int b) => a < b ? a : b;
-    static int MinValue(int a, int b, int c)
-    {
-        int temp = a < b ? a : b;
-        switch (temp < c)
+        for (int j = 0; j < arr.Length - i - 1; j++)
         {
-            case true:
-                {
-                    return temp;
-                }
-            case false:
-                {
-                    return c;
-                }
+            if (arr[j] > arr[j + 1])
+            {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
         }
     }
-    static int MinValue(int a, int b, int c, int d)
-    {
-        int temp_1 = MinValue(a,b);
-        int temp_2 = MinValue(c, d);
-        return MinValue(temp_1,temp_2);
-    }
+}
 
-    static bool TrySumIfOdd(int x, int y, out int sum)
+static void SelectionSort(int[] arr)
+{
+    for (int i = 0; i < arr.Length -1; i++)
     {
-        int biggest = x > y ? x : y;
-        int smallest = x < y ? x : y;
-        sum = 0;
-        while (smallest + 1 < biggest)
+        int smallest_index = i;
+        for (int j = i + 1; j < arr.Length; j++)
         {
-            sum += smallest + 1;
-            smallest++;
+            if (arr[j] < arr[smallest_index])
+            {
+                smallest_index = j;  
+            }
         }
-        return sum % 2 == 0 ? false: true;
+        int temp = arr[smallest_index];
+        arr[smallest_index] = arr[i];
+        arr[i] = temp;
     }
+}
 
-    static string Repeat(string x, int n)
+static void PrintArray(int[] arr)
+{
+    foreach (var item in arr)
     {
-        if(n <= 0)
-        {
-            return "";
-        }
-        else
-        {
-            return x + Repeat(x, n - 1);
-        }
-    }
-
-
-    private static void Main(string[] args)
-    {
-        //Random numbers
-        var rand = new Random();
-        int first, second, third, fourth = 0;
-        first = rand.Next(0, 500);
-        second = rand.Next(0, 500);
-        third = rand.Next(0, 500);
-        fourth = rand.Next(0, 500);
-        Console.WriteLine("First number:" + first + " Second number:" + second + " Third number:" + third + " Fourth number:" + fourth);
-
-        //MAXVALUE
-        //call MaxValue method with 2 arguments
-        Console.WriteLine($"call MaxValue method with 2 arguments {first}, {second}");
-        Console.WriteLine(MaxValue(first, second));
-        Console.WriteLine();
-
-        //call MaxValue method with 3 arguments
-        Console.WriteLine($"call MaxValue method with 3 arguments {first}, {second}, {third}");
-        Console.WriteLine(MaxValue(first, second, third));
-        Console.WriteLine();
-
-        //call MaxValue method with 4 arguments
-        Console.WriteLine($"call MaxValue method with 4 arguments {first}, {second}, {third}, {fourth}");
-        Console.WriteLine(MaxValue(first, second, third, fourth));
-        Console.WriteLine();
-
-
-        //MINVALUE
-        //call MinValue method with 2 arguments
-        Console.WriteLine($"MinValue method with 2 arguments {first}, {second}");
-        Console.WriteLine(MinValue(first, second));
-        Console.WriteLine();
-
-        //call MinValue method with 3 arguments
-        Console.WriteLine($"MinValue method with 3 arguments {first}, {second}, {third}");
-        Console.WriteLine(MinValue(first, second, third));
-        Console.WriteLine();
-
-        //call MinValue method with 4 arguments
-        Console.WriteLine($"MinValue method with 4 arguments {first}, {second}, {third}, {fourth}");
-        Console.WriteLine(MinValue(first, second, third, fourth));
-        Console.WriteLine();
-
-
-        //TrySumIfOdd method
-        Console.WriteLine("TrySumIfOdd method:");
-        int sum = 0;
-        bool result = TrySumIfOdd(4,9,out sum);
-        Console.WriteLine(result);
-        Console.WriteLine(sum);
-        Console.WriteLine();
-
-
-        //EXTRA
-        Console.WriteLine("Extra task:");
-        string resultString = Repeat("abba", rand.Next(1,7)); 
-        Console.WriteLine(resultString);
+        Console.Write(item + " ");
     }
 }
