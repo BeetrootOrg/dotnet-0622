@@ -93,15 +93,15 @@ string Sort(string val)
 char[] Duplicate(string val)
 {
     string res = string.Empty;
-    string copy = string.Empty;
+    char[] copy;
     if (valid(val))
     {
-        copy = new string(val.ToLower());
+        copy = new string(val).ToLower().ToCharArray();
         for (int a = 0; a < copy.Length; ++a)
         {
             for (int b = a + 1; b < copy.Length; ++b)
             {
-                if (copy[a] == copy[b])
+                if (!res.Contains(copy[a]) & copy[a] == copy[b])
                 {
                     res += copy[a];
                 }
