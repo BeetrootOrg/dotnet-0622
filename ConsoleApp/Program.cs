@@ -1,59 +1,70 @@
-﻿public class Program
+﻿static int[] BubleSort(int[] arr)
+{
+    int[] copy = new int[arr.Length];
+    Array.Copy(arr, copy, arr.Length);
+
+    for (int i = 0; i < copy.Length - 1; ++i)
+    {
+        for (int j = 0; j < copy.Length - i - 1; ++j)
+        {
+            if (copy[j] > copy[j + 1])
+            {
+                int boof = copy[j];
+                copy[j] = copy[j + 1];
+                copy[j + 1] = boof;
+            }
+        }
+    }
+
+    return copy;
+}
+static int[] QuickSort(int[] array, int start = 0, int end = 0)
 {
 
-    static int myMin(int a, int b)=>  a <= b ? a : b;
-    static int myMin(int a, int b, int c) => a <= b ? a <= c ? a : c : (b < c ? b : c);
-    static int myMin(int a, int b, int c, int d) => a <= b ? a <= c ? a <= d ? a : d : (c <= d ? c : d) : (b < c ? b < d ? b : d : (d < c ? d : c)); 
+    if (end == 0) end = array.Length - 1;
 
-    static int myMax(int a, int b)=> a > b ? a : b;
-    static int myMax(int a, int b, int c)=> a >= b ? a >= c ? a : c : (b > c ? b : c);
-    static int myMax(int a, int b, int c, int d) => a >= b ? a >= c ? a >= d ? a : d : (c > d ? c : d) : (b > c ? b > d ? b : d : (c > d ? c : d));
-
-
-    static bool TrySumIfOdd(int a, int b, out int sum)
+    int pivot = array[end];
+    // to keep the last swap number
+    int i = start - 1;
+    for (int j = start; j <= end; ++j)
     {
-        sum = 0;
-        for(int i = myMin(a,b); i <= myMax(a,b); ++i)
+        if (pivot >= array[j])
         {
-            sum += i;
+            ++i;
+            int temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
         }
 
-        return (sum % 2) != 0 ? true : false; 
     }
+    // to sort the right side of the arr
+    if (i > 1) QuickSort(array, 0, (i - 1));
+    // to sort the left side (if the right side is already sorted)
+    if ((end - i) > 1) QuickSort(array, (i + 1), end);
 
+    return array;
+}
 
-    static string Repeat1(string str, int count)
+static int[] RandomArr()
+{
+    Random random = new Random(Environment.TickCount);
+    int[] arr = new int[10];
+    for (int i = 0; i < arr.Length; i++)
     {
-        string repeater = str;
-        while(count > 1)
-        {
-            count--;
-            str += repeater;
-            
-        }
-
-        return str;
+        arr[i] = random.Next(1, 100);
     }
+    return arr;
+}
 
-    static string RepeatRec(string str, int count, out string outStr)
-    {
-        outStr = "";
-        if(count <= 0) return outStr;
-        RepeatRec(str, count - 1, out outStr);
-        return outStr += str;
-    }   
-    static void Main()
-    {
+int[] arr = RandomArr();
 
-        bool b = TrySumIfOdd(1,1, out int sum);
-        Console.WriteLine(b);
-        Console.WriteLine(sum);
-        b = TrySumIfOdd(1,3, out sum);
-        Console.WriteLine(b);
-        Console.WriteLine(sum);
-        Console.WriteLine(Repeat1("str", 8));
-        RepeatRec("str",8,out string str);
-        Console.WriteLine(str);
-
-    }
+foreach (var i in QuickSort(arr))
+{
+    Console.Write($"{i} ");
+}
+System.Console.WriteLine();
+arr = RandomArr();
+foreach (var i in BubleSort(arr))
+{
+    Console.Write($"{i} ");
 }
