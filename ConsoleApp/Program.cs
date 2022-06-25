@@ -94,6 +94,8 @@ var phoneBook = new PhoneBook
     Contacts = phoneBookContacts
 };
 
+phoneBook.ShowAll();
+
 class Person
 {
     public static bool Initialized { get; }
