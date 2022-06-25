@@ -1,53 +1,89 @@
-﻿int[] test = new int[] { 64, 25, 12, 22, 11 };
-int[] test_1 = new int[] { 23, 2, 19, 0, 7 };
-
-Console.WriteLine("Sorted array (bubble sort): ");
-BubbleSort(test);
-PrintArray(test);
+﻿Console.WriteLine("Compare method:");
+string str_1 = "aufwbferfu";
+string str_2 = "aufwbferfu";
+Console.WriteLine(Compare(str_1, str_2));
 Console.WriteLine();
 
-Console.WriteLine("Sorted array (selection sort): ");
-SelectionSort(test_1);
-PrintArray(test_1);
-
-static void BubbleSort(int[] arr)
+static bool Compare(string comp_1, string comp_2)
 {
-    for (int i = 0; i < arr.Length - 1; i++)
+    if (comp_1.Length != comp_2.Length) return false;
+    else
     {
-        for (int j = 0; j < arr.Length - i - 1; j++)
+        for (int i = 0; i < comp_1.Length; i++)
         {
-            if (arr[j] > arr[j + 1])
-            {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
+            if (comp_1[i] != comp_2[i]) return false;
         }
+        return true;
     }
 }
 
-static void SelectionSort(int[] arr)
+
+Console.WriteLine("Sort method:");
+string temp = "bicadw";
+string res = Sort(temp);
+Console.WriteLine(res);
+Console.WriteLine();
+
+static string Sort(string strToSort)
 {
-    for (int i = 0; i < arr.Length -1; i++)
-    {
-        int smallest_index = i;
-        for (int j = i + 1; j < arr.Length; j++)
-        {
-            if (arr[j] < arr[smallest_index])
-            {
-                smallest_index = j;  
-            }
-        }
-        int temp = arr[smallest_index];
-        arr[smallest_index] = arr[i];
-        arr[i] = temp;
-    }
+    char[] symbolsToSort = strToSort.ToCharArray();
+    Array.Sort(symbolsToSort);
+    return new string(symbolsToSort);
 }
 
-static void PrintArray(int[] arr)
+
+Console.WriteLine("Duplicate method:");
+string test = "aaaaaaabbbbbbbjjasdnjgnnuabbz";
+char[] chars = Duplicate(test);
+foreach (var item in chars)
 {
-    foreach (var item in arr)
+    Console.Write(item + " ");
+}
+Console.WriteLine("\n");
+
+static char[] Duplicate(string inputStr)
+{
+    string duplicateChars = "";
+    for (int i = 0; i < inputStr.Length; i++)
     {
-        Console.Write(item + " ");
+        if (inputStr.IndexOf(inputStr[i]) != inputStr.LastIndexOf(inputStr[i]))
+        {
+            duplicateChars += inputStr[i];
+            while (inputStr.IndexOf(inputStr[i]) != inputStr.LastIndexOf(inputStr[i]))
+            {
+                inputStr = inputStr.Remove(inputStr.LastIndexOf(inputStr[i]), 1);
+            }
+        }
     }
+    char[] dupChars = duplicateChars.ToCharArray();
+    return dupChars;
+}
+
+
+Console.WriteLine("Analyze method:");
+string result = "1ghif46sf4/>a,awe<?sad";
+Tuple<int, int, int> resultTuple = Analyze(result);
+Console.WriteLine(resultTuple.ToString());
+
+static Tuple<int, int, int> Analyze(string strToAnalyze)
+{
+    int alphabet = 0;
+    int digit = 0;
+    int specialCharacters = 0;
+    for (int i = 0; i < strToAnalyze.Length; i++)
+    {
+        if (Char.IsLetter(strToAnalyze[i]))
+        {
+            alphabet++;
+        }
+        else if (Char.IsDigit(strToAnalyze[i]))
+        {
+            digit++;
+        }
+        else
+        {
+            specialCharacters++;
+        }
+    }
+    return Tuple.Create(alphabet, digit, specialCharacters);
 }
