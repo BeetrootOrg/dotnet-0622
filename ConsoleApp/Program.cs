@@ -1,5 +1,10 @@
 ﻿using System;
 
+using ConsoleApp.PhoneBook;
+using ConsoleApp.PhoneBook.Common;
+
+using PhoneBookPerson = ConsoleApp.PhoneBook.Person;
+
 var person1 = new Person("Dima", "Misik", 25);
 var person2 = new Person("Dima", "Misik", 25);
 var person3 = new Person("A", "B", 42);
@@ -55,6 +60,39 @@ var person8 = new InitPropertiesPerson
 
 // Compilation error
 // person1._firstName;
+
+var phoneBookPerson1 = new ConsoleApp.PhoneBook.Person
+{
+    FirstName = "Dima",
+    Gender = Gender.Male,
+    LastName = "Misik"
+};
+
+var phoneBookPerson2 = new PhoneBookPerson
+{
+    FirstName = "A",
+    Gender = Gender.Female,
+    LastName = "B"
+};
+
+var phoneBookContacts = new[]
+{
+    new PhoneBookRecord
+    {
+        Person = phoneBookPerson1,
+        PhoneNumber = "+123456"
+    },
+    new PhoneBookRecord
+    {
+        Person = phoneBookPerson2,
+        PhoneNumber = "+123457"
+    },
+};
+
+var phoneBook = new PhoneBook
+{
+    Contacts = phoneBookContacts
+};
 
 class Person
 {
