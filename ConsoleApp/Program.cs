@@ -18,6 +18,7 @@ bool Compare(string val1, string val2)
     if (valid(val1) & valid(val2) & val1.Length == val2.Length)
     {
         a = val1.Length;
+
         while (a > -1)
         {
             if (val1[a] != val2[a])
@@ -51,4 +52,40 @@ bool Compare(string val1, string val2)
         }
     }
     return (alphNum, digNum, spechNum);
+}
+
+char[] QuickSort(char[] arr, int lef, int rig)
+{
+    int basic = lef - 1;
+    char temp;
+
+    if (lef < rig)
+    {
+        for (int a = lef; a < rig; ++a)
+        {
+            if (arr[a] < arr[rig])
+            {
+                ++basic;
+                temp = arr[basic];
+                arr[basic] = arr[a];
+                arr[a] = temp;
+            }
+        }
+        ++basic;
+        temp = arr[basic];
+        arr[basic] = arr[rig];
+        arr[rig] = temp;
+        QuickSort(arr, lef, rig - 1);
+        QuickSort(arr, lef + 1, rig);
+    }
+    return arr;
+}
+
+string Sort(string val)
+{
+    if (valid(val))
+    {
+        val = new String (QuickSort(val.ToCharArray(), 0, val.Length - 1));
+    }
+    return val;
 }
