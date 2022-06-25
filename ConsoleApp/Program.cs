@@ -8,6 +8,9 @@ System.Console.WriteLine(person1 == person2);
 System.Console.WriteLine(person1.Equals(person2));
 System.Console.WriteLine(person1.CompareTo(person2));
 System.Console.WriteLine(person1.CompareTo(person3));
+System.Console.WriteLine(Person.Compare(person1, person3));
+// Compilation error
+// Person.GetPerson();
 
 var person4 = new PropertiesPerson
 {
@@ -31,14 +34,40 @@ var person6 = new PropertiesWithBirthDatePerson
 
 System.Console.WriteLine(person6.Age);
 
+var person7 = new PropertiesPerson
+{
+    FirstName = "A",
+    LastName = "B",
+    Age = 42
+};
+
+person7.Age = 43;
+
+var person8 = new InitPropertiesPerson
+{
+    FirstName = "A",
+    LastName = "B",
+    Age = 42
+};
+
+// Compilation error
+// person8.Age = 43;
+
 // Compilation error
 // person1._firstName;
 
 class Person
 {
+    public static bool Initialized { get; }
+
     string _firstName = "Placeholder for FN";
     string _lastName = "Placeholder for LN";
     int _age = 42;
+
+    static Person()
+    {
+        Initialized = true;
+    }
 
     public Person(string firstName, string lastName, int age)
     {
@@ -58,6 +87,8 @@ class Person
             _lastName == person._lastName &&
             _age == person._age;
     }
+
+    public static bool Compare(Person person1, Person person2) => person1.CompareTo(person2);
 }
 
 class PropertiesPerson
@@ -65,6 +96,18 @@ class PropertiesPerson
     public string FirstName { get; set; } = "Placeholder for FN";
     public string LastName { get; set; } = "Placeholder for LN";
     public int Age { get; set; } = 42;
+
+    public string GetPerson()
+    {
+        return $"First Name: {FirstName}; Last Name: {LastName}; Age: {Age}";
+    }
+}
+
+class InitPropertiesPerson
+{
+    public string FirstName { get; init; } = "Placeholder for FN";
+    public string LastName { get; init; } = "Placeholder for LN";
+    public int Age { get; init; } = 42;
 
     public string GetPerson()
     {
