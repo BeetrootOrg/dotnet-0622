@@ -22,41 +22,41 @@ int[] SelectionSort(int[] arr)
 int[] BubbleSortUpperLight(int[] arr) //Variant 1. Upper a light object up.
 {
     int a, b, min;
-    int[] copy = new int[arr.Length];
-    Array.Copy(arr, copy, arr.Length);
+    int[] arrCopy = new int[arr.Length];
+    Array.Copy(arr, arrCopy, arr.Length);
 
-    for (a = 0; a < copy.Length - 1; ++a)
+    for (a = 0; a < arrCopy.Length - 1; ++a)
     {
-        for (b = 0; b < copy.Length - 1 - a; ++b)
+        for (b = 0; b < arrCopy.Length - 1 - a; ++b)
         {
-            if (copy[b] < copy[b + 1])
+            if (arrCopy[b] < arrCopy[b + 1])
             {
-                min = copy[b];
-                copy[b] = copy[b + 1];
-                copy[b + 1] = min;
+                min = arrCopy[b];
+                arrCopy[b] = arrCopy[b + 1];
+                arrCopy[b + 1] = min;
             }
         }
     }
-    return copy;
+    return arrCopy;
 }
 
 int[] BubbleSortLowerHeavy(int[] arr) //Variant 2. Lower heavy object down
 {
     int a, b, min;
-    int[] copy = new int[arr.Length];
-    Array.Copy(arr, copy, arr.Length);
+    int[] arrCopy = new int[arr.Length];
+    Array.Copy(arr, arrCopy, arr.Length);
 
-    for (a = 0; a < copy.Length - 1; ++a)
+    for (a = 0; a < arrCopy.Length - 1; ++a)
     {
-        for (b = 0; b < copy.Length - 1 - a; ++b)
+        for (b = 0; b < arrCopy.Length - 1 - a; ++b)
         {
-            if (copy[b] > copy[b + 1])
+            if (arrCopy[b] > arrCopy[b + 1])
             {
-                min = copy[b];
-                copy[b] = copy[b + 1];
-                copy[b + 1] = min;
+                min = arrCopy[b];
+                arrCopy[b] = arrCopy[b + 1];
+                arrCopy[b + 1] = min;
             }
         }
     }
-    return copy;
+    return arrCopy;
 }
