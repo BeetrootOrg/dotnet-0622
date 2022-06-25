@@ -1,70 +1,95 @@
-﻿static int[] BubleSort(int[] arr)
+﻿static bool StringCompare(string str1, string str2) => str1 == str2;
+static (int,int,int)StringAnalyze(string str)
 {
-    int[] copy = new int[arr.Length];
-    Array.Copy(arr, copy, arr.Length);
-
-    for (int i = 0; i < copy.Length - 1; ++i)
+    int digits = 0, alphabetic = 0, other = 0;
+    foreach (char i in str)
     {
-        for (int j = 0; j < copy.Length - i - 1; ++j)
+        if (char.IsDigit(i))
         {
-            if (copy[j] > copy[j + 1])
-            {
-                int boof = copy[j];
-                copy[j] = copy[j + 1];
-                copy[j + 1] = boof;
-            }
+            digits += 1;
+            continue;
+        }
+        if (char.IsLetter(i))
+        {
+            alphabetic += 1;
+            continue;
+        }
+        other++;
+    }
+
+return (digits,alphabetic,other);
+
+}
+
+static string StringSort(string str)
+{
+    str.ToLower();
+
+    char[] characters = str.ToCharArray();
+
+    Array.Sort(characters);
+
+    return new string(characters);
+
+}
+
+static char[] StringDuplicate(string str1, string str2)
+{
+
+    string result = "";
+
+    string boof = str1;
+
+    int length = str1.Length;
+
+    while (length > 0)
+    {
+        char c = boof[0];
+        boof = boof.Remove(0, 1);
+        length--;
+        if (boof.Contains(c))
+        {
+            if (result.Contains(c)) continue;
+            result += c.ToString();
+        }
+        if (str2.Contains(c))
+        {
+            if (result.Contains(c)) continue;
+            result += c.ToString();
         }
     }
 
-    return copy;
-}
-static int[] QuickSort(int[] array, int start = 0, int end = 0)
-{
+    boof = str2;
 
-    if (end == 0) end = array.Length - 1;
+    length = str2.Length;
 
-    int pivot = array[end];
-    // to keep the last swap number
-    int i = start - 1;
-    for (int j = start; j <= end; ++j)
+    while (length > 0)
     {
-        if (pivot >= array[j])
+        char c = boof[0];
+        boof = boof.Remove(0, 1);
+        length--;
+        if (boof.Contains(c))
         {
-            ++i;
-            int temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
+            if (result.Contains(c)) continue;
+            result += c.ToString();
         }
-
     }
-    // to sort the right side of the arr
-    if (i > 1) QuickSort(array, 0, (i - 1));
-    // to sort the left side (if the right side is already sorted)
-    if ((end - i) > 1) QuickSort(array, (i + 1), end);
 
-    return array;
+    char[] characters = result.ToCharArray();
+
+    return characters;
 }
 
-static int[] RandomArr()
-{
-    Random random = new Random(Environment.TickCount);
-    int[] arr = new int[10];
-    for (int i = 0; i < arr.Length; i++)
-    {
-        arr[i] = random.Next(1, 100);
-    }
-    return arr;
-}
 
-int[] arr = RandomArr();
+string str1 = "ABCD";
+string str2 = "ABBAKK";
+string str3 = "ABBAKK";
+Console.WriteLine(StringCompare(str2, str3));
 
-foreach (var i in QuickSort(arr))
-{
-    Console.Write($"{i} ");
-}
-System.Console.WriteLine();
-arr = RandomArr();
-foreach (var i in BubleSort(arr))
-{
-    Console.Write($"{i} ");
-}
+
+
+
+System.Console.WriteLine(StringDuplicate(str1, str2));
+System.Console.WriteLine($"Digits; Alphabetic; Other;\n{StringAnalyze(str1)}");
+System.Console.WriteLine(StringCompare(str1,str2));
+System.Console.WriteLine(StringCompare(str1,str1));
