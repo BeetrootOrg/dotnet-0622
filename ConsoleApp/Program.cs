@@ -85,7 +85,28 @@ string Sort(string val)
 {
     if (valid(val))
     {
-        val = new String (QuickSort(val.ToCharArray(), 0, val.Length - 1));
+        val = new String(QuickSort(val.ToCharArray(), 0, val.Length - 1));
     }
     return val;
+}
+
+char[] Duplicate(string val)
+{
+    string res = string.Empty;
+    string copy = string.Empty;
+    if (valid(val))
+    {
+        copy = new string(val.ToLower());
+        for (int a = 0; a < copy.Length; ++a)
+        {
+            for (int b = a + 1; b < copy.Length; ++b)
+            {
+                if (copy[a] == copy[b])
+                {
+                    res += copy[a];
+                }
+            }
+        }
+    }
+    return res.ToCharArray();
 }
