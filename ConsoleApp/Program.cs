@@ -2,13 +2,9 @@
 bool valid(string val)
 {
     if (val != null & val.Length < 1)
-    {
         return false;
-    }
     else
-    {
         return true;
-    }
 }
 
 bool Compare(string val1, string val2)
@@ -18,7 +14,6 @@ bool Compare(string val1, string val2)
     if (valid(val1) & valid(val2) & val1.Length == val2.Length)
     {
         a = val1.Length;
-
         while (a > -1)
         {
             if (val1[a] != val2[a])
@@ -31,9 +26,7 @@ bool Compare(string val1, string val2)
         return res;
     }
     else
-    {
         return false;
-    }
 }
 
 (int alphNum, int digNum, int spechNum) Analyze(string val)
@@ -84,9 +77,7 @@ char[] QuickSort(char[] arr, int lef, int rig)
 string Sort(string val)
 {
     if (valid(val))
-    {
         val = new String(QuickSort(val.ToCharArray(), 0, val.Length - 1));
-    }
     return val;
 }
 
@@ -101,10 +92,10 @@ char[] Duplicate(string val)
         {
             for (int b = a + 1; b < copy.Length; ++b)
             {
-                if (!res.Contains(copy[a]) & copy[a] == copy[b])
-                {
+                if (res.Contains(copy[a]))
+                    break;
+                if(copy[a] == copy[b])
                     res += copy[a];
-                }
             }
         }
     }
