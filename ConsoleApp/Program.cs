@@ -1,25 +1,14 @@
-﻿using System;
+﻿var person = new Person();
+System.Console.WriteLine(person.GetPerson());
 
-void PrintArray(params int[] array)
+class Person
 {
-    Console.Write(string.Join(",", array));
-    Console.WriteLine();
+    string _firstName = "Placeholder for FN";
+    string _lastName = "Placeholder for LN";
+    int _age = 42;
+
+    public string GetPerson()
+    {
+        return $"First Name: {_firstName}; Last Name: {_lastName}; Age: {_age}";
+    }
 }
-
-int[] Sort(int[] arr)
-{
-    // algorithm goes here
-    return arr;
-}
-
-var arr1 = new[] { 1, 2, 3, 4, 5 };
-var arr2 = new[] { 5, 4, 3, 2, 1 };
-var arr3 = new[] { 3, 1, 4, 5, 2 };
-var arr4 = Array.Empty<int>();
-var arr5 = new[] { 1, 1, 1, 1, 1 };
-
-PrintArray(Sort(arr1));
-PrintArray(Sort(arr2));
-PrintArray(Sort(arr3));
-PrintArray(Sort(arr4));
-PrintArray(Sort(arr5));
