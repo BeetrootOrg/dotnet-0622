@@ -19,15 +19,33 @@ void ShowRow((string, string, string, string) row)
 
 (string, string, string, string)[] ReadContacts(string file)
 {
-    var lines = File.ReadAllLines(file);
-    var contacts = new (string, string, string, string)[lines.Length];
-    for (int i = 0; i < lines.Length; i++)
-    {
-        var items = lines[i].Split(',');
-        contacts[i] = ((i + 1).ToString(), items[0], items[1], items[2]);
-    }
+    try 
+    {    
+        var lines = File.ReadAllLines(file);
+        var contacts = new (string, string, string, string)[lines.Length];
 
-    return contacts;
+        for (int i = 0; i < lines.Length; i++)
+        {
+            var items = lines[i].Split(',');
+            try 
+            {
+                contacts[i] = ((i + 1).ToString(), items[0], items[1], items[2]);
+                continue;
+            }
+            catch 
+            {
+                Console.WriteLine ("Wrong csv");
+            }
+        }
+        return contacts;
+
+    }
+    catch (System.IO.FileNotFoundException)
+    {
+        Console.WriteLine ("File not found");
+        return Array.Empty<(string, string, string, string)>();
+    }    
+ 
 }
 
 void ShowAll()
@@ -98,6 +116,8 @@ void UpdateContact()
     if (!int.TryParse(console, out rowToUpdate))
         { 
             Console.WriteLine("is not an integer number, run again and put right value");
+            ReadKey();
+            return;
         }   
 
     var contacts = ReadContacts(filename);
@@ -112,19 +132,27 @@ void UpdateContact()
 
     WriteLine("Enter phone:");
     var phone = Console.ReadLine();
-        
-    newContacts[rowToUpdate - 1] = ((rowToUpdate).ToString(), firstName, lastName, phone);
 
-    var csvBuilder = new StringBuilder();
+    try 
+    {   
+        newContacts[rowToUpdate - 1] = ((rowToUpdate).ToString(), firstName, lastName, phone);
 
-    foreach (var contact in newContacts)
-    {
-        csvBuilder.AppendLine(Serialize(contact));
+        var csvBuilder = new StringBuilder();
+
+        foreach (var contact in newContacts)
+        {
+            csvBuilder.AppendLine(Serialize(contact));
+        }
+
+        File.WriteAllText(filename, csvBuilder.ToString());
+
+        WriteLine($"{rowToUpdate} contact was updated, press any key to continue");
     }
 
-    File.WriteAllText(filename, csvBuilder.ToString());
-
-    WriteLine($"{rowToUpdate} contact was updated, press any key to continue");
+    catch (System.IndexOutOfRangeException)
+    {
+        WriteLine($"Error while trying to update, wrong contact number");
+    }
     ReadKey();
 }
 
@@ -187,7 +215,7 @@ void RemoveContact()
 
 void MainMenu()
 {
-    Clear();
+    //Clear();
 
     WriteLine("Welcome to phone book!");
     WriteLine();
