@@ -12,11 +12,11 @@ int[] Sort(int[] arr)
     return arr;
 }
 
-var arr1 = new[] { 1, 2, 3, 4, 5 };
-var arr2 = new[] { 5, 4, 3, 2, 1 };
-var arr3 = new[] { 3, 1, 4, 5, 2 };
+var arr1 = new[] { -5, 0, 1, 5, 17 };
+var arr2 = new[] { 42, -5, -7, -15, -100 };
+var arr3 = new[] { 42, -1, 14, 22, 5 };
 var arr4 = Array.Empty<int>();
-var arr5 = new[] { 1, 1, 1, 1, 1 };
+var arr5 = new[] { 42, 42, 42, 42, 42 };
 
 PrintArray(Sort(arr1));
 PrintArray(Sort(arr2));
