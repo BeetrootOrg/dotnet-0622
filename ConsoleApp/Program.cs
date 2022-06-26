@@ -1,37 +1,86 @@
-﻿var person1 = new Person("Dima", "Misik", 25);
-var person2 = new Person("Dima", "Misik", 25);
-var person3 = new Person("A", "B", 42);
-System.Console.WriteLine(person1.GetPerson());
-System.Console.WriteLine(person1 == person2);
-System.Console.WriteLine(person1.Equals(person2));
-System.Console.WriteLine(person1.CompareTo(person2));
-System.Console.WriteLine(person1.CompareTo(person3));
+﻿using System;
 
-// Compilation error
-// person1._firstName;
-
-class Person
+int[] Bubble(int[] array)
 {
-    string _firstName = "Placeholder for FN";
-    string _lastName = "Placeholder for LN";
-    int _age = 42;
-
-    public Person(string firstName, string lastName, int age)
+    int[] newArray = new int[array.Length];
+    int temp = 0;
+    Array.Copy(array, newArray, array.Length);
+    var n = newArray.Length;
+    bool needToSwap; //add bool value to track whether we need to swap the elements or not (try to dodge already in order arrays)
+    for (int i = 0; i < n - 1; i++)
     {
-        _firstName = firstName;
-        _lastName = lastName;
-        _age = age;
+        needToSwap = false;
+        foreach (var item in newArray)
+        {
+            for (int j = 0; j < n - i - 1; j++)
+                if (newArray[j] > newArray[j + 1])
+                {
+                    temp = newArray[j + 1];
+                    newArray[j + 1] = newArray[j];
+                    newArray[j] = temp;
+                    needToSwap = true;
+                }
+            if (needToSwap == false)
+                break;
+        }
     }
+    return newArray;
+}
 
-    public string GetPerson()
+static void swap(int[] arr, int i, int j) //  swap function
+{
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+
+static int partition(int[] arr, int low, int high)
+{
+    int pivot = arr[high];
+    int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
+    for (int j = low; j <= high - 1; j++)
     {
-        return $"First Name: {_firstName}; Last Name: {_lastName}; Age: {_age}";
+        if (arr[j] < pivot) // If current element is smallerthan the pivot
+        {
+            // Increment index of smaller element
+            i++;
+            swap(arr, i, j);
+        }
     }
+    swap(arr, i + 1, high);
+    return (i + 1);
+}
 
-    public bool CompareTo(Person person)
+static void quickSort(int[] arr, int low, int high)
+{
+    if (low < high)
     {
-        return _firstName == person._firstName &&
-            _lastName == person._lastName &&
-            _age == person._age;
+        int partIndex = partition(arr, low, high);
+        quickSort(arr, low, partIndex - 1);
+        quickSort(arr, partIndex + 1, high);
     }
 }
+
+static void printArray(int[] arr, int size) // func to print quickSort
+{
+    for (int i = 0; i < size; i++)
+        Console.Write(arr[i] + " ");
+
+    Console.WriteLine();
+}
+
+int[] array = { 3, 7, 9, 99, 13, 0, 1, 99, -10 };
+
+Console.WriteLine("---BubleSort---");
+Console.WriteLine("Sorted array: ");
+foreach (var item in Bubble(array))
+{
+    Console.Write(item + " ");
+}
+Console.WriteLine();
+
+Console.WriteLine("---QuickSort---");
+int n = array.Length;
+quickSort(array, 0, n - 1);
+Console.WriteLine("Sorted array: ");
+printArray(array, n);
