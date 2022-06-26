@@ -1,96 +1,177 @@
-﻿internal class Program
+﻿using System;
+using System.IO;
+using System.Text;
+
+using static System.Console;
+
+const string filename = "data.csv";
+
+void Exit()
 {
-    static bool Compare(string a, string b)
+    Environment.Exit(0);
+}
+
+void ShowRow((string, string, string) row)
+{
+    var (firstName, lastName, phone) = row;
+    WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
+}
+
+(string, string, string)[] ReadContacts(string file)
+{
+    var lines = File.ReadAllLines(file);
+    var contacts = new (string, string, string)[lines.Length];
+    for (int i = 0; i < lines.Length; i++)
     {
-        if (a.Length != b.Length)
-        {
-            return false;
-        }
-        for (int i = 0; i < a.Length; ++i)
-        {
-            if (a[i] != b[i])
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-    static (int, int, int) Analyze(string text)
-    {
-        int lettersNumber = 0;
-        int digitsNumber = 0;
-        int symbolsNumber = 0;
-        for (int i = 0; i < text.Length; ++i)
-        {
-            if (char.IsLetter(text[i]))
-            {
-                ++lettersNumber;
-            }
-            else if (char.IsDigit(text[i]))
-            {
-                ++digitsNumber;
-            }
-            else if (char.IsSymbol(text[i]) || char.IsPunctuation(text[i]))
-            {
-                ++symbolsNumber;
-            }
-        }
-        return (lettersNumber, digitsNumber, symbolsNumber);
-    }
-    static char[] BubbleSort(char[] arr)
-    {
-        char[] copy = new char[arr.Length];
-        Array.Copy(arr, copy, arr.Length);
-        char temp;
-        for (int i = 0; i < copy.Length; i++)
-        {
-            for (int j = 0; j < copy.Length - 1; j++)
-            {
-                if (copy[j] > copy[j + 1])
-                {
-                    temp = copy[j];
-                    copy[j] = copy[j + 1];
-                    copy[j + 1] = temp;
-                }
-            }
-        }
-        return copy;
-    }
-    static string Sort(string text)
-    {
-        text = text.ToLower();
-        char[] result1 = BubbleSort(text.ToCharArray());
-        return new string(result1);
+        var items = lines[i].Split(',');
+        contacts[i] = (items[0], items[1], items[2]);
     }
 
-    static char[] Duplicate(string text)
+    return contacts;
+}
+
+void ShowAll()
+{
+    // 1. read content from file
+    // 2. iterate in array of contacts
+    // 3. show contact rows
+    Clear();
+
+    var contacts = ReadContacts(filename);
+
+    ShowRow(("First Name", "Last Name", "Phone"));
+    foreach (var contact in contacts)
     {
-        text = text.ToLower();
-        string newText = "";
-        for (int i = 0; i < text.Length; ++i)
+        ShowRow(contact);
+    }
+
+    WriteLine("Press any key to continue...");
+    ReadKey();
+}
+
+string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
+
+void AddNewContact()
+{
+    Clear();
+
+    WriteLine("Enter first name:");
+    var firstName = Console.ReadLine();
+
+    WriteLine("Enter last name:");
+    var lastName = Console.ReadLine();
+
+    WriteLine("Enter phone:");
+    var phone = Console.ReadLine();
+
+    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+
+    WriteLine("Contact saved, press any key to continue");
+    ReadKey();
+}
+
+void RemoveContact()
+{
+    Clear();
+
+    WriteLine("Enter phone to remove:");
+    var phoneToRemove = Console.ReadLine();
+
+    var contacts = ReadContacts(filename);
+    var newContacts = new (string, string, string)[contacts.Length];
+    Array.Copy(contacts, newContacts, contacts.Length);
+
+    var index = 0;
+
+    while (index < newContacts.Length)
+    {
+        if (newContacts[index].Item3 == phoneToRemove)
         {
-            for (int j = 0; j < text.Length; ++j)
-            {
-                if (char.IsLetter(text[i]) && char.IsLetter(text[j]) && !newText.Contains(text[i]))
-                {
-                    if (text[i] == text[j] && i != j)
-                    {
-                        newText += text[j].ToString();
-                    }
-                }
-            }
+            newContacts[index] = newContacts[^1];
+            Array.Resize(ref newContacts, newContacts.Length - 1);
         }
-        char[] result2 = newText.ToCharArray();
-        return result2;
+        else
+        {
+            ++index;
+        }
     }
-    private static void Main(string[] args)
+
+    var csvBuilder = new StringBuilder();
+    foreach (var contact in newContacts)
     {
-        Console.WriteLine(Compare("hello", "helloo"));
-        (int, int, int) result1 = Analyze("A1!");
-        Console.WriteLine($@"Contains 
-Letters: {result1.Item1} 
-Digits: {result1.Item2}
-Symbols: {result1.Item3}");
-        System.Console.WriteLine(Duplicate("Hello humans! We came with peace"));
+        csvBuilder.AppendLine(Serialize(contact));
     }
+
+    File.WriteAllText(filename, csvBuilder.ToString());
+
+    WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
+    ReadKey();
+}
+// void UpdateContact()
+// {
+//     Clear();
+
+//     WriteLine("Please enter the ")
+// }
+void Search()
+{
+    Clear();
+
+    WriteLine("What contact are you looking for?");
+    var contactSearched = ReadLine();
+    var contacts = ReadContacts(filename);
+
+    var index = 0;
+    while (index < contacts.Length)
+    {
+        if (contacts[index].Item1 == contactSearched || contacts[index].Item2 == contactSearched)
+        {
+            ShowRow(contacts[index]);
+        }
+        index++;
+    }
+    ReadKey();
+}
+
+void MainMenu()
+{
+    Clear();
+
+    WriteLine("Welcome to phone book!");
+    WriteLine();
+    WriteLine("Menu:");
+    WriteLine("\t1 - Show all contacts");
+    WriteLine("\t2 - Add new contact");
+    WriteLine("\t3 - Update contact");
+    WriteLine("\t4 - Remove contact");
+    WriteLine("\t5 - Search");
+    WriteLine("\t0 - Exit");
+
+    var key = ReadKey();
+
+    switch (key.Key)
+    {
+        case ConsoleKey.D0:
+            Exit();
+            break;
+        case ConsoleKey.D1:
+            ShowAll();
+            break;
+        case ConsoleKey.D2:
+            AddNewContact();
+            break;
+        case ConsoleKey.D4:
+            RemoveContact();
+            break;
+        case ConsoleKey.D5:
+            Search();
+            break;
+        default:
+            break;
+    }
+}
+
+while (true)
+{
+    MainMenu();
 }
