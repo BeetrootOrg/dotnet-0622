@@ -19,22 +19,34 @@ void ShowRow((string, string, string) row)
 
 (string, string, string)[] ReadContacts(string file)
 {
-    var lines = File.ReadAllLines(file);
-    var contacts = new (string, string, string)[lines.Length];
-    for (int i = 0; i < lines.Length; i++)
+    try
     {
-        var items = lines[i].Split(',');
-        contacts[i] = (items[0], items[1], items[2]);
-    }
+        var lines = File.ReadAllLines(file);
+        var contacts = new (string, string, string)[lines.Length];
+        for (int i = 0; i < lines.Length; i++)
+        {
+            var items = lines[i].Split(',');
 
-    return contacts;
+            try
+            {
+                contacts[i] = (items[0], items[1], items[2]);
+            }
+            catch (IndexOutOfRangeException ioore)
+            {
+                WriteLine($"ERROR WHILE READING {i + 1} LINE FROM {filename}. Message: {ioore.Message}");
+            }
+        }
+
+        return contacts;
+    }
+    catch (FileNotFoundException)
+    {
+        return Array.Empty<(string, string, string)>();
+    }
 }
 
 void ShowAll()
-{
-    // 1. read content from file
-    // 2. iterate in array of contacts
-    // 3. show contact rows
+{    
     Clear();
 
     var contacts = ReadContacts(filename);
@@ -51,61 +63,98 @@ void ShowAll()
 
 string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
 
+void ValidateNonEmpty(string value, string message = null)
+{
+    if (string.IsNullOrWhiteSpace(value))
+    {
+        throw new ArgumentException(message, nameof(value));
+    }
+}
+
+void ValidatePhoneNumber(string phone)
+{
+    if (string.IsNullOrWhiteSpace(phone)) 
+        throw new ArgumentException("Phone should be non-empty", nameof(phone));
+
+    if (System.Text.RegularExpressions.Regex.IsMatch(phone,@"[\D]")) 
+        throw new ArgumentException("Phone number can only contain numbers!", nameof(phone));
+}
+
 void AddNewContact()
 {
-    Clear();
+    try
+    {
+        Clear();
 
-    WriteLine("Enter first name:");
-    var firstName = Console.ReadLine();
+        WriteLine("Enter first name:");
+        var firstName = Console.ReadLine();
+        ValidateNonEmpty(firstName, "First name should be non-empty");
 
-    WriteLine("Enter last name:");
-    var lastName = Console.ReadLine();
+        WriteLine("Enter last name:");
+        var lastName = Console.ReadLine();
+        ValidateNonEmpty(lastName, "Last name should be non-empty");
 
-    WriteLine("Enter phone:");
-    var phone = Console.ReadLine();
+        WriteLine("Enter phone:");
+        var phone = Console.ReadLine();
+        ValidatePhoneNumber(phone);
 
-    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+        File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
 
-    WriteLine("Contact saved, press any key to continue");
-    ReadKey();
+        WriteLine("Contact saved, press any key to continue");
+        ReadKey();
+    }
+    catch (ArgumentException e)
+    {
+        WriteLine(e.Message);
+        ReadKey();
+    }
 }
 
 void RemoveContact()
 {
-    Clear();
-
-    WriteLine("Enter phone to remove:");
-    var phoneToRemove = Console.ReadLine();
-
-    var contacts = ReadContacts(filename);
-    var newContacts = new (string, string, string)[contacts.Length];
-    Array.Copy(contacts, newContacts, contacts.Length);
-
-    var index = 0;
-
-    while (index < newContacts.Length)
+    try
     {
-        if (newContacts[index].Item3 == phoneToRemove)
-        {
-            newContacts[index] = newContacts[^1];
-            Array.Resize(ref newContacts, newContacts.Length - 1);
-        }
-        else
-        {
-            ++index;
-        }
-    }
+        Clear();
 
-    var csvBuilder = new StringBuilder();
-    foreach (var contact in newContacts)
+        WriteLine("Enter phone to remove:");
+        var phoneToRemove = Console.ReadLine();
+        ValidatePhoneNumber(phoneToRemove);
+
+        var contacts = ReadContacts(filename);
+        var newContacts = new (string, string, string)[contacts.Length];
+        Array.Copy(contacts, newContacts, contacts.Length);
+
+        var index = 0;
+
+        while (index < newContacts.Length)
+        {
+            if (newContacts[index].Item3 == phoneToRemove)
+            {
+                newContacts[index] = newContacts[^1];
+                Array.Resize(ref newContacts, newContacts.Length - 1);
+            }
+            else
+            {
+                ++index;
+            }
+        }
+
+        var csvBuilder = new StringBuilder();
+        foreach (var contact in newContacts)
+        {
+            csvBuilder.AppendLine(Serialize(contact));
+        }
+
+        File.WriteAllText(filename, csvBuilder.ToString());
+
+        WriteLine($"{contacts.Length - newContacts.Length} contact(s) removed, press any key to continue...");
+        ReadKey();
+    }
+    catch (ArgumentException e)
     {
-        csvBuilder.AppendLine(Serialize(contact));
+        WriteLine(e.Message);
+        ReadKey();
     }
-
-    File.WriteAllText(filename, csvBuilder.ToString());
-
-    WriteLine($"{contacts.Length - newContacts.Length} contact(s) removed, press any key to continue...");
-    ReadKey();
 }
 
 void SearchContact()
@@ -141,44 +190,54 @@ void SearchContact()
 
 void UpdateContact()
 {
-    Clear();
-    WriteLine("Enter first name:");
-    var requestFirstName = ReadLine();
-    WriteLine("Enter last name:");
-    var requestLastName = ReadLine();
-    Clear();
-
-    var contacts = ReadContacts(filename);
-    bool result = false;
-
-    for (int i = 0; i<contacts.Length; i++)
+    try
     {
-        if (contacts[i].Item1.Equals(requestFirstName) && contacts[i].Item2.Equals(requestLastName)) 
-        {   
-            result = true;
-            ShowRow(contacts[i]);
-            WriteLine("Enter new phone number:");
-            contacts[i].Item3 = ReadLine();
-            break;
-        }        
-    }
+        Clear();
+        WriteLine("Enter first name:");
+        var requestFirstName = ReadLine();
+        WriteLine("Enter last name:");
+        var requestLastName = ReadLine();
+        Clear();
 
-    if (!result)
-    {
-        WriteLine($"{requestFirstName} {requestLastName} not found, press any key to continue...");
+        var contacts = ReadContacts(filename);
+        bool result = false;
+
+        for (int i = 0; i<contacts.Length; i++)
+        {
+            if (contacts[i].Item1.Equals(requestFirstName) && contacts[i].Item2.Equals(requestLastName)) 
+            {   
+                result = true;
+                ShowRow(contacts[i]);
+                WriteLine("Enter new phone number:");
+                string buffer = ReadLine();
+                ValidatePhoneNumber(buffer);
+                contacts[i].Item3 = buffer;
+                break;
+            }        
+        }
+
+        if (!result)
+        {
+            WriteLine($"{requestFirstName} {requestLastName} not found, press any key to continue...");
+            ReadKey();
+            return;
+        }
+
+        var csvBuilder = new StringBuilder();
+        foreach (var contact in contacts)
+        {
+            csvBuilder.AppendLine(Serialize(contact));
+        }
+        File.WriteAllText(filename, csvBuilder.ToString());
+
+        WriteLine("\nPhone number changed, press any key to continue...");
         ReadKey();
-        return;
     }
-
-    var csvBuilder = new StringBuilder();
-    foreach (var contact in contacts)
+    catch (ArgumentException e)
     {
-        csvBuilder.AppendLine(Serialize(contact));
+        WriteLine(e.Message);
+        ReadKey();
     }
-    File.WriteAllText(filename, csvBuilder.ToString());
-
-    WriteLine("\nPhone number changed, press any key to continue...");
-    ReadKey();
 }
 
 void MainMenu()
@@ -224,5 +283,13 @@ void MainMenu()
 
 while (true)
 {
-    MainMenu();
+    try
+    {
+        MainMenu();
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Unhandled error: {e.Message}");
+        ReadKey();
+    }
 }
