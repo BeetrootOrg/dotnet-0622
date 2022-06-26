@@ -107,12 +107,7 @@ void RemoveContact()
     WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
     ReadKey();
 }
-// void UpdateContact()
-// {
-//     Clear();
 
-//     WriteLine("Please enter the ")
-// }
 void Search()
 {
     Clear();
