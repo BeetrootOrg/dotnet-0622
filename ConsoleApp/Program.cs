@@ -1,122 +1,148 @@
-﻿/*create next methods:
+﻿using System;
+using System.IO;
+using System.Text;
 
-    Compare that will return true if 2 strings are equal, otherwise false, but do not use build-in method
-    Analyze that will return number of alphabetic chars in string, digits and another special characters
-    Sort that will return string that contains all characters from input string sorted in alphabetical order (e.g. 'Hello' -> 'ehllo')
-    Duplicate that will return array of characters that are duplicated in input string (e.g. 'Hello and hi' -> ['h', 'l'])
-*/
+using static System.Console;
 
-//using System.Text;
-string testText1 = "pnMvm21sse9812G";
-string testText2 = "pnMvm23sse9812G";
-string testText3 = "pnsdf345*))2,23sse9812G";
-string testText4 = "pnszAfvceYdlG";
-string testText5 = "pnszAaygfvceYdlG";
+const string filename = "data.csv";
 
-int thisIsChar = 0;
-int thisIsDigic = 0;
-int thisIsSpS = 0;
-var resstring = "";
-
-
-System.Console.WriteLine("------------------ COMPARE ---");
-static bool CompareMeth(string param1, string param2)
+void Exit()
 {
-    if (param1.Length != param2.Length)
-    {
-        return false;
-    }
-    else
-    {
-        for (int i = 0; i < param1.Length; i++)
-        {
-            if (param1[i] != param2[i])
-            {
-                return false;
-            }
-        }
-    }
-    return true;
+    Environment.Exit(0);
 }
-System.Console.WriteLine(CompareMeth(testText1, testText2));
 
-
-
-System.Console.WriteLine("------------------- Analyze ---");
-static bool AnalyzeStringMeth(string TextForAnalyze, out int leter, out int digi, out int symb)
+void ShowRow((string, string, string) row)
 {
-    leter = 0;
-    digi = 0;
-    symb = 0;
+    var (firstName, lastName, phone) = row;
+    WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
+}
 
-    for (int i = 0; i < TextForAnalyze.Length; ++i)
+(string, string, string)[] ReadContacts(string file)
+{
+    var lines = File.ReadAllLines(file);
+    var contacts = new (string, string, string)[lines.Length];
+    for (int i = 0; i < lines.Length; i++)
     {
-        if (char.IsDigit(TextForAnalyze[i]))
+        var items = lines[i].Split(',');
+        contacts[i] = (items[0], items[1], items[2]);
+    }
+
+    return contacts;
+}
+
+void ShowAll()
+{
+    // 1. read content from file
+    // 2. iterate in array of contacts
+    // 3. show contact rows
+    Clear();
+
+    var contacts = ReadContacts(filename);
+
+    ShowRow(("First Name", "Last Name", "Phone"));
+    foreach (var contact in contacts)
+    {
+        ShowRow(contact);
+    }
+
+    WriteLine("Press any key to continue...");
+    ReadKey();
+}
+
+string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
+
+void AddNewContact()
+{
+    Clear();
+
+    WriteLine("Enter first name:");
+    var firstName = Console.ReadLine();
+
+    WriteLine("Enter last name:");
+    var lastName = Console.ReadLine();
+
+    WriteLine("Enter phone:");
+    var phone = Console.ReadLine();
+
+    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+
+    WriteLine("Contact saved, press any key to continue");
+    ReadKey();
+}
+
+void RemoveContact()
+{
+    Clear();
+
+    WriteLine("Enter phone to remove:");
+    var phoneToRemove = Console.ReadLine();
+
+    var contacts = ReadContacts(filename);
+    var newContacts = new (string, string, string)[contacts.Length];
+    Array.Copy(contacts, newContacts, contacts.Length);
+
+    var index = 0;
+
+    while (index < newContacts.Length)
+    {
+        if (newContacts[index].Item3 == phoneToRemove)
         {
-            digi = digi + 1;
-        }
-        else if (char.IsLetter(TextForAnalyze[i]))
-        {
-            leter = leter + 1;
+            newContacts[index] = newContacts[^1];
+            Array.Resize(ref newContacts, newContacts.Length - 1);
         }
         else
         {
-            symb = symb + 1;
+            ++index;
         }
     }
-    return true;
-}
-AnalyzeStringMeth(testText3, out thisIsChar, out thisIsDigic, out thisIsSpS);
-System.Console.WriteLine("Char= " + thisIsChar + " : Digic= " + thisIsDigic + " : Symbols =" + thisIsSpS);
 
-
-
-System.Console.WriteLine("------------------- SORTE ---");
-static void SortString(string testText4)
-{
-    string lowerForm = testText4.ToLower();
-    var arr = lowerForm.ToCharArray();
-    Array.Sort(arr);
-
-    var allSymbolsBuilder = new System.Text.StringBuilder();
-    foreach (var item in arr)
+    var csvBuilder = new StringBuilder();
+    foreach (var contact in newContacts)
     {
-        allSymbolsBuilder.Append(item);
+        csvBuilder.AppendLine(Serialize(contact));
     }
-    System.Console.WriteLine(allSymbolsBuilder);
+
+    File.WriteAllText(filename, csvBuilder.ToString());
+
+    WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
+    ReadKey();
 }
-SortString(testText4);
 
-
-
-System.Console.WriteLine("------------------ Duplicate ---");
-if (testText5.Length > 0)
+void MainMenu()
 {
-    string lowerForm1 = testText5.ToLower();
-    for (int i = 0; i < lowerForm1.Length; ++i)
+    Clear();
+
+    WriteLine("Welcome to phone book!");
+    WriteLine();
+    WriteLine("Menu:");
+    WriteLine("\t1 - Show all contacts");
+    WriteLine("\t2 - Add new contact");
+    WriteLine("\t3 - Update contact");
+    WriteLine("\t4 - Remove contact");
+    WriteLine("\t0 - Exit");
+
+    var key = ReadKey();
+
+    switch (key.Key)
     {
-        var symbProgres = lowerForm1[i];
-        int findCount = 0;
-
-        for (int p = 0; p < lowerForm1.Length; p++)
-        {
-            if (symbProgres == lowerForm1[p])
-            {
-                findCount = findCount + 1;
-            }
-        }
-        if (findCount >= 2)
-        {
-            if (!resstring.Contains(symbProgres))
-            {
-                resstring = resstring + symbProgres;
-            }
-        }
+        case ConsoleKey.D0:
+            Exit();
+            break;
+        case ConsoleKey.D1:
+            ShowAll();
+            break;
+        case ConsoleKey.D2:
+            AddNewContact();
+            break;
+        case ConsoleKey.D4:
+            RemoveContact();
+            break;
+        default:
+            break;
     }
 }
-if (resstring.Length > 0)
-{
-    var arreyDublicate = resstring.ToCharArray();
-    System.Console.WriteLine("---  " + resstring);
-}
 
+while (true)
+{
+    MainMenu();
+}
