@@ -1,86 +1,178 @@
 ﻿using System;
-class Program
+using System.IO;
+using System.Text;
+
+using static System.Console;
+
+const string filename = "data.csv";
+
+void Exit()
 {
-    static bool Compare(string str1, string str2)
+    Environment.Exit(0);
+}
+
+void ShowRow((string, string, string) row)
+{
+    var (firstName, lastName, phone) = row;
+    WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
+}
+
+(string, string, string)[] ReadContacts(string file)
+{
+    var lines = File.ReadAllLines(file);
+    var contacts = new (string, string, string)[lines.Length];
+    for (int i = 0; i < lines.Length; i++)
     {
-        if (str1.Length != str2.Length)
+        var items = lines[i].Split(',');
+        contacts[i] = (items[0], items[1], items[2]);
+    }
+
+    return contacts;
+}
+
+void ShowAll()
+{
+    // 1. read content from file
+    // 2. iterate in array of contacts
+    // 3. show contact rows
+    Clear();
+
+    var contacts = ReadContacts(filename);
+
+    ShowRow(("First Name", "Last Name", "Phone"));
+    foreach (var contact in contacts)
+    {
+        ShowRow(contact);
+    }
+
+    WriteLine("Press any key to continue...");
+    ReadKey();
+}
+
+string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
+
+void AddNewContact()
+{
+    Clear();
+
+    WriteLine("Enter first name:");
+    var firstName = Console.ReadLine();
+
+    WriteLine("Enter last name:");
+    var lastName = Console.ReadLine();
+
+    WriteLine("Enter phone:");
+    var phone = Console.ReadLine();
+
+    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+
+    WriteLine("Contact saved, press any key to continue");
+    ReadKey();
+}
+
+void RemoveContact()
+{
+    Clear();
+
+    WriteLine("Enter phone to remove:");
+    var phoneToRemove = Console.ReadLine();
+
+    var contacts = ReadContacts(filename);
+    var newContacts = new (string, string, string)[contacts.Length];
+    Array.Copy(contacts, newContacts, contacts.Length);
+
+    var index = 0;
+
+    while (index < newContacts.Length)
+    {
+        if (newContacts[index].Item3 == phoneToRemove)
         {
-            return false;
+            newContacts[index] = newContacts[^1];
+            Array.Resize(ref newContacts, newContacts.Length - 1);
         }
-        for (int i = 0; i < str1.Length; ++i)
+        else
         {
-            if (str1[i] != str2[i])
-                return false;
+            ++index;
         }
-        return true;
     }
-    static void Analyze(string text, out int charnumb, out int digitnumb, out int speccharnumb)
-    {
-        charnumb = 0;
-        digitnumb = 0;
-        speccharnumb = 0;
 
-        for (int i = 0; i < text.Length; i++)
+    var csvBuilder = new StringBuilder();
+    foreach (var contact in newContacts)
+    {
+        csvBuilder.AppendLine(Serialize(contact));
+    }
+
+    File.WriteAllText(filename, csvBuilder.ToString());
+
+    WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
+    ReadKey();
+}
+
+void SearchContactBySurname()
+{
+    Clear();
+
+    WriteLine("Please enter your surname");
+    var surname = ReadLine();
+    bool isFound = false;
+
+    var contacts = ReadContacts(filename);
+    foreach (var contact in contacts)
+    {
+        if (contact.Item2 == surname)
         {
-            if (char.IsLetter(text[i]))
-            {
-                charnumb++;
-            }
-            if (char.IsDigit(text[i]))
-            {
-                digitnumb++;
-            }
-            if (char.IsSymbol(text[i]))
-            {
-                speccharnumb++;
-            }
-
+            isFound = true;
+            System.Console.WriteLine(contact);
         }
     }
-    static string SortStrMethod(string texttosort)
+    if (!isFound)
     {
-        string tolower = texttosort.ToLower();
-        var arr = texttosort.ToCharArray();
-        Array.Sort(arr);
-        string sorted = new string(arr);
-        return sorted;
+        System.Console.WriteLine("There is no such contact in the phonebook.");
     }
+    WriteLine("Press any key to continue...");
+    ReadKey();
 
-    static char[] Duplicate(string inputstr)
+}
+
+void MainMenu()
+{
+    Clear();
+
+    WriteLine("Welcome to phone book!");
+    WriteLine();
+    WriteLine("Menu:");
+    WriteLine("\t1 - Show all contacts");
+    WriteLine("\t2 - Add new contact");
+    WriteLine("\t3 - Update contact");
+    WriteLine("\t4 - Remove contact");
+    WriteLine("\t5 - Search contact");
+    WriteLine("\t0 - Exit");
+
+    var key = ReadKey();
+
+    switch (key.Key)
     {
-        string duplicatedstr = new string("");
-        for (int i = 0; i < inputstr.Length; i++)
-        {
-            for (int j = i + 1; j < inputstr.Length; j++)
-            {
-                if (inputstr[j] == inputstr[i] && !duplicatedstr.Contains(inputstr[j]))
-                {
-                    duplicatedstr += inputstr[j];
-                }
-            }
-        }
-        return duplicatedstr.ToCharArray();
-
+        case ConsoleKey.D0:
+            Exit();
+            break;
+        case ConsoleKey.D1:
+            ShowAll();
+            break;
+        case ConsoleKey.D2:
+            AddNewContact();
+            break;
+        case ConsoleKey.D4:
+            RemoveContact();
+            break;
+        case ConsoleKey.D5:
+            SearchContactBySurname();
+            break;
+        default:
+            break;
     }
-    static void Main()
-    {
-        string str1 = "hello!";
-        string str2 = "goodbye!";
-        Console.WriteLine(Compare(str1, str2));
+}
 
-        string text = "Some kind of text with special characters+$ and digits77";
-        Analyze(text, out int chnumb, out int dignumb, out int spnumb);
-        System.Console.WriteLine($"The number of characters is {chnumb}");
-        System.Console.WriteLine($"The number of digits is {dignumb} ");
-        System.Console.WriteLine($"The number of specialchar is {spnumb}");
-
-        string stringtosort = new string("anything");
-        string sortedstring = SortStrMethod(stringtosort);
-        System.Console.WriteLine(sortedstring);
-
-        string strwithduplicates = new string("cat lullaby");
-        char[] duplicatesarray = Duplicate(strwithduplicates);
-        System.Console.WriteLine(duplicatesarray);
-    }
-
+while (true)
+{
+    MainMenu();
 }
