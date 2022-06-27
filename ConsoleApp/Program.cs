@@ -119,7 +119,8 @@ void SearchContactBySurname()
     var contacts = ReadContacts(filename);
     foreach (var contact in contacts)
     {
-        if (contact.Item2 == surname)
+         var (firstName, lastName, phone) = contact;
+         if (lastName == surname)
         {
             isFound = true;
             System.Console.WriteLine(contact);
