@@ -4,18 +4,67 @@ namespace ConsoleApp;
 
 class Person
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    private int Age { get; set; } = 42;
+    private string _firstName;
+    private string _lastName;
+    private int _age;
 
-    public Person()
+    public string FirstName
     {
+        get => _firstName;
+        set
+        {
+            ValidateNotEmptyOrNull(value);
+            _firstName = value;
+            ++Modified;
+        }
     }
 
-    public Person(int age)
+    public string LastName
     {
-        Age = age;
+        get => _lastName;
+        set
+        {
+            ValidateNotEmptyOrNull(value);
+            _lastName = value;
+            ++Modified;
+        }
+    }
+
+    private int Age
+    {
+        get => _age;
+        set
+        {
+            ValidatePositive(value);
+            _age = value;
+            ++Modified;
+        }
+    }
+
+    public int Modified { get; private set; }
+
+    public Person(string firstName, string lastName, int age = 42)
+    {
+        _firstName = firstName;
+        _lastName = lastName;
+        _age = age;
     }
 
     public int YearOfBirth() => DateTime.Now.AddYears(-Age).Year;
+
+    private static void ValidatePositive(int value)
+    {
+        if (value <= 0)
+        {
+            throw new ArgumentException();
+        }
+    }
+
+    private static void ValidateNotEmptyOrNull(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            throw new ArgumentException();
+        }
+    }
 }

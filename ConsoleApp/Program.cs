@@ -1,27 +1,16 @@
-﻿using ConsoleApp;
+﻿using System;
+
+using ConsoleApp;
 
 using static System.Console;
 
-var person = new Person
-{
-    FirstName = "Dima",
-    LastName = "Misik"
-};
+var person = new Person("Dima", "Misik");
 
 WriteLine(person.FirstName);
 WriteLine(person.LastName);
 
-var person1 = new Person(25)
-{
-    FirstName = "Dima",
-    LastName = "Misik"
-};
-
-var person2 = new Person(25)
-{
-    FirstName = "Dima",
-    LastName = "Misik"
-};
+var person1 = new Person("Dima", "Misik", 25);
+var person2 = new Person("Dima", "Misik", 25);
 
 // Compilation error
 // WriteLine(person1.Age)
@@ -68,3 +57,30 @@ void Method1(PersonWithProperties prp1)
 {
     prp1.FirstName = "F";
 }
+
+try
+{
+    person.FirstName = null;
+}
+catch (ArgumentException)
+{
+    // ignore
+}
+
+try
+{
+    person.LastName = string.Empty;
+}
+catch (ArgumentException)
+{
+    // ignore
+}
+
+person.FirstName = "D";
+person.LastName = "M";
+person.FirstName = "V";
+
+WriteLine($"Modified: {person.Modified}");
+
+// Compilation error
+// person.Modified = 42;
