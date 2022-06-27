@@ -108,6 +108,25 @@ void RemoveContact()
     ReadKey();
 }
 
+void SearchContact()
+{
+    Clear();
+    string stringForSearch = "";
+    System.Console.WriteLine("Insert string for searching....and press Enter");
+    var needSearch = System.Console.ReadLine();
+    var contacts = ReadContacts(filename);
+    foreach (var contact in contacts)
+    {
+        stringForSearch = contact.ToString();
+
+        if (stringForSearch.Contains(needSearch))
+        {
+            System.Console.WriteLine(contact);
+        }
+    }
+    ReadKey();
+}
+
 void MainMenu()
 {
     Clear();
@@ -119,6 +138,7 @@ void MainMenu()
     WriteLine("\t2 - Add new contact");
     WriteLine("\t3 - Update contact");
     WriteLine("\t4 - Remove contact");
+    WriteLine("\t5 - Search contact");
     WriteLine("\t0 - Exit");
 
     var key = ReadKey();
@@ -136,6 +156,9 @@ void MainMenu()
             break;
         case ConsoleKey.D4:
             RemoveContact();
+            break;
+        case ConsoleKey.D5:
+            SearchContact();
             break;
         default:
             break;
