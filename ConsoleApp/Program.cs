@@ -84,3 +84,8 @@ WriteLine($"Modified: {person.Modified}");
 
 // Compilation error
 // person.Modified = 42;
+
+var singleton1 = Singleton.Instance;
+var singleton2 = Singleton.Instance;
+WriteLine("REF EQUALS");
+WriteLine(ReferenceEquals(singleton1, singleton2));
