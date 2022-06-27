@@ -8,14 +8,14 @@ namespace ConsoleApp
 {
     enum Color
     {
-        red,
-        green,
-        white,
-        yellow,
-        black,
-        blue,
-        cyan,
-        magenta,
-        cyanOrange
+        Red,
+        Green,
+        White,
+        Yellow,
+        Black,
+        Blue,
+        Cyan,
+        Magenta,
+        CyanOrange
     }
 }

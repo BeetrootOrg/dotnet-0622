@@ -11,8 +11,8 @@
             book.Title = "1984";
             book.Pagesize = 328;
             book.Publisher = "Jupanskogo";
-            book.Color = ConsoleColor.Red;
-            book.Publicationyear = 1949;
+            book.Color = Color.Red;
+            book.PublicationYear = 1949;
             book.Genre = "Dystopian";
 
             Author author = new Author();
@@ -34,12 +34,16 @@
             log.BookTaken = new DateTime(2014, 6, 14);
             log.ReturnedBook = new DateTime(2020, 8, 12);
 
-            Employees rab = new Employees();
+            Employees rab = new Employees
+            {
+                FirstName = "baba",
+                LastName = "lyuba",
+                BirthDate = new DateTime(1948, 1, 1),
+                WorkTime = 49
+            };
 
-            rab.FirstName = "baba";
-            rab.LastName = "lyuba";
-            rab.BirthDate = new DateTime(1948, 1, 1);
-            rab.worktime = 42;
+
+            
         }
     }
 }
