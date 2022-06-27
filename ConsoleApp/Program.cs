@@ -17,7 +17,54 @@ var person1 = new Person(25)
     LastName = "Misik"
 };
 
+var person2 = new Person(25)
+{
+    FirstName = "Dima",
+    LastName = "Misik"
+};
+
 // Compilation error
 // WriteLine(person1.Age)
 
 WriteLine(person1.YearOfBirth());
+WriteLine(person1);
+WriteLine(person1 == person2);
+WriteLine(person1.Equals(person2));
+
+var pr1 = new PersonRecord("Dima", "Misik", 25);
+var pr2 = new PersonRecord("Dima", "Misik", 25);
+WriteLine(pr1);
+WriteLine(pr1 == pr2);
+WriteLine(pr1.Equals(pr2));
+
+var prp1 = new PersonWithProperties
+{
+    FirstName = "First",
+    LastName = "Last",
+};
+
+var prp2 = new PersonWithProperties
+{
+    FirstName = "First",
+    LastName = "Last",
+};
+
+WriteLine("EQUALITY");
+WriteLine(prp1 == prp2);
+
+prp2.FirstName = "F";
+WriteLine(prp1 == prp2);
+
+prp2.FirstName = "First";
+
+if (prp1 == prp2)
+{
+    // do something very complex
+    Method1(prp1);
+    // continue next
+}
+
+void Method1(PersonWithProperties prp1)
+{
+    prp1.FirstName = "F";
+}
