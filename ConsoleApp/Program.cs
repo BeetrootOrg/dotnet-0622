@@ -17,19 +17,67 @@ void ShowRow((string, string, string) row)
     WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
 }
 
-(string, string, string)[] ReadContacts(string file)
+(string, string, string)[] ReadContactsTemp(string file)
 {
+    if (!File.Exists(file))
+    {
+        return Array.Empty<(string, string, string)>();
+    }
+
     var lines = File.ReadAllLines(file);
     var contacts = new (string, string, string)[lines.Length];
     for (int i = 0; i < lines.Length; i++)
     {
         var items = lines[i].Split(',');
+        if (items.Length != 3)
+        {
+            WriteLine($"ERROR WHILE READING {i + 1} LINE FROM {filename}.");
+            continue;
+        }
+
         contacts[i] = (items[0], items[1], items[2]);
     }
 
     return contacts;
 }
 
+(string, string, string)[] ReadContacts(string file)
+{
+    try
+    {
+        var lines = File.ReadAllLines(file);
+        var contacts = new (string, string, string)[lines.Length];
+        for (int i = 0; i < lines.Length; i++)
+        {
+            var items = lines[i].Split(',');
+
+            try
+            {
+                contacts[i] = (items[0], items[1], items[2]);
+            }
+            catch (IndexOutOfRangeException ioore)
+            {
+                WriteLine($"ERROR WHILE READING {i + 1} LINE FROM {filename}. Message: {ioore.Message}");
+            }
+        }
+
+        return contacts;
+    }
+    catch (FileNotFoundException)
+    {
+        return Array.Empty<(string, string, string)>();
+    }
+}
+void ValidateNonSymbols(string name)
+{
+    for (int i = 0; i < name.Length; i++)
+    {
+        if (!char.IsLetter(name[i]) && !char.IsWhiteSpace(name[i]))
+        {
+            throw new IOException("Name must not contain symbols or digits");
+        }
+    }
+}
 void ShowAll()
 {
     // 1. read content from file
@@ -37,7 +85,7 @@ void ShowAll()
     // 3. show contact rows
     Clear();
 
-    var contacts = ReadContacts(filename);
+    var contacts = ReadContactsTemp(filename);
 
     ShowRow(("First Name", "Last Name", "Phone"));
     foreach (var contact in contacts)
@@ -51,23 +99,65 @@ void ShowAll()
 
 string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
 
+void ValidateNonEmpty(string value, string message = null)
+{
+    if (string.IsNullOrWhiteSpace(value))
+    {
+        throw new ArgumentException(message, nameof(value));
+    }
+}
+void ContainsDigits(string phone)
+{
+    if (!int.TryParse(phone, out int x))
+    {
+        throw new FormatException("Invalid phone number. Phone number must contain digits");
+    }
+}
 void AddNewContact()
 {
-    Clear();
+    try
+    {
+        Clear();
 
-    WriteLine("Enter first name:");
-    var firstName = Console.ReadLine();
+        WriteLine("Enter first name:");
+        var firstName = Console.ReadLine();
+        ValidateNonEmpty(firstName, "First name should be non-empty");
+        ValidateNonSymbols(firstName);
 
-    WriteLine("Enter last name:");
-    var lastName = Console.ReadLine();
+        WriteLine("Enter last name:");
+        var lastName = Console.ReadLine();
+        ValidateNonEmpty(lastName, "Last name should be non-empty");
+        ValidateNonSymbols(lastName);
 
-    WriteLine("Enter phone:");
-    var phone = Console.ReadLine();
+        WriteLine("Enter phone:");
+        var phone = Console.ReadLine();
+        ValidateNonEmpty(phone, "Phone should be non-empty");
+        ContainsDigits(phone);
 
-    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+        File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
 
-    WriteLine("Contact saved, press any key to continue");
-    ReadKey();
+        WriteLine("Contact saved, press any key to continue");
+        ReadKey();
+    }
+    catch (ArgumentException)
+    {
+        WriteLine("baran");
+        throw;
+    }
+    catch (IOException inputError)
+    {
+        WriteLine(inputError.Message);
+        ReadKey();
+    }
+    catch (FormatException error)
+    {
+        WriteLine(error.Message);
+        ReadKey();
+    }
+    finally
+    {
+        WriteLine("finally done");
+    }
 }
 
 void RemoveContact()
@@ -110,22 +200,37 @@ void RemoveContact()
 
 void Search()
 {
-    Clear();
-
-    WriteLine("What contact are you looking for?");
-    var contactSearched = ReadLine();
-    var contacts = ReadContacts(filename);
-
-    var index = 0;
-    while (index < contacts.Length)
+    try
     {
-        if (contacts[index].Item1 == contactSearched || contacts[index].Item2 == contactSearched)
+        Clear();
+
+        WriteLine("What contact are you looking for?");
+        var contactSearched = ReadLine();
+        ValidateNonEmpty(contactSearched);
+        var contacts = ReadContacts(filename);
+        bool isFound = false;
+        var index = 0;
+        while (index < contacts.Length)
         {
-            ShowRow(contacts[index]);
+            if (contacts[index].Item1 == contactSearched || contacts[index].Item2 == contactSearched)
+            {
+                isFound = true;
+                ShowRow(contacts[index]);
+            }
+            index++;
         }
-        index++;
+        if (!isFound)
+        {
+            Clear();
+            WriteLine("Contact not found");
+        }
+        ReadKey();
     }
-    ReadKey();
+    catch (ArgumentException)
+    {
+        WriteLine("Invalid input");
+        ReadKey();
+    }
 }
 
 void MainMenu()
@@ -165,7 +270,6 @@ void MainMenu()
             break;
     }
 }
-
 while (true)
 {
     MainMenu();
