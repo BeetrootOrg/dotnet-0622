@@ -11,6 +11,6 @@ namespace ConsoleApp
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
-        public int WorkTime { get; set; }
+        public int WorkYears { get; set; }
     }
 }

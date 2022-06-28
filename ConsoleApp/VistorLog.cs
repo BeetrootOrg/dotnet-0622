@@ -10,7 +10,11 @@ namespace ConsoleApp
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime BookTaken { get; set; }
-        public DateTime ReturnedBook { get; set; }
+
+        public Customer[] Customers { get; set; }
+
+        public Book[] Books { get; set; }
+
+        public Employees[] Employees { get; set; }
     }
 }
