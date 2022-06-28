@@ -1,112 +1,224 @@
-﻿static bool StringCompare(string str1, string str2)
-{   
+﻿using System;
+using System.IO;
+using System.Text;
 
-    if(str1.Length != str2.Length) 
-    {
-        return false;
-    }
-    
-    for(int i = 0 ; i< str1.Length; ++i)
-    {
-        if(str1[i] != str2[i]) return false;
-    }
+using static System.Console;
 
-    return true;
-}
-static (int,int,int)StringAnalyze(string str)
+const string filename = "data.csv";
+
+void Exit()
 {
-    int digits = 0, alphabetic = 0, other = 0;
-    foreach (char i in str)
-    {
-        if (char.IsDigit(i))
-        {
-            digits += 1;
-            continue;
-        }
-        if (char.IsLetter(i))
-        {
-            alphabetic += 1;
-            continue;
-        }
-        if(char.IsSymbol(i) || char.IsPunctuation(i))
-        {
-            other++;
-        }
-    }
-
-return (digits,alphabetic,other);
-
+    Environment.Exit(0);
 }
 
-static string StringSort(string str)
+void ShowRow((string, string, string) row)
 {
-    str.ToLower();
-
-    char[] characters = str.ToCharArray();
-
-    Array.Sort(characters);
-
-    return new string(characters);
-
+    var (firstName, lastName, phone) = row;
+    WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
 }
 
-static char[] StringDuplicate(string str1, string str2)
+(string, string, string)[] ReadContacts(string file)
 {
-
-    string result = "";
-
-    string boof = str1;
-
-    int length = str1.Length;
-
-    while (length > 0)
+    var lines = File.ReadAllLines(file);
+    var contacts = new (string, string, string)[lines.Length];
+    for (int i = 0; i < lines.Length; i++)
     {
-        char c = boof[0];
-        boof = boof.Remove(0, 1);
-        length--;
-        if (boof.Contains(c))
+        var items = lines[i].Split(',');
+        contacts[i] = (items[0], items[1], items[2]);
+    }
+
+    return contacts;
+}
+
+void ShowAll()
+{
+    // 1. read content from file
+    // 2. iterate in array of contacts
+    // 3. show contact rows
+    Clear();
+
+    var contacts = ReadContacts(filename);
+
+    ShowRow(("First Name", "Last Name", "Phone"));
+    foreach (var contact in contacts)
+    {
+        ShowRow(contact);
+    }
+
+    WriteLine("Press any key to continue...");
+    ReadKey();
+}
+
+string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
+
+void AddNewContact()
+{
+    Clear();
+
+    WriteLine("Enter first name:");
+    var firstName = Console.ReadLine();
+
+    WriteLine("Enter last name:");
+    var lastName = Console.ReadLine();
+
+    WriteLine("Enter phone:");
+    var phone = Console.ReadLine();
+
+    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+
+    WriteLine("Contact saved, press any key to continue");
+    ReadKey();
+}
+
+void RemoveContact()
+{
+    Clear();
+
+    WriteLine("Enter phone to remove:");
+    var phoneToRemove = Console.ReadLine();
+
+    var contacts = ReadContacts(filename);
+    var newContacts = new (string, string, string)[contacts.Length];
+    Array.Copy(contacts, newContacts, contacts.Length);
+
+    var index = 0;
+
+    while (index < newContacts.Length)
+    {
+        if (newContacts[index].Item3 == phoneToRemove)
         {
-            if (result.Contains(c)) continue;
-            result += c.ToString();
+            newContacts[index] = newContacts[^1];
+            Array.Resize(ref newContacts, newContacts.Length - 1);
         }
-        if (str2.Contains(c))
+        else
         {
-            if (result.Contains(c)) continue;
-            result += c.ToString();
+            ++index;
         }
     }
 
-    boof = str2;
-
-    length = str2.Length;
-
-    while (length > 0)
+    var csvBuilder = new StringBuilder();
+    foreach (var contact in newContacts)
     {
-        char c = boof[0];
-        boof = boof.Remove(0, 1);
-        length--;
-        if (boof.Contains(c))
-        {
-            if (result.Contains(c)) continue;
-            result += c.ToString();
-        }
+        csvBuilder.AppendLine(Serialize(contact));
     }
 
-    char[] characters = result.ToCharArray();
+    File.WriteAllText(filename, csvBuilder.ToString());
 
-    return characters;
+    WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
+    ReadKey();
+}
+
+bool FindMethod(string fParameter,(string,string,string)[] contactBook, System.ConsoleKey option)
+{
+    var found = false;
+
+ foreach(var contact in contactBook)
+    {
+        var (firstName,lastName, phone) = contact;
+
+        switch(option)
+        {
+            case ConsoleKey.D1:
+            if(firstName == fParameter)
+            {
+                found = true;
+                WriteLine($"Founded contact by {fParameter} First Name: ");
+                ShowRow(contact);
+            }
+            break;
+            case ConsoleKey.D2:
+            if(lastName == fParameter)
+            {
+                found = true;
+                WriteLine($"Founded contact by {fParameter} Last Name: ");
+                ShowRow(contact);
+            }
+            break;
+            case ConsoleKey.D3:
+            if(phone == fParameter)
+            {
+                found = true;
+                WriteLine($"Founded contact by {fParameter} Phone number: ");
+                ShowRow(contact);
+            }
+            break;
+            default: 
+            WriteLine("Incorrect input");
+            break;
+        }
+        
+    }
+    return found;
+}
+void FindBy()
+{
+    Clear();
+    WriteLine("Choose the find criteria: 1 - By First Name, 2 - By Last Name, 3 - By Phone Numer");
+    var option = ReadKey();
+    Clear();
+    WriteLine("Input First Name to find: ");
+    var fName = ReadLine();
+    bool found = false;
+
+    if(String.IsNullOrEmpty(fName))
+    {
+        WriteLine("String is Empty or Null");
+        WriteLine($"Press any key to continue");
+        ReadKey();
+        return;
+    }
+
+    var contactBook = ReadContacts(filename);
+
+    if(!FindMethod(fName,contactBook, option.Key))
+    {
+        WriteLine($"No contacts with {fName} value");
+    }
+
+    WriteLine($"Press any key to continue");
+    ReadKey();
 }
 
 
-string str1 = "ABCD,;/$%";
-string str2 = "ABBAKK";
-string str3 = "ABBAKK";
-Console.WriteLine(StringCompare(str2, str3));
+void MainMenu()
+{
+    Clear();
 
+    WriteLine("Welcome to phone book!");
+    WriteLine();
+    WriteLine("Menu:");
+    WriteLine("\t1 - Show all contacts");
+    WriteLine("\t2 - Add new contact");
+    WriteLine("\t3 - Update contact");
+    WriteLine("\t4 - Remove contact");
+    WriteLine("\t5 - Find Contact By First Name");
+    WriteLine("\t0 - Exit");
 
+    var key = ReadKey();
 
+    switch (key.Key)
+    {
+        case ConsoleKey.D0:
+            Exit();
+            break;
+        case ConsoleKey.D1:
+            ShowAll();
+            break;
+        case ConsoleKey.D2:
+            AddNewContact();
+            break;
+        case ConsoleKey.D4:
+            RemoveContact();
+            break;
+        case ConsoleKey.D5:
+            FindBy();
+            break;
+        default:
+            break;
+    }
+}
 
-System.Console.WriteLine(StringDuplicate(str1, str2));
-System.Console.WriteLine($"Digits; Alphabetic; Other;\n{StringAnalyze(str1)}");
-System.Console.WriteLine(StringCompare(str1,str2));
-System.Console.WriteLine(StringCompare(str1,str1));
+while (true)
+{
+    MainMenu();
+}
