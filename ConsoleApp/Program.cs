@@ -108,45 +108,45 @@ void RemoveContact()
     ReadKey();
 }
 
-bool FindMethod(string fParameter,(string,string,string)[] contactBook, System.ConsoleKey option)
+bool FindMethod(string fParameter, (string, string, string)[] contactBook, System.ConsoleKey option)
 {
     var found = false;
 
- foreach(var contact in contactBook)
+    foreach (var contact in contactBook)
     {
-        var (firstName,lastName, phone) = contact;
+        var (firstName, lastName, phone) = contact;
 
-        switch(option)
+        switch (option)
         {
             case ConsoleKey.D1:
-            if(firstName == fParameter)
-            {
-                found = true;
-                WriteLine($"Founded contact by {fParameter} First Name: ");
-                ShowRow(contact);
-            }
-            break;
+                if (firstName == fParameter)
+                {
+                    found = true;
+                    WriteLine($"Founded contact by {fParameter} First Name: ");
+                    ShowRow(contact);
+                }
+                break;
             case ConsoleKey.D2:
-            if(lastName == fParameter)
-            {
-                found = true;
-                WriteLine($"Founded contact by {fParameter} Last Name: ");
-                ShowRow(contact);
-            }
-            break;
+                if (lastName == fParameter)
+                {
+                    found = true;
+                    WriteLine($"Founded contact by {fParameter} Last Name: ");
+                    ShowRow(contact);
+                }
+                break;
             case ConsoleKey.D3:
-            if(phone == fParameter)
-            {
-                found = true;
-                WriteLine($"Founded contact by {fParameter} Phone number: ");
-                ShowRow(contact);
-            }
-            break;
-            default: 
-            WriteLine("Incorrect input");
-            break;
+                if (phone == fParameter)
+                {
+                    found = true;
+                    WriteLine($"Founded contact by {fParameter} Phone number: ");
+                    ShowRow(contact);
+                }
+                break;
+            default:
+                WriteLine("Incorrect input");
+                break;
         }
-        
+
     }
     return found;
 }
@@ -154,13 +154,17 @@ void FindBy()
 {
     Clear();
     WriteLine("Choose the find criteria: 1 - By First Name, 2 - By Last Name, 3 - By Phone Numer");
+
     var option = ReadKey();
+
     Clear();
     WriteLine("Input First Name to find: ");
+
     var fName = ReadLine();
+
     bool found = false;
 
-    if(String.IsNullOrEmpty(fName))
+    if (String.IsNullOrEmpty(fName))
     {
         WriteLine("String is Empty or Null");
         WriteLine($"Press any key to continue");
@@ -170,7 +174,7 @@ void FindBy()
 
     var contactBook = ReadContacts(filename);
 
-    if(!FindMethod(fName,contactBook, option.Key))
+    if (!FindMethod(fName, contactBook, option.Key))
     {
         WriteLine($"No contacts with {fName} value");
     }
