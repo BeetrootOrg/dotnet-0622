@@ -8,11 +8,14 @@ namespace ConsoleApp
 {
     public class Class
     {
-        private Student _student = new Student();
 
-        private Classroom _classroom = new Classroom();
 
-        private Teacher _teacher = new Teacher();
+        public Student[] Students { get; set; }
+
+        public Teacher[] Teachers { get; set; }
+
+        public Classroom[] Classrooms { get; set; }
+
 
 
     }

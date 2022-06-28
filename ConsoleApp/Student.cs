@@ -11,6 +11,7 @@ namespace ConsoleApp
         public int FirstName { get; set; }
         public int LastName { get; set; }
         public byte Age { get; set; }
-        public string ClassID { get; set; }
+
+        public Teacher[] Teachers { get; set; }
     }
 }

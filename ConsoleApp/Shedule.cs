@@ -8,8 +8,12 @@ namespace ConsoleApp
 {
     public class Shedule
     {
-        private Class _class = new Class();
-        private Teacher _teacher = new Teacher();
+        public Teacher[] Teachers { get; set; }
+
+        public Class[] Classes { get; set; }
+
         public int Year { get; set; }
+
+
     }
 }

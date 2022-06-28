@@ -12,5 +12,7 @@ namespace ConsoleApp
         public string Lastname { get; set; }
         public string Subject { get; set; }
         public int WorkingTime { get; set; }
+
+        
     }
 }
