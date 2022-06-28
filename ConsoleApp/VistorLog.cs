@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
-    class VistorLog
+    class VisitorLog
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -28,7 +28,7 @@
             customer.PhoneNumber = 664933;
             customer.Email = "Jorakornev@gmail.com";
 
-            VistorLog log = new VistorLog();
+            VisitorLog log = new VisitorLog();
             log.FirstName = "Jora";
             log.LastName = "Kornev";
             log.BookTaken = new DateTime(2014, 6, 14);
