@@ -53,5 +53,3 @@ var library = new Library
 {
     LibraryBook = countBooks
 };
-
-
