@@ -36,13 +36,18 @@ void ShowAll()
     // 2. iterate in array of contacts
     // 3. show contact rows
     Clear();
-
-    var contacts = ReadContacts(filename);
-
-    ShowRow(("First Name", "Last Name", "Phone"));
-    foreach (var contact in contacts)
+    try
     {
-        ShowRow(contact);
+        var contacts = ReadContacts(filename);
+        ShowRow(("First Name", "Last Name", "Phone"));
+        foreach (var contact in contacts)
+        {
+            ShowRow(contact);
+        }
+    }
+    catch (FileNotFoundException)
+    {
+        System.Console.WriteLine("File " + filename + " don't exist");
     }
 
     WriteLine("Press any key to continue...");
@@ -111,19 +116,30 @@ void RemoveContact()
 void SearchContact()
 {
     Clear();
-    string stringForSearch = "";
-    System.Console.WriteLine("Insert string for searching....and press Enter");
-    var needSearch = System.Console.ReadLine();
-    var contacts = ReadContacts(filename);
-    foreach (var contact in contacts)
-    {
-        stringForSearch = contact.ToString();
 
-        if (stringForSearch.Contains(needSearch))
+    try
+    {   
+        var contacts = ReadContacts(filename);
+        string stringForSearch = "";
+        System.Console.WriteLine("Insert string for searching....and press Enter");
+        var needSearch = System.Console.ReadLine();
+        
+        foreach (var contact in contacts)
         {
-            System.Console.WriteLine(contact);
+            stringForSearch = contact.ToString();
+            if (stringForSearch.Contains(needSearch))
+            {
+                System.Console.WriteLine(contact);
+            }
         }
     }
+    catch (FileNotFoundException)
+    {
+        System.Console.WriteLine("File " + filename + " don't exist");
+        System.Console.WriteLine("Press any key to continue... ");
+    }
+
+
     ReadKey();
 }
 
