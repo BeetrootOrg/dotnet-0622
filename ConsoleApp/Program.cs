@@ -111,7 +111,7 @@ void RemoveContact()
 void SearchContact()
 {
     Clear();
-
+    
     WriteLine("Enter first or last name:");
     string searchContact = ReadLine();
     var contact = ReadContacts(filename);
