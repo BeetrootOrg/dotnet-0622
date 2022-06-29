@@ -21,6 +21,15 @@ internal class Program
             Size = Size.XLarge
         };
 
+        var cat2 = new Cat
+        {
+            Breed = Breed.SimpleFree,
+            EyesColor = EyesColor.Black,
+            Lifestyle = Lifestyle.Grass,
+            Name = "Casper",
+            Size = Size.Medium
+        };
+
         animal1.Say();
         cat1.Say();
 
@@ -48,6 +57,10 @@ internal class Program
         MakeAnimalSaySomethingBad(animal1);
         MakeAnimalSaySomethingBad(cat1);
         MakeAnimalSaySomethingBad(new Dog());
+
+        WriteLine("SIZES");
+        WriteLine(cat1.GetSize());
+        WriteLine(cat2.GetSize());
     }
 
     static void CallMethod(A instance) => instance.Method();
@@ -85,6 +98,15 @@ class Animal
 
     public virtual void Say() => WriteLine("<<placeholder>>");
     public void SayBad() => WriteLine("<<placeholder>>");
+
+    public virtual int GetSize() => Size switch
+    {
+        Size.Small => 1,
+        Size.Medium => 2,
+        Size.Large => 4,
+        Size.XLarge => 8,
+        _ => -1
+    };
 }
 
 class Dog : Animal
@@ -97,6 +119,12 @@ class Cat : Animal
 
     public override void Say() => WriteLine("meow");
     public new void SayBad() => WriteLine("meow");
+
+    public override int GetSize() => Size switch
+    {
+        Size.XLarge => 16,
+        _ => base.GetSize()
+    };
 }
 
 enum Breed
