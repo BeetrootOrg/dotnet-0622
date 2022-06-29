@@ -36,15 +36,19 @@ void ShowAll()
     // 2. iterate in array of contacts
     // 3. show contact rows
     Clear();
-
-    var contacts = ReadContacts(filename);
-
-    ShowRow(("First Name", "Last Name", "Phone"));
-    foreach (var contact in contacts)
+    try
     {
-        ShowRow(contact);
+        var contacts = ReadContacts(filename);
+        ShowRow(("First Name", "Last Name", "Phone"));
+        foreach (var contact in contacts)
+        {
+            ShowRow(contact);
+        }
     }
-
+    catch (FileNotFoundException)
+    {
+        WriteLine("Data file is missing. Create new contact.");
+    }
     WriteLine("Press any key to continue...");
     ReadKey();
 }
@@ -66,7 +70,7 @@ void AddNewContact()
 
     File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
 
-    WriteLine("Contact saved, press any key to continue");
+    WriteLine("Contact saved, press any key to continue...");
     ReadKey();
 }
 
@@ -111,17 +115,24 @@ void RemoveContact()
 void SearchContact()
 {
     Clear();
-    
-    WriteLine("Enter first or last name:");
-    string searchContact = ReadLine();
-    var contact = ReadContacts(filename);
-    ShowRow(("First Name", "Last Name", "Phone"));
-    for (int i = 0; i < contact.Length; i++)
+
+    try
     {
-        if (searchContact == contact[i].Item1 || searchContact == contact[i].Item2)
-        ShowRow(contact[i]);
+        WriteLine("Enter first or last name:");
+        string searchContact = ReadLine();
+        var contact = ReadContacts(filename);
+        ShowRow(("First Name", "Last Name", "Phone"));
+        for (int i = 0; i < contact.Length; i++)
+        {
+            if (searchContact == contact[i].Item1 || searchContact == contact[i].Item2)
+                ShowRow(contact[i]);
+        }
     }
-    WriteLine("Press any key to continue...");
+    catch (FileNotFoundException)
+    {
+        WriteLine("Data file is missing. Create new contact.");
+    }
+    WriteLine("Press any key to continue... ");
     ReadKey();
 }
 
