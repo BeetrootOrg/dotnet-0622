@@ -115,15 +115,21 @@ void Search()
     WriteLine("What contact are you looking for?");
     var contactSearched = ReadLine();
     var contacts = ReadContacts(filename);
-
+    bool isFound = false;
     var index = 0;
     while (index < contacts.Length)
     {
         if (contacts[index].Item1 == contactSearched || contacts[index].Item2 == contactSearched)
         {
+            isFound = true;
             ShowRow(contacts[index]);
         }
         index++;
+    }
+    if (!isFound)
+    {
+        Clear();
+        WriteLine("Contact not found");
     }
     ReadKey();
 }
