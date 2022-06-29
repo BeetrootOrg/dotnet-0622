@@ -22,6 +22,88 @@ enum Size
     XLarge
 }
 
+class TwoDPoint : System.Object
+{
+    public readonly int x, y;
+
+    public TwoDPoint(int x, int y)  //constructor
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public override bool Equals(System.Object obj)
+    {
+        // If parameter is null return false.
+        if (obj == null)
+        {
+            return false;
+        }
+
+        // If parameter cannot be cast to Point return false.
+        TwoDPoint p = obj as TwoDPoint;
+        if ((System.Object)p == null)
+        {
+            return false;
+        }
+
+        // Return true if the fields match:
+        return (x == p.x) && (y == p.y);
+    }
+
+    public bool Equals(TwoDPoint p)
+    {
+        // If parameter is null return false:
+        if ((object)p == null)
+        {
+            return false;
+        }
+
+        // Return true if the fields match:
+        return (x == p.x) && (y == p.y);
+    }
+
+    public override int GetHashCode()
+    {
+        return x ^ y;
+    }
+}
+
+class ThreeDPoint : TwoDPoint
+{
+    public readonly int z;
+
+    public ThreeDPoint(int x, int y, int z)
+        : base(x, y)
+    {
+        this.z = z;
+    }
+
+    public override bool Equals(System.Object obj)
+    {
+        // If parameter cannot be cast to ThreeDPoint return false:
+        ThreeDPoint p = obj as ThreeDPoint;
+        if ((object)p == null)
+        {
+            return false;
+        }
+
+        // Return true if the fields match:
+        return base.Equals(obj) && z == p.z;
+    }
+
+    public bool Equals(ThreeDPoint p)
+    {
+        // Return true if the fields match:
+        return base.Equals((TwoDPoint)p) && z == p.z;
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode() ^ z;
+    }
+}
+
 class Animal
 {
     public Lifestyle Lifestyle { get; set; }
@@ -48,7 +130,11 @@ class Animal
             return true;
         }
 
-        var animal = obj as Animal;
+        return Equals(obj as Animal);
+    }
+
+    public bool Equals(Animal animal)
+    {
         if (animal == null)
         {
             return false;
@@ -62,7 +148,10 @@ class Animal
 
     public override int GetHashCode()
     {
-        return base.GetHashCode();
+        return Lifestyle.GetHashCode() ^
+            EyesColor.GetHashCode() ^
+            Size.GetHashCode() ^
+            Name.GetHashCode();
     }
 
     public override string ToString() => $"Lifestyle={Lifestyle};EyesColor={EyesColor};Size={Size};Name={Name}";
@@ -86,6 +175,31 @@ class Cat : Animal
     };
 
     public override string ToString() => $"{base.ToString()};Breed={Breed}";
+
+    public override bool Equals(object obj)
+    {
+        if (obj is Cat cat)
+        {
+            Equals(cat);
+        }
+
+        return false;
+    }
+
+    public bool Equals(Cat cat)
+    {
+        if (!base.Equals(cat))
+        {
+            return false;
+        }
+
+        return Breed == cat.Breed;
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode() ^ Breed.GetHashCode();
+    }
 }
 
 enum Breed
@@ -161,6 +275,14 @@ internal class Program
             Size = Size.XLarge
         };
 
+        var animal3 = new Animal
+        {
+            EyesColor = EyesColor.Brown,
+            Lifestyle = Lifestyle.Meat,
+            Name = "Garfield",
+            Size = Size.XLarge
+        };
+
         animal1.Say();
         cat1.Say();
 
@@ -199,8 +321,18 @@ internal class Program
         WriteLine($"cat1.Equals(cat2): {cat1.Equals(cat2)}");
         WriteLine($"cat1.Equals(cat3): {cat1.Equals(cat3)}");
         WriteLine($"cat1.Equals(cat4): {cat1.Equals(cat4)}");
+        WriteLine($"cat1.Equals(new object()): {cat1.Equals(new object())}");
+        WriteLine($"cat1.Equals(animal3): {cat1.Equals(animal3)}");
+        WriteLine($"animal3.Equals(cat1): {animal3.Equals(cat1)}");
         WriteLine($"cat1.GetHashCode(): {cat1.GetHashCode()}");
+        WriteLine($"cat2.GetHashCode(): {cat2.GetHashCode()}");
         WriteLine($"cat3.GetHashCode(): {cat3.GetHashCode()}");
+
+        WriteLine("Points");
+        var point2d = new TwoDPoint(1, 2);
+        var point3d = new ThreeDPoint(1, 2, 3);
+        WriteLine(point2d.Equals(point3d));
+        WriteLine(point3d.Equals(point2d));
     }
 
     static void CallMethod(A instance) => instance.Method();
