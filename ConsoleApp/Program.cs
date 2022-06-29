@@ -159,6 +159,7 @@ class Animal
 
 class Dog : Animal
 {
+    public override void Say() => WriteLine("geof");
 }
 
 class Cat : Animal
