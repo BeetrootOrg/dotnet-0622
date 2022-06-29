@@ -1,97 +1,65 @@
-﻿using System;
+﻿using static System.Console;
 
-using static System.Console;
-
-bool Compare(string val1, string val2)
+var animal1 = new Animal
 {
-    if (val1 == null && val2 == null)
-    {
-        return true;
-    }
+    EyesColor = EyesColor.Black,
+    Lifestyle = Lifestyle.Meat,
+    Size = Size.Large,
+    Name = "animal"
+};
 
-    // val1?.Length -> val1 != null ? val1.Length : null
-    if (val1?.Length != val2?.Length)
-    {
-        return false;
-    }
+var cat1 = new Cat
+{
+    Breed = Breed.Red,
+    EyesColor = EyesColor.Brown,
+    Lifestyle = Lifestyle.Meat,
+    Name = "Grafield",
+    Size = Size.XLarge
+};
 
-    for (var i = 0; i < val1.Length; ++i)
-    {
-        if (val1[i] != val2[i])
-        {
-            return false;
-        }
-    }
-
-    return true;
+enum Lifestyle
+{
+    Grass,
+    Meat
 }
 
-(int, int, int) Analyze(string value)
+enum EyesColor
 {
-    var result = (0, 0, 0);
-    foreach (var symbol in value)
-    {
-        if (char.IsLetter(symbol))
-        {
-            ++result.Item1;
-        }
-        else if (char.IsDigit(symbol))
-        {
-            ++result.Item2;
-        }
-        else if (char.IsSymbol(symbol))
-        {
-            ++result.Item3;
-        }
-    }
-
-    return result;
+    Black,
+    Brown,
+    Red
 }
 
-string Sort(string value)
+enum Size
 {
-    var chars = value.ToLower().ToCharArray();
-    Array.Sort(chars);
-    return new string(chars);
+    Small,
+    Medium,
+    Large,
+    XLarge
 }
 
-char[] Duplicate(string value)
+class Animal
 {
-    var duplicates = new char[value.Length / 2];
-    var index = 0;
+    public Lifestyle Lifestyle { get; set; }
+    public EyesColor EyesColor { get; set; }
+    public Size Size { get; set; }
+    public string Name { get; set; }
 
-    foreach (var symbol in value.ToLower())
-    {
-        if (char.IsWhiteSpace(symbol))
-        {
-            continue;
-        }
-
-        if (value.IndexOf(symbol) != value.LastIndexOf(symbol))
-        {
-            var alreadyAdded = false;
-            for (var i = 0; i < index; ++i)
-            {
-                if (duplicates[i] == symbol)
-                {
-                    alreadyAdded = true;
-                    break;
-                }
-            }
-
-            if (!alreadyAdded)
-            {
-                duplicates[index++] = symbol;
-            }
-        }
-    }
-
-    Array.Resize(ref duplicates, index);
-    return duplicates;
+    public void Say() => WriteLine("<<placeholder>>");
 }
 
-WriteLine(Compare("hell", "hello"));
-WriteLine(Compare("hell", "hello"));
-WriteLine(Analyze("hell"));
-WriteLine(Sort("hell"));
-WriteLine(Duplicate("Hello, World"));
+class Dog : Animal
+{
+}
+
+enum Breed
+{
+    SimpleFree,
+    Sphynx,
+    Red
+}
+
+class Cat : Animal
+{
+    public Breed Breed { get; set; }
+}
