@@ -108,6 +108,23 @@ void RemoveContact()
     ReadKey();
 }
 
+void SearchContact()
+{
+    Clear();
+
+    WriteLine("Enter first or last name:");
+    string searchContact = ReadLine();
+    var contact = ReadContacts(filename);
+    ShowRow(("First Name", "Last Name", "Phone"));
+    for (int i = 0; i < contact.Length; i++)
+    {
+        if (searchContact == contact[i].Item1 || searchContact == contact[i].Item2)
+        ShowRow(contact[i]);
+    }
+    WriteLine("Press any key to continue...");
+    ReadKey();
+}
+
 void MainMenu()
 {
     Clear();
@@ -119,6 +136,7 @@ void MainMenu()
     WriteLine("\t2 - Add new contact");
     WriteLine("\t3 - Update contact");
     WriteLine("\t4 - Remove contact");
+    WriteLine("\t5 - Search contact");
     WriteLine("\t0 - Exit");
 
     var key = ReadKey();
@@ -136,6 +154,9 @@ void MainMenu()
             break;
         case ConsoleKey.D4:
             RemoveContact();
+            break;
+        case ConsoleKey.D5:
+            SearchContact();
             break;
         default:
             break;
