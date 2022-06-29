@@ -1,4 +1,6 @@
-﻿using static System.Console;
+﻿using System;
+
+using static System.Console;
 
 
 enum Lifestyle
@@ -200,6 +202,11 @@ class Cat : Animal
     public override int GetHashCode()
     {
         return base.GetHashCode() ^ Breed.GetHashCode();
+    }
+
+    public void NotImplemented()
+    {
+        throw new NotImplementedException();
     }
 }
 
