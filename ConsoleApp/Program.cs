@@ -4,7 +4,23 @@ using System.Text;
 
 using static System.Console;
 
-const string filename = "data.csv";
+const string filename = "data1.csv";
+
+bool TryCatchFile()
+{
+    try
+    {
+        if (!File.Exists(filename)) throw new System.IO.FileNotFoundException();
+    }
+    catch (System.IO.FileNotFoundException)
+    {
+        WriteLine("File doesn`t exist, please create by adding new contact and proceed");
+        WriteLine("Press any key to continue...");
+        ReadKey();
+        return true;
+    }
+    return false;
+}
 
 void Exit()
 {
@@ -32,10 +48,8 @@ void ShowRow((string, string, string) row)
 
 void ShowAll()
 {
-    // 1. read content from file
-    // 2. iterate in array of contacts
-    // 3. show contact rows
     Clear();
+    if(TryCatchFile()) return;
 
     var contacts = ReadContacts(filename);
 
@@ -47,6 +61,7 @@ void ShowAll()
 
     WriteLine("Press any key to continue...");
     ReadKey();
+
 }
 
 string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
@@ -54,7 +69,6 @@ string Serialize((string firstName, string lastName, string phone) row) => $"{ro
 void AddNewContact()
 {
     Clear();
-
     WriteLine("Enter first name:");
     var firstName = Console.ReadLine();
 
@@ -73,6 +87,7 @@ void AddNewContact()
 void RemoveContact()
 {
     Clear();
+    if(TryCatchFile()) return;
 
     WriteLine("Enter phone to remove:");
     var phoneToRemove = Console.ReadLine();
@@ -153,6 +168,7 @@ bool FindMethod(string fParameter, (string, string, string)[] contactBook, Syste
 void FindBy()
 {
     Clear();
+    if(TryCatchFile()) return;
     WriteLine("Choose the find criteria: 1 - By First Name, 2 - By Last Name, 3 - By Phone Numer");
 
     var option = ReadKey();
@@ -224,5 +240,6 @@ void MainMenu()
 
 while (true)
 {
+
     MainMenu();
 }
