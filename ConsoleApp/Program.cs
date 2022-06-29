@@ -1,1 +1,1 @@
-﻿
+﻿using ConsoleApp.School;
