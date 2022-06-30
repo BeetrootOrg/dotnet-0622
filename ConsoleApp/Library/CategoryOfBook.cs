@@ -2,7 +2,8 @@ namespace ConsoleApp.Library;
 
 class CategoryOfBook
 {
-    string categoryName;
-    string categoryId;
-       
+    
+    public string CategoryName { get; init; }
+  
+ 
 }
