@@ -1,13 +1,12 @@
 namespace ConsoleApp;
-class Teacher
+class Teacher : Person
 {
-    public string FirstName {get; init;}
-    string LastName {get; init;}
-    DateTime DateBirth {get; init;}
-    string Subject {get; init;}
+    public Subject Subject {get; init;}
 
     public Teacher ()
     {
         Console.WriteLine ("Teacher Construcotr");
     }
+
+    public string GetPerson() => $"First Name = {FirstName};Last Name = {LastName};Date of Birth = {DateBirth}; Subject = {Subject}";
 }
