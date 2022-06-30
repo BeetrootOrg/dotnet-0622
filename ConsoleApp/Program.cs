@@ -68,10 +68,16 @@ void AddNewContact()
 
     WriteLine("Enter phone:");
     var phone = Console.ReadLine();
+    try
+    {
+        File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
 
-    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
-
-    WriteLine("Contact saved, press any key to continue");
+        WriteLine("Contact saved, press any key to continue");
+    }
+    catch
+    {
+        WriteLine("Contact don't saved, press any key to continue ");
+    }
     ReadKey();
 }
 
@@ -118,12 +124,12 @@ void SearchContact()
     Clear();
 
     try
-    {   
+    {
         var contacts = ReadContacts(filename);
         string stringForSearch = "";
         System.Console.WriteLine("Insert string for searching....and press Enter");
         var needSearch = System.Console.ReadLine();
-        
+
         foreach (var contact in contacts)
         {
             stringForSearch = contact.ToString();
