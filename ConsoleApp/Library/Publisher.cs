@@ -1,7 +1,6 @@
-
 namespace ConsoleApp.Library;
+
 class Publisher
 {
-    string publisherName;
-    string publisherCode;
+    public string PublisherName { get; init; }
 }

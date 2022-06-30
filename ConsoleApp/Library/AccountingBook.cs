@@ -1,9 +1,10 @@
-
 namespace ConsoleApp.Library;
 
 class AccountingBook
 {
-bool isInStock;
-string ourBook;
-string ourAuthor;
+    
+public bool isInStock {get; set; }
+public Book OurBook {get; init; }
+public Person OurAuthor {get; init; }
+
 }

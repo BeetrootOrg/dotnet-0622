@@ -2,8 +2,8 @@ namespace ConsoleApp.Library;
 
 class Book
 {
-    string title;
-    string bookAuthor;
-    string boorPublisher;
-    
+    public string Title { get; init; }
+    public Person BookAuthor { get; init; }
+    public Publisher BookPublisher { get; init; }
+    public CategoryOfBook Category { get; init; }
 }

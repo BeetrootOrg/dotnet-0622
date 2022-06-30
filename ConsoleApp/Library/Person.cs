@@ -1,10 +1,11 @@
-
 namespace ConsoleApp.Library;
+using ConsoleApp.Library.Common;
 
 class Person
 {
-    string firstName;
-    string lastdName;
-    string country;
-    string PersonType;
+    public string FirstName { get; init; }
+    public string LastName { get; init; }
+    public string Country { get; init; }
+    public PersonType OurPerson { get; init; }
 }
+
