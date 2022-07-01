@@ -3,7 +3,7 @@ class Pupil : Person
 {
     public SchoolClass SchoolClass {get; init;}
     
-    public Pupil()
+    public Pupil()  
     {
         
         Console.WriteLine ("Pupil Constructor");
