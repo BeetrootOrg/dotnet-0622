@@ -49,6 +49,10 @@ void ShowAll()
     {
         WriteLine("Data file is missing. Create new contact.");
     }
+    catch (Exception e)
+    {
+        WriteLine(e);
+    }
     WriteLine("Press any key to continue...");
     ReadKey();
 }
@@ -67,7 +71,6 @@ void AddNewContact()
 
     WriteLine("Enter phone:");
     var phone = Console.ReadLine();
-
     File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
 
     WriteLine("Contact saved, press any key to continue...");
@@ -131,6 +134,10 @@ void SearchContact()
     catch (FileNotFoundException)
     {
         WriteLine("Data file is missing. Create new contact.");
+    }
+    catch (Exception e)
+    {
+        WriteLine(e);
     }
     WriteLine("Press any key to continue... ");
     ReadKey();
