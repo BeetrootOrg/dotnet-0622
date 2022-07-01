@@ -134,14 +134,6 @@ void Search()
     ReadKey();
 }
 
-void UpdateContact()
-{
-    Clear();
-
-    WriteLine("Enter contact to update");
-    // var phoneToUpdate = ReadLine
-}
-
 void MainMenu()
 {
     Clear();
