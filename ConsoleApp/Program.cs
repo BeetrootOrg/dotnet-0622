@@ -134,14 +134,6 @@ void Search()
     ReadKey();
 }
 
-void UpdateContact()
-{
-    Clear();
-
-    WriteLine("Enter contact to update");
-    // var phoneToUpdate = ReadLine
-}
-
 void MainMenu()
 {
     Clear();
@@ -151,9 +143,8 @@ void MainMenu()
     WriteLine("Menu:");
     WriteLine("\t1 - Show all contacts");
     WriteLine("\t2 - Add new contact");
-    WriteLine("\t3 - Update contact");
-    WriteLine("\t4 - Remove contact");
-    WriteLine("\t5 - Search");
+    WriteLine("\t3 - Remove contact");
+    WriteLine("\t4 - Search");
     WriteLine("\t0 - Exit");
 
     var key = ReadKey();
@@ -169,10 +160,10 @@ void MainMenu()
         case ConsoleKey.D2:
             AddNewContact();
             break;
-        case ConsoleKey.D4:
+        case ConsoleKey.D3:
             RemoveContact();
             break;
-        case ConsoleKey.D5:
+        case ConsoleKey.D4:
             Search();
             break;
         default:
