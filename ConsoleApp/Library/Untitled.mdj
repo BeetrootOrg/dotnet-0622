@@ -1051,7 +1051,7 @@
 											"top": 292,
 											"width": 239,
 											"height": 13,
-											"text": "+OurAuthor: Person {readOnly}",
+											"text": "+Client: Person {readOnly}",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2817,7 +2817,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGBufVfX0I0jMg="
 							},
-							"name": "OurAuthor",
+							"name": "Client",
 							"type": {
 								"$ref": "AAAAAAGBuejxCUEiWuQ="
 							},
