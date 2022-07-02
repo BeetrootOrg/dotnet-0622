@@ -1,29 +1,16 @@
-﻿
-public class GameOfLife
+﻿using System;
+using static System.Console;
+namespace ConsoleApp;
+
+class Program 
 {
-    public char[,] Execute(char[,] cells)
-    {   
-        Console.WriteLine (cells.Length);
-        for (int i = 0; i < cells.GetLength(0); i++)
-        {
-            for (int j = 0; j < cells.GetLength(1); j++)
-            {
-                int aliveAroundSum = 0;
-                int deadAroundSum = 0;
-                
-                if  cells                                     
-                if (cells[i,j] == '*')
-                {
-                    
-
-                }  
-
-            }
-            
-            /// 
-            /// </summary>
-        }
-
-        return cells;
+    public static void Main() 
+    {
+        char[,] myCells = new char [,] {{'*','.','*'},
+                                        {'.','*','*'},
+                                        {'*','*','.'}};
+        
+    GameOfLife.Execute(myCells);
+        
     }
 }
