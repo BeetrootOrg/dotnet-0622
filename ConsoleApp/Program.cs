@@ -4,6 +4,14 @@ using System.Text;
 
 using static System.Console;
 
+class ContactNotFoundException : Exception
+{
+    public ContactNotFoundException() { }
+
+    public ContactNotFoundException(string message)
+        : base(message) { }
+
+}
 internal class Program
 {
     const string filename = "data.csv";
@@ -86,8 +94,7 @@ internal class Program
             ShowRow(contact);
         }
 
-        WriteLine("Press any key to continue...");
-        ReadKey();
+        MakeDelay();
     }
 
     static string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
@@ -107,15 +114,15 @@ internal class Program
             Clear();
 
             WriteLine("Enter first name:");
-            var firstName = ReadLine();
+            var firstName = ReadLine().Trim();
             ValidateNonEmpty(firstName, "First name should be non-empty");
 
             WriteLine("Enter last name:");
-            var lastName = ReadLine();
+            var lastName = ReadLine().Trim();
             ValidateNonEmpty(lastName, "Last name should be non-empty");
 
             WriteLine("Enter phone:");
-            var phone = ReadLine();
+            var phone = ReadLine().Trim();
             ValidateNonEmpty(lastName, "Phone should be non-empty");
 
             File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
@@ -160,15 +167,99 @@ internal class Program
             }
         }
 
+        RewriteContacts(newContacts);
+
+        WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
+        ReadKey();
+    }
+    static void SearchContact()
+    {
+        try
+        {
+            Clear();
+            var contacts = ReadContacts(filename);
+            WriteLine("Enter Contact First or Last Name:");
+            string searchKey = ReadLine();
+
+            int counter = 0;
+            foreach (var (firstName, lastName, phoneNumber) in contacts)
+            {
+                if (firstName.ToLower() == searchKey.ToLower() || lastName.ToLower() == searchKey.ToLower())
+                {
+                    ShowRow((firstName, lastName, phoneNumber));
+                    ++counter;
+                }
+            }
+            if (counter == 0)
+            {
+                throw new ContactNotFoundException("No Contacts Found!");
+            }
+            WriteLine($"{counter} {(counter == 1 ? "contact was" : "contacts were")} found");
+        }
+        catch (ContactNotFoundException cnfe)
+        {
+            WriteLine(cnfe.Message);
+        }
+        MakeDelay();
+
+    }
+    static void UpdateContact()
+    {
+        try
+        {
+            Clear();
+            var contacts = ReadContacts(filename);
+            WriteLine("Provide Information About The Contact You Would Like To Update");
+            WriteLine("First Name:");
+            string firstName = ReadLine();
+            ValidateNonEmpty(firstName, "Invalid Data Entered!");
+            WriteLine("Last Name:");
+            string lastName = ReadLine();
+            ValidateNonEmpty(lastName, "Invalid Data Entered!");
+            bool isContactFound = false;
+
+            for (int i = 0; i < contacts.Length; i++)
+            {
+                if (contacts[i].Item1.ToLower() == firstName.ToLower() && contacts[i].Item2.ToLower() == lastName.ToLower())
+                {
+                    isContactFound = true;
+                    WriteLine($"Enter a new phone number for {firstName} {lastName}:");
+                    string phoneNumber = ReadLine();
+                    contacts[i].Item3 = phoneNumber;
+                    WriteLine("Contact After Update:");
+                    ShowRow(contacts[i]);
+                    break; // let's assume that there will be no contacts with same First Name and Last Name 
+                }
+            }
+            if (!isContactFound)
+            {
+                throw new ContactNotFoundException("No Contacts Found With such First Name and Last Name!");
+            }
+            RewriteContacts(contacts);
+        }
+        catch (ArgumentException ae)
+        {
+            WriteLine(ae.Message);
+        }
+        catch (ContactNotFoundException cnfe)
+        {
+            System.Console.WriteLine(cnfe.Message);
+        }
+        MakeDelay();
+    }
+    static void RewriteContacts((string, string, string)[] contacts)
+    {
         var csvBuilder = new StringBuilder();
-        foreach (var contact in newContacts)
+        foreach (var contact in contacts)
         {
             csvBuilder.AppendLine(Serialize(contact));
         }
 
         File.WriteAllText(filename, csvBuilder.ToString());
-
-        WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
+    }
+    static void MakeDelay()
+    {
+        WriteLine("Press any key to continue...");
         ReadKey();
     }
 
@@ -181,8 +272,9 @@ internal class Program
         WriteLine("Menu:");
         WriteLine("\t1 - Show all contacts");
         WriteLine("\t2 - Add new contact");
-        WriteLine("\t3 - Update contact");
+        WriteLine("\t3 - Search contact");
         WriteLine("\t4 - Remove contact");
+        WriteLine("\t5 - Update contact");
         WriteLine("\t0 - Exit");
 
         var key = ReadKey();
@@ -198,8 +290,14 @@ internal class Program
             case ConsoleKey.D2:
                 AddNewContact();
                 break;
+            case ConsoleKey.D3:
+                SearchContact();
+                break;
             case ConsoleKey.D4:
                 RemoveContact();
+                break;
+            case ConsoleKey.D5:
+                UpdateContact();
                 break;
             default:
                 break;
