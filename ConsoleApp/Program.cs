@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-
 using static System.Console;
 
 const string filename = "data.csv";
@@ -32,11 +31,10 @@ void ShowRow((string, string, string) row)
 
 void ShowAll()
 {
-    // 1. read content from file
-    // 2. iterate in array of contacts
-    // 3. show contact rows
-    Clear();
 
+    Clear();
+try
+{
     var contacts = ReadContacts(filename);
 
     ShowRow(("First Name", "Last Name", "Phone"));
@@ -47,6 +45,11 @@ void ShowAll()
 
     WriteLine("Press any key to continue...");
     ReadKey();
+}
+catch(FieldAccessException Nofile)
+{
+    Console.WriteLine($"Missing file {Nofile.Message}");
+}
 }
 
 string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
@@ -72,6 +75,8 @@ void AddNewContact()
 
 void RemoveContact()
 {
+    try
+    {
     Clear();
 
     WriteLine("Enter phone to remove:");
@@ -106,25 +111,35 @@ void RemoveContact()
 
     WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
     ReadKey();
+    }
+    catch(FileNotFoundException)
+    {
+        WriteLine("No data for delete");
+        ReadKey();
+    }
 }
 
 void SearchContact()
 {
     Clear();
-    
-    WriteLine("Enter first or last name:");
-    string searchContact = ReadLine();
-    var contact = ReadContacts(filename);
-    ShowRow(("First Name", "Last Name", "Phone"));
-    for (int i = 0; i < contact.Length; i++)
+
+    try
     {
-        if (searchContact == contact[i].Item1 || searchContact == contact[i].Item2)
-        ShowRow(contact[i]);
-    else{
-        WriteLine("No such contact");
+        WriteLine("Enter first or last name:");
+        string searchContact = ReadLine();
+        var contact = ReadContacts(filename);
+        ShowRow(("First Name", "Last Name", "Phone"));
+        for (int i = 0; i < contact.Length; i++)
+        {
+            if (searchContact == contact[i].Item1 || searchContact == contact[i].Item2)
+                ShowRow(contact[i]);
+        }
     }
-    }
-    
+catch (FileNotFoundException)
+{
+    Console.WriteLine("Data base file mising");
+}
+
     WriteLine("Press any key to continue...");
     ReadKey();
 }
@@ -156,7 +171,7 @@ void MainMenu()
         case ConsoleKey.D2:
             AddNewContact();
             break;
-            case ConsoleKey.D5:
+        case ConsoleKey.D5:
             SearchContact();
             break;
         case ConsoleKey.D4:
