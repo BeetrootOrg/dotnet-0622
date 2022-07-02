@@ -1,6 +1,6 @@
 ﻿public class GameOfLife
 {
-  public char[,] Execute(char[,] cells)
+    public char[,] Execute(char[,] cells)
     {
         int i;
         char[,] copy = new char[cells.GetLength(0), cells.GetLength(1)];
@@ -12,6 +12,7 @@
             for (int k = 0; k < temp.GetLength(1); k++)
             {
                 extraCells[j, k ] = '.';
+                temp[j, k ] = '.';
             }
         }
 
@@ -64,7 +65,7 @@
     }
 
 
-    int CountOfLive(char[,] a, int i, int j)
+    public int CountOfLive(char[,] a, int i, int j)
     {
         int live = 0;
         if (a[i - 1, j - 1] == '*') live++;
@@ -80,6 +81,6 @@
     }
     private static void Main(string[] args)
     {
-      
+        
     }
 }
