@@ -1,29 +1,35 @@
 ﻿public class GameOfLife
 {
-    public  static char[,] Execute(char[,] cells)
+    public char[,] Execute(char[,] cells)
     {
-        char[,] copy = new char[cells.GetLength(0), cells.GetLength(1)];
-        Array.Copy(cells,copy,cells.Length);
-        for (int i = 0; i < cells.GetLength(0); i++)
+        char[,] copy = new char[cells.GetLength(0) + 2, cells.GetLength(1) + 2];
+        for (int i = 0; i < copy.GetLength(0); i++)
         {
-            for (int j = 0; j < cells.GetLength(1); j++)
+            for (int j = 0; j < copy.GetLength(1); j++)
+            {
+                if (i == 0 || j == 0 || i == copy.GetLength(0) - 1 || j == copy.GetLength(1) - 1) copy[i, j] = '.';
+                else copy[i, j] = cells[i - 1, j - 1];
+            }
+        }
+        for (int i = 0; i < copy.GetLength(0); i++)
+        {
+            for (int j = 0; j < copy.GetLength(1); j++)
             {
                 int count = 0;
                 string elements = "";
-                if (i == 0 || j == 0 || i == cells.GetLength(0) - 1 || j == cells.GetLength(1) - 1) continue;
+                if (i == 0 || j == 0 || i == copy.GetLength(0) - 1 || j == copy.GetLength(1) - 1) continue;
                 else
                 {
-                    elements += cells[i - 1, j - 1] == '*' ? '*' : null;
-                    elements += cells[i - 1, j] == '*' ? '*' : null;
-                    elements += cells[i - 1, j + 1] == '*' ? '*' : null;
-                    elements += cells[i, j - 1] == '*' ? '*' : null;
-                    elements += cells[i, j + 1] == '*' ? '*' : null;
-                    elements += cells[i + 1, j - 1] == '*' ? '*' : null;
-                    elements += cells[i + 1, j] == '*' ? '*' : null;
-                    elements += cells[i + 1, j + 1] == '*' ? '*' : null;
-                    count = elements.Length;
+                    elements += copy[i - 1, j - 1] == '*' ? '*' : null;
+                    elements += copy[i - 1, j] == '*' ? '*' : null;
+                    elements += copy[i - 1, j + 1] == '*' ? '*' : null;
+                    elements += copy[i, j - 1] == '*' ? '*' : null;
+                    elements += copy[i, j + 1] == '*' ? '*' : null;
+                    elements += copy[i + 1, j - 1] == '*' ? '*' : null;
+                    elements += copy[i + 1, j] == '*' ? '*' : null;
+                    elements += copy[i + 1, j + 1] == '*' ? '*' : null;
                     count = elements.Length >= 2 && elements.Length < 4 ? 1 : 0;
-                    switch (cells[i,j])
+                    switch (copy[i, j])
                     {
                         case '*':
                             {
@@ -31,12 +37,12 @@
                                 {
                                     case 0:
                                         {
-                                            copy[i, j] = '.';
+                                            cells[i - 1, j - 1] = '.';
                                             break;
                                         }
                                     case 1:
                                         {
-                                            copy[i, j] = '*';
+                                            cells[i - 1, j - 1] = '*';
                                             break;
                                         }
                                 }
@@ -48,22 +54,21 @@
                                 {
                                     case false:
                                         {
-                                            copy[i, j] = '.';
+                                            cells[i - 1, j - 1] = '.';
                                             break;
                                         }
                                     case true:
                                         {
-                                            copy[i, j] = '*';
+                                            cells[i - 1, j - 1] = '*';
                                             break;
                                         }
                                 }
                                 break;
                             }
                     }
-                    
                 }
             }
         }
-        return copy;
+        return cells;
     }
 }
