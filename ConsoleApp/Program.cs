@@ -1,4 +1,4 @@
-﻿internal class Program
+﻿public class GameOfLife
 {
   public static char[,] Execute(char[,] cells)
     {
