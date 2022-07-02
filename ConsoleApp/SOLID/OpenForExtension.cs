@@ -20,7 +20,7 @@ class OpenForExtensionBad
                 WriteLine("This is Type1");
                 break;
             case ClassType.Type2:
-                WriteLine("This is Type2");
+                WriteLine("Hello from Type 42");
                 break;
         }
     }
@@ -38,5 +38,5 @@ class OpenForExtensionBest1 : IOpenForExtensionBest
 
 class OpenForExtensionBest2 : IOpenForExtensionBest
 {
-    public void Show() => WriteLine("This is Type2");
+    public void Show() => WriteLine("Hello from Type 42");
 }
