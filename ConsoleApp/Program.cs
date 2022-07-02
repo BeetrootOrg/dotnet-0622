@@ -1,10 +1,19 @@
 ﻿public class GameOfLife
 {
-  public static char[,] Execute(char[,] cells)
+  public char[,] Execute(char[,] cells)
     {
         int i;
         char[,] copy = new char[cells.GetLength(0), cells.GetLength(1)];
         char[,] extraCells = new char[cells.GetLength(0) + 2, cells.GetLength(1) + 2];
+        char[,] temp = new char[cells.GetLength(0) + 2, cells.GetLength(1) + 2];
+
+        for (int j = 0; j < temp.GetLength(0); j++)
+        {
+            for (int k = 0; k < temp.GetLength(1); k++)
+            {
+                extraCells[j, k ] = '.';
+            }
+        }
 
         for (int j = 0; j < cells.GetLength(0); j++)
         {
@@ -14,7 +23,7 @@
             }
         }
 
-        char[,] temp = new char[cells.GetLength(0) + 2, cells.GetLength(1) + 2];
+        
         for (i = 0; i < 1; i++)
         {
             for (int j = 1; j < extraCells.GetLength(0) - 1; j++)
@@ -55,7 +64,7 @@
     }
 
 
-    static int CountOfLive(char[,] a, int i, int j)
+    int CountOfLive(char[,] a, int i, int j)
     {
         int live = 0;
         if (a[i - 1, j - 1] == '*') live++;
@@ -71,6 +80,6 @@
     }
     private static void Main(string[] args)
     {
-        
+      
     }
 }
