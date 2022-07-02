@@ -2,10 +2,19 @@
 
 namespace ConsoleApp;
 
+interface IFourtyTwo
+{
+    int FourtyTwo();
+}
+
+class Class42 : IFourtyTwo
+{
+    public int FourtyTwo() => 42;
+}
+
 abstract class Animal
 {
     public abstract void Say();
-    public int FourtyTwo() => 42;
 }
 
 class Cat : Animal
@@ -26,10 +35,10 @@ class Program
         MakeAnimalSay(cat1);
         MakeAnimalSay(new Dog());
 
-        MakeAnimal42(cat1);
-        MakeAnimal42(new Dog());
+        var fourtyTwo = new Class42();
+        Show42(fourtyTwo);
     }
 
     private static void MakeAnimalSay(Animal animal) => animal.Say();
-    private static void MakeAnimal42(Animal animal) => WriteLine(animal.FourtyTwo());
+    private static void Show42(IFourtyTwo fourtyTwo) => WriteLine(fourtyTwo.FourtyTwo());
 }
