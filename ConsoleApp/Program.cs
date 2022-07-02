@@ -23,3 +23,13 @@ var memberCards = new MemberCards
     PhoneNumberMember = "+380951234567",
     EmailMember = "something@gmail.com"
 };
+
+var library = new Library
+{
+    NameLibrary = "Local",
+    AddressLibrary = "14 Church stret",
+    PhoneNumberLibrary = "+1123456789",
+    EmailLibrary = "library14@gmail.com",
+    Books = book,
+    Member = memberCards
+};
