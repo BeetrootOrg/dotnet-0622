@@ -1,0 +1,30 @@
+
+public class GameOfLife
+{
+    public char[,] Execute(char[,] cells)
+    {
+        if (cells != null && cells.Rank > 0)
+        {
+            for (int a = 0; a > )
+        }
+        char[,] field = cells;
+        // here goes the implementation
+        return cells;
+    }
+
+    void temp()
+    {
+        int min = 0;
+        int max = 0;
+        int num = 
+        char[,] field = new char[0,0];
+        for (int a = Math.Min(0, min); a < Math.Max(a + 2, field.Rank ); ++a)
+        {
+            for (int b = Math.Min(0, max); b < Math.Max(b + 2, field.GetLength(a)); ++b)
+            {
+                if field[a][b] != ".";
+                        minefield[c][d] += 1
+            }
+        }
+    }
+}
