@@ -75,9 +75,9 @@ void AddNewContact()
         var phone = Console.ReadLine();
         File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
     }
-    catch (ArgumentException ae)
+    catch (Exception e)
     {
-        WriteLine(ae);
+        WriteLine(e);
     }
     WriteLine("Contact saved, press any key to continue...");
     ReadKey();
