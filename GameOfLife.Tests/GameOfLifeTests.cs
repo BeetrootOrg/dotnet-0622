@@ -31,7 +31,7 @@ public class GameOfLifeTests
     [InlineData(new[] { "**...", "*.*..", ".***.", "..*.*", "...**" }, new[] { "**...", "*..*.", ".....", ".*..*", "...**" })]
     [InlineData(new[] { "**...", "*..*.", ".....", ".*..*", "...**" }, new[] { "**...", "**...", ".....", "...**", "...**" })]
     [InlineData(new[] { ".....", ".***.", ".*.*.", ".***.", ".***.", ".***.", ".*.*.", ".***.", "....." }, new[] { "..*..", ".*.*.", "*...*", "*...*", "*...*", "*...*", "*...*", ".*.*.", "..*.." })]
-    public void Test1(string[] input, string[] expected)
+    public void GameOfLife(string[] input, string[] expected)
     {
         // Arrange
         var newLineTab = $"{Environment.NewLine}\t";
