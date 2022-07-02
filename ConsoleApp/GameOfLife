@@ -23,7 +23,7 @@ public class GameOfLife
     }
 
 
-    void ()
+    void search()
     {
         int min = 0;
     int max = 0;
