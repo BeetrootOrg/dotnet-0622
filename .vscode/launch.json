@@ -10,11 +10,11 @@
 			"request": "launch",
 			"preLaunchTask": "build",
 			// If you have changed target frameworks, make sure to update the program path.
-			"program": "${workspaceFolder}/ConsoleApp/bin/Debug/net6.0/ConsoleApp.dll",
+			"program": "${workspaceFolder}/GameOfLife.Tests/bin/Debug/net6.0/GameOfLife.Tests.dll",
 			"args": [],
-			"cwd": "${workspaceFolder}/ConsoleApp",
+			"cwd": "${workspaceFolder}/GameOfLife.Tests",
 			// For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
-			"console": "integratedTerminal",
+			"console": "internalConsole",
 			"stopAtEntry": false
 		},
 		{
