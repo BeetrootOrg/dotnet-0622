@@ -5,103 +5,108 @@ public class GameOfLife
     {
         int stroka1 = 0,stroka2 = 0,stroka3 = 0;
 
-        Boolean booltemp;
-        
         for (int x = 0; x < cells.GetLength(0); x++)
         {
             for (int y = 0; y < cells.GetLength(1); y++)
             {
-                if (cells[x, y].Equals('*'))
+
+                try
                 {
-                    try
+                    if (cells[x - 1, y - 1].Equals('*'))
                     {
-                        if (cells[x - 1, y - 1].Equals('*'))
-                        {
-                            stroka1++;
-                        }
+                        stroka1++;
                     }
-                    catch (Exception)
+                }
+                catch (Exception)
+                {
+                }
+                try
+                {
+                    if (cells[x - 1, y].Equals('*'))
                     {
+                        stroka1++;
                     }
-                    try
+                }
+                catch (Exception)
+                {
+                }
+                try
+                {
+                    if (cells[x - 1, y + 1].Equals('*'))
                     {
-                        if (cells[x - 1, y].Equals('*'))
-                        {
-                            stroka1++;
-                        }
+                        stroka1++;
                     }
-                    catch (Exception)
+                }
+                catch (Exception)
+                {
+                }
+                try
+                {
+                    if (cells[x, y - 1].Equals('*'))
                     {
+                        stroka2++;
                     }
-                    try
+                }
+                catch (Exception)
+                {
+                }
+                try
+                {
+                    if (cells[x, y + 1].Equals('*'))
                     {
-                        if (cells[x - 1, y + 1].Equals('*'))
-                        {
-                            stroka1++;
-                        }
+                        stroka2++;
                     }
-                    catch (Exception)
+                }
+                catch (Exception)
+                {
+                }
+                try
+                {
+                    if (cells[x + 1, y - 1].Equals('*'))
                     {
+                        stroka3++;
                     }
-                    try
+                }
+                catch (Exception)
+                {
+                }
+                try
+                {
+                    if (cells[x + 1, y].Equals('*'))
                     {
-                        if (cells[x, y - 1].Equals('*'))
-                        {
-                            stroka2++;
-                        }
+                        stroka3++;
                     }
-                    catch (Exception)
+                }
+                catch (Exception)
+                {
+                }
+                try
+                {
+                    if (cells[x + 1, y + 1].Equals('*'))
                     {
+                        stroka1++;
                     }
-                    try
-                    {
-                        if (cells[x, y + 1].Equals('*'))
-                        {
-                            stroka2++;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                    }
-                    try
-                    {
-                        if (cells[x + 1, y - 1].Equals('*'))
-                        {
-                            stroka3++;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                    }
-                    try
-                    {
-                        if (cells[x + 1, y].Equals('*'))
-                        {
-                            stroka3++;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                    }
-                    try
-                    {
-                        if (cells[x + 1, y + 1].Equals('*'))
-                        {
-                            stroka1++;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                    }
+                }
+                catch (Exception)
+                {
                 }
 
-                if (stroka1 + stroka2 + stroka3 > 3 || stroka1 + stroka2 + stroka3 < 2)
+                if (cells[x, y].Equals('*') && (stroka1 + stroka2 + stroka3 > 3 || stroka1 + stroka2 + stroka3 < 2))
                 {
-                    cells[x, y] = '.';
+
+                        cells[x, y] = '.';
+
+
                 }
-                else if ()
+                if (cells[x, y].Equals('.') && stroka1 + stroka2 + stroka3 == 3)
+                {
+                    cells[x, y] = '*';
+                }
+                x++;
+                y++;
             }
         }
         return cells;
     }
 }
+
