@@ -63,16 +63,22 @@ void AddNewContact()
 {
     Clear();
 
-    WriteLine("Enter first name:");
-    var firstName = Console.ReadLine();
+    try
+    {
+        WriteLine("Enter first name:");
+        var firstName = Console.ReadLine();
 
-    WriteLine("Enter last name:");
-    var lastName = Console.ReadLine();
+        WriteLine("Enter last name:");
+        var lastName = Console.ReadLine();
 
-    WriteLine("Enter phone:");
-    var phone = Console.ReadLine();
-    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
-
+        WriteLine("Enter phone:");
+        var phone = Console.ReadLine();
+        File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+    }
+    catch (ArgumentException ae)
+    {
+        WriteLine(ae);
+    }
     WriteLine("Contact saved, press any key to continue...");
     ReadKey();
 }
