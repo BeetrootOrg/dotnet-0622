@@ -7,9 +7,16 @@ interface IFourtyTwo
     int FourtyTwo();
 }
 
-class Class42 : IFourtyTwo
+interface ISum
+{
+    int Sum(int a, int b);
+}
+
+class Class42 : IFourtyTwo, ISum
 {
     public int FourtyTwo() => 42;
+
+    public int Sum(int a, int b) => a + b;
 }
 
 abstract class Animal
@@ -37,8 +44,10 @@ class Program
 
         var fourtyTwo = new Class42();
         Show42(fourtyTwo);
+        ShowSum(fourtyTwo);
     }
 
     private static void MakeAnimalSay(Animal animal) => animal.Say();
     private static void Show42(IFourtyTwo fourtyTwo) => WriteLine(fourtyTwo.FourtyTwo());
+    private static void ShowSum(ISum sum) => WriteLine(sum.Sum(3, 5));
 }
