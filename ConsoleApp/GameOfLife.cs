@@ -3,7 +3,7 @@ using static System.Console;
 namespace ConsoleApp;
 public class GameOfLife
 {  
-    public static char[,] Execute(char[,] cells)
+    public char[,] Execute(char[,] cells)
     {   
         char ChangeCell (int aliveAroundSum, char cell)
         {
@@ -57,7 +57,7 @@ public class GameOfLife
                             }
 
                     newCells[i,j] = ChangeCell(aliveAroundSum, cells[i,j]);
-                    
+
                 }
             }
 

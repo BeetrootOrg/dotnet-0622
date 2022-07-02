@@ -7,10 +7,15 @@ class Program
     public static void Main() 
     {
         char[,] myCells = new char [,] {{'*','.','*'},
-                                        {'.','*','*'},
+                                        {'.','*','.'},
                                         {'*','*','.'}};
         
-    GameOfLife.Execute(myCells);
+    var gameOfLife = new GameOfLife();
+    foreach (char i in gameOfLife.Execute(myCells)) WriteLine(i);
+
+    
+
+    
         
     }
 }
