@@ -16,7 +16,9 @@ class Program
 {
     private static void Main()
     {
-        var cat1 = new Cat();
-        cat1.Say();
+        Animal cat1 = new Cat();
+        MakeAnimalSay(cat1);
     }
+
+    private static void MakeAnimalSay(Animal animal) => animal.Say();
 }
