@@ -35,16 +35,24 @@ void ShowAll()
     // 2. iterate in array of contacts
     // 3. show contact rows
     Clear();
-
-    var contacts = ReadContacts(filename);
-
-    ShowRow(("First Name", "Last Name", "Phone"));
-    foreach (var contact in contacts)
+    try
     {
-        ShowRow(contact);
-    }
+        var contacts = ReadContacts(filename);
 
-    WriteLine("Press any key to continue...");
+        ShowRow(("First Name", "Last Name", "Phone"));
+        foreach (var contact in contacts)
+        {
+            ShowRow(contact);
+        }
+
+        WriteLine("Press any key to continue...");
+        ReadKey();
+    }
+    catch (System.IO.FileNotFoundException)
+    {
+        WriteLine("Your phonebook database" + filename + " does not exist, please add new contacts");
+        WriteLine("Press any key to continue... ");
+    }
     ReadKey();
 }
 
@@ -56,12 +64,24 @@ void AddNewContact()
 
     WriteLine("Enter first name:");
     var firstName = Console.ReadLine();
+    if (string.IsNullOrWhiteSpace(firstName))
+        {
+            throw new ArgumentException ("First name should be non-empty", nameof(firstName))
+        }
 
     WriteLine("Enter last name:");
     var lastName = Console.ReadLine();
+    if (string.IsNullOrWhiteSpace(lastName))
+        {
+            throw new ArgumentException ("Last name should be non-empty", nameof(lastName))
+        }
 
     WriteLine("Enter phone:");
     var phone = Console.ReadLine();
+     if (string.IsNullOrWhiteSpace(phone))
+        {
+            throw new ArgumentException ("Phone number should be non-empty", nameof(phone))
+        }
 
     File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
 
@@ -73,66 +93,83 @@ void RemoveContact()
 {
     Clear();
 
-    WriteLine("Enter phone to remove:");
-    var phoneToRemove = Console.ReadLine();
-
-    var contacts = ReadContacts(filename);
-    var newContacts = new (string, string, string)[contacts.Length];
-    Array.Copy(contacts, newContacts, contacts.Length);
-
-    var index = 0;
-
-    while (index < newContacts.Length)
+    try
     {
-        if (newContacts[index].Item3 == phoneToRemove)
-        {
-            newContacts[index] = newContacts[^1];
-            Array.Resize(ref newContacts, newContacts.Length - 1);
-        }
-        else
-        {
-            ++index;
-        }
-    }
+        WriteLine("Enter phone to remove:");
+        var phoneToRemove = Console.ReadLine();
 
-    var csvBuilder = new StringBuilder();
-    foreach (var contact in newContacts)
+        var contacts = ReadContacts(filename);
+        var newContacts = new (string, string, string)[contacts.Length];
+        Array.Copy(contacts, newContacts, contacts.Length);
+
+        var index = 0;
+
+        while (index < newContacts.Length)
+        {
+            if (newContacts[index].Item3 == phoneToRemove)
+            {
+                newContacts[index] = newContacts[^1];
+                Array.Resize(ref newContacts, newContacts.Length - 1);
+            }
+            else
+            {
+                ++index;
+            }
+        }
+
+        var csvBuilder = new StringBuilder();
+        foreach (var contact in newContacts)
+        {
+            csvBuilder.AppendLine(Serialize(contact));
+        }
+
+        File.WriteAllText(filename, csvBuilder.ToString());
+
+        WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
+        ReadKey();
+    }
+    catch (System.IO.FileNotFoundException)
     {
-        csvBuilder.AppendLine(Serialize(contact));
+        WriteLine("Your phonebook database" + filename + " does not exist, please add new contacts");
+        WriteLine("Press any key to continue... ");
     }
-
-    File.WriteAllText(filename, csvBuilder.ToString());
-
-    WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
     ReadKey();
 }
 
 void SearchContact()
 {
     Clear();
-
-    WriteLine("Enter your search request: ");
-    var request = "";
-    request = ReadLine();
-    var contacts = ReadContacts(filename);
-    ShowRow(("First Name", "Last Name", "Phone"));
-
-    bool rslt = false;
-    foreach (var contact in contacts)
+    try
     {
-        if (request != null)
+        WriteLine("Enter your search request: ");
+        var request = "";
+        request = ReadLine();
+        var contacts = ReadContacts(filename);
+        ShowRow(("First Name", "Last Name", "Phone"));
+
+        bool rslt = false;
+        foreach (var contact in contacts)
         {
-            if (contact.Item1.Contains(request, StringComparison.OrdinalIgnoreCase) ||
-            contact.Item2.Contains(request, StringComparison.OrdinalIgnoreCase) ||
-            contact.Item3.Contains(request, StringComparison.OrdinalIgnoreCase))
+            if (request != null)
             {
-                ShowRow(contact);
-                rslt = true;
+                if (contact.Item1.Contains(request, StringComparison.OrdinalIgnoreCase) ||
+                contact.Item2.Contains(request, StringComparison.OrdinalIgnoreCase) ||
+                contact.Item3.Contains(request, StringComparison.OrdinalIgnoreCase))
+                {
+                    ShowRow(contact);
+                    rslt = true;
+                }
             }
         }
+        if (!rslt) WriteLine("Сontact not found...press any key to continue");
+        ReadKey();
     }
-    
-    if (!rslt) WriteLine("Сontact not found...press any key to continue");
+    catch (System.IO.FileNotFoundException)
+    {
+        WriteLine("Your phonebook database" + filename + " does not exist, please add new contacts");
+        WriteLine("Press any key to continue... ");
+    }
+
     ReadKey();
 }
 
