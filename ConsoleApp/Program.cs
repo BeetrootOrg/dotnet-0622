@@ -1,57 +1,29 @@
 ﻿using static System.Console;
-void Exit()
-{
-    Environment.Exit(0);
-}
+using ConsoleApp.Booklibrary;
 
-void ShowAll()
+var author = new Author
 {
-    Clear();
-    var contacts = new[]
-    {
-        ("First", "Last", "+3801234567"),
-        ("f", "L", "+380123578"),
+    FirstName = "taras",
+    LastName = "shewchenko"
     };
-    WriteLine("{0,-15} {1,-15} {2,-15}", "First Name", "Last Name", "Phone");
-    foreach (var (firstName, lastName, phone) in contacts)
-    {
-        WriteLine("{0,-15} {1,-15} {2,-15}", firstName, lastName, phone);
-        
-    }
-    WriteLine("Press eny kay to continue...");
-    ReadKey();
-}
 
-void MainMenu()
+var book = new Book
 {
-    Clear();
+    BookName = "kobzar",
+    yer = "1840",
+    booklanguges = languges.Ukraine
+};
 
-    Console.WriteLine("Welcome to phone book!");
-    Console.WriteLine();
-    WriteLine("Menu:");
-    WriteLine("\t1 - Show all contacts");
-    WriteLine("\t2 - Add new contact");
-    WriteLine("\t3 - Update contact");
-    WriteLine("\t4 - Remove contact");
-    WriteLine("\t0 - Exit");
-
-    var key = ReadKey();
-    switch (key.Key)
-    {
-        case ConsoleKey.D0:
-            Exit();
-            break;
-        case ConsoleKey.D1:
-            ShowAll();
-            break;
-        default:
-            MainMenu();
-            break;
-
-    }
-}
-while (true)
+var BookNumber = new BookNumber
 {
-MainMenu();
-}
+    NumberBook = 1
+};
 
+var library = new library
+{
+    FirstName = "Andriy",
+    LastName = "Gulpa",
+    age = 35,
+    gender = "male",
+    phone = "+380"
+};
