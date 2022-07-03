@@ -1,7 +1,7 @@
 namespace ConsoleApp.Library;
 class BookAuthor
 {
-    public int authorId{ get; init; } 
-    public string authorName{ get; set; }
-    public string authorCountry{ get; set; }
+    public int AuthorId{ get; init; } 
+    public string AuthorName{ get; set; }
+    public string AuthorCountry{ get; set; }
 }

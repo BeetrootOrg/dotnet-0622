@@ -1,7 +1,7 @@
 namespace ConsoleApp.Library;
 class Library
 {
-     public int libraryNotationId{ get; init; }
-     public int bookId{ get; init; }
-     public System.Decimal price{ get; set; }
+     public int LibraryNotationId{ get; init; }
+     public int BookId{ get; init; }
+     public System.Decimal Price{ get; set; }
 }

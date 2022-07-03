@@ -1,9 +1,9 @@
 namespace ConsoleApp.Library;
 class Client
 {
-    public int clientId { get; init; }
-    public string clientName { get; set; }
-    public byte clientAge { get; set; }
-    public string clientPhoneNumber { get; set; }
-    public string clientMail { get; set; }
+    public int ClientId { get; init; }
+    public string ClientName { get; set; }
+    public byte ClientAge { get; set; }
+    public string ClientPhoneNumber { get; set; }
+    public string ClientMail { get; set; }
 }
