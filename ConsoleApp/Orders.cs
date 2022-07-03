@@ -2,7 +2,7 @@ namespace Consoleapp;
 
 class Orders
 {
-    string orderHash { get; set; }
-    int datetime { get; set; }
-    int price { get; set; }
+    string OrderHash { get; set; }
+    int Datetime { get; set; }
+    int Price { get; set; }
 }

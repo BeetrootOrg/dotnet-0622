@@ -1,8 +1,8 @@
 namespace ConsoleApp;
 class Book
 {
-    string hash { get; init; }
-    string name { get; init; }
-    string author { get; init; }
-    string genre { get; init; }
+    string Hash { get; init; }
+    string Name { get; init; }
+    string Author { get; init; }
+    string Genre { get; init; }
 }

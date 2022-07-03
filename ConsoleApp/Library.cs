@@ -2,8 +2,8 @@ namespace Consoleapp;
 
 class Library
 {
-    int availableBooks { get; set; }
-    int bookPrice { get; set; }
-    int numberOfAvailableSeats { get; set; }
-    string librarySchedule { get; set; }
+    int AvailableBooks { get; set; }
+    int BookPrice { get; set; }
+    int NumberOfAvailableSeats { get; set; }
+    string LibrarySchedule { get; set; }
 }

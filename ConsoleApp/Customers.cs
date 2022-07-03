@@ -2,10 +2,10 @@ namespace ConsoleApp;
 
 class Customer
 {
-    int age { get; set; }
-    string firstName { get; set; }
-    string lastName { get; set; }
-    int phoneNumber { get; set; }
-    string email { get; set; }
-    string hash { get; set; }
+    int Age { get; set; }
+    string FirstName { get; set; }
+    string LastName { get; set; }
+    int PhoneNumber { get; set; }
+    string Email { get; set; }
+    string Hash { get; set; }
 }
