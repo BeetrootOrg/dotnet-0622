@@ -1,7 +1,17 @@
 namespace ConsoleApp.InternetShop;
-class Receipt
+class Receipt : ICreateNewReceipt
 {
-    public Buyer BuyerID { get; init; }
+    public string BuyerID { get; set; }
     public Product[] ProductList { get; set; }
     public DateTime TimePurchase { get; set; }
+
+    public void CreateNewReceipt()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+interface ICreateNewReceipt
+{
+    public void CreateNewReceipt();
 }
