@@ -13,6 +13,23 @@ struct Vector : IEquatable<Vector>
         Y = y;
     }
 
+    public override bool Equals(object obj)
+    {
+        if (obj is Vector vector)
+        {
+            return Equals(vector);
+        }
+
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        var hashCode = new HashCode();
+        hashCode.Add(X);
+        hashCode.Add(Y);
+        return hashCode.ToHashCode();
+    }
 
     public bool Equals(Vector other)
     {
@@ -28,5 +45,20 @@ struct Vector : IEquatable<Vector>
     public static Vector operator +(Vector v1, Vector v2)
     {
         return new Vector(v1.X + v2.X, v1.Y + v2.Y);
+    }
+
+    public static Vector operator -(Vector v1, Vector v2)
+    {
+        return new Vector(v1.X - v2.X, v1.Y - v2.Y);
+    }
+
+    public static bool operator ==(Vector v1, Vector v2)
+    {
+        return v1.Equals(v2);
+    }
+
+    public static bool operator !=(Vector v1, Vector v2)
+    {
+        return !v1.Equals(v2);
     }
 }
