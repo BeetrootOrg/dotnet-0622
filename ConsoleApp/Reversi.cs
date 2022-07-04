@@ -21,13 +21,11 @@ public class Reversi
                 {   
                     if (field[i,j] != 'W' && field[i,j] != 'B' && field[i,j] != '.')
                     {   
-                        WriteLine (field[i,j]);
                         throw new ("Shold be only B or W or .");
                     } 
 
                     if (field[i,j] == turn)
                     {
-                            WriteLine ($"{i}  {j}");
                             for (int y = -1; y <= 1; y++)
                             {
                                 for (int x = -1; x <= 1; x++)
@@ -45,6 +43,7 @@ public class Reversi
                                                     k+=y;
                                                     z+=x;            
                                                 };
+
                                                 if (newField [i+k, j+z] == '.') newField [i+k, j+z] = 'O';
                                             };
                                         }
