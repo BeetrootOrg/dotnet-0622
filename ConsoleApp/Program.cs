@@ -49,6 +49,69 @@ void ShowAll()
     ReadKey();
 }
 
+void Search()
+{
+    Clear();
+
+    // in homework read from console
+    var searchTerm = "abc";
+
+    var contacts = ReadContacts(filename);
+
+    var userFound = false;
+    ShowRow(("First Name", "Last Name", "Phone"));
+    foreach (var contact in contacts)
+    {
+        if (contact.Item1 == searchTerm)
+        {
+            userFound = true;
+            ShowRow(contact);
+        }
+    }
+
+    if (!userFound)
+    {
+        WriteLine("User not found");
+    }
+
+    WriteLine("Press any key to continue...");
+    ReadKey();
+}
+
+void Update()
+{
+    Clear();
+
+    // in homework read from console
+    var newPhone = "+1234";
+    var searchName = "abc";
+    var searchLastName = "abc";
+
+    var contacts = ReadContacts(filename);
+    var serialized = new string[contacts.Length];
+
+    var userFound = false;
+    for (var i = 0; i < contacts.Length; ++i)
+    {
+        if (contacts[i].Item1 == searchName && contacts[i].Item2 == searchLastName)
+        {
+            userFound = true;
+            contacts[i].Item3 = newPhone;
+        }
+
+        serialized[i] = Serialize(contacts[i]);
+    }
+
+    if (!userFound)
+    {
+        return;
+    }
+
+    File.WriteAllLines(filename, serialized);
+
+    ReadKey();
+}
+
 string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
 
 void AddNewContact()
@@ -119,6 +182,7 @@ void MainMenu()
     WriteLine("\t2 - Add new contact");
     WriteLine("\t3 - Update contact");
     WriteLine("\t4 - Remove contact");
+    WriteLine("\t5 - Search");
     WriteLine("\t0 - Exit");
 
     var key = ReadKey();
@@ -134,8 +198,14 @@ void MainMenu()
         case ConsoleKey.D2:
             AddNewContact();
             break;
+        case ConsoleKey.D3:
+            Update();
+            break;
         case ConsoleKey.D4:
             RemoveContact();
+            break;
+        case ConsoleKey.D5:
+            Search();
             break;
         default:
             break;
