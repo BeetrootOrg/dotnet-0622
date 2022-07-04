@@ -5,22 +5,6 @@ public class Reversi
 {  
     public char[,] Execute(char[,] field, char turn)
     {   
-        // char ChangeCell (int aliveAroundSum, char cell)
-        // {
-        //     if (aliveAroundSum == 3) return '*';
-
-        //     if (cell == '*') 
-        //     {
-        //         if (aliveAroundSum == 2) return '*';
-        //     }
-
-        //     return '.';
-        // }
-        // bool CheckForLine (int startX, int startY, int x, int y, char[,] field)
-        // {
-
-        // }
-        
         if (field == null || field.GetLength(0) == 0 || field.GetLength(1) == 0) return field;
 
         var newField = new char [field.GetLength(0), field.GetLength(1)];
@@ -74,7 +58,6 @@ public class Reversi
                             }
 
                     }
-                    //newfield[i,j] = ChangeCell(aliveAroundSum, field[i,j]);
 
                 }
             }
