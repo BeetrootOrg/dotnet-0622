@@ -61,4 +61,14 @@ struct Vector : IEquatable<Vector>
     {
         return !v1.Equals(v2);
     }
+
+    public static implicit operator double(Vector vector)
+    {
+        return Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+    }
+
+    public static explicit operator int(Vector vector)
+    {
+        return (int)Math.Round(Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y));
+    }
 }
