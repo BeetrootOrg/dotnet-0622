@@ -10,9 +10,22 @@ enum Dimension
 
 struct Vector : IEquatable<Vector>
 {
+    /// <summary>
+    /// Vector's X position
+    /// </summary>
     public double X { get; init; }
+
+    /// <summary>
+    /// Vector's Y position
+    /// </summary>
     public double Y { get; init; }
 
+    /// <summary>
+    /// X or Y depending on input
+    /// </summary>
+    /// <param name="dim">Required dimension</param>
+    /// <returns>X or Y coordinate</returns>
+    /// <exception cref="ArgumentOutOfRangeException">dim value is out of range</exception>
     public double this[Dimension dim]
     {
         get => dim switch
