@@ -278,11 +278,6 @@ internal class Program
         string readLine = string.Empty;
         if (result.Length > 0)
         {
-            // WriteLine();
-            // WriteLine($"{result.Length} contacts will be updated.");
-            // WriteLine();
-            // WriteLine("Press any key to continue...");
-            // ReadKey();
             Show($"{result.Length} contacts will be updated.", "");
             foreach (var item in result)
             {
