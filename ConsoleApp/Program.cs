@@ -17,7 +17,6 @@ internal class Program
     {
         var (FirstName, LastName, Phone) = row;
         WriteLine("{0,-15} {1,-15} {2,-15}", FirstName, LastName, Phone);
-        WriteLine();
     }
 
     static void Show(string action, (string, string, string)[] result)
@@ -208,9 +207,12 @@ internal class Program
         return result;
     }
 
-    static int[] Search2(int key, string value)
+    static int[] Search(int key, string value, (string, string, string)[] contacts)
     {
-        var contacts = ReadContacts(filename);
+        if (contacts is null && contacts.Length == 0)
+        {
+            contacts = ReadContacts(filename);
+        }
         var result = new int[contacts.Length];
         int b = 0;
         switch (key)
@@ -267,12 +269,119 @@ internal class Program
         Array.Resize(ref result, b);
         return result;
     }
+
+    static void Update(int key, string value)
+    {
+        var contacts = ReadContacts(filename);
+        var result = new int[contacts.Length];
+        result = Search(key, value, contacts);
+        string readLine = string.Empty;
+        if (result.Length > 0)
+        {
+            // WriteLine();
+            // WriteLine($"{result.Length} contacts will be updated.");
+            // WriteLine();
+            // WriteLine("Press any key to continue...");
+            // ReadKey();
+            Show($"{result.Length} contacts will be updated.", "");
+            foreach (var item in result)
+            {
+                Clear();
+                WriteLine("The update contacts.");
+                ShowRow(contacts[item]);
+                WriteLine("Enter a new first name or press \"Enter\" key to skip:");
+                readLine = ReadLine();
+                if (readLine.Length > 0)
+                {
+                    contacts[item].Item1 = readLine;
+                }
+                WriteLine("Enter a new last name or press \"Enter\" key to skip:");
+                readLine = ReadLine();
+                if (readLine.Length > 0)
+                {
+                    contacts[item].Item2 = readLine;
+                }
+                WriteLine("Enter a new phone number or press \"Enter\" key to skip:");
+                readLine = ReadLine();
+                if (readLine.Length > 0)
+                {
+                    contacts[item].Item3 = readLine;
+                }
+                ShowRow(contacts[item]);
+                WriteLine();
+                WriteLine("Press any key to continue...");
+                ReadKey();
+            }
+            Show("The update contacts.", contacts);
+            WriteContacts(filename, contacts);
+        }
+        else
+        {
+            WriteLine($"Contact \"{value}\" not found.");
+        }
+    }
+
+    static void MenuUpdate()
+    {
+        string message = string.Empty;
+        Clear();
+        WriteLine("The update contacts.");
+        WriteLine("Select the contact field to update:");
+        WriteLine();
+        WriteLine("\t1 - first name");
+        WriteLine("\t2 - last name");
+        WriteLine("\t3 - first or last name");
+        WriteLine("\t4 - phone number");
+        WriteLine("");
+        WriteLine("\t0 - Back to main menu.");
+        var key = ReadKey();
+        WriteLine();
+        WriteLine($"What's a contact you want to updating?");
+        WriteLine();
+        string searchingElem = ReadLine();
+        switch (key.Key)
+        {
+            case ConsoleKey.D0:
+                {
+                    break;
+                }
+            case ConsoleKey.D1:
+                {
+                    message = $"The result updating a contact by first name field:";
+                    Update(1, searchingElem);
+                    break;
+                }
+            case ConsoleKey.D2:
+                {
+                    message = $"The result updating a contact by last name field:";
+                    Update(2, searchingElem);
+                    break;
+                }
+            case ConsoleKey.D3:
+                {
+                    message = $"The result updating a contact by first and last name field:";
+                    Update(3, searchingElem);
+                    break;
+                }
+            case ConsoleKey.D4:
+                {
+                    message = $"The result updating a contact by a phone number field:";
+                    Update(4, searchingElem);
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
+    }
+
     static void MenuSearch()
     {
         string message = string.Empty;
         Clear();
-        WriteLine("Search for a contact in the phone book.");
-        WriteLine("What contact to search?");
+        WriteLine($"Serarching for a contact in the phone book.");
+        WriteLine($"What's a contact you want to serarching");
         WriteLine();
         string searchingElem = ReadLine();
         WriteLine();
@@ -293,30 +402,35 @@ internal class Program
                 }
             case ConsoleKey.D1:
                 {
-                    message = "The result of searching for a contact by element bi first name:";
+                    message = $"The result serarching a contact by first name field:";
                     Show(message, Search(1, searchingElem));
                     break;
                 }
             case ConsoleKey.D2:
                 {
-                    message = "The result of searching for a contact by element by last name:";
+                    message = $"The result serarching a contact by last name field:";
                     Show(message, Search(2, searchingElem));
                     break;
                 }
             case ConsoleKey.D3:
                 {
-                    message = "The result of searching for a contact by element by first and last name:";
+                    message = $"The result serarching a contact by first and last name field:";
                     Show(message, Search(3, searchingElem));
                     break;
                 }
             case ConsoleKey.D4:
                 {
-                    message = "The result of searching for a contact by item by phone number:";
+                    message = $"The result serarching a contact by a phone number field:";
                     Show(message, Search(4, searchingElem));
+                    break;
+                }
+            default:
+                {
                     break;
                 }
         }
     }
+
 
     static void MainMenu()
     {
@@ -351,6 +465,7 @@ internal class Program
                 }
             case ConsoleKey.D3:
                 {
+                    MenuUpdate();
                     break;
                 }
             case ConsoleKey.D4:
