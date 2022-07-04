@@ -2,10 +2,26 @@ using System;
 
 namespace ConsoleApp;
 
+enum Dimension
+{
+    X,
+    Y
+}
+
 struct Vector : IEquatable<Vector>
 {
     public double X { get; init; }
     public double Y { get; init; }
+
+    public double this[Dimension dim]
+    {
+        get => dim switch
+        {
+            Dimension.X => X,
+            Dimension.Y => Y,
+            _ => throw new ArgumentOutOfRangeException(nameof(dim))
+        };
+    }
 
     public Vector(double x, double y)
     {
