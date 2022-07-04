@@ -23,6 +23,11 @@ struct Vector : IEquatable<Vector>
         };
     }
 
+    public Vector this[Dimension dim1, Dimension dim2]
+    {
+        get => new Vector(this[dim1], this[dim2]);
+    }
+
     public Vector(double x, double y)
     {
         X = x;

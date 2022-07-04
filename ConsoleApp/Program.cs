@@ -29,6 +29,8 @@ WriteLine($"vector1[X] = {vector1[Dimension.X]}");
 WriteLine($"vector1[0] = {vector1[(Dimension)0]}");
 WriteLine($"vector1[Y] = {vector1[Dimension.Y]}");
 WriteLine($"vector1[1] = {vector1[(Dimension)1]}");
+WriteLine($"vector1[X, X] = {vector1[Dimension.X, Dimension.X]}");
+WriteLine($"vector1[Y, Y] = {vector1[Dimension.Y, Dimension.Y]}");
 // ArgumentOutOfRangeException below
 // WriteLine($"vector1[42] = {vector1[(Dimension)42]}");
 
