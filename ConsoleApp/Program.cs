@@ -23,7 +23,7 @@ void ShowRow((string, string, string) row)
 
 string Serialize((string firstName, string lastName, string phone) row) => $"{row.firstName},{row.lastName},{row.phone}";
 
-void showAllContacts()
+void ShowAllContacts()
 {
     var lines = ReadContacts(filePath);
     ShowRow(("First Name", "Last Name", "Phone"));
@@ -35,12 +35,12 @@ void showAllContacts()
     System.Console.WriteLine("Press any key to continue...");
     Console.ReadKey();
 }
-void exitProg()
+void ExitProg()
 {
     Environment.Exit(0);
 };
 
-void addNewContacts()
+void AddNewContacts()
 {
     Console.Clear();
     System.Console.Write("Enter first name: ");
@@ -90,7 +90,7 @@ void RemoveContact()
     Console.ReadKey();
 }
 
-void searchContact()
+void SearchContact()
 {
     System.Console.WriteLine("Enter Last\\second name or number: ");
     string searchContact = Console.ReadLine();
@@ -163,15 +163,15 @@ void MainlMenu()
     switch (keyPress.Key)
     {
         case ConsoleKey.D0:
-            exitProg();
+            ExitProg();
             break;
 
         case ConsoleKey.D1:
-            showAllContacts();
+            ShowAllContacts();
             break;
 
         case ConsoleKey.D2:
-            addNewContacts();
+            AddNewContacts();
             break;
 
         case ConsoleKey.D3:
@@ -182,7 +182,7 @@ void MainlMenu()
             RemoveContact();
             break;
         case ConsoleKey.D5:
-            searchContact();
+            SearchContact();
             break;
 
         default:
