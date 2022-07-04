@@ -22,3 +22,4 @@ WriteLine($"vector1.Equals(vector2) = {vector1.Equals(vector2)}");
 // WriteLine($"vector1 == vector2 = {vector1 == vector2}");
 WriteLine($"vector1.GetHashCode() = {vector1.GetHashCode()}");
 WriteLine($"vector2.GetHashCode() = {vector2.GetHashCode()}");
+WriteLine($"vector1 + vector3 = {vector1 + vector3}");
