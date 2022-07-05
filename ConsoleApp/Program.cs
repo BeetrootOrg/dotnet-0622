@@ -7,7 +7,7 @@ class Program
 {
     public static void Main() 
     {
-        char[,] field = new char [,]   {{'.','.','.','.','W','.','.','.'},
+        char[,] field = new char [,]   {{'.','.','.','.','.','.','.','.'},
                                         {'.','.','.','.','W','.','.','.'},
                                         {'.','.','.','.','W','.','.','.'},
                                         {'.','.','.','B','W','.','.','.'},
@@ -19,7 +19,7 @@ class Program
     var reversi = new Reversi();
     var output = new Output();
 
-     output.Print2DArray(reversi.Execute(field, 'W'));
+     output.Print2DArray(reversi.Execute(field, 'B'));
     
         
     }
