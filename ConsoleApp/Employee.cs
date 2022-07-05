@@ -31,6 +31,58 @@ namespace ConsoleApp
             get { return _check; }
         }
 
+        private Storage _storage = new Storage();
+        public ArrayList AddApplesToStorage(IGoods apples, int counter)
+        {
+            for (int i = 1; i <= counter; i++)
+            {
+                _storage.AppleStorage.Add(apples);
+            }
+            return _storage.AppleStorage;
+        }
+
+        public ArrayList AddVegetablesToStorage(IGoods vegetables, int counter)
+        {
+            for (int i = 1; i <= counter; i++)
+            {
+                _storage.VegetableStorage.Add(vegetables);
+            }
+            return _storage.VegetableStorage;
+        }
+
+        public ArrayList AddAlcoholToStorage(IGoods alcohol, int counter)
+        {
+            for (int i = 1; i <= counter; i++)
+            {
+                _storage.AlcoholStorage.Add(alcohol);
+            }
+            return _storage.AlcoholStorage;
+        }
+
+        public ArrayList AddNonAlcoholToStorage(IGoods nonalcohol, int counter)
+        {
+            for (int i = 1; i <= counter; i++)
+            {
+                _storage.NonAlcoholStorage.Add(nonalcohol);
+            }
+            return _storage.NonAlcoholStorage;
+        }
+        public ArrayList AddBakeryToStorage(IGoods bakery, int counter)
+        {
+            for (int i = 1; i <= counter; i++)
+            {
+                _storage.BakeryStorage.Add(bakery);
+            }
+            return _storage.BakeryStorage;
+        }
+
+        public void ViewStorage()
+        {
+            Console.WriteLine($"В ябулчному сховищі {_storage.AppleStorage.Count} яблук");
+            Console.WriteLine($"В овочевому сховищі {_storage.VegetableStorage.Count} овочів");
+            Console.WriteLine($"В алкогольному сховищі {_storage.AlcoholStorage.Count} пляшок алкоголю");
+            Console.WriteLine($"В безалкогольному сховищі {_storage.NonAlcoholStorage.Count} пляшок");
+        }
 
         public ArrayList AddToCart(IGoods goods)
         {
@@ -66,6 +118,7 @@ namespace ConsoleApp
             }
         }
 
-        public void FullStorage
+        
+
     }
 }
