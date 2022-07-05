@@ -55,17 +55,29 @@ internal class Program
     static (string, string, string)[] ReadContacts(string file)
     {
         var contacts = new (string, string, string)[0];
-        if (File.Exists(file))
+        try
         {
             var lines = File.ReadAllLines(file);
             contacts = new (string, string, string)[lines.Length];
             for (int a = 0; a < lines.Length; ++a)
             {
                 var items = lines[a].Split(",");
-                contacts[a] = (items[0], items[1], items[2]);
+                try
+                {
+                    contacts[a] = (items[0], items[1], items[2]);
+                }
+                catch (IndexOutOfRangeException ioore)
+                {
+                    WriteLine($"ERROR WHILE READING {a + 1} in {filename}. Message: {ioore.Message}");
+                }
             }
+            return contacts;
         }
-        return contacts;
+        catch (FileNotFoundException)
+        {
+            return Array.Empty<(string, string, string)>();
+        }
+
     }
 
     static bool WriteContacts(string file, string[] contacts)
@@ -83,29 +95,59 @@ internal class Program
 
     static bool WriteContacts(string file, (string, string, string)[] contacts)
     {
-        string[] copy = new string[contacts.Length];
-
-        for (int a = 0; a < contacts.Length; ++a)
+        try
         {
-            copy[a] = $"{contacts[a].Item1},{contacts[a].Item2},{contacts[a].Item3}";
+            string[] copy = new string[contacts.Length];
+
+            for (int a = 0; a < contacts.Length; ++a)
+            {
+                copy[a] = $"{contacts[a].Item1},{contacts[a].Item2},{contacts[a].Item3}";
+            }
+            return WriteContacts(file, copy);
         }
-        return WriteContacts(file, copy);
+        catch (System.NullReferenceException nre)
+        {
+            WriteLine($"ERROR WHILE WRITING {contacts} in {filename}. Message: {nre.Message}");
+            WriteLine("Press any key to continue...");
+            ReadKey();
+            return false;
+        }
     }
 
+    static void ValidateNoneEmpty(string value, string message = null)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            throw new ArgumentException(message, nameof(value));
+        }
+    }
     static void AddContact()
     {
+        try{
         Clear();
         var contacts = ReadContacts(filename);
         WriteLine("Enter first name:");
-        var firstName = ReadLine();
+        var firstName = Console.ReadLine();
+        ValidateNoneEmpty(firstName, "First name should be non-empty.");
 
         WriteLine("Enter last name:");
         var lastName = ReadLine();
-
+        ValidateNoneEmpty(lastName, "Last name should be non-empty.");
+        
         WriteLine("Enter phone:");
         var phone = ReadLine();
+        ValidateNoneEmpty(phone, "Phone should be non-empty.");
         File.AppendAllLines(filename, new[] { $"{firstName},{lastName},{phone}" });
         Show("These contacts have been added.", new[] { (firstName, lastName, phone), });
+        }
+        catch(ArgumentException ae)
+        {
+            WriteLine("This is very bad");
+        }
+        finally
+        {
+            ReadKey();
+        }
     }
 
     static void RemoveContact()
@@ -439,7 +481,7 @@ internal class Program
         WriteLine("\t4 - Search a contact.");
         WriteLine("\t5 - Remove a contact.");
         WriteLine("\t0 - Exit.");
-
+        var temp = new (string, string, string)[1];
         var key = ReadKey();
         switch (key.Key)
         {
