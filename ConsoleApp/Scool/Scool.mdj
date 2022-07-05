@@ -186,7 +186,7 @@
 											"top": 115,
 											"width": 239,
 											"height": 13,
-											"text": "-Email: string",
+											"text": "-_email: string",
 											"horizontalAlignment": 0
 										}
 									],
@@ -856,7 +856,24 @@
 											"top": 270,
 											"width": 239,
 											"height": 13,
-											"text": "+StudentID: int {readOnly}",
+											"text": "+StudentId: int {readOnly}",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGBzj27/XQbHI0=",
+											"_parent": {
+												"$ref": "AAAAAAGByR5cLHieOVc="
+											},
+											"model": {
+												"$ref": "AAAAAAGBzj274XQYRj8="
+											},
+											"font": "Arial;13;0",
+											"left": 597,
+											"top": 285,
+											"width": 239,
+											"height": 13,
+											"text": "-_gender: string",
 											"horizontalAlignment": 0
 										}
 									],
@@ -864,7 +881,7 @@
 									"left": 592,
 									"top": 265,
 									"width": 249,
-									"height": 23
+									"height": 38
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -877,7 +894,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 592,
-									"top": 288,
+									"top": 303,
 									"width": 249,
 									"height": 10
 								},
@@ -1068,7 +1085,7 @@
 											"top": 285,
 											"width": 239,
 											"height": 13,
-											"text": "-Salary: decimal",
+											"text": "-_salary: decimal",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1746,7 +1763,7 @@
 											"font": "Arial;13;1",
 											"left": 13,
 											"top": 247,
-											"width": 220.7587890625,
+											"width": 223.28515625,
 											"height": 13,
 											"text": "Payment"
 										},
@@ -1781,7 +1798,7 @@
 									"font": "Arial;13;0",
 									"left": 8,
 									"top": 240,
-									"width": 230.7587890625,
+									"width": 233.28515625,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGByWnUjn9/RxY="
@@ -1818,9 +1835,9 @@
 											"font": "Arial;13;0",
 											"left": 13,
 											"top": 270,
-											"width": 220.7587890625,
+											"width": 223.28515625,
 											"height": 13,
-											"text": "-PaymentAmount: decimal {readOnly}",
+											"text": "-_paymentAmount: decimal",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1835,16 +1852,16 @@
 											"font": "Arial;13;0",
 											"left": 13,
 											"top": 285,
-											"width": 220.7587890625,
+											"width": 223.28515625,
 											"height": 13,
-											"text": "+Period: Enum {readOnly}",
+											"text": "+DayOfPay: DateTime",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 8,
 									"top": 265,
-									"width": 230.7587890625,
+									"width": 233.28515625,
 									"height": 38
 								},
 								{
@@ -1859,7 +1876,7 @@
 									"font": "Arial;13;0",
 									"left": 8,
 									"top": 303,
-									"width": 230.7587890625,
+									"width": 233.28515625,
 									"height": 10
 								},
 								{
@@ -1899,7 +1916,7 @@
 							"containerChangeable": true,
 							"left": 8,
 							"top": 240,
-							"width": 230.7587890625,
+							"width": 233.28515625,
 							"height": 105,
 							"nameCompartment": {
 								"$ref": "AAAAAAGByWnUjn9+RXM="
@@ -2748,7 +2765,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 271,
+									"left": 272,
 									"top": 273,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -2769,7 +2786,7 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 271,
+									"left": 272,
 									"top": 258,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -2790,7 +2807,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 271,
+									"left": 272,
 									"top": 303,
 									"height": 13,
 									"alpha": -1.5707963267948966,
@@ -2811,7 +2828,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 264,
+									"left": 266,
 									"top": 273,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -2832,7 +2849,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 267,
+									"left": 269,
 									"top": 259,
 									"height": 13,
 									"alpha": 0.7853981633974483,
@@ -2853,7 +2870,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 260,
+									"left": 262,
 									"top": 300,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -2960,7 +2977,7 @@
 								"$ref": "AAAAAAGByWnUjn99H/s="
 							},
 							"lineStyle": 1,
-							"points": "239:294;303:294",
+							"points": "241:294;303:294",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGByXHf6JlnAOs="
@@ -3313,7 +3330,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGByMJd2nekpM4="
 							},
-							"name": "Email",
+							"name": "_email",
 							"visibility": "private",
 							"type": "string"
 						}
@@ -3564,9 +3581,19 @@
 							"_parent": {
 								"$ref": "AAAAAAGByR5cK3iWoQg="
 							},
-							"name": "StudentID",
+							"name": "StudentId",
 							"type": "int",
 							"isReadOnly": true
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGBzj274XQYRj8=",
+							"_parent": {
+								"$ref": "AAAAAAGByR5cK3iWoQg="
+							},
+							"name": "_gender",
+							"visibility": "private",
+							"type": "string"
 						}
 					]
 				},
@@ -3624,7 +3651,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGByR8/FXjSOjE="
 							},
-							"name": "Salary",
+							"name": "_salary",
 							"visibility": "private",
 							"type": "decimal"
 						},
@@ -3682,10 +3709,9 @@
 							"_parent": {
 								"$ref": "AAAAAAGByWnUjX97IPM="
 							},
-							"name": "PaymentAmount",
+							"name": "_paymentAmount",
 							"visibility": "private",
-							"type": "decimal",
-							"isReadOnly": true
+							"type": "decimal"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -3693,9 +3719,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGByWnUjX97IPM="
 							},
-							"name": "Period",
-							"type": "Enum",
-							"isReadOnly": true
+							"name": "DayOfPay",
+							"type": "DateTime"
 						}
 					]
 				}
