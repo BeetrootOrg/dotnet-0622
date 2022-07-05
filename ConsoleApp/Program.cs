@@ -1,150 +1,45 @@
-﻿namespace ConsoleApp6
+﻿namespace ConsoleApp
 {
+
     internal class Program
     {
         static void Main(string[] args)
         {
-            char[,] life = new char[,] {
-                {'.','.','*','.','.','*','.','*','.'},
-                {'*','.','*','.','*','.','*','.','*'},
-                {'.','.','*','.','.','*','.','*','.'},
-                {'.','*','*','.','.','*','.','*','.'},
-                {'.','*','*','.','.','*','.','*','.'},
-                {'.','*','*','.','.','*','.','*','.'},
-                {'.','.','*','.','.','*','.','*','.'},
-                {'.','.','*','.','.','*','.','*','.'},
-                };
+           Customer Tolik = new Customer();
+           Emloyee Jora = new Emloyee();
 
-            GameOfLife game = new GameOfLife();
+            Tolik.Name = "Tolik";
+            Tolik.SurName = "Zavzyatiy";
+            Tolik.Email = "Tolik@Gmail.com";
+            Tolik.Amount = 300;
+            Tolik.AddToCart(new JackDaniels());
+            Tolik.AddToCart(new _777());
+            Tolik.AddToCart(new Apple());
+            Tolik.AddToCart(new Cucumber());
+            Tolik.AddToCart(new Palyanitsya());
+            Tolik.AddToCart(new Pepsi());
 
-            char[,] result = game.Execute(life);
+            Tolik.Buying(Tolik.Cart);
 
-            for (int x = 0; x < result.GetLength(0); x++)
-            {
-                for (int y = 0; y < result.GetLength(1); y++)
-                {
-                    Console.Write(result[x, y]);
-                }
-                Console.WriteLine();
-            }
-        }
-    }
+            Tolik.GetCheck();
+
+            Jora.Name = "Jora";
+            Jora.SurName = "Kornev";
+            Jora.Email = "Jorakornev@Gmail.com";
+            Jora.Amount = 10;
+            Jora.AddToCart(new JackDaniels());
+            Jora.AddToCart(new _777());
+            Jora.AddToCart(new Apple());
+            Jora.AddToCart(new Cucumber());
+            Jora.AddToCart(new Palyanitsya());
+            Jora.AddToCart(new Pepsi());
+
+            Jora.Buying(Jora.Cart);
+
+            Jora.GetCheck();
 
 
-    public class GameOfLife
-    {
-        public char[,] Execute(char[,] cells)
-        {
-            char[,] newcount = new char[cells.GetLength(0), cells.GetLength(1)];
-            
 
-            for (int x = 0; x < cells.GetLength(0); x++)
-            {
-                for (int y = 0; y < cells.GetLength(1); y++)
-                {
-                    int stroka1 = 0, stroka2 = 0, stroka3 = 0;
-                    try
-                        {
-                            if (cells[x - 1, y - 1].Equals('*'))
-                            {
-                                stroka1++;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                        }
-                        try
-                        {
-                            if (cells[x - 1, y].Equals('*'))
-                            {
-                                stroka1++;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                        }
-                        try
-                        {
-                            if (cells[x - 1, y + 1].Equals('*'))
-                            {
-                                stroka1++;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                        }
-                        try
-                        {
-                            if (cells[x, y - 1].Equals('*'))
-                            {
-                                stroka2++;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                        }
-                        try
-                        {
-                            if (cells[x, y + 1].Equals('*'))
-                            {
-                                stroka2++;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                        }
-                        try
-                        {
-                            if (cells[x + 1, y - 1].Equals('*'))
-                            {
-                                stroka3++;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                        }
-                        try
-                        {
-                            if (cells[x + 1, y].Equals('*'))
-                            {
-                                stroka3++;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                        }
-                        try
-                        {
-                            if (cells[x + 1, y + 1].Equals('*'))
-                            {
-                                stroka1++;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                        }
-
-                    if (cells[x, y].Equals('*') && (stroka1 + stroka2 + stroka3 > 3 || stroka1 + stroka2 + stroka3 < 2))
-                    {
-                            newcount[x, y] = '.';
-                    }
-
-                    if (cells[x, y].Equals('.'))
-                    {
-                        if (stroka1 + stroka2 + stroka3 == 3)
-                        {
-                            newcount[x, y] = '*';
-                        }
-                        else
-                            newcount[x, y] = '.';
-                    }
-                    if (cells[x, y].Equals('*') && (stroka1 + stroka2 + stroka3 == 3 || stroka1 + stroka2 + stroka3 == 2))
-
-                        newcount[x,y] = '*';
-
-                }
-            }
-            return newcount;
         }
     }
 }
