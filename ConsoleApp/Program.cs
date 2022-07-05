@@ -18,16 +18,30 @@ void ShowRow((string, string, string) row)
 }
 
 (string, string, string)[] ReadContacts(string file)
+
 {
-    var lines = File.ReadAllLines(file);
-    var contacts = new (string, string, string)[lines.Length];
-    for (int i = 0; i < lines.Length; i++)
+    try
     {
-        var items = lines[i].Split(',');
-        contacts[i] = (items[0], items[1], items[2]);
+        var lines = File.ReadAllLines(file);
+        var contacts = new (string, string, string)[lines.Length];
+        for (int i = 0; i < lines.Length; i++)
+        {
+            var items = lines[i].Split(',');
+            contacts[i] = (items[0], items[1], items[2]);
+        }
+
+        return contacts;
+    }
+    catch (FileNotFoundException nfe)
+    {
+        System.Console.WriteLine(" File does not exist " + nfe.FileName);
+    }
+    catch (IOException ioe)
+    {
+        System.Console.WriteLine(ioe.Message);
     }
 
-    return contacts;
+    return new (string, string, string)[0];
 }
 
 void ShowAll()
@@ -63,9 +77,14 @@ void AddNewContact()
 
     WriteLine("Enter phone:");
     var phone = Console.ReadLine();
-
-    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
-
+    try
+    {
+        File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+    }
+    catch (ArgumentException ae)
+    {
+        System.Console.WriteLine("File name is not valid. " + ae.Message);
+    }
     WriteLine("Contact saved, press any key to continue");
     ReadKey();
 }
@@ -119,8 +138,8 @@ void SearchContactBySurname()
     var contacts = ReadContacts(filename);
     foreach (var contact in contacts)
     {
-         var (firstName, lastName, phone) = contact;
-         if (lastName == surname)
+        var (firstName, lastName, phone) = contact;
+        if (lastName == surname)
         {
             isFound = true;
             System.Console.WriteLine(contact);
