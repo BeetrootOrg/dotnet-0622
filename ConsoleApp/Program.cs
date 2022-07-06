@@ -97,7 +97,7 @@ void RemoveContact()
     var phoneToRemove = Console.ReadLine();
 
     var contacts = ReadContacts(filename);
-    var newContacts = new (string, string, string)[contacts.Length];
+    var newContacts = new(string, string, string)[contacts.Length];
     Array.Copy(contacts, newContacts, contacts.Length);
 
     var index = 0;
