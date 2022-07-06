@@ -65,4 +65,14 @@ class LinkedList<T>
         --Length;
         return item.Value;
     }
+
+    public void CopyTo(T[] arr)
+    {
+        var item = _head;
+        for (var i = 0; i < arr.Length && item != null; ++i)
+        {
+            arr[i] = item.Value;
+            item = item.Next;
+        }
+    }
 }

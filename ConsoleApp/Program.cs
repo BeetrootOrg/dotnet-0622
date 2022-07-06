@@ -21,5 +21,23 @@ ShowRemoveStat();
 removed = list.Remove(1);
 ShowRemoveStat();
 
+list = new LinkedList<int>();
+list.Add(1);
+list.Add(2);
+list.Add(3);
+
+var arr1 = new int[3];
+var arr2 = new int[2];
+var arr3 = new int[5];
+
+list.CopyTo(arr1);
+list.CopyTo(arr2);
+list.CopyTo(arr3);
+
+ShowArray(arr1);
+ShowArray(arr2);
+ShowArray(arr3);
+
+void ShowArray<T>(T[] arr) => WriteLine(string.Join(", ", arr));
 void ShowRemoveStat() => WriteLine($"Removed: {removed}. Length: {list.Length}");
 
