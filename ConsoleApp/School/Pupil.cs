@@ -4,7 +4,9 @@ class Pupil
 {
     public string FirstName {get;init;}
     public string LastName {get;set;}
-    private string HomeAddress {get;set;}    
+    private string HomeAddress {get;set;}
+    private string Email {get;set;}
+    private (string, string) ParentsPhoneNumbers {get;set;}
     private DateTime BirthDate {get;init;}
     public int GetAge()
     {
