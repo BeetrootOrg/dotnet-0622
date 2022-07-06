@@ -9,6 +9,7 @@ class LinkedList<T>
     }
 
     private ListItem _head;
+    public int Length { get; private set; }
 
     public void Add(T value)
     {
@@ -17,7 +18,7 @@ class LinkedList<T>
             Value = value
         };
 
-        if (_head == null)
+        if (Length == 0)
         {
             _head = newItem;
         }
@@ -31,5 +32,7 @@ class LinkedList<T>
 
             item.Next = newItem;
         }
+
+        ++Length;
     }
 }
