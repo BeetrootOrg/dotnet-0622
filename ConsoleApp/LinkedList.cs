@@ -15,27 +15,7 @@ class LinkedList<T>
 
     public void Add(T value)
     {
-        var newItem = new ListItem
-        {
-            Value = value
-        };
-
-        if (Length == 0)
-        {
-            _head = newItem;
-        }
-        else
-        {
-            var item = _head;
-            while (item.Next != null)
-            {
-                item = item.Next;
-            }
-
-            item.Next = newItem;
-        }
-
-        ++Length;
+        Insert(value, Length);
     }
 
     public T Remove(int position)
@@ -64,6 +44,39 @@ class LinkedList<T>
 
         --Length;
         return item.Value;
+    }
+
+    public void Insert(T value, int position)
+    {
+        if (position < 0 || position > Length)
+        {
+            throw new ArgumentOutOfRangeException(nameof(position));
+        }
+
+        var newItem = new ListItem
+        {
+            Value = value
+        };
+
+        if (position == 0)
+        {
+            newItem.Next = _head;
+            _head = newItem;
+        }
+        else
+        {
+            var item = _head;
+
+            for (int i = 0; i < position - 1; i++)
+            {
+                item = item.Next;
+            }
+
+            newItem.Next = item.Next;
+            item.Next = newItem;
+        }
+
+        ++Length;
     }
 
     public void CopyTo(T[] arr)

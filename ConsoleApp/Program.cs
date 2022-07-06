@@ -40,6 +40,11 @@ ShowArray(arr2);
 ShowArray(arr3);
 ShowArray(arr4);
 
+list.Add(4);
+
+list.Insert(0, 2);
+ShowArray(list.ToArray());
+
 void ShowArray<T>(T[] arr) => WriteLine(string.Join(", ", arr));
 void ShowRemoveStat() => WriteLine($"Removed: {removed}. Length: {list.Length}");
 
