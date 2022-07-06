@@ -22,12 +22,18 @@ class MyStack<T>
         Count++;
     }
 
-    public void Pop()
+    public T Pop()
     {
-        if (_head != null) // else { do nothing, because stack already empty }
+        try
         {
+            var removedValue = _head.Value;
             _head = _head.Next;
             Count--;
+            return removedValue;            
+        }
+        catch
+        {
+            throw new InvalidOperationException("Stack is empty");
         }
     }
 
@@ -39,7 +45,14 @@ class MyStack<T>
 
     public T Peek()
     {
-        return _head.Value;
+        try
+        {
+            return _head.Value;
+        }
+        catch
+        {
+            throw new InvalidOperationException("Stack is empty");
+        }
     }
 
     public void CopyTo(T[] arr)
