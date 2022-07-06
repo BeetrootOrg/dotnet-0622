@@ -1,3 +1,5 @@
+using System;
+
 namespace ConsoleApp;
 
 class LinkedList<T>
@@ -34,5 +36,33 @@ class LinkedList<T>
         }
 
         ++Length;
+    }
+
+    public T Remove(int position)
+    {
+        if (position < 0 || position >= Length)
+        {
+            throw new ArgumentOutOfRangeException(nameof(position));
+        }
+
+        var item = _head;
+        if (position == 0)
+        {
+            _head = _head.Next;
+        }
+        else
+        {
+            ListItem prevItem = null;
+            for (int i = 0; i < position; i++)
+            {
+                prevItem = item;
+                item = item.Next;
+            }
+
+            prevItem.Next = item.Next;
+        }
+
+        --Length;
+        return item.Value;
     }
 }
