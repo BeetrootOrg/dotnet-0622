@@ -75,4 +75,11 @@ class LinkedList<T>
             item = item.Next;
         }
     }
+
+    public T[] ToArray()
+    {
+        var arr = new T[Length];
+        CopyTo(arr);
+        return arr;
+    }
 }
