@@ -19,15 +19,29 @@ void ShowRow((string, string, string) row)
 
 (string, string, string)[] ReadContacts(string file)
 {
-    var lines = File.ReadAllLines(file);
-    var contacts = new (string, string, string)[lines.Length];
-    for (int i = 0; i < lines.Length; i++)
+    try
     {
-        var items = lines[i].Split(',');
-        contacts[i] = (items[0], items[1], items[2]);
+        var lines = File.ReadAllLines(file);
+        var contacts = new (string, string, string)[lines.Length];
+        for (int i = 0; i < lines.Length; i++)
+        {
+            var items = lines[i].Split(',');
+            try
+            {
+                contacts[i] = (items[0], items[1], items[2]);
+            }
+            catch(IndexOutOfRangeException ind)
+            {
+                WriteLine($"Massage: {ind.Message}");
+            }
+        }
+        return contacts;
     }
-
-    return contacts;
+    catch(FileNotFoundException)
+    {
+        return Array.Empty<(string,string,string)>();
+    }
+    
 }
 
 void ShowAll()
@@ -55,17 +69,30 @@ void AddNewContact()
 {
     Clear();
 
-    WriteLine("Enter first name:");
-    var firstName = Console.ReadLine();
+    try
+    {
+        WriteLine("Enter first name:");
+        var firstName = Console.ReadLine();
 
-    WriteLine("Enter last name:");
-    var lastName = Console.ReadLine();
+        WriteLine("Enter last name:");
+        var lastName = Console.ReadLine();
 
-    WriteLine("Enter phone:");
-    var phone = Console.ReadLine();
+        WriteLine("Enter phone:");
+        var phone = Console.ReadLine();
 
-    File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
-
+        try
+        {
+            File.AppendAllLines(filename, new[] { Serialize((firstName, lastName, phone)) });
+        }
+        catch(Exception e)
+        {
+            System.Console.WriteLine($"Massage: {e}");
+        }
+    }
+    catch(IOException e)
+    {
+        System.Console.WriteLine($"Massage: {e}");
+    }
     WriteLine("Contact saved, press any key to continue");
     ReadKey();
 }
@@ -74,31 +101,37 @@ void RemoveContact()
 {
     Clear();
 
-    WriteLine("Enter phone to remove:");
-    var phoneToRemove = Console.ReadLine();
-
-    var contacts = ReadContacts(filename);
-    var newContacts = new (string, string, string)[contacts.Length];
-    Array.Copy(contacts, newContacts, contacts.Length);
-
-    var index = 0;
-
-    while (index < newContacts.Length)
+    try
     {
-        if (newContacts[index].Item3 == phoneToRemove)
+        WriteLine("Enter phone to remove:");
+        var phoneToRemove = Console.ReadLine();
+
+        var contacts = ReadContacts(filename);
+        var newContacts = new (string, string, string)[contacts.Length];
+        Array.Copy(contacts, newContacts, contacts.Length);
+
+        var index = 0;
+
+        while (index < newContacts.Length)
         {
-            newContacts[index] = newContacts[^1];
-            Array.Resize(ref newContacts, newContacts.Length - 1);
+            if (newContacts[index].Item3 == phoneToRemove)
+            {
+                newContacts[index] = newContacts[^1];
+                Array.Resize(ref newContacts, newContacts.Length - 1);
+            }
+            else
+            {
+                ++index;
+            }
         }
-        else
-        {
-            ++index;
-        }
+
+        RewriteFile(newContacts);
+        WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
     }
+    catch
+    {
 
-    RewriteFile(newContacts);
-
-    WriteLine($"{contacts.Length - newContacts.Length} Contact(s) removed, press any key to continue");
+    }
     ReadKey();
 }
 
@@ -106,29 +139,37 @@ void Search()
 {
     Clear();
 
-    Write("Enter first name: ");
-    var firstName = Console.ReadLine();
-
-    var contacts = ReadContacts(filename);
-    var newContacts = new (string, string, string)[contacts.Length];
-    Array.Copy(contacts, newContacts, contacts.Length);
-
-    var searchInd = -1;
-
-    for (int i = 0; i < newContacts.Length; i++)
+    try
     {
-        if (newContacts[i].Item1 == firstName)
+        Write("Enter first name: ");
+        var firstName = Console.ReadLine();
+
+        var contacts = ReadContacts(filename);
+        var newContacts = new (string, string, string)[contacts.Length];
+        Array.Copy(contacts, newContacts, contacts.Length);
+
+        var searchInd = -1;
+
+        for (int i = 0; i < newContacts.Length; i++)
         {
-            searchInd = i;
-            ShowRow(("First Name", "Last Name", "Phone"));
-            ShowRow(newContacts[i]);
-            ++searchInd;
+            if (newContacts[i].Item1 == firstName)
+            {
+                searchInd = i;
+                ShowRow(("First Name", "Last Name", "Phone"));
+                ShowRow(newContacts[i]);
+                ++searchInd;
+            }
+        }
+        if(searchInd == -1)
+        {
+            System.Console.WriteLine($"There is no contact with this first name - {firstName}.");
         }
     }
-    if(searchInd == -1)
+    catch(Exception e)
     {
-        System.Console.WriteLine($"There is no contact with this first name - {firstName}.");
+        System.Console.WriteLine($"Error: {e}");
     }
+    
     WriteLine("Press any key to continue...");
     ReadKey();
 }
@@ -137,34 +178,48 @@ void Update()
 {
     Clear();
 
-    WriteLine("Enter first name:");
-    var firstName = Console.ReadLine();
-
-    WriteLine("Enter last name:");
-    var lastName = Console.ReadLine();
-
-    var contacts = ReadContacts(filename);
-    var newContacts = new (string, string, string)[contacts.Length];
-    Array.Copy(contacts, newContacts, contacts.Length);
-
-    var searchInd = -1;
-
-    for (int i = 0; i < newContacts.Length; i++)
+    try
     {
-        if (newContacts[i].Item1 == firstName && newContacts[i].Item2 == lastName)
+        WriteLine("Enter first name:");
+        var firstName = Console.ReadLine();
+
+        WriteLine("Enter last name:");
+        var lastName = Console.ReadLine();
+
+        var contacts = ReadContacts(filename);
+        var newContacts = new (string, string, string)[contacts.Length];
+        Array.Copy(contacts, newContacts, contacts.Length);
+
+        var searchInd = -1;
+
+        for (int i = 0; i < newContacts.Length; i++)
         {
-            Write("Enter new phone number: ");
-            newContacts[i].Item3 = ReadLine();
-            RewriteFile(newContacts);
-            ++searchInd;
-            break;
+            if (newContacts[i].Item1 == firstName && newContacts[i].Item2 == lastName)
+            {
+                try
+                {
+                    Write("Enter new phone number: ");
+                    newContacts[i].Item3 = ReadLine();
+                    RewriteFile(newContacts);
+                    ++searchInd;
+                }
+                catch
+                {
+                    break;
+                }  
+            }
+        }
+
+        if(searchInd == -1)
+        {
+            System.Console.WriteLine($"There is no contact with first name - '{firstName}', last name - '{lastName}'.");
         }
     }
-
-    if(searchInd == -1)
+    catch(Exception e)
     {
-        System.Console.WriteLine($"There is no contact with first name - '{firstName}', last name - '{lastName}'.");
+        System.Console.WriteLine(e.Message);
     }
+    
     WriteLine("Press any key to continue...");
     ReadKey();
 }
@@ -177,7 +232,14 @@ void RewriteFile((string, string, string)[] tuple)
         csvBuilder.AppendLine(Serialize(contact));
     }
 
-    File.WriteAllText(filename, csvBuilder.ToString());
+    try
+    {
+        File.WriteAllText(filename, csvBuilder.ToString());
+    }
+    catch(ArgumentNullException e)
+    {
+        System.Console.WriteLine(e.Message);
+    }
 }
 
 void MainMenu()
@@ -192,7 +254,6 @@ void MainMenu()
     WriteLine("\t3 - Update contact");
     WriteLine("\t4 - Remove contact");
     WriteLine("\t5 - Search contact");
-    WriteLine("\t6 - Update contact");
     WriteLine("\t0 - Exit");
 
     var key = ReadKey();
@@ -208,14 +269,14 @@ void MainMenu()
         case ConsoleKey.D2:
             AddNewContact();
             break;
+        case ConsoleKey.D3:
+            Update();
+            break;
         case ConsoleKey.D4:
             RemoveContact();
             break;
         case ConsoleKey.D5:
             Search();
-            break;
-        case ConsoleKey.D6:
-            Update();
             break;
         default:
             break;
