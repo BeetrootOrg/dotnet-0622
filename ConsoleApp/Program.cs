@@ -18,7 +18,7 @@ char[,] Calculate(char[,] field, char turn)
             {
                 foreach(var point in RayCast(field, notTurn, i, j))
                 {
-                    result[point.Item1, point.Item2] = 'O';
+                    result[point.Item1, point.Item2] = '0';
                 }
             }
         }
