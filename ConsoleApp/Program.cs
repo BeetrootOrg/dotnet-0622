@@ -1,11 +1,11 @@
 char[,] Calculate(char[,] field, char turn)
 {
-    char[,] temp = new char[field.GetLength(0)+2,field.GetLength(1)+2];
-    for (int i = 0; i < field.GetLength(0); i++)
+    char[,] result = new char[field.GetLength(0),field.GetLength(1)];
+    for (int i = 0; i < result.GetLength(0); i++)
     {
-        for (int j = 0; j < field.GetLength(1); j++)
+        for (int j = 0; j < result.GetLength(1); j++)
         {
-            temp[i+1,j+1] = field[i,j];       
+            result[i,j] = field[i,j];       
         }
     }
     
@@ -18,19 +18,12 @@ char[,] Calculate(char[,] field, char turn)
             {
                 foreach(var point in RayCast(field, notTurn, i, j))
                 {
-                    temp[point.Item1+1, point.Item2+1] = 'O';
+                    result[point.Item1, point.Item2] = 'O';
                 }
             }
         }
     }
-    char[,] result = new char[field.GetLength(0),field.GetLength(1)];
-    for (int i = 0; i < result.GetLength(0); i++)
-    {
-        for (int j = 0; j < result.GetLength(1); j++)
-        {
-            result[i,j] = temp[i+1,j+1];       
-        }
-    }
+    
     return result;
 }
 
