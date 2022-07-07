@@ -9,5 +9,5 @@ public enum Genre
    Mystery,
    Horror,
    Thriller,
-   HistoricalFiction,
+   Fiction,
 }

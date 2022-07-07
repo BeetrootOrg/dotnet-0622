@@ -7,10 +7,10 @@ class Book
     public Genre BookGenre { get; init; }
     public Language BookLanguage { get; init; }
 
-    public Book(string bookTitle, Author bookauthor, Genre bookGenre, Language bookLanguage)
+    public Book(string bookTitle, Author bookAuthor, Genre bookGenre, Language bookLanguage)
     {
         BookTitle = bookTitle;
-        BookAuthor = bookauthor;
+        BookAuthor = bookAuthor;
         BookGenre = bookGenre;
         BookLanguage = bookLanguage;
     }
