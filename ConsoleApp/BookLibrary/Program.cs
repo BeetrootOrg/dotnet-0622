@@ -2,7 +2,7 @@
 namespace ConsoleApp;
 partial class Program
 {
-    static void Main
+    static void Main ()
     {
         Library dailybooks = new Library ("DailyBooks", "18 Levinski Street","dailybook@gmail.com", "120099");
         Library perfectbook = new Library ("PerfectBook", "10 Williams Street", "bookforyou@gmail.com", "13800");
