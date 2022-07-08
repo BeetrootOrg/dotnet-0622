@@ -1,89 +1,151 @@
-﻿Console.WriteLine("Compare method:");
-string str_1 = "aufwbferfu";
-string str_2 = "aufwbferfu";
-Console.WriteLine(Compare(str_1, str_2));
-Console.WriteLine();
-
-static bool Compare(string comp_1, string comp_2)
+﻿char[,] Reversi(char[,]field, char turn)
 {
-    if (comp_1.Length != comp_2.Length) return false;
-    else
+    char w = turn == 'B' ? 'W' : 'B';
+
+    for (int i = 0; i < field.GetLength(0); i++)
     {
-        for (int i = 0; i < comp_1.Length; i++)
+        for (int j = 0; j < field.GetLength(1); j++)
         {
-            if (comp_1[i] != comp_2[i]) return false;
-        }
-        return true;
-    }
-}
-
-
-Console.WriteLine("Sort method:");
-string temp = "bicadw";
-string res = Sort(temp);
-Console.WriteLine(res);
-Console.WriteLine();
-
-static string Sort(string strToSort)
-{
-    char[] symbolsToSort = strToSort.ToCharArray();
-    Array.Sort(symbolsToSort);
-    return new string(symbolsToSort);
-}
-
-
-Console.WriteLine("Duplicate method:");
-string test = "aaaaaaabbbbbbbjjasdnjgnnuabbz";
-char[] chars = Duplicate(test);
-foreach (var item in chars)
-{
-    Console.Write(item + " ");
-}
-Console.WriteLine("\n");
-
-static char[] Duplicate(string inputStr)
-{
-    string duplicateChars = "";
-    for (int i = 0; i < inputStr.Length; i++)
-    {
-        if (inputStr.IndexOf(inputStr[i]) != inputStr.LastIndexOf(inputStr[i]))
-        {
-            duplicateChars += inputStr[i];
-            while (inputStr.IndexOf(inputStr[i]) != inputStr.LastIndexOf(inputStr[i]))
+            if(field[i, j] == turn)
             {
-                inputStr = inputStr.Remove(inputStr.LastIndexOf(inputStr[i]), 1);
+                //up
+                int count = 0;
+                for (int e = i - 1; e + 1 >= 0; e--)
+                {
+                    if (field[e, j] == w)
+                    {
+                        count++;
+                        continue;
+                    }
+                    if (field[e, j] == turn || field[e, j] == '0' || (field[e, j] == '.' && e == i - 1)) break;
+                    else if (field[e, j] == '.' && count > 0)
+                    {
+                        field[e, j] = '0';
+                        break;
+                    }
+                }
+
+                //right
+                count = 0;
+                for (int e = j + 1; e <= field.GetLength(1) - 1; e++)
+                {
+                    if (field[i, e] == w)
+                    {
+                        count++;
+                        continue;
+                    }
+                    if (field[i, e] == turn || field[i, e] == '0' || (field[i, e] == '.' && e == j + 1)) break;
+                    else if (field[i, e] == '.' && count > 0)
+                    {
+                        field[i, e] = '0';
+                        break;
+                    }
+                }
+
+                //down
+                count = 0;
+                for (int e = i + 1; e <= field.GetLength(0) - 1; e++)
+                {
+                    if (field[e, j] == w)
+                    {
+                        count++;
+                        continue;
+                    }
+                    if (field[e, j] == turn || field[e, j] == '0' || (field[e, j] == '.' && e == i + 1)) break;
+                    else if (field[e, j] == '.' && count > 0)
+                    {
+                        field[e, j] = '0';
+                        break;
+                    }
+                }
+
+                //left
+                count = 0;
+                for (int e = j - 1; e + 1 >= 0; e--)
+                {
+                    if (field[i, e] == w)
+                    {
+                        count++;
+                        continue;
+                    }
+                    if (field[i, e] == turn || field[i, e] == '0' || (field[i, e] == '.' && e == j - 1)) break;
+                    else if (field[i, e] == '.' && count > 0)
+                    {
+                        field[i, e] = '0';
+                        break;
+                    }
+                }
+
+
+                //diag up right
+                count = 0;
+                for (int t = i - 1, e = j + 1 ; e <= field.GetLength(1) - 1 && t + 1 >= 0; e++,t--)
+                {
+                    if (field[t, e] == w)
+                    {
+                        count++;
+                        continue;
+                    }
+                    if (field[t, e] == turn || field[t, e] == '0' || (field[t, e] == '.' && t == i - 1  && e == j + 1)) break;
+                    else if (field[t, e] == '.' && count > 0)
+                    {
+                        field[t, e] = '0';
+                        break;
+                    }
+                }
+
+                //diag down right
+                count = 0;
+                for (int t = i + 1, e = j + 1; e <= field.GetLength(1) - 1 && t <= field.GetLength(0) - 1; e++, t++)
+                {
+                    if (field[t, e] == w)
+                    {
+                        count++;
+                        continue;
+                    }
+                    if (field[t, e] == turn || field[t, e] == '0' || (field[t, e] == '.' && t == i + 1 && e == j + 1)) break;
+                    else if (field[t, e] == '.' && count > 0)
+                    {
+                        field[t, e] = '0';
+                        break;
+                    }
+                }
+
+                //diag up left
+                count = 0;
+                for (int t = i - 1, e = j - 1; e + 1 >= 0 && t + 1 >= 0; e--, t--)
+                {
+                    if (field[t, e] == w)
+                    {
+                        count++;
+                        continue;
+                    }
+                    if (field[t, e] == turn || field[t, e] == '0' || (field[t, e] == '.' && t == i - 1 && e == j - 1)) break;
+                    else if (field[t, e] == '.' && count > 0)
+                    {
+                        field[t, e] = '0';
+                        break;
+                    }
+                }
+
+                //diag down left
+                count = 0;
+                for (int t = i + 1, e = j - 1; e + 1 >= 0 && t <= field.GetLength(0) - 1; e--, t++)
+                {
+                    if (field[t, e] == w)
+                    {
+                        count++;
+                        continue;
+                    }
+                    if (field[t, e] == turn || field[t, e] == '0' || (field[t, e] == '.' && t == i + 1 && e == j - 1)) break;
+                    else if (field[t, e] == '.' && count > 0)
+                    {
+                        field[t, e] = '0';
+                        break;
+                    }
+                }
             }
         }
     }
-    char[] dupChars = duplicateChars.ToCharArray();
-    return dupChars;
-}
-
-
-Console.WriteLine("Analyze method:");
-string result = "1ghif46sf4/>a,awe<?sad";
-Tuple<int, int, int> resultTuple = Analyze(result);
-Console.WriteLine(resultTuple.ToString());
-
-static Tuple<int, int, int> Analyze(string strToAnalyze)
-{
-    int alphabet = 0;
-    int digit = 0;
-    int specialCharacters = 0;
-    for (int i = 0; i < strToAnalyze.Length; i++)
-    {
-        if (Char.IsLetter(strToAnalyze[i]))
-        {
-            alphabet++;
-        }
-        else if (Char.IsDigit(strToAnalyze[i]))
-        {
-            digit++;
-        }
-        else
-        {
-            specialCharacters++;
-        }
-    }
-    return Tuple.Create(alphabet, digit, specialCharacters);
+    return field;
 }
