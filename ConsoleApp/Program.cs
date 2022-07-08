@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp.Autoservice;
+﻿namespace ConsoleApp.Internetshop;
 using static System.Console;
 
 class Program
@@ -6,13 +6,13 @@ class Program
 
     static void Main(string[] args)
     {
-        Person Driver = new Person();
-        Car Lambo460LP = new Car();
-        Bike MVAgusto = new Bike();
-        WriteLine("Lets have some fun... ");
+        // Person Driver = new Person();
+        // Car Lambo460LP = new Car();
+        // Bike MVAgusto = new Bike();
+        // WriteLine("Lets have some fun... ");
 
-        Driver.Driving(Lambo460LP);
-        WriteLine("----------------");
-        Driver.Driving(MVAgusto);
+        // Driver.Driving(Lambo460LP);
+        // WriteLine("----------------");
+        // Driver.Driving(MVAgusto);
     }
 }
