@@ -2,6 +2,11 @@ namespace ConsoleApp.Internetshop;
 
 abstract class Document : IDocument
 {
+    string NumberDoc {get; set;}
+    DateTime DataDoc {get; set;}
+    Seller SellerDoc {get; set;}
+    Client Buyer {get; set;}
+
     public void DeleteDocument()
     {
         throw new NotImplementedException();

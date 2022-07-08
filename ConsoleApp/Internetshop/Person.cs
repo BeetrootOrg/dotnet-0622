@@ -1,7 +1,7 @@
 namespace ConsoleApp.Internetshop;
 
 
-class Person : IPerson
+abstract class Person : IPerson
 {
 
     public string Firstname { get; init; }
