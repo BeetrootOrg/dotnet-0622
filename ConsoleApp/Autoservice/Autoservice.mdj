@@ -166,7 +166,7 @@
 											"top": 124,
 											"width": 213.5224609375,
 											"height": 13,
-											"text": "+Year: Date {readOnly}",
+											"text": "+Year: DateTime {readOnly}",
 											"horizontalAlignment": 0
 										},
 										{
@@ -869,7 +869,7 @@
 											"top": 139,
 											"width": 215,
 											"height": 13,
-											"text": "-_birthday: Date {readOnly}",
+											"text": "-_birthday: DateTime {readOnly}",
 											"horizontalAlignment": 0
 										}
 									],
@@ -1293,7 +1293,7 @@
 											"top": 334,
 											"width": 191,
 											"height": 13,
-											"text": "+StartDate: Date {readOnly}",
+											"text": "+StartDate: DateTime {readOnly}",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2101,7 +2101,7 @@
 								"$ref": "AAAAAAGB3LWMp5dUW+U="
 							},
 							"name": "Year",
-							"type": "Date",
+							"type": "DateTime",
 							"isReadOnly": true
 						},
 						{
@@ -2260,7 +2260,7 @@
 							},
 							"name": "_birthday",
 							"visibility": "private",
-							"type": "Date",
+							"type": "DateTime",
 							"isReadOnly": true
 						}
 					]
@@ -2350,7 +2350,7 @@
 								"$ref": "AAAAAAGB3Lcz25g0p3A="
 							},
 							"name": "StartDate",
-							"type": "Date",
+							"type": "DateTime",
 							"isReadOnly": true
 						},
 						{
