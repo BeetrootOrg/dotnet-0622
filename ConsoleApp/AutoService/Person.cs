@@ -1,8 +1,7 @@
-namespace ConsoleApp.School;
+namespace ConsoleApp.AutoService;
 
-public class Person
+class Person
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public byte Age { get; set; }
 }

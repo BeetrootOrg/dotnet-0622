@@ -1,13 +1,19 @@
-﻿using ConsoleApp.School;
+﻿using ConsoleApp.AutoService;
 
 public class Program
 {
     static void Main(string[] args)
     {
-        Teacher teacher = new Teacher(firstName: "Ivan", lastName: "Ivanovych",
-            middleName: "Ivanov", age: 50, subject: Subject.Mathematics, classRoom: ClassRoom._101);
-
-        Student student = new Student(firstName: "Vovochka", lastName: "Durachok", age: 6,
-            classesAtSchool: Classes.FirstClass);
+        Truck car1 = new Truck
+        {
+            MaxSpeed = 120,
+            Year = "2020",
+            Cost = 15000,
+            Wheels = 8,
+            CarModel = "VW",
+            CarColor = Color.Black,
+            CarEngine = Engine.Disel
+        };
+        car1.GetCar();
     }
 }
