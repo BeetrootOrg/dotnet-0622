@@ -7,5 +7,4 @@ interface IDocument
     void FindDocument();
     void DeleteDocument();
     
-    
 }

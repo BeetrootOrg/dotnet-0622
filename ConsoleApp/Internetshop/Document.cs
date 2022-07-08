@@ -1,6 +1,6 @@
 namespace ConsoleApp.Internetshop;
 
-class Order : Document
+abstract class Document : IDocument
 {
     public void DeleteDocument()
     {
