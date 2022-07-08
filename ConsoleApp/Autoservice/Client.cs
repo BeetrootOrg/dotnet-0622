@@ -7,4 +7,8 @@ class Client : Person
     private string _loyalty { get; set; }
     private bool _isBlocked { get; set; }
 
+    public override void CheckRules()
+    {
+        WriteLine("override for Client");
+    }
 }

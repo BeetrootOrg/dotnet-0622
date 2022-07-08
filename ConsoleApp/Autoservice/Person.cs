@@ -8,11 +8,13 @@ class Person
     private DateTime _birthday { get; init; }
     private string _email { get; set; }
 
-
-    public virtual void Drive()
+    public void Driving(Transport vihicle)
     {
-        WriteLine("Im driving.... ");
+        vihicle.Drive();
     }
 
-
+    public virtual void CheckRules()
+    {
+        WriteLine("base for Person");
+    }
 }

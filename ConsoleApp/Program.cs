@@ -1,6 +1,18 @@
-﻿/* Describe ‘book library’ domain with C# classes
+﻿namespace ConsoleApp.Autoservice;
+using static System.Console;
 
-Extra:
+class Program
+{
 
-Create UML diagram for this domain
-*/
+    static void Main(string[] args)
+    {
+        Person Driver = new Person();
+        Car Lambo460LP = new Car();
+        Bike MVAgusto = new Bike();
+        WriteLine("Lets have some fun... ");
+
+        Driver.Driving(Lambo460LP);
+        WriteLine("----------------");
+        Driver.Driving(MVAgusto);
+    }
+}

@@ -9,16 +9,27 @@ class Transport
     public string VinNumber { get; init; }
     public Person Owner { get; set; }
 
-
-
-    public void StartEngine()
+    private void StartEngine()
     {
         Console.WriteLine("Engine Start... ");
     }
 
-    public void StartStop()
+    private void StopEngine()
     {
-       WriteLine("Engine Stop... ");
+        WriteLine("Engine Stop... ");
     }
 
+    public void CheckBeforGo()
+    {
+        StartEngine();
+    }
+    public void CheckAfterStop()
+    {
+        StopEngine();
+    }
+
+    public virtual void Drive()
+    {
+        WriteLine("Im driving.... ");
+    }
 }
