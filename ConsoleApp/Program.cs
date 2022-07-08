@@ -10,7 +10,7 @@
             {
                 //up
                 int count = 0;
-                for (int e = i - 1; e + 1 >= 0; e--)
+                for (int e = i - 1; e + 1 > 0; e--)
                 {
                     if (field[e, j] == w)
                     {
@@ -61,7 +61,7 @@
 
                 //left
                 count = 0;
-                for (int e = j - 1; e + 1 >= 0; e--)
+                for (int e = j - 1; e + 1 > 0; e--)
                 {
                     if (field[i, e] == w)
                     {
@@ -79,7 +79,7 @@
 
                 //diag up right
                 count = 0;
-                for (int t = i - 1, e = j + 1 ; e <= field.GetLength(1) - 1 && t + 1 >= 0; e++,t--)
+                for (int t = i - 1, e = j + 1 ; e <= field.GetLength(1) - 1 && t + 1 > 0; e++,t--)
                 {
                     if (field[t, e] == w)
                     {
@@ -113,7 +113,7 @@
 
                 //diag up left
                 count = 0;
-                for (int t = i - 1, e = j - 1; e + 1 >= 0 && t + 1 >= 0; e--, t--)
+                for (int t = i - 1, e = j - 1; e + 1 > 0 && t + 1 > 0; e--, t--)
                 {
                     if (field[t, e] == w)
                     {
@@ -130,7 +130,7 @@
 
                 //diag down left
                 count = 0;
-                for (int t = i + 1, e = j - 1; e + 1 >= 0 && t <= field.GetLength(0) - 1; e--, t++)
+                for (int t = i + 1, e = j - 1; e + 1 > 0 && t <= field.GetLength(0) - 1; e--, t++)
                 {
                     if (field[t, e] == w)
                     {
