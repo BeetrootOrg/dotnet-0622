@@ -1,35 +1,14 @@
-﻿using ConsoleApp.Library;
+﻿using ConsoleApp.School;
 
-var author = new Author
+public class Program
 {
-    FirstNameAuthor = "Mark",
-    LastNameAuthor = "Twain"
-};
+    private static void Main(string[] args)
+    {
+        var teacher = new Teacher(firstName: "Ivan", lastName: "Ivanovych",
+        middleName: "Ivanov", age: 50, subject: Subject.Mathematics, classRoom: ClassRoom._101);
+        System.Console.WriteLine(teacher.GetNameTeacher());
 
-var book = new Book
-{
-    NameBook = "The Adventures of Tom Sawyer",
-    Authors = author,
-    LanguageBook = Language.English,
-    Pages = 107,
-    DatePublic = "1876"
-};
-
-var memberCards = new MemberCards
-{
-    IdMember = 1833,
-    FirstNameMember = "Alex",
-    LastNameMember = "Grabovsky",
-    PhoneNumberMember = "+380951234567",
-    EmailMember = "something@gmail.com"
-};
-
-var library = new Library
-{
-    NameLibrary = "Local",
-    AddressLibrary = "14 Church stret",
-    PhoneNumberLibrary = "+1123456789",
-    EmailLibrary = "library14@gmail.com",
-    Books = book,
-    Member = memberCards
-};
+        var student = new Student(firstName: "Vovochka", lastname: "Durachok", age: 6, classesAtSchool: Classes.FirstClass);
+        System.Console.WriteLine(student.GetNameStudent());
+    }
+}
