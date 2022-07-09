@@ -3,16 +3,15 @@ using static System.Console;
 
 class Program
 {
-
     static void Main(string[] args)
     {
-        // Person Driver = new Person();
-        // Car Lambo460LP = new Car();
-        // Bike MVAgusto = new Bike();
-        // WriteLine("Lets have some fun... ");
+        Client MyClient1 = new Client();
+        MyClient1.AddNewPerson();
 
-        // Driver.Driving(Lambo460LP);
-        // WriteLine("----------------");
-        // Driver.Driving(MVAgusto);
+        Employer MyEmployer1 = new Employer();
+        MyEmployer1.AddNewPerson();
+
+        Sku Sku1 = new Sku();
+        Sku1.AddNewSku();
     }
 }

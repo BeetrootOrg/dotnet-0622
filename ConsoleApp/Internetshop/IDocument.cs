@@ -6,5 +6,5 @@ interface IDocument
     void EditDocument();
     void FindDocument();
     void DeleteDocument();
-    
+
 }

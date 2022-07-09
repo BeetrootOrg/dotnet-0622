@@ -6,4 +6,9 @@ class Client : Person
     private string _loyalty { get; set; }
     private bool _isBlocked { get; set; }
 
+
+    override public void AddNewPerson()
+    {
+        System.Console.WriteLine("new client added .. ");
+    }
 }

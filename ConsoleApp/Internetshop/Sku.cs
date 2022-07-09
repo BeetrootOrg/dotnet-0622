@@ -1,23 +1,18 @@
 namespace ConsoleApp.Internetshop;
 
-class Sku : ISku
+class Sku : SkuAbst
 {
-    public string FullName;
-    public string ShortName;
-    private decimal _inPrice;
+    override public void AddNewSku()
+    {
+        System.Console.WriteLine("new sku added ...");
+    }
 
-
-    public void AddNewSku()
+    override public void DeleteSku()
     {
         throw new NotImplementedException();
     }
 
-    public void DeleteSku()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void SearchSku()
+    override public void SearchSku()
     {
         throw new NotImplementedException();
     }

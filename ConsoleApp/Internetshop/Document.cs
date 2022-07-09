@@ -2,28 +2,28 @@ namespace ConsoleApp.Internetshop;
 
 abstract class Document : IDocument
 {
-    string NumberDoc {get; set;}
-    DateTime DataDoc {get; set;}
-    Seller SellerDoc {get; set;}
-    Client Buyer {get; set;}
+    string NumberDoc { get; set; }
+    DateTime DataDoc { get; set; }
+    Seller SellerDoc { get; set; }
+    Client Buyer { get; set; }
 
-    public void DeleteDocument()
+    virtual public void DeleteDocument()
     {
         throw new NotImplementedException();
     }
 
-    public void EditDocument()
+    virtual public void EditDocument()
     {
         throw new NotImplementedException();
     }
 
-    public void FindDocument()
+    virtual public void FindDocument()
     {
         throw new NotImplementedException();
     }
 
-    public void MakeNewDocument()
+    virtual public void MakeNewDocument()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("New DOCUMENT added ... ");
     }
 }
