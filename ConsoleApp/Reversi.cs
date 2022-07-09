@@ -2,7 +2,7 @@ namespace ConsoleApp;
 
 class Reversi
 {
-    public static char[,] Calculate(char[,] field, char turn)
+    public char[,] Calculate(char[,] field, char turn)
     {
         char[,] result = new char[field.GetLength(0),field.GetLength(1)];
         for (int i = 0; i < result.GetLength(0); i++)
@@ -31,7 +31,7 @@ class Reversi
         return result;
     }
 
-    private static List<(int,int)> RayCast(char[,] field, char notTurn, int x, int y)
+    private List<(int,int)> RayCast(char[,] field, char notTurn, int x, int y)
     {
         List<(int,int)> result = new List<(int,int)>();
         if ((x,y) != RayCastUp(field, notTurn, x, y)) result.Add(RayCastUp(field, notTurn, x, y));
@@ -44,7 +44,7 @@ class Reversi
         if ((x,y) != RayCastUpLeft(field, notTurn, x, y)) result.Add(RayCastUpLeft(field, notTurn, x, y));
         return result;
     }
-    private static (int, int) RayCastUp(char[,] field, char notTurn, int x, int y)
+    private (int, int) RayCastUp(char[,] field, char notTurn, int x, int y)
     {
         char turn = notTurn == 'B' ? 'W' : 'B';
         int s = 0, i = x, j = y;
@@ -71,7 +71,7 @@ class Reversi
         }
         return (x,y);    
     }
-    private static (int, int) RayCastDown(char[,] field, char notTurn, int x, int y)
+    private (int, int) RayCastDown(char[,] field, char notTurn, int x, int y)
     {
         char turn = notTurn == 'B' ? 'W' : 'B';
         int s = 0, i = x, j = y;
@@ -98,7 +98,7 @@ class Reversi
         }
         return (x,y);    
     }
-    private static (int, int) RayCastLeft(char[,] field, char notTurn, int x, int y)
+    private (int, int) RayCastLeft(char[,] field, char notTurn, int x, int y)
     {
         char turn = notTurn == 'B' ? 'W' : 'B';
         int s = 0, i = x, j = y;
@@ -125,7 +125,7 @@ class Reversi
         }
         return (x,y);    
     }
-    private static (int, int) RayCastRight(char[,] field, char notTurn, int x, int y)
+    private (int, int) RayCastRight(char[,] field, char notTurn, int x, int y)
     {
         char turn = notTurn == 'B' ? 'W' : 'B';
         int s = 0, i = x, j = y;
@@ -152,7 +152,7 @@ class Reversi
         }
         return (x,y);      
     }
-    private static (int, int) RayCastUpRight(char[,] field, char notTurn, int x, int y)
+    private (int, int) RayCastUpRight(char[,] field, char notTurn, int x, int y)
     {
         char turn = notTurn == 'B' ? 'W' : 'B';
         int s = 0, i = x, j = y;
@@ -180,7 +180,7 @@ class Reversi
         }
         return (x,y);     
     }
-    private static (int, int) RayCastDownRight(char[,] field, char notTurn, int x, int y)
+    private (int, int) RayCastDownRight(char[,] field, char notTurn, int x, int y)
     {
         char turn = notTurn == 'B' ? 'W' : 'B';
         int s = 0, i = x, j = y;
@@ -208,7 +208,7 @@ class Reversi
         }
         return (x,y);    
     }
-    private static (int, int) RayCastDownLeft(char[,] field, char notTurn, int x, int y)
+    private (int, int) RayCastDownLeft(char[,] field, char notTurn, int x, int y)
     {
         char turn = notTurn == 'B' ? 'W' : 'B';
         int s = 0, i = x, j = y;
@@ -236,7 +236,7 @@ class Reversi
         }
         return (x,y);      
     }
-    private static (int, int) RayCastUpLeft(char[,] field, char notTurn, int x, int y)
+    private (int, int) RayCastUpLeft(char[,] field, char notTurn, int x, int y)
     {
         char turn = notTurn == 'B' ? 'W' : 'B';
         int s = 0, i = x, j = y;
@@ -264,7 +264,7 @@ class Reversi
         }
         return (x,y);     
     }
-    public static void WriteArray(char[,] arr)
+    public void WriteArray(char[,] arr)
     {
         for (int i = 0; i < arr.GetLength(0); i++)
         {

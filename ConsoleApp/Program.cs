@@ -2,8 +2,10 @@ namespace ConsoleApp;
 
 class Prgram {
 
+    
     public static void Main()
     {
+      
         char[,] input = new char[8,8] { {'.','.','.','.','.','.','.','.'},
                                         {'.','.','.','.','.','.','.','.'},
                                         {'.','.','.','.','.','.','.','.'},
@@ -13,8 +15,9 @@ class Prgram {
                                         {'.','.','.','.','.','.','.','.'},
                                         {'.','.','.','.','.','.','.','.'} };
         
-        Reversi.WriteArray(input);
+        Reversi reversi = new Reversi();
+        reversi.WriteArray(input);
         Console.WriteLine();
-        Reversi.WriteArray(Reversi.Calculate(input, 'B'));
+        reversi.WriteArray(reversi.Calculate(input, 'B'));
     }
 }
