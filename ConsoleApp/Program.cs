@@ -229,3 +229,19 @@ Print(set1);
 var filteredProducts = new ProductSearchEnumerable(new ProductPriceEnumerable(set, 15), "a").ToArray();
 Print(filteredProducts);
 Print(filteredProducts);
+
+foreach (var product in FilterByPrice(set, 15))
+{
+    WriteLine(product);
+}
+
+IEnumerable<Product> FilterByPrice(IEnumerable<Product> products, int minPrice)
+{
+    foreach (var product in products)
+    {
+        if (product.Price >= minPrice)
+        {
+            yield return product;
+        }
+    }
+}
