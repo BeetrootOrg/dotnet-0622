@@ -3,10 +3,10 @@ using static System.Console;
 
 public class Car
 {
-    public int MaxSpeed { get; set; }
-    public string Year { get; set; }
-    public int Cost { get; set; }
-    public byte Wheels { get; set; } = 4;
+    public int MaxSpeed { get; init; }
+    public string Year { get; init; }
+    public int Cost { get; init; }
+    public byte Wheels { get; init; } = 4;
 
     public virtual void GetCar()
     {
