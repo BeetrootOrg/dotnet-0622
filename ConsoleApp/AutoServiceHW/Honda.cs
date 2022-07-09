@@ -11,12 +11,16 @@ class Honda : Vehicle
     public override void Accelerate()
     {
         base.Accelerate();
-        System.Console.WriteLine("With 10/10 coolness now");
+        GetCoolness();
     }
     public override void Brake()
     {
         base.Brake();
-        System.Console.WriteLine("With 10/10 coolness now");
+        GetCoolness();
+    }
+    private void GetCoolness()
+    {
+        System.Console.WriteLine($"With {LevelOfCoolness} coolness now");
     }
 
 }
