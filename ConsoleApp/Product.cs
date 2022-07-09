@@ -4,8 +4,8 @@ namespace ConsoleApp;
 
 class Product : IEquatable<Product>
 {
-    public string Name { get; set; }
-    public int Price { get; set; }
+    public string Name { get; init; }
+    public int Price { get; init; }
 
     public override string ToString()
     {

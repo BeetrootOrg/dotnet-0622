@@ -184,6 +184,21 @@ var set = new HashSet<Product>
     {
         Name = "potato",
         Price = 15
+    },
+    new Product
+    {
+        Name = "rice",
+        Price = 20
+    },
+    new Product
+    {
+        Name = "garlic",
+        Price = 5
+    },
+    new Product
+    {
+        Name = "meat",
+        Price = 30
     }
 };
 
@@ -209,3 +224,9 @@ Print(set1);
 set1.IntersectWith(new[] { 1 });
 WriteLine("AFTER IntersectWith");
 Print(set1);
+
+var filteredProducts = new ProductSearchEnumerable(new ProductPriceEnumerable(set, 15), "a");
+foreach (var product in filteredProducts)
+{
+    WriteLine(product);
+}
