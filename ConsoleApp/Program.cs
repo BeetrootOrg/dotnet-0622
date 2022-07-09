@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using ConsoleApp;
 
@@ -225,8 +226,6 @@ set1.IntersectWith(new[] { 1 });
 WriteLine("AFTER IntersectWith");
 Print(set1);
 
-var filteredProducts = new ProductSearchEnumerable(new ProductPriceEnumerable(set, 15), "a");
-foreach (var product in filteredProducts)
-{
-    WriteLine(product);
-}
+var filteredProducts = new ProductSearchEnumerable(new ProductPriceEnumerable(set, 15), "a").ToArray();
+Print(filteredProducts);
+Print(filteredProducts);
