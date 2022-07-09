@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 namespace ConsoleApp.Shop;
+using System.Collections.Generic;
 
 class Group
 {

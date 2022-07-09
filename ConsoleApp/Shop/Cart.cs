@@ -1,6 +1,6 @@
+namespace ConsoleApp.Shop;
 using System;
 using System.Collections.Generic;
-namespace ConsoleApp.Shop;
 
 class Cart
 {
