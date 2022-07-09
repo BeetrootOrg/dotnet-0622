@@ -172,3 +172,31 @@ phoneBook = new Dictionary<string, Person>
 
 Print(persons);
 Print(phoneBook);
+
+var set = new HashSet<Product>
+{
+    new Product
+    {
+        Name = "caroot",
+        Price = 10
+    },
+    new Product
+    {
+        Name = "potato",
+        Price = 15
+    }
+};
+
+set.Add(new Product
+{
+    Name = "caroot",
+    Price = 10
+});
+
+Print(set);
+
+var set1 = new HashSet<int>();
+set1.Add(1);
+set1.Add(2);
+set1.Add(1);
+Print(set1);
