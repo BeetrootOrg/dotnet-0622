@@ -4,7 +4,7 @@ namespace ConsoleApp.Shop;
 
 class Shop : IBuyGoods, IGetCatalog
 {
-    private Dictionary<Cart, Buyer> Carts { get; set; }
+    private Dictionary<Cart, Buyer> _carts { get; set; }
     public void BuyGoods(Goods goods, int amount)
     {
         throw new NotImplementedException();
