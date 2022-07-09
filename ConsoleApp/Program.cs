@@ -93,3 +93,9 @@ WriteLine(persons.Contains(new Person
     FirstName = "f",
     LastName = "l"
 }));
+WriteLine(persons.Contains(new Person
+{
+    FirstName = "f",
+    LastName = "l",
+    Weight = 1
+}));
