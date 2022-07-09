@@ -150,3 +150,25 @@ phoneBook["+2467"] = new Person
 };
 
 Print(phoneBook);
+
+persons = new List<Person>
+{
+    person,
+    new Person
+    {
+        FirstName = "ABC"
+    }
+};
+
+phoneBook = new Dictionary<string, Person>
+{
+    { "+123", person },
+};
+
+phoneBook = new Dictionary<string, Person>
+{
+    ["+123"] = person
+};
+
+Print(persons);
+Print(phoneBook);
