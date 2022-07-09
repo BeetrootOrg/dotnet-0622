@@ -58,3 +58,38 @@ persons.Add(new Person
 
 WriteLine($"Capacity = {persons.Capacity}");
 WriteLine($"Count = {persons.Count}");
+
+WriteLine(persons[1]);
+persons[4] = new Person
+{
+    FirstName = "fff",
+    LastName = "1234"
+};
+
+persons.Clear();
+WriteLine("AFTER CLEAR");
+WriteLine($"Capacity = {persons.Capacity}");
+WriteLine($"Count = {persons.Count}");
+
+var person = new Person
+{
+    FirstName = "f",
+    LastName = "l"
+};
+
+persons.AddRange(new[]
+{
+    person,
+    new Person
+    {
+        FirstName = "F",
+        LastName = "L"
+    }
+});
+
+WriteLine(persons.Contains(person));
+WriteLine(persons.Contains(new Person
+{
+    FirstName = "f",
+    LastName = "l"
+}));
