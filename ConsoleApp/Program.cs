@@ -199,4 +199,13 @@ var set1 = new HashSet<int>();
 set1.Add(1);
 set1.Add(2);
 set1.Add(1);
+set1.Add(3);
+Print(set1);
+
+set1.ExceptWith(new[] { 2 });
+WriteLine("AFTER ExceptWith");
+Print(set1);
+
+set1.IntersectWith(new[] { 1 });
+WriteLine("AFTER IntersectWith");
 Print(set1);
