@@ -31,11 +31,36 @@ public class Menu
       WriteLine("Choose Topic to Vote");
       topicList.ShowTopicList();
       WriteLine("Plese, choose Topic you want to Vote...");
-      var key = ReadKey();
-      Writeline ("Press 1 in your want to say Yes!");
-      Writeline ("Press 2 in your want to say No!");
-      Writeline(topicList[key]);
+      var console = ReadLine();
+      
+      if (!int.TryParse(console, out int key))
+        { 
+          Console.WriteLine("your specified not an whole number, run again and put right value");
+        }
+      WriteLine ("Press 1 in your want to say Yes!");
+      WriteLine ("Press 2 in your want to say No!");
+      var topicToVote = topicList.ShowTopicFromList(key);
+      
+      console = ReadLine();
+      if (!int.TryParse(console, out key))
+        { 
+          Console.WriteLine("your specified not an whole number, run again and put right value");
+        }
+
+      topicToVote.AddVote(key);
+      WriteLine("I hope that your Vote is accepted! Press any key to continue...");
+      ReadKey();
       MainMenu();
+  }
+
+  void ShowResults()
+  {
+    Clear();
+    topicList.ShowTopicList();
+    WriteLine("Press any key to continue...");
+    ReadKey();
+    MainMenu();
+
   }
   
   
@@ -65,7 +90,7 @@ public class Menu
               DoVote();
               break;
           case ConsoleKey.D3:
-            //  ShowResults();
+              ShowResults();
               break;    
           default:
               break;

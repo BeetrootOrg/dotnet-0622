@@ -27,4 +27,8 @@ public class TopicList
             WriteLine($"{++i}  {Topic}");
     }
     
+    public Topic ShowTopicFromList(int key)
+    {
+        return Topics[key - 1];
+    }
 }
