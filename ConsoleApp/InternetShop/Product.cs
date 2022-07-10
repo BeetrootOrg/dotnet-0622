@@ -4,7 +4,7 @@ internal class Product
 {
     private int _productId { get; set; }
     public string ProductName { get; set; }
-    public IWarehouse Warehouse { get; set; }
+    public Warehouse Warehouse { get; set; }
 
 }
 
