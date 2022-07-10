@@ -4,7 +4,7 @@ class Warehouse
 {
     private int _warehouseId { get; set; }
     public int WarehouseCapacity { get; private set; }
-    public IWarehouse product { get; set; }
+    public IWarehouse Product { get; set; }
 }
 
 interface IWarehouse : IProduct, IProductSupply
