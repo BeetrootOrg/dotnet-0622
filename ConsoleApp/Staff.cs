@@ -11,7 +11,7 @@ class SchoolStaff
 {
     public string FirstName { get; init; }
     public string LastName { get; init; }
-    private string StaffDepartments { get; set; }
+    private string _staffDepartments { get; set; }
     public string JobTitle { get; set; }
     private int _salary;
 
@@ -19,14 +19,14 @@ class SchoolStaff
     {
         FirstName = firstName;
         LastName = lastName;
-        StaffDepartments = department;
+        _staffDepartments = department;
         JobTitle = position;
         _salary = salary;
     }
 
-public void DepartmentChange(string newDepartment)
+    private void DepartmentChange(string newDepartment)
     {
-        StaffDepartments = newDepartment;
+        _staffDepartments = newDepartment;
     }
     public void PositionChange(string newJobTitle)
     {
