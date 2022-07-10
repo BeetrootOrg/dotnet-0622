@@ -1,5 +1,5 @@
 namespace ConsoleApp.School;
-
+ 
 public enum lesson
 {
     english,
