@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 using ConsoleApp;
@@ -45,4 +46,18 @@ void TimerCallback(object state)
 
 var timer = new Timer(TimerCallback, new Counter(), TimeSpan.Zero, TimeSpan.FromSeconds(1));
 
-Thread.Sleep(10000);
+var array = new[]
+{
+    new Person("FIRST", "LAST", 18),
+    new Person("F", "L", 20),
+    new Person("f", "l", 16),
+    new Person("FF", "LL", 22),
+};
+
+void Show<T>(IEnumerable<T> collection)
+{
+    WriteLine(string.Join(", ", collection));
+}
+
+var below18 = new FilterEnumerable<Person>(array, (person) => person.Age <= 18);
+Show(below18);
