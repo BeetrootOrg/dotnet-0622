@@ -13,7 +13,10 @@ class LinkedStack<T>
 
     public void Push(T value)
     {
-
+        if (_head == null)
+        {
+            throw new NullReferenceException();
+        }
         var newItem = new StackItem
         {
             Value = value
@@ -28,10 +31,12 @@ class LinkedStack<T>
         _head = newItem;
         ++Length;
     }
-
-    // adds obj at the top of stack
     public T Pop()
     {
+        if (_head == null)
+        {
+            throw new NullReferenceException();
+        }
         Console.WriteLine("Item popped is {0}", _head.Value);
         var temp = _head;
         _head = _head.Next;
@@ -41,6 +46,8 @@ class LinkedStack<T>
     }
     public void Clear()
     {
+        _head = null;
+        Length = 0;
     }
     public int Count()
     {
