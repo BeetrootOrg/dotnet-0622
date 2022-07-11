@@ -30,16 +30,23 @@ void MainMenu()
         string _topicname = Console.ReadLine();
         Console.WriteLine("Enter coma-separated options");
         string commasepratedstring = Console.ReadLine();
-        string[] output = commasepratedstring.Split(',');
 
-        grandList.Add(new Topic
+        try
         {
-            TopicName = _topicname,
-            Variant1 = output[0],
-            Variant2 = output[1]
+            string[] output = commasepratedstring.Split(',');
+            grandList.Add(new Topic
+            {
+                TopicName = _topicname,
+                Variant1 = output[0],
+                Variant2 = output[1]
 
-        });
-        
+            });
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine("Input correct coma separated options");
+            Console.ReadLine();
+        }
 
     }
 
