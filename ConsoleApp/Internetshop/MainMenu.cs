@@ -7,6 +7,39 @@ using System.Text;
 
 class MainMenu : IMeinMenu
 {
+
+    public void AdminMenu()
+    {
+        Clear();
+        WriteLine();
+        WriteLine("Please choose: ");
+        WriteLine("\t1 - AddNewSkuToTheBase");
+        WriteLine("\t2 - AddNewSkuToTheStore");
+        WriteLine("\t0 - Exit");
+
+        var key = ReadKey();
+        switch (key.Key)
+        {
+            case ConsoleKey.D0:
+                WriteLine();
+                ExitMenu();
+                break;
+            case ConsoleKey.D1:
+
+                System.Console.WriteLine("AddNewSkuToTheBase");
+                break;
+            case ConsoleKey.D2:
+
+                System.Console.WriteLine("AddNewSkuToTheStore");
+                break;
+        }
+    }
+
+    public void ClientMenu()
+    {
+        System.Console.WriteLine("ClientMenu");
+    }
+
     public void ExitMenu()
     {
         Environment.Exit(0);
@@ -14,15 +47,12 @@ class MainMenu : IMeinMenu
 
     public void FirstMenu()
     {
-        WriteLine("Welcome to phone book!");
+        WriteLine("Welcome internet store");
         WriteLine();
         WriteLine("Menu:");
-        WriteLine("\t1 - Show all contacts");
-        WriteLine("\t2 - Add new contact");
-        WriteLine("\t3 - Update contact");
-        WriteLine("\t4 - Remove contact");
-        WriteLine("\t5 - Search contact");
-        WriteLine("\t0 - Exit");
+        WriteLine("\t1 - Administrator access");
+        WriteLine("\t2 - Client access");
+        WriteLine("\t0 or ane key - Exit");
 
         var key = ReadKey();
         switch (key.Key)
@@ -31,21 +61,13 @@ class MainMenu : IMeinMenu
                 ExitMenu();
                 break;
             case ConsoleKey.D1:
-                // ShowAll();
-                System.Console.WriteLine("1");
+                AdminMenu();
                 break;
             case ConsoleKey.D2:
-                //AddNewContact();
+                ClientMenu();
                 System.Console.WriteLine("2");
                 break;
-            case ConsoleKey.D4:
-                // RemoveContact();
-                System.Console.WriteLine("4");
-                break;
-            case ConsoleKey.D5:
-            System.Console.WriteLine("5");
-                //  SearchContact();
-                break;
+
             default:
                 break;
         }
