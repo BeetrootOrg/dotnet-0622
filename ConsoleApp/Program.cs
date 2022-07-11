@@ -1,4 +1,7 @@
-﻿using ConsoleApp;
+﻿using System;
+using System.Threading;
+
+using ConsoleApp;
 
 using static System.Console;
 
@@ -32,3 +35,14 @@ counter2.Decrement();
 
 counter1.OnCounterChanged -= AnotherOnCounterChangeHandler;
 counter1.Increment();
+
+void TimerCallback(object state)
+{
+    var counter = (Counter)state;
+    counter.Increment();
+    WriteLine($"Timer tick {counter.Count}");
+}
+
+var timer = new Timer(TimerCallback, new Counter(), TimeSpan.Zero, TimeSpan.FromSeconds(1));
+
+Thread.Sleep(10000);
