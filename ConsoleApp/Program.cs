@@ -13,5 +13,7 @@ class Program
 
         Sku Sku1 = new Sku();
         Sku1.AddNewSku();
+
+        
     }
 }
