@@ -92,7 +92,6 @@ void VoteForSomething()
     Console.WriteLine("Your vote was sucessfully added!");
     Console.WriteLine("Press any key to continue...");
     Console.ReadKey();
-
 }
 
 void CreateVote()
