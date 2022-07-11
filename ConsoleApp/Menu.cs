@@ -18,7 +18,9 @@ public class Menu
       Clear();
       WriteLine("Enter the new Vote Topic Tittle");
       string tittle = ReadLine();
-      var topic = new Topic(tittle);
+      WriteLine("Enter comma-separated options");
+      string options = ReadLine();
+      var topic = new Topic(tittle, options);
       topicList.AddTopic(topic);
       WriteLine("Press any key to continue...");
       ReadKey();
@@ -37,8 +39,7 @@ public class Menu
         { 
           Console.WriteLine("your specified not an whole number, run again and put right value");
         }
-      WriteLine ("Press 1 in your want to say Yes!");
-      WriteLine ("Press 2 in your want to say No!");
+      WriteLine ("Put the number of options you want to Vote for");
       var topicToVote = topicList.ShowTopicFromList(key);
       
       console = ReadLine();

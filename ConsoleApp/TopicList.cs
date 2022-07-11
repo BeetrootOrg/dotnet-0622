@@ -23,8 +23,8 @@ public class TopicList
             Console.WriteLine ("Your Topic list is empty, add some topics before!!!");
         
         int i = 0;
-        foreach (var Topic in Topics)
-            WriteLine($"{++i}  {Topic}");
+        foreach (var topic in Topics)
+            WriteLine($"{++i}  {topic}");
     }
     
     public Topic ShowTopicFromList(int key)
