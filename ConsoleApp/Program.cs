@@ -21,15 +21,15 @@ class Program : MainMenu
         // while (true)
         // {
 
-                   MainMenu MyMenu = new MainMenu();
-                    MyMenu.FirstMenu();
+        MainMenu MyMenu = new MainMenu();
+        MyMenu.FirstMenu();
 
-        
 
-            // while (true)
-            //  {
-            //      MyMenu();
-            // }
+
+        // while (true)
+        //  {
+        //      MyMenu();
+        // }
 
 
         //     //             Menu();
