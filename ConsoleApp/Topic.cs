@@ -41,6 +41,7 @@ public class Topic
     public override string ToString()
     {   
         int total = 0;
+        //WriteLine(VoteOptions.Keys.ElementAt(1));
         foreach (KeyValuePair<string, int> option in VoteOptions)
         {
             total += option.Value;
@@ -50,18 +51,13 @@ public class Topic
         
         string result = $"{Tittle} \n";
         int percents = 0;
+        
         foreach (KeyValuePair<string, int> option in VoteOptions)
         {
             percents = option.Value * 100 / total;
-            result += $"{option.Key} - {option.Value} votes ({percents}%) \n";
+            result += $"{option.Key} - {option.Value} votes ({percents}%) | ";
         }
         return result;
         
     }
-
-    // public void 
-    // {
-    //     throw new NotImplementedException;
-    // }
-
 }

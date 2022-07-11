@@ -42,6 +42,7 @@ public class Menu
       WriteLine ("Put the number of options you want to Vote for");
       var topicToVote = topicList.ShowTopicFromList(key);
       
+      topicToVote.ToString();
       console = ReadLine();
       if (!int.TryParse(console, out key))
         { 
