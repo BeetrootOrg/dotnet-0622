@@ -4,7 +4,7 @@ class SkuAbst : ISku
 {
     public string FullName;
     public string ShortName;
-    private decimal _inPrice;
+    public decimal InPrice;
 
     virtual public void AddNewSku()
     {

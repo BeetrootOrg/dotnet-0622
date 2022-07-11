@@ -8,13 +8,14 @@ using System.Text;
 class MainMenu : IMeinMenu
 {
 
-    public void AdminMenu()
+    private void AdminMenu()
     {
         Clear();
         WriteLine();
         WriteLine("Please choose: ");
         WriteLine("\t1 - AddNewSkuToTheBase");
         WriteLine("\t2 - AddNewSkuToTheStore");
+        WriteLine("\t3 - RegBuyer");
         WriteLine("\t0 - Exit");
 
         var key = ReadKey();
@@ -25,17 +26,26 @@ class MainMenu : IMeinMenu
                 ExitMenu();
                 break;
             case ConsoleKey.D1:
-
+                WriteLine();
                 System.Console.WriteLine("AddNewSkuToTheBase");
+                Sku MySku = new Sku();
+                MySku.AddNewSku();
+                
                 break;
             case ConsoleKey.D2:
-
+                WriteLine();
                 System.Console.WriteLine("AddNewSkuToTheStore");
+
+                break;
+            case ConsoleKey.D3:
+                WriteLine();
+                System.Console.WriteLine("RegBuyer");
+
                 break;
         }
     }
 
-    public void ClientMenu()
+    private void ClientMenu()
     {
         System.Console.WriteLine("ClientMenu");
     }
