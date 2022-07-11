@@ -59,5 +59,9 @@ void Show<T>(IEnumerable<T> collection)
     WriteLine(string.Join(", ", collection));
 }
 
+var number = new[] { 1, 2, 3, 4, 5, 6 };
+
 var below18 = new FilterEnumerable<Person>(array, (person) => person.Age <= 18);
+var onlyEven = new FilterEnumerable<int>(number, (n) => n % 2 == 0);
 Show(below18);
+Show(onlyEven);
