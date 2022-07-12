@@ -1,19 +1,19 @@
 using System;
 using static System.Console;
 namespace ConsoleApp;
+using System.Linq;
+using System.Collections.Generic;
 
 public class Topic
 {
     public string Tittle {get; init;}
 
     public Dictionary<string, int> VoteOptions {get; private set;} 
-    public int Yes {get; private set;}
-    public int No {get; private set;}
 
     public Topic(string tittle, string options)
     {
         Tittle = tittle;
-        var VoteOptions = new Dictionary<string, int>();
+        VoteOptions = new Dictionary<string, int>();
        
         var optionArr = options.Split(',');
 
@@ -33,7 +33,7 @@ public class Topic
 
     public void AddVote (int optionNum)
     {
-       string key = VoteOptions.Keys.ElementAt(optionNum);
+       string key = VoteOptions.Keys.ElementAt(optionNum - 1);
        VoteOptions[key]++;
        // VoteOptions[optionNum]++;
     }
@@ -42,7 +42,7 @@ public class Topic
     {   
         int total = 0;
         //WriteLine(VoteOptions.Keys.ElementAt(1));
-        foreach (KeyValuePair<string, int> option in VoteOptions)
+        foreach (var option in VoteOptions)
         {
             total += option.Value;
         }
@@ -51,11 +51,12 @@ public class Topic
         
         string result = $"{Tittle} \n";
         int percents = 0;
-        
+        int num = 0;
+
         foreach (KeyValuePair<string, int> option in VoteOptions)
         {
             percents = option.Value * 100 / total;
-            result += $"{option.Key} - {option.Value} votes ({percents}%) | ";
+            result += $"{++num} {option.Key} - {option.Value} votes ({percents}%) | ";
         }
         return result;
         

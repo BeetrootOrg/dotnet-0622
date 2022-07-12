@@ -24,7 +24,7 @@ public class TopicList
         
         int i = 0;
         foreach (var topic in Topics)
-            WriteLine($"{++i}  topic");
+            WriteLine($"{++i}  {topic}");
     }
     
     public Topic ShowTopicFromList(int key)
