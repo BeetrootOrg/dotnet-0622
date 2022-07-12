@@ -6,10 +6,10 @@ public class Reader : Person
     public DateTime RegistrationDate { get; set; }
     public TimeSpan ValidityPeriod { get; set; }
     public int AccessLevel { get; set; }
-    public JournalEntry[] Journal { get; set; }
+    public JournalEntryReader[] Journal { get; set; }
 }
 
-public struct JournalEntry
+public struct JournalEntryReader
 {
     public DateTime ReturnDate { get; set; }
     public DateTime ReceiptDate { get; set; }

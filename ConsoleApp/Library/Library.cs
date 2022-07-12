@@ -1,8 +1,9 @@
 namespace ConsoleApp.Library;
 
 public class Library
-{
-    public String Name { get; set; }
+{   
+    public Athour[] Athours { get; set; }
+    public string Name { get; set; }
     /// <summary>
     /// This is list books.
     /// </summary>
@@ -11,7 +12,8 @@ public class Library
     /// The second subarray stores books.
     /// The name of which begins with the file index
     /// </remarks>
-    public Book[,] books { get; set; }
+    public Book[,] Books { get; set; }
     public Reader[] Readers { get; set; }
-    public string Аddress { get; set; }
+    public string Address { get; set; }
+    public PublishingHouse[] PublishingHouse { get; set; }
 }
