@@ -69,7 +69,6 @@ public class Menu
   public void MainMenu()
   {
       Clear();
-
       WriteLine("Welcome to vote system!");
       WriteLine();
       WriteLine("Menu:");
