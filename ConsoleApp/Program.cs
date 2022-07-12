@@ -47,31 +47,13 @@ void MainMenu()
 
 void ShowResults()
 {
-    try
-    {
-        Console.Clear();
-        System.Console.WriteLine("Choise vote");
-        ShowVotes();
-        var choiseShowResults = Console.ReadKey().Key;
-        switch (choiseShowResults)
-        {
-            case ConsoleKey.D1:
-                Console.Clear();
-                System.Console.WriteLine("Result: Name Vote: '{0}'\n Vote first option:{1} Count votes:{2}\n Vote second option:{3} Count votes:{4}", votes[0].NameVote, votes[0].CommaSepratedChoise1, votes[0].Counter1, votes[0].CommaSepratedChoise2, votes[0].Counter2);
-                break;
-            case ConsoleKey.D2:
-                Console.Clear();
-                System.Console.WriteLine("Result: Name Vote: '{0}'\n Vote first option:{1} Count votes:{2}\n Vote second option:{3} Count votes:{4}", votes[1].NameVote, votes[1].CommaSepratedChoise1, votes[1].Counter1, votes[1].CommaSepratedChoise2, votes[1].Counter2);
-                break;
-            default:
-                break;
-        }
-        Console.ReadKey();
-    }
-    catch (Exception ex)
-    {
-        System.Console.WriteLine(ex.Message);
-    }
+    Console.Clear();
+    System.Console.WriteLine("Choise vote");
+    ShowVotes();
+    var choiseShowResults = Convert.ToInt32(Console.ReadLine());
+    Console.Clear();
+    System.Console.WriteLine("Result: Name Vote: '{0}'\n Vote first option: \t{1} Count votes:{2}\n Vote second option:\t{3} Count votes:{4}", votes[choiseShowResults - 1].NameVote, votes[choiseShowResults - 1].CommaSepratedChoise1, votes[choiseShowResults - 1].CounterOptions[choiseShowResults - 1], votes[choiseShowResults - 1].CommaSepratedChoise2, votes[choiseShowResults - 1].CounterOptions[choiseShowResults - 1]);
+    Console.ReadKey();
 };
 
 void Voting()
@@ -79,77 +61,35 @@ void Voting()
     Console.Clear();
     System.Console.WriteLine("Choise vote");
     ShowVotes();
-    try
-    {
-        var choiseVoting = Console.ReadKey().Key;
-        switch (choiseVoting)
-        {
-            case ConsoleKey.D1:
-                Console.Clear();
-                System.Console.WriteLine("You choise vote '{0}'", votes[0].NameVote);
-                System.Console.WriteLine("Choise option: \n1.{0} \n2.{1}", votes[0].CommaSepratedChoise1, votes[0].CommaSepratedChoise2);
-                var voteChoise1 = Console.ReadKey().Key;
-                if (voteChoise1 == ConsoleKey.D1)
-                {
-                    votes[0].Counter1++;
-                    break;
-                }
-                votes[0].Counter2++;
-                break;
-
-            case ConsoleKey.D2:
-                Console.Clear();
-                System.Console.WriteLine("You choise vote {0}", votes[1].NameVote);
-                System.Console.WriteLine("Choise option: \n1.{0} \n2.{1}", votes[1].CommaSepratedChoise1, votes[1].CommaSepratedChoise2);
-                var voteChoise2 = Console.ReadKey().Key;
-                if (voteChoise2 == ConsoleKey.D1)
-                {
-                    votes[1].Counter1++;
-                    break;
-                }
-                votes[1].Counter2++;
-                break;
-
-            default:
-                break;
-        }
-
-    }
-    catch (Exception ex)
-    {
-        System.Console.WriteLine(ex.Message);
-    }
-
+    var choiseVoting = Convert.ToInt32(Console.ReadLine());
+    System.Console.WriteLine("You choise vote '{0}'", votes[choiseVoting - 1].NameVote);
+    System.Console.WriteLine("Choise option: \n1.{0} \n2.{1}", votes[choiseVoting - 1].CommaSepratedChoise1, votes[choiseVoting - 1].CommaSepratedChoise2);
+    var choiseVotingOption = Convert.ToInt32(Console.ReadLine());
+    votes[choiseVoting - 1].AddVote(votes[choiseVoting - 1], choiseVotingOption - 1);
+    System.Console.WriteLine("Vote add!");
+    Console.ReadKey();
 };
 
 void VoteCreator()
 {
-    try
+
+    System.Console.WriteLine("Enter vote name: ");
+    var voteName = Console.ReadLine();
+    System.Console.WriteLine("Enter comma-seprated:");
+    string commaSepratedInput = Console.ReadLine();
+    string[] output = commaSepratedInput.Split(',');
+    int[] sizeMass = new int[output.Length];
+
+    votes.Add(new Vote
     {
-        System.Console.WriteLine("Enter vote name: ");
-        var voteName = Console.ReadLine();
-        System.Console.WriteLine("Enter comma-seprated:");
-        string commaSepratedInput = Console.ReadLine();
-        string[] output = commaSepratedInput.Split(',');
-        try
-        {
-            votes.Add(new Vote
-            {
-                NameVote = voteName,
-                CommaSepratedChoise1 = output[0],
-                CommaSepratedChoise2 = output[1]
-            });
-        }
-        catch (NullReferenceException nre)
-        {
-            System.Console.WriteLine(nre.Message);
-        }
-        System.Console.WriteLine("Vote created!");
-    }
-    catch (Exception ex)
-    {
-        System.Console.WriteLine(ex.Message);
-    }
+        NameVote = voteName,
+
+        CommaSepratedChoise1 = output[0],
+        CommaSepratedChoise2 = output[1],
+        CounterOptions = sizeMass
+
+    });
+
 };
 
 void ShowVotes()
