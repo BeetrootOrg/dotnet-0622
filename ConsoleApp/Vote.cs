@@ -4,6 +4,7 @@ namespace ConsoleApp;
 
 public class Vote
 {
+    List<string> ListCommaSepratedChoise = new List<string>();
     public string NameVote { get; set; }
     public string CommaSepratedChoise1 { get; set; }
     public string CommaSepratedChoise2 { get; set; }
