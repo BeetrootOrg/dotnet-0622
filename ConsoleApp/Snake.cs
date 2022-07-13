@@ -66,12 +66,9 @@ class Snake
         if (_direction == Direction.Down) Console.Write('v');
     }
     
-    public void Grow(Food food)
+    public void Grow()
     {
-        if (_direction == Direction.Right) _body.Add(new Point(_body[_body.Count-1].X+1, _body[_body.Count-1].Y));
-        if (_direction == Direction.Left) _body.Add(new Point(_body[_body.Count-1].X-1, _body[_body.Count-1].Y));
-        if (_direction == Direction.Down) _body.Add(new Point(_body[_body.Count-1].X, _body[_body.Count-1].Y+1));
-        if (_direction == Direction.Up) _body.Add(new Point(_body[_body.Count-1].X, _body[_body.Count-1].Y-1));
+        _body.Add(new Point(_body[_body.Count-1].X, _body[_body.Count-1].Y));
     }
 
     public void SetDirection()

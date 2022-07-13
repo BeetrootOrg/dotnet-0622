@@ -14,7 +14,7 @@ class Field
         Walls = walls;
         SpawnFood();
     }
-    
+
     public void Render()
     {
         Walls.Render();
@@ -27,7 +27,7 @@ class Field
         if (Snake.IsEatingHimself() || Snake.IsHittingWall(Walls)) Environment.Exit(0);        
         if (Snake.IsEating(Food))
         {
-            Snake.Grow(Food);
+            Snake.Grow();
             SpawnFood();
         }
         Snake.Move();
@@ -46,7 +46,7 @@ class Field
                     emptyPoints.Add(newPoint);
             }   
         }    
-        Food = new Food(emptyPoints[random.Next(0,emptyPoints.Count+1)]);
+        Food = new Food(emptyPoints[random.Next(0,emptyPoints.Count)]);
     }
 
 }
