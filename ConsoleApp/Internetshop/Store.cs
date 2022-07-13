@@ -1,4 +1,5 @@
 namespace ConsoleApp.Internetshop;
+using static System.Console;
 
 class Store : SkuAbst
 {
@@ -6,6 +7,17 @@ class Store : SkuAbst
     public Sku SkuStore { get; set; }
     public int Amount { get; set; }
     public bool IsComing { get; set; }
+
+    const string filenameStore = "datastore.csv";
+    override public void AddNewSkuToStore()
+    {
+        IsComing = true;
+
+        // WriteLine("Set FullName");
+        // SkuStore = ReadLine();
+
+        System.Console.WriteLine("base realisation... ");
+    }
 
     override public void AddNewSku()
     {

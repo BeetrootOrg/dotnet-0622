@@ -20,16 +20,17 @@ class Program : MainMenu
         //         //         Sku1.AddNewSku();
         // while (true)
         // {
-
-        MainMenu MyMenu = new MainMenu();
-        MyMenu.FirstMenu();
-
+        while (true)
+        {
+            MainMenu MyMenu = new MainMenu();
+            MyMenu.FirstMenu();
+        }
 
 
         // while (true)
         //  {
         //      MyMenu();
-        // }
+        // 
 
 
         //     //             Menu();

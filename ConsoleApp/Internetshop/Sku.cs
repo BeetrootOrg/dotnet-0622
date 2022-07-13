@@ -4,15 +4,19 @@ using static System.Console;
 
 class Sku : SkuAbst
 {
+
+    const string filenameSku = "datasku.csv";
     override public void AddNewSku()
     {
-        System.Console.WriteLine("Set FullName");
+        WriteLine("Set FullName");
         FullName = ReadLine();
-        System.Console.WriteLine("Set ShortName");
+        WriteLine("Set ShortName");
         ShortName = ReadLine();
-        System.Console.WriteLine("Set Price");
+        WriteLine("Set Price");
         InPrice = ReadLine();
-
+        string Serialize((string FullName, string ShortName, string InPrice) row) => $"{row.FullName},{row.ShortName},{row.InPrice}";
+        File.AppendAllLines(filenameSku, new[] { Serialize((FullName, ShortName, InPrice)) });
+        
     }
 
     override public void DeleteSku()

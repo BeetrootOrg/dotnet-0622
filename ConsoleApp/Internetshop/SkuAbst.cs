@@ -4,7 +4,14 @@ class SkuAbst : ISku
 {
     public string FullName;
     public string ShortName;
-    public decimal InPrice;
+    public string InPrice;
+
+
+
+    virtual public void AddNewSkuToStore()
+    {
+        System.Console.WriteLine("base realisation... ");
+    }
 
     virtual public void AddNewSku()
     {

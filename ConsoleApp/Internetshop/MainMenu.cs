@@ -18,12 +18,15 @@ class MainMenu : IMeinMenu
         WriteLine("\t3 - RegBuyer");
         WriteLine("\t0 - Exit");
 
+        const string filenameBuyer = "databuyer.csv";
+
         var key = ReadKey();
         switch (key.Key)
         {
             case ConsoleKey.D0:
                 WriteLine();
-                ExitMenu();
+                Clear();
+                FirstMenu();
                 break;
             case ConsoleKey.D1:
                 WriteLine();
@@ -35,6 +38,8 @@ class MainMenu : IMeinMenu
             case ConsoleKey.D2:
                 WriteLine();
                 System.Console.WriteLine("AddNewSkuToTheStore");
+                Store MyStore = new Store();
+                MyStore.AddNewSkuToStore();
 
                 break;
             case ConsoleKey.D3:
@@ -68,11 +73,17 @@ class MainMenu : IMeinMenu
         switch (key.Key)
         {
             case ConsoleKey.D0:
+                //WriteLine();
+                Clear();
                 ExitMenu();
                 break;
             case ConsoleKey.D1:
-                AdminMenu();
-                break;
+
+            while (true)
+            {
+              AdminMenu();  
+            }
+              break;
             case ConsoleKey.D2:
                 ClientMenu();
                 System.Console.WriteLine("2");
