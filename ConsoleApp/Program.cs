@@ -5,15 +5,8 @@ using ConsoleApp;
 const int Size = 15;
 
 var snake = new Snake();
-var food = new Food(Size);
 var walls = new Wall();
-var field = new Field
-{
-    Food = food,
-    Size = Size,
-    Snake = snake,
-    Walls = walls
-};
+var field = new Field(Size, snake, walls);
 
 var renderer = new Renderer
 {
