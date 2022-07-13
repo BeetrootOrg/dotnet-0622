@@ -3,6 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+<<<<<<< HEAD
+=======
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+>>>>>>> 57ac2d78065123921bf228991220ccd51a2c6685
   </PropertyGroup>
 
 </Project>
