@@ -44,4 +44,9 @@ class Snake
         var head = _body[_body.Count - 1];
         head.X = head.X + 1;
     }
+
+    void OnArrowPressed()
+    {
+        
+    }
 }
