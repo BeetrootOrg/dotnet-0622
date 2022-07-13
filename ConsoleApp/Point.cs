@@ -11,9 +11,5 @@ class Point
         Y = y;
     }
 
-    public bool Equals(Point point) 
-    {
-        if (X == point.X && Y == point.Y) return true;
-        return false;
-    }
+    public bool Equals(Point point) => (X == point.X && Y == point.Y) ? true : false;
 }

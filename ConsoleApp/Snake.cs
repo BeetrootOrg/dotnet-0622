@@ -29,17 +29,9 @@ class Snake
         return false;
     }
 
-    public bool IsEating(Food food)
-    {
-        if(food.Equals(_body[_body.Count-1])) return true;
-        return false;
-    }
+    public bool IsEating(Food food) => food.Equals(_body[_body.Count-1]) ? true : false;
 
-    public bool IsHittingWall(Wall walls)
-    {
-        if (walls.Contains(_body[_body.Count - 1])) return true;
-        return false;
-    }
+    public bool IsHittingWall(Wall walls) => walls.Contains(_body[_body.Count - 1]) ? true : false;
     
     public bool IsEatingHimself()
     {

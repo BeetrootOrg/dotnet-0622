@@ -4,11 +4,7 @@ class Food
 {
     private Point _point;
 
-    public bool Equals(Point point)
-    {
-        if (_point.X == point.X && _point.Y == point.Y) return true;
-        return false;
-    }
+    public bool Equals(Point point) => (_point.X == point.X && _point.Y == point.Y) ? true : false;
     
     public Food (Point point)
     {
