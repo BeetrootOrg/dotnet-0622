@@ -5,6 +5,19 @@ namespace ConsoleApp;
 
 static class MyExtensions
 {
+    private static IDictionary<string, bool> ToBooleans = new Dictionary<string, bool>
+    {
+        ["yes"] = true,
+        ["1"] = true,
+        ["y"] = true,
+        ["true"] = true,
+
+        ["no"] = false,
+        ["0"] = false,
+        ["n"] = false,
+        ["false"] = false,
+    };
+
     public static IEnumerable<IEnumerable<T>> ChunkBy<T>(this IEnumerable<T> collection, int size)
     {
         // 0. create instance of collection iterator
@@ -37,5 +50,24 @@ static class MyExtensions
             Array.Resize(ref array, index);
             yield return array;
         }
+    }
+
+    public static bool ToBool(this string str)
+    {
+        return ToBooleans.ContainsKey(str)
+            ? ToBooleans[str]
+            : throw new ArgumentOutOfRangeException(nameof(str));
+    }
+
+    public static byte CalculateAge(this DateTime birthDate)
+    {
+        var now = DateTime.Now;
+        if (birthDate > now)
+        {
+            throw new ArgumentException($"Birth date should be in the past");
+        }
+
+        var diff = now - birthDate;
+        return (byte)(new DateTime().Add(diff).Year - 1);
     }
 }

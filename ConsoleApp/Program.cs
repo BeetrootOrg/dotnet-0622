@@ -19,6 +19,13 @@ internal class Program
         Show(new[] { 1, 2, 3, 4, 5 }.ChunkBy(2));
         Show(new[] { 1, 2, 3, 4, 5 }.ChunkBy(3));
         Show(Array.Empty<int>().ChunkBy(3));
+
+        WriteLine("yes".ToBool());
+        WriteLine("no".ToBool());
+
+        WriteLine(new DateTime(1996, 07, 11).CalculateAge());
+        WriteLine(new DateTime(1994, 04, 19).CalculateAge());
+        WriteLine(new DateTime(1994, 07, 13).CalculateAge());
     }
 
     private static void Show<T>(IEnumerable<T> collection)
