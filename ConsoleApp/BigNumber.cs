@@ -19,4 +19,16 @@ class BigNumber
         // sum result;
         return new BigNumber();
     }
+
+    public static BigNumber operator -(BigNumber bigNumber)
+    {
+        // sum result;
+        return new BigNumber();
+    }
+
+    public static BigNumber operator *(BigNumber bigNumber)
+    {
+        // sum result;
+        return new BigNumber();
+    }
 }
