@@ -3,12 +3,12 @@ using System.Threading;
 
 namespace ConsoleApp;
 
-class Renderer
+class SnakeGame
 {
     private Field _field;
     private Timer _timer;
 
-    public Renderer(Field filed)
+    public SnakeGame(Field filed)
     {
         _field = filed;
         _timer = new Timer(Update, null, Timeout.InfiniteTimeSpan, TimeSpan.Zero);

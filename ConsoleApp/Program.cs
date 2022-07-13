@@ -8,10 +8,10 @@ var snake = new Snake();
 var walls = new Wall();
 var field = new Field(Size, snake, walls);
 
-var renderer = new Renderer(field);
+var snakeGame = new SnakeGame(field);
 
 System.Console.Clear();
-renderer.Show();
-renderer.StartGame();
+snakeGame.Show();
+snakeGame.StartGame();
 
 Thread.Sleep(Timeout.Infinite);
