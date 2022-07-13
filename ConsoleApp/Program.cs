@@ -39,6 +39,44 @@ internal class Program
         WriteLine(new DateTime(2022, 07, 15).NextWorkingDay());
         WriteLine(new DateTime(2022, 07, 16).NextWorkingDay());
         WriteLine(new DateTime(2022, 07, 17).NextWorkingDay());
+
+        Show(new[]
+        {
+            new
+            {
+                a = 1,
+                b = 2
+            },
+            new
+            {
+                a = 1,
+                b = 3
+            },
+            new
+            {
+                a = 2,
+                b = 4
+            }
+        }.GroupBy(item => item.a));
+
+        Show(new[]
+        {
+            new
+            {
+                a = 1,
+                b = 2
+            },
+            new
+            {
+                a = 1,
+                b = 3
+            },
+            new
+            {
+                a = 2,
+                b = 4
+            }
+        }.GroupBy(item => item.b));
     }
 
     private static void Show<T>(IEnumerable<T> collection)
@@ -51,6 +89,14 @@ internal class Program
         foreach (var item in collection)
         {
             Show(item);
+        }
+    }
+
+    private static void Show<TKey, TValue>(IEnumerable<KeyValuePair<TKey, ICollection<TValue>>> collection)
+    {
+        foreach (var (key, value) in collection)
+        {
+            WriteLine($"[{key}: {string.Join(", ", value)}]");
         }
     }
 }

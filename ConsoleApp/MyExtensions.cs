@@ -98,4 +98,25 @@ static class MyExtensions
 
         return DateOnly.FromDateTime(nextDay);
     }
+
+    public static IEnumerable<KeyValuePair<TKey, ICollection<TItem>>> GroupBy<TItem, TKey>(
+        this IEnumerable<TItem> collection,
+        Func<TItem, TKey> keyGetter)
+    {
+        var dictionary = new Dictionary<TKey, ICollection<TItem>>();
+
+        foreach (var item in collection)
+        {
+            var key = keyGetter(item);
+
+            if (!dictionary.ContainsKey(key))
+            {
+                dictionary[key] = new List<TItem>();
+            }
+
+            dictionary[key].Add(item);
+        }
+
+        return dictionary;
+    }
 }
