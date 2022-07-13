@@ -10,6 +10,12 @@ internal class Program
     private static void Main(string[] args)
     {
         WriteLine("Hello world".CountWords());
+        // NullReference below
+        // WriteLine(StringExtensions.CountWords(null));
+
+        // string str = null;
+        // str.CountWords();
+
         WriteLine("Hello world".CountWords());
         WriteLine("hello world hello".CountWords("hello"));
         WriteLine("world".CountWords("hello"));
