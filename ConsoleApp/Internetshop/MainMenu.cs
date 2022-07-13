@@ -37,16 +37,16 @@ class MainMenu : IMeinMenu
                 break;
             case ConsoleKey.D2:
                 WriteLine();
-                System.Console.WriteLine("AddNewSkuToTheStore");
-                Store MyStore = new Store();
-                MyStore.AddNewSkuToStore();
-
-                break;
-            case ConsoleKey.D3:
-                WriteLine();
                 System.Console.WriteLine("RegBuyer");
+                Client MyClient = new Client();
+                MyClient.AddNewPerson();
 
                 break;
+            // case ConsoleKey.D3:
+            //     WriteLine();
+            //     System.Console.WriteLine("RegBuyer");
+
+            //     break;
         }
     }
 
