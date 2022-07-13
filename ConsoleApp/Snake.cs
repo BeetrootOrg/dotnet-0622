@@ -62,7 +62,7 @@ class Snake
         _body.Add(new Point(_body[_body.Count-1].X, _body[_body.Count-1].Y));
     }
 
-    public void SetDirection()
+    private void SetDirection()
     {        
         if (_controller.Key.Key == ConsoleKey.RightArrow && _direction != Direction.Left)  _direction = Direction.Right;
         if (_controller.Key.Key == ConsoleKey.LeftArrow && _direction != Direction.Right) _direction = Direction.Left;
