@@ -26,6 +26,19 @@ internal class Program
         WriteLine(new DateTime(1996, 07, 11).CalculateAge());
         WriteLine(new DateTime(1994, 04, 19).CalculateAge());
         WriteLine(new DateTime(1994, 07, 13).CalculateAge());
+
+        WriteLine(new DateTime(2022, 07, 16).IsWeekend());
+        WriteLine(new DateTime(2022, 07, 17).IsWeekend());
+        WriteLine(new DateTime(2022, 07, 18).IsWeekend());
+        WriteLine(new DateTime(2022, 07, 19).IsWeekend());
+        WriteLine(new DateTime(2022, 07, 20).IsWeekend());
+        WriteLine(new DateTime(2022, 07, 21).IsWeekend());
+        WriteLine(new DateTime(2022, 07, 22).IsWeekend());
+
+        WriteLine(new DateTime(2022, 07, 13).NextWorkingDay());
+        WriteLine(new DateTime(2022, 07, 15).NextWorkingDay());
+        WriteLine(new DateTime(2022, 07, 16).NextWorkingDay());
+        WriteLine(new DateTime(2022, 07, 17).NextWorkingDay());
     }
 
     private static void Show<T>(IEnumerable<T> collection)

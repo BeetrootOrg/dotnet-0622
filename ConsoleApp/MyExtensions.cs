@@ -70,4 +70,32 @@ static class MyExtensions
         var diff = now - birthDate;
         return (byte)(new DateTime().Add(diff).Year - 1);
     }
+
+    public static bool IsWeekend(this DateTime dateTime)
+    {
+        return dateTime.DayOfWeek switch
+        {
+            DayOfWeek.Sunday => true,
+            DayOfWeek.Saturday => true,
+            _ => false
+        };
+    }
+
+    public static bool IsWorkday(this DateTime dateTime)
+    {
+        return !IsWeekend(dateTime);
+    }
+
+    public static DateOnly NextWorkingDay(this DateTime dateTime)
+    {
+        var nextDay = dateTime.Date;
+        var oneDay = TimeSpan.FromDays(1);
+
+        do
+        {
+            nextDay += oneDay;
+        } while (nextDay.IsWeekend());
+
+        return DateOnly.FromDateTime(nextDay);
+    }
 }
