@@ -11,16 +11,15 @@ class Snake
 {
     private List<Point> _body;
     private Direction _direction = Direction.Right;
+    private Controller _controller = new Controller();
 
     public Snake(int size = 3)
     {
         _body = new List<Point>();
-
         for (var i = 0; i < size; ++i)
         {
             _body.Add(new Point(i+1, 1));
         }
-        
     }
 
     public bool Contains(Point point)
@@ -72,21 +71,15 @@ class Snake
     }
 
     public void SetDirection()
-    {
-        ConsoleKeyInfo key = new ConsoleKeyInfo();
-        while(Console.KeyAvailable)
-        {
-            key = Console.ReadKey();         
-        }
-        if (key.Key == ConsoleKey.RightArrow && _direction != Direction.Left)  _direction = Direction.Right;
-        if (key.Key == ConsoleKey.LeftArrow && _direction != Direction.Right) _direction = Direction.Left;
-        if (key.Key == ConsoleKey.UpArrow && _direction != Direction.Down) _direction = Direction.Up;
-        if (key.Key == ConsoleKey.DownArrow && _direction != Direction.Up) _direction = Direction.Down;
+    {        
+        if (_controller.Key.Key == ConsoleKey.RightArrow && _direction != Direction.Left)  _direction = Direction.Right;
+        if (_controller.Key.Key == ConsoleKey.LeftArrow && _direction != Direction.Right) _direction = Direction.Left;
+        if (_controller.Key.Key == ConsoleKey.UpArrow && _direction != Direction.Down) _direction = Direction.Up;
+        if (_controller.Key.Key == ConsoleKey.DownArrow && _direction != Direction.Up) _direction = Direction.Down;
     }   
 
     public void Move()
     {           
-        SetDirection();
         for (int i = 0; i<_body.Count-1; i++)
         {
             var currentPart = _body[i];
@@ -96,6 +89,7 @@ class Snake
             currentPart.Y = nextPart.Y;
         }
         
+        SetDirection();
         if (_direction == Direction.Right) _body[_body.Count-1].X++;
         if (_direction == Direction.Left)  _body[_body.Count-1].X--;
         if (_direction == Direction.Down) _body[_body.Count-1].Y++;
