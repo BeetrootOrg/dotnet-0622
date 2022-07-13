@@ -5,11 +5,12 @@ namespace ConsoleApp;
 
 class Renderer
 {
-    public Field Field {get;init;}
+    private Field _field;
     private Timer _timer;
 
-    public Renderer()
+    public Renderer(Field filed)
     {
+        _field = filed;
         _timer = new Timer(Update, null, Timeout.InfiniteTimeSpan, TimeSpan.Zero);
     }
 
@@ -20,12 +21,12 @@ class Renderer
 
     public void Show()
     {
-        Field.Render();      
+        _field.Render();      
         Console.CursorVisible = false;
     }
     private void Update(object state)
     {
-        Field.Update();
+        _field.Update();
         Console.Clear();
         Show();
     }

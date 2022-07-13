@@ -10,7 +10,7 @@ enum Direction
 class Snake
 {
     private List<Point> _body;
-    private Direction _direction {get;set;} = Direction.Right;
+    private Direction _direction = Direction.Right;
 
     public Snake(int size = 3)
     {

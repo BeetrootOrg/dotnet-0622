@@ -2,51 +2,51 @@ namespace ConsoleApp;
 
 class Field
 {
-    private int Size {get;set;} = 15;
-    private Snake Snake {get;set;}
-    private Food Food {get;set;}
-    private Wall Walls {get;init;}
+    private int _size = 15;
+    private Snake _snake;
+    private Food _food;
+    private Wall _walls;
 
     public Field(int size, Snake snake, Wall walls)
     {
-        Size = size;
-        Snake = snake;
-        Walls = walls;
+        _size = size;
+        _snake = snake;
+        _walls = walls;
         SpawnFood();
     }
 
     public void Render()
     {
-        Walls.Render();
-        Food.Render();
-        Snake.Render(); 
+        _walls.Render();
+        _food.Render();
+        _snake.Render(); 
     }
 
     public void Update()
     {
-        if (Snake.IsEatingHimself() || Snake.IsHittingWall(Walls)) Environment.Exit(0);        
-        if (Snake.IsEating(Food))
+        if (_snake.IsEatingHimself() || _snake.IsHittingWall(_walls)) Environment.Exit(0);        
+        if (_snake.IsEating(_food))
         {
-            Snake.Grow();
+            _snake.Grow();
             SpawnFood();
         }
-        Snake.Move();
+        _snake.Move();
     }
     
     public void SpawnFood()
     {
         var random = new Random((int)DateTime.Now.Ticks);
         List<Point> emptyPoints = new List<Point>();
-        for (int x = 1; x<Size; x++)
+        for (int x = 0; x<_size; x++)
         {
-            for (int y = 1; y<Size; y++)
+            for (int y = 0; y<_size; y++)
             {
                 Point newPoint = new Point(x, y);
-                if (!Snake.Contains(newPoint) && !Walls.Contains(newPoint))
+                if (!_snake.Contains(newPoint) && !_walls.Contains(newPoint))
                     emptyPoints.Add(newPoint);
             }   
         }    
-        Food = new Food(emptyPoints[random.Next(0,emptyPoints.Count)]);
+        _food = new Food(emptyPoints[random.Next(0,emptyPoints.Count)]);
     }
 
 }

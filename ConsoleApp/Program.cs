@@ -8,10 +8,7 @@ var snake = new Snake();
 var walls = new Wall();
 var field = new Field(Size, snake, walls);
 
-var renderer = new Renderer
-{
-    Field = field
-};
+var renderer = new Renderer(field);
 
 System.Console.Clear();
 renderer.Show();
