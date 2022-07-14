@@ -6,7 +6,7 @@ class Table : IProduct
     public int Quantity { get; private set; }
     public int Height { get; init; }
 
-        public int AddQuantity()
+    public int AddQuantity()
     {
         Quantity = Quantity + 2;
         return Quantity;
@@ -18,6 +18,13 @@ class Table : IProduct
         Price = price;
         Quantity = quantity;
         Height = height;
+    }
+    public Receipt Sell(Buyer buyer)
+    {
+        var receipt = new Receipt { Buyer = buyer, Item = this };
+        Quantity = Quantity - 1;
+        return receipt;
+
     }
 
 

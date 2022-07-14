@@ -8,6 +8,8 @@ interface IProduct
 
     int AddQuantity ();
 
+    Receipt Sell (Buyer buyer);
+
 }
 
 

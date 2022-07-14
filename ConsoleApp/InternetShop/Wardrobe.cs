@@ -22,6 +22,12 @@ class Wardrobe : IProduct
         Quantity = quantity;
         Width = width;
     }
+    public Receipt Sell(Buyer buyer)
+    {
+        var receipt = new Receipt { Buyer = buyer, Item = this };
+        Quantity = Quantity - 1;
+        return receipt;
 
+    }
 
 }
