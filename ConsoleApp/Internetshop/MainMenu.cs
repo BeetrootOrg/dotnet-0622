@@ -14,11 +14,11 @@ class MainMenu : IMeinMenu
         WriteLine();
         WriteLine("Please choose: ");
         WriteLine("\t1 - AddNewSkuToTheBase");
-        WriteLine("\t2 - AddNewSkuToTheStore");
-        WriteLine("\t3 - RegBuyer");
+        WriteLine("\t2 - RegBuyer");
+        // WriteLine("\t3 - RegBuyer");
         WriteLine("\t0 - Exit");
 
-        const string filenameBuyer = "databuyer.csv";
+        //const string filenameBuyer = "databuyer.csv";
 
         var key = ReadKey();
         switch (key.Key)
@@ -33,26 +33,54 @@ class MainMenu : IMeinMenu
                 System.Console.WriteLine("AddNewSkuToTheBase");
                 Sku MySku = new Sku();
                 MySku.AddNewSku();
-                
                 break;
             case ConsoleKey.D2:
                 WriteLine();
                 System.Console.WriteLine("RegBuyer");
                 Client MyClient = new Client();
                 MyClient.AddNewPerson();
-
                 break;
-            // case ConsoleKey.D3:
-            //     WriteLine();
-            //     System.Console.WriteLine("RegBuyer");
-
-            //     break;
         }
     }
 
     private void ClientMenu()
     {
-        System.Console.WriteLine("ClientMenu");
+       
+        Clear();
+        System.Console.WriteLine("ClientMenu entered");
+        WriteLine();
+        WriteLine("Please choose: ");
+        WriteLine("\t1 - Add preorder");
+        WriteLine("\t2 - See All Goods");
+        // WriteLine("\t3 - RegBuyer");
+        WriteLine("\t0 - Exit");
+
+        //const string filenameBuyer = "databuyer.csv";
+
+        var key = ReadKey();
+        switch (key.Key)
+        {
+            case ConsoleKey.D0:
+                WriteLine();
+                Clear();
+                FirstMenu();
+                break;
+            case ConsoleKey.D1:
+            System.Console.WriteLine("Add preorder");
+                WriteLine();
+                System.Console.WriteLine("Add preorder");
+                // Sku MySku = new Sku();
+                // MySku.AddNewSku();
+                break;
+            case ConsoleKey.D2:
+            System.Console.WriteLine("See All Goods");
+                WriteLine();
+                System.Console.WriteLine("See All Goods");
+                // Client MyClient = new Client();
+                // MyClient.AddNewPerson();
+                break;
+        }
+
     }
 
     public void ExitMenu()
@@ -73,20 +101,22 @@ class MainMenu : IMeinMenu
         switch (key.Key)
         {
             case ConsoleKey.D0:
-                //WriteLine();
                 Clear();
                 ExitMenu();
                 break;
             case ConsoleKey.D1:
+                while (true)
+                {
+                    AdminMenu();
+                }
+                break;
 
-            while (true)
-            {
-              AdminMenu();  
-            }
-              break;
             case ConsoleKey.D2:
-                ClientMenu();
-                System.Console.WriteLine("2");
+                Clear();
+                while (true)
+                {
+                    ClientMenu();
+                }
                 break;
 
             default:
