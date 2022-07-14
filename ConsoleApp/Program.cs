@@ -1,19 +1,14 @@
-﻿namespace ConsoleApp.Internetshop;
-using static System.Console;
-// using System;
-// using System.IO;
-// using System.Text;
+﻿using static System.Console;
+using System.Collections.Generic;
 
 
+class Program
 
-class Program : MainMenu
 {
     static void Main(string[] args)
     {
-        while (true)
-        {
-            MainMenu MyMenu = new MainMenu();
-            MyMenu.FirstMenu();
-        }
+      
+
+      
     }
 }
