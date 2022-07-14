@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿using System.Threading;
 
 using ConsoleApp;
@@ -22,8 +21,4 @@ var renderer = new Renderer
 System.Console.Clear();
 renderer.Show();
 renderer.StartGame();
-
 Thread.Sleep(Timeout.Infinite);
-=======
-﻿
->>>>>>> 57ac2d78065123921bf228991220ccd51a2c6685

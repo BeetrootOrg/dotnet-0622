@@ -50,11 +50,14 @@ class Renderer
         Console.SetCursorPosition(Field.Food.Position.X, Field.Food.Position.Y);
         Console.Write("Y");
     }
-
+    
     private void Update(object state)
     {
+        
         Field.Snake.Move();
         Console.Clear();
         Show();
+        while (true)
+            Field.Snake.OnArrowPressed(System.Console.ReadKey(true));
     }
 }
