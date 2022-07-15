@@ -8,6 +8,6 @@ class Cart
 
     public void AddItem(Goods goods, int _amount)
     {
-        throw new NotImplementedException();
+        
     }
 }
