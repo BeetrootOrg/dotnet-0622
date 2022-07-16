@@ -1,13 +1,13 @@
 /*
 Создать меню из нескольких пунктов
-1) Greate Vote
+1) Greate VoteForSomething
 Enter topic
 --topic---
 Enter comma-setareted options
 yes. no
 END
 
-2) Vote for somethings
+2) VoteForSomething for somethings
 choose topic 
 1) Topic 1
 2) Topic 2
@@ -31,11 +31,30 @@ Click 1
 
 
 */
-using System.Console;
+using static System.Console;
+namespace ConsoleApp;
 
 class MainMenu
 {
 
+    public void VoteForSomething()
+    {
+        WriteLine("VoteForSomeThing");
+        
+       // GetAnswers();
+
+    }
+    private void GreateVoteForSomething()
+    {
+        Clear();
+        WriteLine();
+
+        Question Myquestion = new Question();
+        Myquestion.AddNewQuestion();
+        FirstMenu();
+
+
+    }
 
     public void ExitMenu()
     {
@@ -43,12 +62,12 @@ class MainMenu
     }
     public void FirstMenu()
     {
-        System.Console.WriteLine("Welcome internet store");
-        System.Console.WriteLine();
-        System.Console.WriteLine("Menu:");
-        System.Console.WriteLine("\t1 - Administrator access");
-        System.Console.WriteLine("\t2 - Client access");
-        System.Console.WriteLine("\t0 or ane key - Exit");
+
+        WriteLine("Menu:");
+        WriteLine("\t1 - Greate VoteForSomething");
+        WriteLine("\t2 - VoteForSomething for somethings");
+        WriteLine("\t3 - Show results");
+        WriteLine("\t0 or ane key - Exit");
 
         var key = ReadKey();
         switch (key.Key)
@@ -57,27 +76,30 @@ class MainMenu
                 System.Console.Clear();
                 ExitMenu();
                 break;
-            case ConsoleKey.D1:
+            case ConsoleKey.D1:// Greate VoteForSomething
                 while (true)
                 {
-                    AdminMenu();
+                    GreateVoteForSomething();
                 }
                 break;
-
             case ConsoleKey.D2:
                 Clear();
                 while (true)
                 {
-                    ClientMenu();
+                    VoteForSomething();
+                    WriteLine("number2");
                 }
                 break;
-
+            case ConsoleKey.D3:
+                Clear();
+                while (true)
+                {
+                    //ClientMenu();
+                    WriteLine("number3");
+                }
+                break;
             default:
                 break;
         }
     }
-
-
-
-
 }

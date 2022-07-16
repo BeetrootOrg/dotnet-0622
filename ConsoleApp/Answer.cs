@@ -1,0 +1,7 @@
+namespace ConsoleApp;
+
+
+class Answer
+{
+    
+}
