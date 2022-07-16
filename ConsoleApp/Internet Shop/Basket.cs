@@ -2,10 +2,10 @@ namespace ConsoleApp.InternetShop;
 
 class Basket
 {
-    public Product[] ProductsToBuy { get; set; }
+    public List<Product> ProductsToBuy { get; set; } = new List<Product>();
 
-    public new Receipt SellProducts()
+    public Receipt SellProducts(Employee cashier, Customer buyer)
     {
-        throw new NotImplementedException();
+        return new Receipt(cashier, buyer, ProductsToBuy);
     }
 }

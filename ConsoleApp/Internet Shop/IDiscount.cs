@@ -1,5 +1,5 @@
 namespace ConsoleApp.InternetShop;
 interface IDiscount
 {
-    int SetDiscount();
+    decimal CalculateDiscount(int discount);
 }

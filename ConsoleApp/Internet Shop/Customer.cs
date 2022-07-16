@@ -2,13 +2,19 @@ using static System.Console;
 
 namespace ConsoleApp.InternetShop;
 
-class Customer : Person, IDiscount, IRegister
+class Customer : Person, IDiscount
 {
     public Product[] WishList { get; set; }
     public int CustomerDiscount { get; set; }
     public int PhoneNumber { get; set; }
-
-    public override void GetInfo()
+    public Customer(string firstName, string lastName, int customerDiscount, int phoneNumber)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        CustomerDiscount = customerDiscount;
+        PhoneNumber = phoneNumber;
+    }
+    public override void ShowInfo()
     {
         WriteLine(@$"Full Name: {FirstName}, {LastName}
         Wish List: {WishList}
@@ -16,15 +22,9 @@ class Customer : Person, IDiscount, IRegister
         Phone Number: {PhoneNumber}");
     }
 
-    public void Register()
+    public decimal CalculateDiscount(int productPrice)
     {
-        throw new NotImplementedException(); // register new customer
+        decimal amountOfDiscount = productPrice * CustomerDiscount / 100;
+        return productPrice - amountOfDiscount;
     }
-
-    public int SetDiscount()
-    {
-        throw new NotImplementedException(); // Personal customer's discount
-    }
-
-
 }

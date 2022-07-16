@@ -8,7 +8,7 @@ class Employee : Person
     public string Position { get; set; }
     public int EmployeeDiscount { get; set; }
 
-    public override void GetInfo()
+    public override void ShowInfo()
     {
         WriteLine(@$"Full Name: {FirstName}, {LastName}
         Salary: {_salary}

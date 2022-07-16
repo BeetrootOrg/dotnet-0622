@@ -2,14 +2,14 @@ using static System.Console;
 
 namespace ConsoleApp.InternetShop;
 
-class Product : IDiscount, IRegister
+class Product : IDiscount
 {
     public string Name { get; set; }
-    public int Price { get; set; }
+    public decimal Price { get; set; }
     public int Quantity { get; set; }
     public bool IsInStock { get; set; }
 
-    public Product(string name, int price, int quantity, bool isInStock)
+    public Product(string name, decimal price, int quantity, bool isInStock)
     {
         Name = name;
         Price = price;
@@ -17,23 +17,26 @@ class Product : IDiscount, IRegister
         IsInStock = isInStock;
     }
 
-    public int SetDiscount()
+    public decimal CalculateDiscount(int shopDiscount)
     {
-        throw new NotImplementedException(); // Shop's discount
+        decimal amountOfDiscount;
+        amountOfDiscount = Price * 100 / shopDiscount;
+        return Price - amountOfDiscount;
     }
 
-    public void Register()
+    public Product AddQuantityToExistent(int quantityToAdd)
     {
-        throw new NotImplementedException(); // register new product
+        Quantity += quantityToAdd;
+        return this;
     }
 
-    public Product AddQuantityToExistent(int quantity)
+    public void AddToBasket(Basket currentUserBusket)
     {
-        throw new NotImplementedException();
+        currentUserBusket.ProductsToBuy.Add(this);
     }
 
-    public void AddToBasket(Basket CurrentUserBusket)
+    public void AddToWishlist(WishList currentUserWishlist)
     {
-        throw new NotImplementedException();
+        currentUserWishlist.LikedProducts.Add(this);
     }
 }
