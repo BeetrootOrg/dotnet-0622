@@ -1,8 +1,7 @@
 namespace ConsoleApp.Shop;
 
-abstract class Goods
+public class Goods
 {
-    private int _price { get; set; }
-    private int _name { get; set; }
-
+    public int Price { get; set; }
+    public string Name { get; set; }
 }

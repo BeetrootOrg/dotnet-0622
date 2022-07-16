@@ -1,7 +1,9 @@
 namespace ConsoleApp.Shop;
+using System;
+using System.Collections.Generic;
 
-class ByItem
+public class ByItem
 {
-    private Goods _goods { get; set; }
-    private int _amount { get; set; }
+    public Goods Goods { get; set; }
+    public int Amount { get; set; }
 }

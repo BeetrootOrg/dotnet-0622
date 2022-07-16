@@ -2,12 +2,17 @@ namespace ConsoleApp.Shop;
 using System;
 using System.Collections.Generic;
 
-class Cart
+public class Cart
 {
-    public List<ByItem> Items { get; set; }
-
-    public void AddItem(Goods goods, int _amount)
+    public List<Goods> Goods { get; set; }
+    public Cart()
     {
-        
+        Goods = new List<Goods>();
+    }
+    
+    public void AddItem(Goods goods)
+    {
+        Goods.Add(goods);
+        Console.WriteLine($"Your {goods.Name} added to cart with price: {goods.Price}");
     }
 }
