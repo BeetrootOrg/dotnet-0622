@@ -9,10 +9,10 @@ public class Cart
     {
         Goods = new List<Goods>();
     }
-    
+
     public void AddItem(Goods goods)
     {
         Goods.Add(goods);
-        Console.WriteLine($"Your {goods.Name} added to cart with price: {goods.Price}");
+        Console.WriteLine($"{goods.Name} added to cart with price: {goods.Price}");
     }
 }
