@@ -11,7 +11,8 @@ namespace ConsoleApp
         private readonly ConsoleColor _headcolor;
         private readonly ConsoleColor _bodycolor;
 
-        public Snake (int initx, int inity, ConsoleColor Headcolor, ConsoleColor Bodycolor, int bodyinitsize = 3 )        {
+        public Snake (int initx, int inity, ConsoleColor Headcolor, ConsoleColor Bodycolor, int bodyinitsize = 3 )
+        {
             _headcolor = Headcolor;
             _bodycolor = Bodycolor;
 
@@ -27,11 +28,16 @@ namespace ConsoleApp
             Draw();
         }
 
-        public void Move(Direction dir)
+        public void Move(Direction dir,bool ifEat)
         {
             Clear();
             Body.Enqueue(new Pixel(Head.X, Head.Y, _bodycolor));
-            Body.Dequeue();
+            if (ifEat == true)
+            {
+
+            }
+            else
+            { Body.Dequeue(); }
 
             Direction direction = dir;
 
