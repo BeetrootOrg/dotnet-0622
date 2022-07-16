@@ -55,6 +55,7 @@ class Renderer
     {
         
         Field.Snake.Move();
+        Field.IsCollision();
         Console.Clear();
         Show();
         while (true)

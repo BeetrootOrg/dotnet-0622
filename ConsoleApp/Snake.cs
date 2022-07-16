@@ -2,16 +2,27 @@ using System.Collections.Generic;
 using System;
 namespace ConsoleApp;
 
+enum Directions
+{
+    Right,
+    Left,
+    Up,
+    Down
+}
+
 class Snake
 {
     private List<Point> _body;
     public IEnumerable<Point> Body => _body;
 
+    public bool IsFoodEated {get; set;} = false;
 
+    private Directions _prevDirection {get; set;} = Directions.Right;
+    private Directions _newDirection {get; set;}
     private int _deltaX = 1;
     private int _deltaY;
 
-    public Snake(int size = 5)
+    public Snake(int size = 3)
     {
         _body = new List<Point>(size);
 
@@ -26,9 +37,13 @@ class Snake
     }
 
     public void Move()
-    {
+    {        
+        if(IsFoodEated) _body.Insert(0, new Point { X = 0, Y = 0});
+        IsFoodEated = false;
+
+
         var snakeLenght = _body.Count;
-        
+
         for (var i = 0; i < snakeLenght - 1; ++i)
         {
             var prevPart = _body[i];
@@ -38,18 +53,11 @@ class Snake
             prevPart.Y = nextPart.Y;
         }
 
+
         var head = _body[snakeLenght - 1];
         head.X = head.X + _deltaX;
         head.Y = head.Y + _deltaY;
-
-        int j = 0;
-        foreach (var point in _body)
-        {   
-            if (++j != snakeLenght && point.X == head.X && point.Y == head.Y)
-            {
-                throw new ("Game over");
-            }
-        }        
+        _prevDirection = _newDirection;      
     }
 
     public void OnArrowPressed(ConsoleKeyInfo key)
@@ -57,21 +65,37 @@ class Snake
        switch (key.Key)
         {
           case ConsoleKey.UpArrow:
-            _deltaX = 0;
-            _deltaY = -1;
+            if(_prevDirection != Directions.Down)
+            {
+                _deltaX = 0;
+                _deltaY = -1;
+                _newDirection = Directions.Up;
+            } 
             break;
           case ConsoleKey.DownArrow:
-            _deltaX = 0;
-            _deltaY = 1;
+            if(_prevDirection != Directions.Up)
+            {           
+                _deltaX = 0;
+                _deltaY = 1;
+                _newDirection = Directions.Down;
+            }
             break;
           case ConsoleKey.RightArrow:
-            _deltaX = 1;
-            _deltaY = 0;
-              break;
+            if(_prevDirection != Directions.Left)
+            {
+                _deltaX = 1;
+                _deltaY = 0;
+                _newDirection = Directions.Right;
+            }
+            break;
           case ConsoleKey.LeftArrow:
-            _deltaX = -1;
-            _deltaY = 0;
-              break;     
+            if(_prevDirection != Directions.Right)
+            {
+                _deltaX = -1;
+                _deltaY = 0;
+                _newDirection = Directions.Left;
+            }
+             break;     
         }
     }
 }

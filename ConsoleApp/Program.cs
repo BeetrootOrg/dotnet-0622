@@ -5,7 +5,7 @@ using ConsoleApp;
 const int Size = 15;
 
 var snake = new Snake();
-var food = Food.Random(Size);
+var food = new Food(Size);
 var field = new Field
 {
     Food = food,
