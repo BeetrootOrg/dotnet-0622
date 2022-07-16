@@ -46,7 +46,7 @@ class GameMenu
     {
         _snakeGame = new SnakeGame();
         _snakeGame.StartGame();
-        while (_snakeGame.OnGoing())
+        while (_snakeGame.IsOnRunnig())
         {
             _lastScore = _snakeGame.GetScore();
         }

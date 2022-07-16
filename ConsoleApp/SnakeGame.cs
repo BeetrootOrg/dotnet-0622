@@ -9,7 +9,7 @@ class SnakeGame
     private Timer _timer;
 
     private string _playerName;
-    private bool _onGoing = true;
+    private bool _isOnRunnig = true;
 
     public SnakeGame()
     {
@@ -40,9 +40,9 @@ class SnakeGame
     
     private void Update(object state)
     {
-        if (_onGoing)
+        if (_isOnRunnig)
         {
-            _onGoing = _field.Update();
+            _isOnRunnig = _field.Update();
             Console.Clear();
             Show();
         } 
@@ -51,7 +51,7 @@ class SnakeGame
             EndGame();
         }        
     }
-    public bool OnGoing() => _onGoing;
+    public bool IsOnRunnig() => _isOnRunnig;
     public int GetScore() => _field.GetScore();
     public int GetSize() => _field.GetSize();    
 }
