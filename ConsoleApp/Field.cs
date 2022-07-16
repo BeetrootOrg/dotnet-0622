@@ -3,9 +3,17 @@ namespace ConsoleApp;
 class Field
 {
     private int _size = 15;
+    private int _score = 0;
     private Snake _snake;
     private Food _food;
     private Wall _walls;
+
+    public Field()
+    {
+        _snake = new Snake();
+        _walls = new Wall();
+        SpawnFood();
+    }
 
     public Field(int size, Snake snake, Wall walls)
     {
@@ -19,21 +27,35 @@ class Field
     {
         _walls.Render();
         _food.Render();
-        _snake.Render(); 
+        _snake.Render();
+        RenderScore();
     }
 
-    public void Update()
+    private void RenderScore()
     {
-        if (_snake.IsEatingHimself() || _snake.IsHittingWall(_walls)) Environment.Exit(0);        
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.SetCursorPosition(0, _size);
+        Console.Write($"Score: {_score}");
+    }
+
+    public bool Update()
+    {
+        if (_snake.IsEatingHimself() || _snake.IsHittingWall(_walls)) 
+        {
+            _snake.StopListening();
+            return false;
+        }        
         if (_snake.IsEating(_food))
         {
             _snake.Grow();
             SpawnFood();
+            _score++;
         }
         _snake.Move();
-    }
+        return true;
+    }    
     
-    public void SpawnFood()
+    private void SpawnFood()
     {
         var random = new Random((int)DateTime.Now.Ticks);
         List<Point> emptyPoints = new List<Point>();
@@ -49,4 +71,6 @@ class Field
         _food = new Food(emptyPoints[random.Next(0,emptyPoints.Count)]);
     }
 
+    public int GetSize() => _size;
+    public int GetScore() => _score;
 }

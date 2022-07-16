@@ -21,4 +21,9 @@ class Controller
             Key = Console.ReadKey();
         }
      }
+
+     public void Dispose()
+     {
+         _timer.Dispose();
+     }
 }

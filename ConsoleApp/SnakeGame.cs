@@ -8,15 +8,28 @@ class SnakeGame
     private Field _field;
     private Timer _timer;
 
+    private string _playerName;
+    private bool _onGoing = true;
+
+    public SnakeGame()
+    {
+        _field = new Field();
+    }
+
     public SnakeGame(Field filed)
     {
         _field = filed;
-        _timer = new Timer(Update, null, Timeout.InfiniteTimeSpan, TimeSpan.Zero);
     }
 
     public void StartGame()
     {
-        _timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(200));
+        _timer = new Timer(Update, null, Timeout.InfiniteTimeSpan, TimeSpan.Zero);
+        _timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(200));      
+    }
+
+    public void EndGame()
+    {
+        _timer.Dispose();      
     }
 
     public void Show()
@@ -24,10 +37,21 @@ class SnakeGame
         _field.Render();      
         Console.CursorVisible = false;
     }
+    
     private void Update(object state)
     {
-        _field.Update();
-        Console.Clear();
-        Show();
+        if (_onGoing)
+        {
+            _onGoing = _field.Update();
+            Console.Clear();
+            Show();
+        } 
+        else 
+        {
+            EndGame();
+        }        
     }
+    public bool OnGoing() => _onGoing;
+    public int GetScore() => _field.GetScore();
+    public int GetSize() => _field.GetSize();    
 }

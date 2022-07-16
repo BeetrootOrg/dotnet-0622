@@ -68,7 +68,12 @@ class Snake
         if (_controller.Key.Key == ConsoleKey.LeftArrow && _direction != Direction.Right) _direction = Direction.Left;
         if (_controller.Key.Key == ConsoleKey.UpArrow && _direction != Direction.Down) _direction = Direction.Up;
         if (_controller.Key.Key == ConsoleKey.DownArrow && _direction != Direction.Up) _direction = Direction.Down;
-    }   
+    }
+
+    public void StopListening()
+    {
+        _controller.Dispose();
+    } 
 
     public void Move()
     {           
