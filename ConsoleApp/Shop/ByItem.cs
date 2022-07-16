@@ -1,6 +1,5 @@
 namespace ConsoleApp.Shop;
 using System;
-using System.Collections.Generic;
 
 public class ByItem
 {

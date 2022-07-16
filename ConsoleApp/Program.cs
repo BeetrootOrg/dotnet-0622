@@ -13,12 +13,12 @@ public class Program
         };
         var good2 = new Goods
         {
-            Price = 333,
+            Price = 50,
             Name = "Eat"
         };
-        var byItem = new Goods();
         var cart = new Cart();
         cart.AddItem(good1);
         cart.AddItem(good2);
+        
     }
 }
