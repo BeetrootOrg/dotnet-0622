@@ -7,6 +7,9 @@ class Storage
 
     public void RegisterNewProducts(Product[] newProducts)
     {
-        throw new NotImplementedException();
+        Product[] tempArray = new Product[ListOfProducts.Length + newProducts.Length];
+        ListOfProducts.CopyTo(tempArray, 0);
+        newProducts.CopyTo(tempArray, ListOfProducts.Length);
+        ListOfProducts = tempArray;
     }
 }
