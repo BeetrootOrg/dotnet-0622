@@ -31,7 +31,53 @@ Click 1
 
 
 */
+using System.Console;
+
 class MainMenu
 {
-    static public void
+
+
+    public void ExitMenu()
+    {
+        Environment.Exit(0);
+    }
+    public void FirstMenu()
+    {
+        System.Console.WriteLine("Welcome internet store");
+        System.Console.WriteLine();
+        System.Console.WriteLine("Menu:");
+        System.Console.WriteLine("\t1 - Administrator access");
+        System.Console.WriteLine("\t2 - Client access");
+        System.Console.WriteLine("\t0 or ane key - Exit");
+
+        var key = ReadKey();
+        switch (key.Key)
+        {
+            case ConsoleKey.D0:
+                System.Console.Clear();
+                ExitMenu();
+                break;
+            case ConsoleKey.D1:
+                while (true)
+                {
+                    AdminMenu();
+                }
+                break;
+
+            case ConsoleKey.D2:
+                Clear();
+                while (true)
+                {
+                    ClientMenu();
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+
+
+
 }
