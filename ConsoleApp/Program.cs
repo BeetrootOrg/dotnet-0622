@@ -1,24 +1,27 @@
-﻿using ConsoleApp.Shop;
-
+﻿namespace ConsoleApp;
 using System;
+using static System.Console;
 
-public class Program
+class Program
 {
-    private static void Main(string[] args)
+    private static void Main(string[] arg)
     {
-        var good1 = new Goods
-        {
-            Price = 123,
-            Name = "Alcochol"
-        };
-        var good2 = new Goods
-        {
-            Price = 50,
-            Name = "Eat"
-        };
-        var cart = new Cart();
-        cart.AddItem(good1);
-        cart.AddItem(good2);
+        var stack = new Stack<string>();
+        stack.Push("One");
+        stack.Push("Two");
+        stack.Push("Three");
+        stack.Push("Four");
+        WriteLine(stack.Count());
+        stack.Clear();
+        WriteLine(stack.Count());
         
+        stack.Push("One");
+        stack.Push("Two");
+        stack.Push("Three");
+        stack.Push("Four");
+        WriteLine(stack.Peek());
+        WriteLine(stack.Pop());
+        WriteLine(stack.Count());
+
     }
 }
