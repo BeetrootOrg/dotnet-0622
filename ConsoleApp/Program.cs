@@ -1,24 +1,15 @@
-﻿using System.Threading;
-
+using System.Threading;
+using static System.Console;
 using ConsoleApp;
 
-const int Size = 15;
+var bigNumber1 = new BigNumber("1");
+var bigNumber2 = new BigNumber("999");
 
-var snake = new Snake();
-var food = new Food(Size);
-var field = new Field
-{
-    Food = food,
-    Size = Size,
-    Snake = snake
-};
+WriteLine(bigNumber1+bigNumber2);
 
-var renderer = new Renderer
-{
-    Field = field
-};
 
-System.Console.Clear();
-renderer.Show();
-renderer.StartGame();
-Thread.Sleep(Timeout.Infinite);
+//int x = 389119123;
+//int y = 934;
+
+//WriteLine(389119000+123+934);
+//WriteLine(x+y);
