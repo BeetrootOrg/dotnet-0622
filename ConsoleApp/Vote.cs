@@ -2,33 +2,47 @@ namespace ConsoleApp;
 
 class Vote
 {
-    public string Name { get; init; }
-
-    public List<string> AnswerOptions {get; protected init;}
-    public List<int> VoteCount {get; protected set;}
+    private string _name;
+    private List<string> _answerOptions;
+    private List<int> _voteCount;
 
     public void VoteFor(int option)
     {
-        VoteCount[option]++;
+        _voteCount[option]++;
     }
 
     public Vote(string name)
     {
-        Name = name;
+        _name = name;
     }
 
     public Vote(string name, List<string> answerOptions)
     {
-        Name = name;
-        AnswerOptions = answerOptions;
-        VoteCount = new List<int>(AnswerOptions.Count());
+        _name = name;
+        _answerOptions = answerOptions;
+        _voteCount = new List<int>(_answerOptions.Count());
     }
 
     public Vote(string name, List<string> answerOptions, List<int> voteCount)
     {
-        Name = name;
-        AnswerOptions = answerOptions;
-        VoteCount = voteCount;
+        _name = name;
+        _answerOptions = answerOptions;
+        _voteCount = voteCount;
+    }
+
+    public string GetName()
+    {
+        return _name;
+    }
+
+    public List<string> GetAnswerOptions()
+    {
+        return _answerOptions;
+    }
+
+    public List<int> GetVoteCount()
+    {
+        return _voteCount;
     }
 
 }

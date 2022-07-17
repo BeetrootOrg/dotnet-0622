@@ -6,29 +6,37 @@ namespace ConsoleApp;
 
 class VoteApplication
 {
-    protected List<Vote> Votes = new List<Vote>();
-    const string filename = "data.csv";
+    private List<Vote> _votes = new List<Vote>();
+    private const string filename = "data.csv";
 
-    void Exit()
+    private void Exit()
     {
         Environment.Exit(0);
     }
 
-    void ReadVotes(string file)
+    private List<Vote> ReadVotes(string file)
     {
-        Votes.Clear();
-        var lines = File.ReadAllLines(file);        
-        for (int i = 0; i < lines.Length; i++)
+        List<Vote> votes = new List<Vote>();;
+        using (var stream = File.Open(file, FileMode.OpenOrCreate)) 
         {
-            var items = lines[i].Split(';');
-            string voteName = items[0];
-            List<string> voteOptionsList = items[1].Split(',').ToList();
-            List<int> voteCount = items[2].Split(',').ToList().Select(s => Int32.Parse(s)).ToList();
-            Votes.Add(new Vote(voteName, voteOptionsList, voteCount));
-        }
-    }
+            var streamReader = new StreamReader(stream, Encoding.UTF8);
+            string content = streamReader.ReadToEnd();
+            foreach(var line in content.Split("\n"))
+            {
+                if (line != "")
+                {
+                    var items = line.Split(';');
+                    string voteName = items[0];
+                    List<string> voteAnswerOptions = items[1].Split(',').ToList();
+                    List<int> voteCount = items[2].Split(',').ToList().Select(s => Int32.Parse(s)).ToList();
+                    votes.Add(new Vote(voteName, voteAnswerOptions, voteCount));
+                }
+            }
+        }        
+        return votes;
+    } 
 
-    void CreateVote()
+    private void CreateVote()
     {
         Clear();
         WriteLine("Enter vote topic:");
@@ -36,67 +44,83 @@ class VoteApplication
 
         WriteLine("Enter comma-separated options:");
         string answerOptions = ReadLine();
+        
         List<string> answerOptionsList = answerOptions.Split(',').ToList();
         List<int> voteCount = new List<int>();
         for (int i = 0; i < answerOptionsList.Count(); i++)
             voteCount.Add(0);
 
         Vote newVote = new Vote(voteName, answerOptionsList, voteCount);
-        File.AppendAllLines(filename, new[] {$"{newVote.Name};{String.Join(',',newVote.AnswerOptions)};{String.Join(',',newVote.VoteCount)}"});
+        File.AppendAllLines(filename, new[] {$"{newVote.GetName()};{String.Join(',',newVote.GetAnswerOptions())};{String.Join(',',newVote.GetVoteCount())}"});
+        WriteLine("Vote was created, press any key to continue...");
         ReadKey();
     }
 
-    void VoteFor()
+    private void VoteFor()
     {
         Clear();
-        ReadVotes(filename);
-        WriteLine("Choose topic:");
-        for (int i = 0; i < Votes.Count(); i++)
+        _votes = ReadVotes(filename);
+        if (_votes.Count == 0)
         {
-            WriteLine($"\t{i+1}. {Votes[i].Name}");
+            WriteLine("There are no any vote yet");
+            ReadKey();
+            return;
         }
-        int currentVote = Int32.Parse(ReadLine())-1;
+        
+        int currentVote = ChooseTopic();
 
         Clear();
-        WriteLine(Votes[currentVote].Name);
-        for (int i = 0; i < Votes[currentVote].AnswerOptions.Count(); i++)
+        WriteLine(_votes[currentVote].GetName());
+        for (int i = 0; i < _votes[currentVote].GetAnswerOptions().Count(); i++)
         {
-            WriteLine($"\t{i+1}. {Votes[currentVote].AnswerOptions[i]}");
+            WriteLine($"\t{i+1}. {_votes[currentVote].GetAnswerOptions()[i]}");
         }
         var answerOption = Int32.Parse(ReadLine())-1;
-        Votes[currentVote].VoteFor(answerOption);
+        _votes[currentVote].VoteFor(answerOption);
                 
 
         var csvBuilder = new StringBuilder();
-        foreach (var vote in Votes)
+        foreach (var vote in _votes)
         {
-            csvBuilder.AppendLine($"{vote.Name};{String.Join(',',vote.AnswerOptions)};{String.Join(',',vote.VoteCount)}");
+            csvBuilder.AppendLine($"{vote.GetName()};{String.Join(',',vote.GetAnswerOptions())};{String.Join(',',vote.GetVoteCount())}");
         }
         File.WriteAllText(filename, csvBuilder.ToString());
         
     }
 
-    void VoteResults()
+    private void VoteResults()
     {
         Clear();
-        ReadVotes(filename);
-        WriteLine("Choose topic:");
-        for (int i = 0; i < Votes.Count(); i++)
+        _votes = ReadVotes(filename);
+        if (_votes.Count == 0)
         {
-            WriteLine($"\t{i+1}. {Votes[i].Name}");
+            WriteLine("There are no any vote yet");
+            ReadKey();
+            return;
         }
-        int currentVote = Int32.Parse(ReadLine())-1;
+
+        int currentVote = ChooseTopic();
 
         Clear();
-        WriteLine(Votes[currentVote].Name);
-        for (int i = 0; i < Votes[currentVote].AnswerOptions.Count(); i++)
+        WriteLine(_votes[currentVote].GetName());
+        for (int i = 0; i < _votes[currentVote].GetAnswerOptions().Count(); i++)
         {
-            WriteLine($"\t{i+1}. {Votes[currentVote].AnswerOptions[i]} - {Votes[currentVote].VoteCount[i]} vote(s)");
+            WriteLine($"\t{i+1}. {_votes[currentVote].GetAnswerOptions()[i]} - {_votes[currentVote].GetVoteCount()[i]} vote(s)");
         }
         ReadKey();
     }
 
-    public void MainMenu()
+    private int ChooseTopic()
+    {
+        WriteLine("Choose topic:");
+        for (int i = 0; i < _votes.Count(); i++)
+        {
+            WriteLine($"\t{i+1}. {_votes[i].GetName()}");
+        }
+        return Int32.Parse(ReadLine())-1;
+    }
+
+    private void MainMenu()
     {
         Clear();
 
@@ -139,7 +163,7 @@ class VoteApplication
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Unhandled error: {e.Message}");
+                Console.WriteLine($"Unhandled error: {e}");
                 ReadKey();
             }
         } 
