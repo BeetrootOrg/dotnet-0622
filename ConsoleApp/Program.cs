@@ -2,10 +2,10 @@ using System.Threading;
 using static System.Console;
 using ConsoleApp;
 
-var bigNumber1 = new BigNumber("1");
-var bigNumber2 = new BigNumber("999");
+var bigNumber1 = new BigNumber("1000");
+var bigNumber2 = new BigNumber("1000");
 
-WriteLine(bigNumber1+bigNumber2);
+WriteLine(bigNumber1 - bigNumber2);
 
 
 //int x = 389119123;
