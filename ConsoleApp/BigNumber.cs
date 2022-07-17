@@ -9,8 +9,8 @@ namespace ConsoleApp
 {
     class BigNumber
     {
-        //  private readonly string _number;
-        public string _number;
+         private readonly string _number;
+        
         public BigNumber()
         { }
 
