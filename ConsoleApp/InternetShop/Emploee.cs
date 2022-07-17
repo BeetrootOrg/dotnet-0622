@@ -1,8 +1,15 @@
-namespace ConsoleApp.InternetShop;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-internal class Emploee : Client
+namespace ConsoleApp.InternetShop
 {
-    private int _emploeeId { get; init; }
-    private decimal _emploeeSalary { get; set; }
-    private DateTime _workingHours { get; set; }
+    internal class Emploee : Client
+    {
+        private int EmploeeId { get; init; }
+        private decimal EmploeeSalary { get; set; }
+        private DateTime WorkingHours { get; set; }
+    }
 }
