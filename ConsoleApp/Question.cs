@@ -25,11 +25,11 @@ class Question
         System.Console.WriteLine("Enter comma-setareted options");
         Answer = System.Console.ReadLine();
         questions.Add(NameOfTopic);
-        
+
         string Serialize((string NameOfTopic, string Answer) row) => $"{row.NameOfTopic},{row.Answer}";
-       // string Serialize((string NameOfTopic) row) => $"{row.NameOfTopic}";
-       // File.AppendAllLines(filenameQuestions, new[] NameOfTopic);
-       
+        // string Serialize((string NameOfTopic) row) => $"{row.NameOfTopic}";
+        // File.AppendAllLines(filenameQuestions, new[] NameOfTopic);
+
         File.AppendAllLines(filenameAnswer, new[] { Serialize((NameOfTopic, Answer)) });
 
     }
