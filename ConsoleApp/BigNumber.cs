@@ -16,44 +16,60 @@ class BigNumber
         _number = number;
     }
 
-    private static bool NumberComparing (BigNumber bigNumber1, BigNumber bigNumber2)
-    {   
-        string number1 = bigNumber1._number.ToString();
-        string number2 = bigNumber2._number.ToString();
-    
+    private static bool NumberComparing(string number1, string number2)
+    {
         if (number1.Length > number2.Length)
-        {   
+        {
             return true;
         }
 
-        if(number2.Length > number1.Length)
+        if (number2.Length > number1.Length)
         {
             return false;
         }
-        
+
         for (int i = 0; i < number1.Length; i++)
         {
-           int.TryParse(number1[i].ToString(), out int num1);
-           int.TryParse(number2[i].ToString(), out int num2);
+            int.TryParse(number1[i].ToString(), out int num1);
+            int.TryParse(number2[i].ToString(), out int num2);
 
-           if(num1 > num2) return true;
-           if(num1 < num2) return false;
+            if (num1 > num2) return true;
+            if (num1 < num2) return false;
         }
-        return true;       
+        return true;
     }
 
-        
-    
+
     public static BigNumber operator +(BigNumber bigNumber1, BigNumber bigNumber2)
     {
-        bool isFirstBigger = NumberComparing(bigNumber1, bigNumber2);
-
         string number1 = bigNumber1._number.ToString();
         string number2 = bigNumber2._number.ToString();
+
+        bool isNegative = false, firstNegative = false, secondNegative = false;
+
+        if (number1[0] == '-')
+        {
+            firstNegative = true;
+            number1 = number1.Substring(1);
+        }
+
+        if (number2[0] == '-')
+        {
+            secondNegative = true;
+            number2 = number2.Substring(1);
+        }
+
+        if (firstNegative && secondNegative) isNegative = true;
+
+        if (firstNegative && !secondNegative)
+            return new BigNumber(number2) - new BigNumber(number1);
+        else if (!firstNegative && secondNegative)
+            return new BigNumber(number1) - new BigNumber(number2);
+
         string maxNumber, minNumber;
         int maxLength, minLength;
 
-        if (isFirstBigger)
+        if(NumberComparing(number1, number2))
         {
             maxLength = number1.Length;
             maxNumber = number1;
@@ -102,19 +118,42 @@ class BigNumber
         }
 
         if (addLater != 0) result.Insert(0, addLater);
+        if (isNegative) result.Insert(0, '-');
 
         return new BigNumber(result.ToString());
     }
 
     public static BigNumber operator -(BigNumber bigNumber1, BigNumber bigNumber2)
     {
-        
-        bool isFirstBigger = NumberComparing(bigNumber1, bigNumber2);
-
         string number1 = bigNumber1._number.ToString();
         string number2 = bigNumber2._number.ToString();
         string maxNumber, minNumber;
         int maxLength, minLength;
+        bool firstNegative = false, secondNegative = false;
+    	
+         if (number1[0] == '-')
+        {
+            firstNegative = true;
+            number1 = number1.Substring(1);
+        }
+
+        if (number2[0] == '-')
+        {
+            secondNegative = true;
+            number2 = number2.Substring(1);
+        }
+
+        if (firstNegative && secondNegative) return new BigNumber(number2) - new BigNumber(number1);
+
+        if (firstNegative && !secondNegative)
+        {
+         var positiveResult = new BigNumber(number2) + new BigNumber(number1);   
+         return new BigNumber('-' + positiveResult.ToString());
+        }
+
+
+        bool isFirstBigger = NumberComparing(number1, number2);
+
         if (isFirstBigger)
         {
             maxLength = number1.Length;
@@ -130,7 +169,7 @@ class BigNumber
             minNumber = number1;
         }
 
-         int deductLater = 0;
+        int deductLater = 0;
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < maxLength; i++)
@@ -141,7 +180,7 @@ class BigNumber
             symbol = maxNumber[maxNumber.Length - 1 - i];
 
             int.TryParse(symbol.ToString(), out num1);
-            
+
 
             if (i < minNumber.Length)
             {
@@ -170,7 +209,7 @@ class BigNumber
     }
 
     public static BigNumber operator *(BigNumber bigNumber1, BigNumber bigNumber2)
-    {   
+    {
         string number1 = bigNumber1._number.ToString();
         string number2 = bigNumber2._number.ToString();
 
@@ -180,7 +219,7 @@ class BigNumber
         {
             isNegative = true;
             number1 = number1.Substring(1);
-        } 
+        }
 
         if (number2[0] == '-')
         {
@@ -189,24 +228,23 @@ class BigNumber
         }
 
         char symbol;
-        
+
         int num1 = 0, num2 = 0, addLater = 0;
 
         var result = new BigNumber();
 
         for (int i = 0; i < number1.Length; i++)
-        {   
+        {
             StringBuilder subResult = new StringBuilder();
 
-            if (i > 0) subResult.Insert(0, new string ('0', i));
-
+            if (i > 0) subResult.Insert(0, new string('0', i));
 
             symbol = number1[number1.Length - 1 - i];
             int.TryParse(symbol.ToString(), out num1);
             int tempResult = 0;
 
             for (int j = 0; j < number2.Length; j++)
-            {              
+            {
 
                 symbol = number2[number2.Length - 1 - j];
                 int.TryParse(symbol.ToString(), out num2);
@@ -228,7 +266,7 @@ class BigNumber
             result += subBigResult;
         }
 
-        if(isNegative) result = new BigNumber('-' + result.ToString());
+        if (isNegative) result = new BigNumber('-' + result.ToString());
 
         return result;
     }
