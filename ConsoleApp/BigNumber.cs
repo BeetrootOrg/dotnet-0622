@@ -52,6 +52,7 @@ class BigNumber
         string number2 = bigNumber2._number.ToString();
         string maxNumber, minNumber;
         int maxLength, minLength;
+
         if (isFirstBigger)
         {
             maxLength = number1.Length;
@@ -169,9 +170,47 @@ class BigNumber
     }
 
     public static BigNumber operator *(BigNumber bigNumber1, BigNumber bigNumber2)
-    {
-        // sum result;
-        return new BigNumber();
+    {   
+        string number1 = bigNumber1._number.ToString();
+        string number2 = bigNumber2._number.ToString();
+        char symbol;
+        int num1 = 0, num2 = 0, addLater = 0;
+
+        var result = new BigNumber();
+
+        for (int i = 0; i < number1.Length; i++)
+        {   
+            StringBuilder subResult = new StringBuilder();
+
+            
+            if (i > 0) subResult.Insert(0, new string ('0', i));
+
+            symbol = number1[number1.Length - 1 - i];
+            int.TryParse(symbol.ToString(), out num1);
+            int tempResult = 0;
+
+            for (int j = 0; j < number2.Length; j++)
+            {              
+                symbol = number2[number2.Length - 1 - j];
+                int.TryParse(symbol.ToString(), out num2);
+                tempResult = num1 * num2 + addLater;
+
+                if (tempResult >= 10 && number2.Length != j + 1)
+                {
+                    addLater = tempResult / 10;
+                    tempResult = tempResult - 10;
+                }
+                else
+                {
+                    addLater = 0;
+                }
+                subResult.Insert(0, tempResult);
+            }
+
+            var subBigResult = new BigNumber(subResult.ToString());
+            result += subBigResult;
+        }
+        return result;
     }
 
     public override string ToString()
