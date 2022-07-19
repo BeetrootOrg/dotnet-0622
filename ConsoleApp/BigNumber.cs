@@ -173,7 +173,23 @@ class BigNumber
     {   
         string number1 = bigNumber1._number.ToString();
         string number2 = bigNumber2._number.ToString();
+
+        bool isNegative = false;
+
+        if (number1[0] == '-')
+        {
+            isNegative = true;
+            number1 = number1.Substring(1);
+        } 
+
+        if (number2[0] == '-')
+        {
+            isNegative = (isNegative == true) ? false : true;
+            number2 = number2.Substring(1);
+        }
+
         char symbol;
+        
         int num1 = 0, num2 = 0, addLater = 0;
 
         var result = new BigNumber();
@@ -182,8 +198,8 @@ class BigNumber
         {   
             StringBuilder subResult = new StringBuilder();
 
-            
             if (i > 0) subResult.Insert(0, new string ('0', i));
+
 
             symbol = number1[number1.Length - 1 - i];
             int.TryParse(symbol.ToString(), out num1);
@@ -191,6 +207,7 @@ class BigNumber
 
             for (int j = 0; j < number2.Length; j++)
             {              
+
                 symbol = number2[number2.Length - 1 - j];
                 int.TryParse(symbol.ToString(), out num2);
                 tempResult = num1 * num2 + addLater;
@@ -210,6 +227,9 @@ class BigNumber
             var subBigResult = new BigNumber(subResult.ToString());
             result += subBigResult;
         }
+
+        if(isNegative) result = new BigNumber('-' + result.ToString());
+
         return result;
     }
 

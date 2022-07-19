@@ -2,8 +2,8 @@ using System.Threading;
 using static System.Console;
 using ConsoleApp;
 
-var bigNumber1 = new BigNumber("756");
-var bigNumber2 = new BigNumber("32");
+var bigNumber1 = new BigNumber("-32");
+var bigNumber2 = new BigNumber("763456375876796836525345656898978979797978978956");
 
 WriteLine(bigNumber1 * bigNumber2);
 
