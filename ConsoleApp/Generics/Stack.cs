@@ -10,7 +10,7 @@ class Stack<T>
 
     }
     private StackItem _head;
-    public int Length { get; private set; }
+    public int Count { get; private set; }
     public void Push(T element)
     {
         var newItem = new StackItem
