@@ -9,10 +9,26 @@ namespace ConsoleApp
 {
     class BigNumber
     {
-         private readonly string _number;
+        private readonly string _number;
+        public static List<int> ToIntList(string num)
+        {
+            var f = num.ToArray();
+            List<int> first = new List<int>();
+
+            for (int i = 0; i < f.Length; i++)
+            {
+                int temp = 0;
+                int.TryParse(f[i].ToString(), out temp);
+                first.Add(temp);
+            }
+            return first;
+        }
+ 
         
         public BigNumber()
-        { }
+        {
+            _number = "0";
+        }
 
         public BigNumber(string number)
         {
@@ -22,8 +38,8 @@ namespace ConsoleApp
         public static BigNumber operator +(BigNumber number, BigNumber number2)
         {
 
-            var firstlist = Program.ToIntList(number._number);
-            var secondlist = Program.ToIntList(number2._number);
+            var firstlist = ToIntList(number._number);
+            var secondlist = ToIntList(number2._number);
             int tempvumi = 0;
 
             if (firstlist.Count == secondlist.Count)
@@ -120,8 +136,8 @@ namespace ConsoleApp
         public static BigNumber operator -(BigNumber number1, BigNumber number2)
         {
 
-            var firstlist = Program.ToIntList(number1._number);
-            var secondlist = Program.ToIntList(number2._number);
+            var firstlist = ToIntList(number1._number);
+            var secondlist = ToIntList(number2._number);
 
 
 
