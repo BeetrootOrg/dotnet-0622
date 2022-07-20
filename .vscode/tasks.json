@@ -1,5 +1,8 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
 	"version": "2.0.0",
 	"tasks": [
 		{
@@ -8,7 +11,11 @@
 			"type": "process",
 			"args": [
 				"build",
+<<<<<<< HEAD
 				"${workspaceFolder}/ConsoleApp/ConsoleApp.csproj",
+=======
+				"${workspaceFolder}/LinqLesson/LinqLesson.csproj",
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary"
 			],
@@ -20,7 +27,11 @@
 			"type": "process",
 			"args": [
 				"publish",
+<<<<<<< HEAD
 				"${workspaceFolder}/ConsoleApp/ConsoleApp.csproj",
+=======
+				"${workspaceFolder}/LinqLesson/LinqLesson.csproj",
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary"
 			],
@@ -34,11 +45,16 @@
 				"watch",
 				"run",
 				"--project",
+<<<<<<< HEAD
 				"${workspaceFolder}/ConsoleApp/ConsoleApp.csproj"
+=======
+				"${workspaceFolder}/LinqLesson/LinqLesson.csproj"
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
 			],
 			"problemMatcher": "$msCompile"
 		}
 	]
+<<<<<<< HEAD
 =======
     "version": "2.0.0",
     "tasks": [
@@ -80,4 +96,6 @@
         }
     ]
 >>>>>>> 57ac2d78065123921bf228991220ccd51a2c6685
+=======
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
 }

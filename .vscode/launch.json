@@ -1,5 +1,8 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
 	"version": "0.2.0",
 	"configurations": [
 		{
@@ -11,11 +14,19 @@
 			"request": "launch",
 			"preLaunchTask": "build",
 			// If you have changed target frameworks, make sure to update the program path.
+<<<<<<< HEAD
 			"program": "${workspaceFolder}/ConsoleApp/bin/Debug/net6.0/ConsoleApp.dll",
 			"args": [],
 			"cwd": "${workspaceFolder}/ConsoleApp",
 			// For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
 			"console": "integratedTerminal",
+=======
+			"program": "${workspaceFolder}/LinqLesson/bin/Debug/net6.0/LinqLesson.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/LinqLesson",
+			// For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+			"console": "internalConsole",
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
 			"stopAtEntry": false
 		},
 		{
@@ -24,6 +35,7 @@
 			"request": "attach"
 		}
 	]
+<<<<<<< HEAD
 =======
     "version": "0.2.0",
     "configurations": [
@@ -51,4 +63,6 @@
         }
     ]
 >>>>>>> 57ac2d78065123921bf228991220ccd51a2c6685
+=======
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
 }
