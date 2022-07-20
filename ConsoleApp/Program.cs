@@ -1,55 +1,19 @@
-﻿using ConsoleApp.LibraryDomain;
+﻿using static System.Console;
 
-Person person = new Person("qwerty","kik",21);
+var list = new Stack<int>();
 
-var person1 = new Person
-{
-    FirstName = "sivart",
-    LastName = "ttocs",
-    Age = 32,
-};
-
-Visitor visitor = new Visitor("cv","vc",22);
-
-Staff staff1 = new Staff("manager","jhon","abet", 23);
-
-var a = new Book
-{
-    BookName = "!learn c# in one day",
-    Author = "Ben",
-    AmountOfPages = 12,
-    Genre = "fairytale"
-};
-Book b = new Book
-{
-    BookName = "!learn c# in one day update version",
-    Author = "Ben",
-    AmountOfPages = 13,
-    Genre = "science fiction"
-};
-
-var books = new []
-{
-    new Book
-    {
-        BookName = "asdf",
-        Author = "George",
-        AmountOfPages = 236,
-        Genre = "fiction"
-    },
-    new Book
-    {
-        BookName = "fdsa",
-        Author = "Paul",
-        AmountOfPages = 112,
-        Genre = "poem"
-    }
-};
-
-Library smallOne = new Library
-{
-    Books = books
-};
-
-System.Console.WriteLine(person1.ToString());
-System.Console.WriteLine(visitor.ToString());
+list.Push(78);
+list.Push(45);
+list.Push(-4);
+System.Console.Write("New list: ");
+ShowArray(list.ToArray());
+System.Console.Write("Peek: ");
+System.Console.WriteLine(list.Peek());
+System.Console.Write("Method Pop: ");
+System.Console.WriteLine(list.Pop());
+System.Console.Write("New list after pop: ");
+ShowArray(list.ToArray());
+System.Console.Write("New list after clear: ");
+list.Clear();
+ShowArray(list.ToArray());
+void ShowArray<T>(T[] arr) => WriteLine(string.Join(", ", arr));
