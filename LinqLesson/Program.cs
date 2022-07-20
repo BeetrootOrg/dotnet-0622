@@ -20,6 +20,15 @@ namespace LinqLesson
 			// 2. count females
 			var females = persons.Count(person => person.Gender == Gender.Female);
 			WriteLine($"Females: {females}");
+
+			// 3. youngest person
+			var youngestAge = persons.Min(person => person.Age);
+			var youngestPerson = persons.MinBy(person => person.Age);
+			WriteLine($"Youngest person is {youngestPerson}");
+
+			// 4. oldest person
+			var oldestPerson = persons.MaxBy(x => x.Age);
+			WriteLine($"Oldest person is {oldestPerson}");
 		}
 	}
 }
