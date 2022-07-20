@@ -53,6 +53,15 @@ namespace LinqLesson
 			{
 				WriteLine($"{item.Key} has {item.Count()} people");
 			}
+
+			// 8. common tags
+			var allTagsSelected = persons.Select(x => x.Tags);
+			var allTags = persons.SelectMany(x => x.Tags);
+			var tagsGroups = allTags.GroupBy(x => x);
+			var mainTag = tagsGroups.MaxBy(x => x.Count()).Key;
+
+			var personsWithSameTag = persons.Where(x => x.Tags.Contains(mainTag)).Count();
+			WriteLine($"Persons with same tag '{mainTag}' are {personsWithSameTag}");
 		}
 	}
 }
