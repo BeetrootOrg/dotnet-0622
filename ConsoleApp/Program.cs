@@ -1,24 +1,15 @@
-﻿using System.Threading;
+﻿using Newtonsoft.Json;
+using static System.Console;
+using System.Collections.Generic;
+using System.IO;
 
-using ConsoleApp;
-
-const int Size = 15;
-
-var snake = new Snake();
-var food = new Food(Size);
-var field = new Field
+namespace LinqLesson
 {
-    Food = food,
-    Size = Size,
-    Snake = snake
-};
-
-var renderer = new Renderer
-{
-    Field = field
-};
-
-System.Console.Clear();
-renderer.Show();
-renderer.StartGame();
-Thread.Sleep(Timeout.Infinite);
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			var persons = JsonConvert.DeserializeObject<IEnumerable<Person>>(File.ReadAllText("data.json"));
+		}
+	}
+}
