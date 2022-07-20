@@ -11,7 +11,7 @@ class Stack<T>
     }
 
     private StackItem _last;
-    public int Height { get; private set; }
+    public int Count { get; private set; }
 
     public void Push(T value)
     {
@@ -23,7 +23,7 @@ class Stack<T>
 
         newItem.Previous = _last;
         _last = newItem;
-        Height++;
+        Count++;
 
     }
 
@@ -33,14 +33,14 @@ class Stack<T>
 
         T value = _last.Value;
         _last = _last.Previous;
-        Height--;
+        Count--;
         return value;
     }
 
     public void Clear()
     {
         _last = null;
-        Height = 0;
+        Count = 0;
     }
 
     public T Peek()
@@ -48,8 +48,6 @@ class Stack<T>
         if (_last == null) throw new NullReferenceException();
         return _last.Value;
     }
-
-    public int Count() => Height;
 
     public void CopyTo(T[] arr)
     {
