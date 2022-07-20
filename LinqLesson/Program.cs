@@ -37,6 +37,22 @@ namespace LinqLesson
 			// 6. average age
 			var averageAge = persons.Average(x => x.Age);
 			WriteLine($"Average age is {averageAge}");
+
+			// 7.1. count people with same eye color
+			var eyesColors = persons.Select(x => x.EyeColor);
+			var uniqueEyesColors = eyesColors.Distinct();
+			foreach (var eyeColor in uniqueEyesColors)
+			{
+				var countSameEyeColor = persons.Count(x => x.EyeColor == eyeColor);
+				WriteLine($"{eyeColor} has {countSameEyeColor} people");
+			}
+
+			// 7.2. 
+			var eyeColorsGroup = persons.GroupBy(x => x.EyeColor);
+			foreach (var item in eyeColorsGroup)
+			{
+				WriteLine($"{item.Key} has {item.Count()} people");
+			}
 		}
 	}
 }
