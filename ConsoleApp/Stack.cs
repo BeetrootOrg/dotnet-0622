@@ -4,25 +4,24 @@ namespace ConsoleApp;
 
 class Stack<T>
 {
-    private record ListItem
+    private record StackItem
     {
         public T Value { get; init; }
-        public ListItem Previous { get; set; }
+        public StackItem Previous { get; set; }
     }
 
-    private ListItem _last;
+    private StackItem _last;
     public int Height { get; private set; }
 
     public void Push(T value)
     {
 
-        var newItem = new ListItem
+        var newItem = new StackItem
         {
             Value = value,
         };
 
-        if (_last != null) newItem.Previous = _last;
-
+        newItem.Previous = _last;
         _last = newItem;
         Height++;
 
@@ -40,7 +39,6 @@ class Stack<T>
 
     public void Clear()
     {
-        if (_last == null) throw new NullReferenceException();
         _last = null;
         Height = 0;
     }
