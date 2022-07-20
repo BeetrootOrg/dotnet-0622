@@ -29,6 +29,14 @@ namespace LinqLesson
 			// 4. oldest person
 			var oldestPerson = persons.MaxBy(x => x.Age);
 			WriteLine($"Oldest person is {oldestPerson}");
+
+			// 5. all youngest
+			var youngestPersons = persons.Where(x => x.Age == youngestAge);
+			WriteLine($"There are {youngestPersons.Count()} people");
+
+			// 6. average age
+			var averageAge = persons.Average(x => x.Age);
+			WriteLine($"Average age is {averageAge}");
 		}
 	}
 }
