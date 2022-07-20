@@ -20,6 +20,8 @@ namespace LinqLesson
 			// 2. count females
 			var females = persons.Count(person => person.Gender == Gender.Female);
 			WriteLine($"Females: {females}");
+
+			//
 		}
 	}
 }
