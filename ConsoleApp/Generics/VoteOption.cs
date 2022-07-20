@@ -7,14 +7,16 @@ class VoteOption
     private int _numberOfVotes = 0;
     public string Text { get => _text; }
 
+    public int NumberOfVotes { get => _numberOfVotes; }
+
     public VoteOption(string inputText)
     {
         if (inputText != null && inputText.Length > 0)
             _text = inputText;
         else
         {
-            System.Console.WriteLine("Please enter valid vote option.");
-            throw new ArgumentException();
+
+            throw new ArgumentException("Please enter valid vote option.");
 
         }
 
