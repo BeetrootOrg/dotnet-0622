@@ -1,14 +1,22 @@
-﻿using ConsoleApp;
+﻿
+Print(new[] { 1, 23, 4 });
 
-var stack = new LinkedStack<int>();
+void Print<T>(IEnumerable<T> collections)
+{
+    System.Console.WriteLine(string.Join('|', collections));
+}
 
-stack.Push(1);
-stack.Push(2);
-stack.Push(3);
-stack.Push(4);
-stack.Push(5);
 
-stack.Pop();
-stack.Clear();
+var persons = new List<Person<string>>();
+persons.Add(new Person<string>
+{
+    Name = "Tom",
+    Age = 42
+});
 
-System.Console.WriteLine(stack.Length);
+class Person<T>
+{
+    public T Name { get; set; }
+    public int Age { get; set; }
+    
+}
