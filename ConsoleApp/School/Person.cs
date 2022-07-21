@@ -1,14 +1,21 @@
+namespace ConsoleApp.School;
+
 public class Person
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public string PatronymicName { get; set; }
+    internal string PatronymicName { get; set; }
     private DateTime Birthday { get; set; }
-    public string Sex { get; set; }
-    private string Adress { get; set; }
-    public string NumberPhone { get; set; }
-    public string Email { get; set; }
+    internal string Sex { get; set; }
+    internal string Adress { get; set; }
+    internal string NumberPhone { get; set; }
+    internal string Email { get; set; }
 
+    public string GetStandartName()
+    {
+        return $"{FirstName} {LastName}";
+    }
+    
     public int Age()
     {
         return DateTime.Now.Year - Birthday.Year;
