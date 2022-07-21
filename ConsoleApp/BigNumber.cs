@@ -31,8 +31,8 @@ class BigNumber
         {
             int d1 = bigNumber1._number.Length < 1+i ? 0 : bigNumber1._number[bigNumber1._number.Length-1-i] - '0';
             int d2 = bigNumber2._number.Length < 1+i ? 0 : bigNumber2._number[bigNumber2._number.Length-1-i] - '0';
-            result = result.Insert(0, (((d1+d2) % 10) + temp).ToString());
-            temp = (d1+d2)/10;
+            result = result.Insert(0, ((d1+d2+temp)%10).ToString());
+            temp = (d1+d2+temp)/10;
         }
         if (temp == 1) result = result.Insert(0, "1");
         return new BigNumber(result);
@@ -80,24 +80,25 @@ class BigNumber
         List<BigNumber> subreuslts = new List<BigNumber>();
         for (int i = bigNumber2._number.Length-1; i >= 0; i--)
         {
-            int d2 = bigNumber2._number[i] - '0';;
+            int d2 = bigNumber2._number[i] - '0';
             string subresult = "";
             int temp = 0;
             for (int j = bigNumber1._number.Length-1; j >= 0; j--)
             {
                 int d1 = bigNumber1._number[j] - '0';
-                subresult = subresult.Insert(0, (((d1*d2)%10+temp)%10).ToString());
-                temp = (d1*d2)/10;
+                subresult = subresult.Insert(0, ((d1*d2+temp)%10).ToString());
+                temp = (d1*d2+temp)/10;
             }
+            if (temp != 0) subresult = subresult.Insert(0, temp.ToString());
 
-            for (int j = 0; j<bigNumber2._number.Length-1-i; j++)
-                subresult = subresult.Insert(subresult.Length, "0");
+            for (int j = i; j < bigNumber2._number.Length-1; j++)
+                subresult += "0";
             subreuslts.Add(new BigNumber(subresult));
         }
         
         BigNumber result = new BigNumber("0");
-        for (int i = 0; i < subreuslts.Count; i++)
-            result += subreuslts[i];
+        foreach (var subresult in subreuslts)
+            result += subresult;
 
         return result;
     }
