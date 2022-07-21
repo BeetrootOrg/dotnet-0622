@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using static System.Console;
+using System.Text.RegularExpressions; 
 
 namespace LinqLesson
 {
@@ -101,6 +102,38 @@ namespace LinqLesson
             WriteLine($"Minimum distance is {(int)minDistanseNote.Item1} km, between "
                      + $"{minDistanseNote.Item2.Name} and {minDistanseNote.Item3.Name}");
 
+            //11. find 2 persons whos ‘about’ have the most same words
+            string[] AboutToArary(string about)
+            {
+                Regex rgx = new Regex("[^a-zA-Z0-9 -]");
+                about = rgx.Replace(about, "");
+                return about.Split(' ');
+            }
+
+            var similarWords = new List<(int, Person, Person)>();
+
+            for (int i = 0; i < persons.Count(); i++)
+            {   
+                for (int j = i + 1; j < persons.Count(); j++)
+                {   
+                    var person1 = persons.ElementAt(i);
+                    var person2 = persons.ElementAt(j);
+                    int num = 0;
+                    foreach (var word in AboutToArary(person1.About))
+                    {
+                       if (person2.About.Contains(word, System.StringComparison.OrdinalIgnoreCase))
+                            num++; 
+                    }
+
+                    similarWords.Add((num, person1, person2));
+                }
+            }
+
+            var similarAboutPersons = similarWords.MaxBy( x => x.Item1);
+            WriteLine($"These persons have {similarAboutPersons.Item1} same words in theris about. "
+                    + $"These persons are {similarAboutPersons.Item2.Name} and {similarAboutPersons.Item3.Name}");
+                    
 		}
 	}
+
 }
