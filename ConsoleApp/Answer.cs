@@ -1,7 +1,0 @@
-namespace ConsoleApp;
-
-
-class Answer
-{
-    
-}
