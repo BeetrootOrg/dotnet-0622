@@ -53,7 +53,10 @@ namespace LinqLesson
 			//	WriteLine($"{item.Key} has {item.Count()} people");
 			//}
 
-			//// 8. common tags
+			// 8. common tags
+
+
+
 			//var allTagsSelected = persons.Select(x => x.Tags);
 			//var allTags = persons.SelectMany(x => x.Tags);
 			//var tagsGroups = allTags.GroupBy(x => x);
@@ -62,11 +65,12 @@ namespace LinqLesson
 			//var personsWithSameTag = persons.Where(x => x.Tags.Contains(mainTag)).Count();
 			//WriteLine($"Persons with same tag '{mainTag}' are {personsWithSameTag}");
 
+			//Part1
 			var MaxLatitudePerson = persons.MaxBy(x => x.Latitude);
 
-            System.Console.WriteLine($"Northest person is {MaxLatitudePerson.Name}, latitude is {MaxLatitudePerson.Latitude}");
+			System.Console.WriteLine($"Northest person is {MaxLatitudePerson.Name}, latitude is {MaxLatitudePerson.Latitude}");
 
-			var MinLatitudePerson = persons.MinBy(x => x.Latitude) ;
+			var MinLatitudePerson = persons.MinBy(x => x.Latitude);
 
 			System.Console.WriteLine($"Southest person is {MinLatitudePerson.Name}, latitude is {MinLatitudePerson.Latitude}");
 
@@ -78,10 +82,41 @@ namespace LinqLesson
 
 			System.Console.WriteLine($"Eastest person is {MaxLongitudePerson.Name}, longitude is {MaxLongitudePerson.Longitude}");
 
-            System.Console.WriteLine($"Max distance between 2 persons in list is {(int)MaxDistance(persons)}");
+			//Part2
+
+			System.Console.WriteLine($"Max distance between 2 persons in list is {(int)MaxDistance(persons)}");
 
 			System.Console.WriteLine($"Min distance between 2 persons in list is {(int)MinDistance(persons)}");
 
+			//Part3
+			var allAbouts = persons.Select(x => x.About.Split());
+
+			var personslist = persons.ToList();
+
+			var allaboutslist = allAbouts.ToList();
+
+			int counter = 0;
+
+			int[] indexer = new int[2];
+
+
+			for (int i = 0; i < allaboutslist.Count - 1; i++)
+			{
+				for (int j = i + 1; j < allaboutslist[j].Length; j++)
+				{
+					if ((allaboutslist[i].Intersect(allaboutslist[j])).Count() > counter)
+					{
+						counter = (allaboutslist[i].Intersect(allaboutslist[j])).Count();
+						indexer[0] = i;
+						indexer[1] = j;
+					}
+
+				}
+			}
+
+            System.Console.WriteLine($"{personslist[indexer[0]].Name} and {personslist[indexer[1]].Name} has {counter} same words in Abouts");
+
+			//Part4
 
 		}
 		public static double CalculateDistance(Person person1, Person person2)
