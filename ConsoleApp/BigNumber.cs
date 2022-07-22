@@ -118,13 +118,13 @@ class BigNumber
         if (bigNumber1 < Zero && bigNumber2 < Zero) return (-bigNumber1 / -bigNumber2);
         if (bigNumber1 < bigNumber2) return Zero;
 
-        string extra = bigNumber1._number;
-        string temp = bigNumber2._number;
-        while (extra.Length != temp.Length)
-            temp += "0";
+        string numeratorStr = bigNumber1._number;
+        string denominatorStr = bigNumber2._number;
+        while (numeratorStr.Length != denominatorStr.Length)
+            denominatorStr += "0";
 
-        BigNumber numerator = new BigNumber(extra);
-        BigNumber denominator = new BigNumber(temp);
+        BigNumber numerator = new BigNumber(numeratorStr);
+        BigNumber denominator = new BigNumber(denominatorStr);
 
         
         string result = "";
