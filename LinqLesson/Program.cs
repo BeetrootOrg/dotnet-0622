@@ -12,61 +12,16 @@ namespace LinqLesson
 		{
 			var persons = JsonConvert.DeserializeObject<IEnumerable<Person>>(File.ReadAllText("data.json"));
 
-			//// 1. count males
-			//var males = persons.Count(person => person.Gender == Gender.Male);
-			//WriteLine($"Males: {males}");
+            var allTagsSelected = persons.Select(x => x.Tags);
+            var allTags = persons.SelectMany(x => x.Tags);
+            var tagsGroups = allTags.GroupBy(x => x);
+            var mainTag = tagsGroups.MaxBy(x => x.Count()).Key;
 
-			//// 2. count females
-			//var females = persons.Count(person => person.Gender == Gender.Female);
-			//WriteLine($"Females: {females}");
+            var personsWithSameTag = persons.Where(x => x.Tags.Contains(mainTag)).Count();
+            WriteLine($"Persons with same tag '{mainTag}' are {personsWithSameTag}");
 
-			//// 3. youngest person
-			//var youngestAge = persons.Min(person => person.Age);
-			//var youngestPerson = persons.MinBy(person => person.Age);
-			//WriteLine($"Youngest person is {youngestPerson}");
-
-			//// 4. oldest person
-			//var oldestPerson = persons.MaxBy(x => x.Age);
-			//WriteLine($"Oldest person is {oldestPerson}");
-
-			//// 5. all youngest
-			//var youngestPersons = persons.Where(x => x.Age == youngestAge);
-			//WriteLine($"There are {youngestPersons.Count()} people");
-
-			//// 6. average age
-			//var averageAge = persons.Average(x => x.Age);
-			//WriteLine($"Average age is {averageAge}");
-
-			//// 7.1. count people with same eye color
-			//var eyesColors = persons.Select(x => x.EyeColor);
-			//var uniqueEyesColors = eyesColors.Distinct();
-			//foreach (var eyeColor in uniqueEyesColors)
-			//{
-			//	var countSameEyeColor = persons.Count(x => x.EyeColor == eyeColor);
-			//	WriteLine($"{eyeColor} has {countSameEyeColor} people");
-			//}
-
-			//// 7.2. 
-			//var eyeColorsGroup = persons.GroupBy(x => x.EyeColor);
-			//foreach (var item in eyeColorsGroup)
-			//{
-			//	WriteLine($"{item.Key} has {item.Count()} people");
-			//}
-
-			// 8. common tags
-
-
-
-			//var allTagsSelected = persons.Select(x => x.Tags);
-			//var allTags = persons.SelectMany(x => x.Tags);
-			//var tagsGroups = allTags.GroupBy(x => x);
-			//var mainTag = tagsGroups.MaxBy(x => x.Count()).Key;
-
-			//var personsWithSameTag = persons.Where(x => x.Tags.Contains(mainTag)).Count();
-			//WriteLine($"Persons with same tag '{mainTag}' are {personsWithSameTag}");
-
-			//Part1
-			var MaxLatitudePerson = persons.MaxBy(x => x.Latitude);
+            //Part1
+            var MaxLatitudePerson = persons.MaxBy(x => x.Latitude);
 
 			System.Console.WriteLine($"Northest person is {MaxLatitudePerson.Name}, latitude is {MaxLatitudePerson.Latitude}");
 
@@ -93,20 +48,20 @@ namespace LinqLesson
 
 			var personslist = persons.ToList();
 
-			var allaboutslist = allAbouts.ToList();
+			var allAboutsList = allAbouts.ToList();
 
 			int counter = 0;
 
 			int[] indexer = new int[2];
 
 
-			for (int i = 0; i < allaboutslist.Count - 1; i++)
+			for (int i = 0; i < allAboutsList.Count - 1; i++)
 			{
-				for (int j = i + 1; j < allaboutslist[j].Length; j++)
+				for (int j = i + 1; j < allAboutsList[j].Length; j++)
 				{
-					if ((allaboutslist[i].Intersect(allaboutslist[j])).Count() > counter)
+					if ((allAboutsList[i].Intersect(allAboutsList[j])).Count() > counter)
 					{
-						counter = (allaboutslist[i].Intersect(allaboutslist[j])).Count();
+						counter = (allAboutsList[i].Intersect(allAboutsList[j])).Count();
 						indexer[0] = i;
 						indexer[1] = j;
 					}
@@ -117,8 +72,43 @@ namespace LinqLesson
             System.Console.WriteLine($"{personslist[indexer[0]].Name} and {personslist[indexer[1]].Name} has {counter} same words in Abouts");
 
 			//Part4
+			var allFriends = persons.SelectMany(x => x.Friends);
 
-		}
+			var friendName = allFriends.GroupBy(x => x.Name);
+
+			var personsWithCommonFriends = new List<Person>();
+
+			var friendpersonslist = persons.ToList();
+
+			int internalcounter = 1;
+			foreach (var person in persons)
+            { 
+				var personsFriends = person.Friends.Select(x => x.Name);                          //витягуємо імена для перевірки у персони
+				var personFriendList = personsFriends.ToList();
+                foreach (var name in personsFriends)
+                {
+                    for (int k = internalcounter; k < friendpersonslist.Count-1; k++)             //прохід по персонам, які не є персоною, з якої беруться імена для перевірки       
+                    {
+                        for (int c = 0; c < friendpersonslist[k].Friends.Length; c++)             //прохід по іменам друзів в персоні і перевірка на те, чи є друг чи немає
+                        {
+                            if (friendpersonslist[k].Friends[c].Name.Equals(name))
+                            {
+								personsWithCommonFriends.Add(person);
+								goto reroll;
+							}
+						}
+                    }
+                }			
+			reroll: internalcounter++;
+			}
+
+            System.Console.WriteLine("Persons with common friends:");
+            foreach (var person in personsWithCommonFriends)
+            {
+                WriteLine($"{person.Name}");
+            }
+
+        }
 		public static double CalculateDistance(Person person1, Person person2)
 		{
 
