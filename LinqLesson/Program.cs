@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
 using static System.Console;
 
 namespace LinqLesson
@@ -79,6 +78,43 @@ namespace LinqLesson
 
 			System.Console.WriteLine($"Eastest person is {MaxLongitudePerson.Name}, longitude is {MaxLongitudePerson.Longitude}");
 
+            System.Console.WriteLine($"MaxDistance is {(int)CalculateDistance(MaxLatitudePerson,MinLatitudePerson)} meters");
+
+			
+		}
+		public static double CalculateDistance(Person person1, Person person2)
+		{
+
+			var EarthRadius = 6372795;
+			//toRadians
+
+			var lat1 = person1.Latitude * 3.14 / 180;
+			var lat2 = person2.Latitude * 3.14 / 180;
+			var long1 = person1.Longitude * 3.14 / 180;
+			var long2 = person2.Longitude * 3.14 / 180;
+
+			//cos and sins
+			var coslat1 = System.Math.Cos(lat1);
+			var coslat2 = System.Math.Cos(lat2);
+			var sinlat1 = System.Math.Sin(lat1);
+			var sinlat2 = System.Math.Sin(lat2);
+
+			var delta = (long1 - long2);
+
+			var cosdelta = System.Math.Cos(delta);
+			var sindelta = System.Math.Sin(delta);
+
+			// big circle length
+
+			var y = System.Math.Sqrt(System.Math.Pow(coslat2 * sindelta, 2) + System.Math.Pow(coslat1 * sinlat2 - sinlat1 * coslat2 * cosdelta, 2));
+
+			var x = sinlat1 * sinlat2 + coslat1 * coslat2 * cosdelta;
+
+			var ad = System.Math.Atan2(y, x);
+
+			var dist = ad * EarthRadius;
+
+			return dist;
 		}
 	}
 }
