@@ -102,7 +102,12 @@ namespace LinqLesson
 			reroll: internalcounter++;
 			}
 
-            System.Console.WriteLine("Persons with common friends:");
+            if (personsWithCommonFriends.Count == 0)
+            {
+                System.Console.WriteLine("Common friends not found");
+            }
+			else
+                System.Console.WriteLine("Persons with common friends");
             foreach (var person in personsWithCommonFriends)
             {
                 WriteLine($"{person.Name}");
