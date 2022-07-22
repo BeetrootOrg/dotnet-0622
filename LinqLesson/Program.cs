@@ -102,16 +102,18 @@ namespace LinqLesson
 			reroll: internalcounter++;
 			}
 
-            if (personsWithCommonFriends.Count == 0)
-            {
-                System.Console.WriteLine("Common friends not found");
-            }
+			if (personsWithCommonFriends.Count == 0)
+			{
+				System.Console.WriteLine("Common friends not found");
+			}
 			else
-                System.Console.WriteLine("Persons with common friends");
-            foreach (var person in personsWithCommonFriends)
-            {
-                WriteLine($"{person.Name}");
-            }
+			{
+				System.Console.WriteLine("Persons with common friends");
+				foreach (var person in personsWithCommonFriends)
+				{
+					WriteLine($"{person.Name}");
+				}
+			}
 
         }
 		public static double CalculateDistance(Person person1, Person person2)
