@@ -2,41 +2,30 @@
 using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
+namespace ConsoleApp;
 
-namespace SnakeGame
-{
     class Game
     {
-        static readonly int x = 50;//80
-        static readonly int y = 15;//26
+        static readonly int x = 50;
+        static readonly int y = 16;
 
         static Walls walls;
         static Snake snake;
-        static FoodFactory foodFactory;
+        static Food foodFactory;
         static Timer time;
 
         static void Main()
         {
-
-            System.Console.Clear();
             // Console.SetWindowSize(x + 1, y + 1);
             // Console.SetBufferSize(x + 1, y + 1);
-
-            
-            // Console.WindowHeight = 80;
-            // Console.WindowWidth = 26;
-
-         
-
-
-
-            // System.Console.Clear();
             Console.CursorVisible = false;
+            Console.Clear();
+            
 
             walls = new Walls(x, y, '#');
             snake = new Snake(x / 2, y / 2, 3);
 
-            foodFactory = new FoodFactory(x, y, '@');
+            foodFactory = new Food(x, y, '@');
             foodFactory.CreateFood();
 
             time = new Timer(Loop, null, 0, 200);
@@ -73,13 +62,13 @@ namespace SnakeGame
         public int x { get; set; }
         public int y { get; set; }
         public char ch { get; set; }
+        
+        public static implicit operator Point((int, int, char) value) => 
+              new Point {x = value.Item1, y = value.Item2, ch = value.Item3};
 
-        public static implicit operator Point((int, int, char) value) =>
-              new Point { x = value.Item1, y = value.Item2, ch = value.Item3 };
-
-        public static bool operator ==(Point a, Point b) =>
+        public static bool operator ==(Point a, Point b) => 
                 (a.x == b.x && a.y == b.y) ? true : false;
-        public static bool operator !=(Point a, Point b) =>
+        public static bool operator !=(Point a, Point b) => 
                 (a.x != b.x || a.y != b.y) ? true : false;
 
         public void Draw()
@@ -98,53 +87,6 @@ namespace SnakeGame
         }
     }
 
-    class Walls
-    {
-        private char ch;
-        private List<Point> wall = new List<Point>();
-
-        public Walls(int x, int y, char ch)
-        {
-            this.ch = ch;
-
-            DrawHorizontal(x, 0);
-            DrawHorizontal(x, y);
-            DrawVertical(0, y);
-            DrawVertical(x, y);
-        }
-
-        private void DrawHorizontal(int x, int y)
-        {
-            for (int i = 0; i < x; i++)
-            {
-                Point p = (i, y, ch);
-                p.Draw();
-                wall.Add(p);
-            }
-        }
-
-        private void DrawVertical(int x, int y)
-        {
-            for (int i = 0; i < y; i++)
-            {
-                Point p = (x, i, ch);
-                p.Draw();
-                wall.Add(p);
-            }
-        }
-
-        public bool IsHit(Point p)
-        {
-            foreach (var w in wall)
-            {
-                if (p == w)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }// class Walls
 
     enum Direction
     {
@@ -207,53 +149,53 @@ namespace SnakeGame
             return false;
         }
 
-        public Point GetNextPoint()
-        {
-            Point p = GetHead();
+    public Point GetNextPoint () 
+    {
+        Point p = GetHead ();
 
-            switch (direction)
+        switch (direction) 
+        {
+        case Direction.LEFT:
+            p.x -= step;
+            break;
+        case Direction.RIGHT:
+            p.x += step;
+            break;
+        case Direction.UP:
+            p.y -= step;
+            break;
+        case Direction.DOWN:
+            p.y += step;
+            break;
+        }
+        return p;
+    }
+
+    public void Rotation (ConsoleKey key) 
+    {
+        if (rotate) 
+        {
+            switch (direction) 
             {
-                case Direction.LEFT:
-                    p.x -= step;
-                    break;
-                case Direction.RIGHT:
-                    p.x += step;
-                    break;
-                case Direction.UP:
-                    p.y -= step;
-                    break;
-                case Direction.DOWN:
-                    p.y += step;
-                    break;
+            case Direction.LEFT:
+            case Direction.RIGHT:
+                if (key == ConsoleKey.DownArrow)
+                    direction = Direction.DOWN;
+                else if (key == ConsoleKey.UpArrow)
+                    direction = Direction.UP;
+                break;
+            case Direction.UP:
+            case Direction.DOWN:
+                if (key == ConsoleKey.LeftArrow)
+                    direction = Direction.LEFT;
+                else if (key == ConsoleKey.RightArrow)
+                    direction = Direction.RIGHT;
+                break;
             }
-            return p;
+            rotate = false;
         }
 
-        public void Rotation(ConsoleKey key)
-        {
-            if (rotate)
-            {
-                switch (direction)
-                {
-                    case Direction.LEFT:
-                    case Direction.RIGHT:
-                        if (key == ConsoleKey.DownArrow)
-                            direction = Direction.DOWN;
-                        else if (key == ConsoleKey.UpArrow)
-                            direction = Direction.UP;
-                        break;
-                    case Direction.UP:
-                    case Direction.DOWN:
-                        if (key == ConsoleKey.LeftArrow)
-                            direction = Direction.LEFT;
-                        else if (key == ConsoleKey.RightArrow)
-                            direction = Direction.RIGHT;
-                        break;
-                }
-                rotate = false;
-            }
-
-        }
+    }
 
         public bool IsHit(Point p)
         {
@@ -268,26 +210,4 @@ namespace SnakeGame
         }
     }//class Snake
 
-    class FoodFactory
-    {
-        int x;
-        int y;
-        char ch;
-        public Point food { get; private set; }
-
-        Random random = new Random();
-
-        public FoodFactory(int x, int y, char ch)
-        {
-            this.x = x;
-            this.y = y;
-            this.ch = ch;
-        }
-
-        public void CreateFood()
-        {
-            food = (random.Next(2, x - 2), random.Next(2, y - 2), ch);
-            food.Draw();
-        }
-    }
-}
+    
