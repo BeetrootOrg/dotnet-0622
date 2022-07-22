@@ -4,6 +4,8 @@ class BigNumber
 {
     private readonly string _number;
 
+    public static BigNumber Zero = new BigNumber("0");
+
     public BigNumber()
     {
         _number = "0";
@@ -21,9 +23,9 @@ class BigNumber
     
     public static BigNumber operator +(BigNumber bigNumber1, BigNumber bigNumber2)
     {
-        if (bigNumber1._number[0] != '-' && bigNumber2._number[0] == '-') return (bigNumber1 - bigNumber2);
-        if (bigNumber1._number[0] == '-' && bigNumber2._number[0] != '-') return (bigNumber2 - bigNumber1);
-        if (bigNumber1._number[0] == '-' && bigNumber2._number[0] == '-') return (-(-bigNumber1 + -bigNumber2));
+        if (bigNumber1 > Zero && bigNumber2 < Zero) return (bigNumber1 - bigNumber2);
+        if (bigNumber1 < Zero && bigNumber2 > Zero) return (bigNumber2 - bigNumber1);
+        if (bigNumber1 < Zero && bigNumber2 < Zero) return (-(-bigNumber1 + -bigNumber2));
 
         string result = "";
         int temp = 0;
@@ -40,10 +42,10 @@ class BigNumber
 
     public static BigNumber operator -(BigNumber bigNumber1, BigNumber bigNumber2)
     {
-        if (bigNumber1 == bigNumber2) return (new BigNumber("0"));
-        if (bigNumber1._number[0] != '-' && bigNumber2._number[0] == '-') return (bigNumber1 + bigNumber2);
-        if (bigNumber1._number[0] == '-' && bigNumber2._number[0] != '-') return (-(-bigNumber1 + bigNumber2));
-        if (bigNumber1._number[0] == '-' && bigNumber2._number[0] == '-') return (-bigNumber2-(-bigNumber1));
+        if (bigNumber1 == bigNumber2) return Zero;
+        if (bigNumber1 > Zero && bigNumber2 < Zero) return (bigNumber1 + bigNumber2);
+        if (bigNumber1 < Zero && bigNumber2 > Zero) return (-(-bigNumber1 + bigNumber2));
+        if (bigNumber1 < Zero && bigNumber2 < Zero) return (-bigNumber2-(-bigNumber1));
         if (bigNumber1 < bigNumber2) return (-(bigNumber2-bigNumber1));        
 
         string result = "";
@@ -52,9 +54,9 @@ class BigNumber
         {
             int d1 = bigNumber1._number.Length < 1+i ? 0 : bigNumber1._number[bigNumber1._number.Length-1-i] - '0';
             int d2 = bigNumber2._number.Length < 1+i ? 0 : bigNumber2._number[bigNumber2._number.Length-1-i] - '0';
-            int subresult = d1+temp>=d2 ? d1+temp-d2 : 10+d1+temp-d2; // <----- fix it!!!
+            int subresult = d1+temp-d2>=0 ? d1+temp-d2 : 10+d1+temp-d2;
             result = result.Insert(0, subresult.ToString()); 
-            temp = d1>=d2 ? 0 : -1;
+            temp = d1+temp>=d2 ? 0 : -1;
         }
         while (result[0] == '0')
         {
@@ -71,11 +73,10 @@ class BigNumber
 
     public static BigNumber operator *(BigNumber bigNumber1, BigNumber bigNumber2)
     {
-        BigNumber zero = new BigNumber("0");
-        if (bigNumber1 == zero || bigNumber2 == zero) return zero;
-        if (bigNumber1._number[0] != '-' && bigNumber2._number[0] == '-') return (-(bigNumber1*-bigNumber2));
-        if (bigNumber1._number[0] == '-' && bigNumber2._number[0] != '-') return (-(-bigNumber1*bigNumber2));
-        if (bigNumber1._number[0] == '-' && bigNumber2._number[0] == '-') return (-bigNumber1*-bigNumber2);
+        if (bigNumber1 == Zero || bigNumber2 == Zero) return Zero;
+        if (bigNumber1 > Zero && bigNumber2 < Zero) return (-(bigNumber1*-bigNumber2));
+        if (bigNumber1 < Zero && bigNumber2 > Zero) return (-(-bigNumber1*bigNumber2));
+        if (bigNumber1 < Zero && bigNumber2 < Zero) return (-bigNumber1*-bigNumber2);
 
         List<BigNumber> subreuslts = new List<BigNumber>();
         for (int i = bigNumber2._number.Length-1; i >= 0; i--)
@@ -103,9 +104,48 @@ class BigNumber
         return result;
     }
 
+    public static BigNumber Abs(BigNumber bigNumber)
+    {
+        if (bigNumber._number[0] == '-') return -bigNumber;
+        else return bigNumber; 
+    }
+
     public static BigNumber operator /(BigNumber bigNumber1, BigNumber bigNumber2)
     {
-        return bigNumber1+bigNumber2;
+        if (bigNumber2 == Zero) throw new DivideByZeroException();
+        if (bigNumber1 > Zero && bigNumber1 < Zero) return -(-bigNumber1 / bigNumber2);
+        if (bigNumber1 < Zero && bigNumber2 > Zero) return -(bigNumber1 / -bigNumber2);
+        if (bigNumber1 < Zero && bigNumber2 < Zero) return (-bigNumber1 / -bigNumber2);
+        if (bigNumber1 < bigNumber2) return Zero;
+
+        string extra = bigNumber1._number;
+        string temp = bigNumber2._number;
+        while (extra.Length != temp.Length)
+            temp += "0";
+
+        BigNumber numerator = new BigNumber(extra);
+        BigNumber denominator = new BigNumber(temp);
+
+        
+        string result = "";
+        while(denominator._number != "" && denominator >= bigNumber2 )
+        {
+            int i = 0;
+            while(numerator >= denominator)
+            {
+                numerator -= denominator;
+                i++;
+            }
+            denominator = new BigNumber(denominator._number.Remove(denominator._number.Length-1));
+            result = result+i;
+        }
+
+        while (result[0] == '0')
+        {
+            result = result.Remove(0,1);
+        }
+
+        return new BigNumber(result);
     }
 
     public static bool operator <(BigNumber bigNumber1, BigNumber bigNumber2)
@@ -140,6 +180,18 @@ class BigNumber
             else return true;
         }
         return false;
+    }
+
+    public static bool operator <=(BigNumber bigNumber1, BigNumber bigNumber2)
+    {
+        if (bigNumber1 == bigNumber2 || bigNumber1 < bigNumber2) return true;
+        else return false;
+    }
+
+    public static bool operator >=(BigNumber bigNumber1, BigNumber bigNumber2)
+    {
+        if (bigNumber1 == bigNumber2 || bigNumber1 > bigNumber2) return true;
+        else return false;
     }
 
     public static bool operator ==(BigNumber bigNumber1, BigNumber bigNumber2)

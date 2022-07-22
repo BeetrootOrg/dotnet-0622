@@ -6,8 +6,8 @@ namespace ConsoleApp
 	{
 		static void Main(string[] args)
 		{
-            string number1 = "12345678910111213141516";
-            string number2 = "987654321";
+            string number1 = "456456456756756456";
+            string number2 = "34535567567";
 
 			var a = new BigNumber(number1);
             var b = new BigNumber(number2);
@@ -17,8 +17,8 @@ namespace ConsoleApp
             y = BigInteger.Parse(number2);
 
             
-            Console.WriteLine("{0,30}",(a*b).ToString());
-            Console.WriteLine("{0,30}",x*y);
+            Console.WriteLine("{0,30}",(a/b).ToString());
+            Console.WriteLine("{0,30}",x/y);
 		}
 	}
 }
