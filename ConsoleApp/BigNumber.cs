@@ -23,8 +23,8 @@ class BigNumber
     
     public static BigNumber operator +(BigNumber bigNumber1, BigNumber bigNumber2)
     {
-        if (bigNumber1 > Zero && bigNumber2 < Zero) return (bigNumber1 - bigNumber2);
-        if (bigNumber1 < Zero && bigNumber2 > Zero) return (bigNumber2 - bigNumber1);
+        if (bigNumber1 > Zero && bigNumber2 < Zero) return (bigNumber1 - -bigNumber2);
+        if (bigNumber1 < Zero && bigNumber2 > Zero) return (bigNumber2 - -bigNumber1);
         if (bigNumber1 < Zero && bigNumber2 < Zero) return (-(-bigNumber1 + -bigNumber2));
 
         string result = "";
@@ -43,7 +43,7 @@ class BigNumber
     public static BigNumber operator -(BigNumber bigNumber1, BigNumber bigNumber2)
     {
         if (bigNumber1 == bigNumber2) return Zero;
-        if (bigNumber1 > Zero && bigNumber2 < Zero) return (bigNumber1 + bigNumber2);
+        if (bigNumber1 > Zero && bigNumber2 < Zero) return (bigNumber1 + -bigNumber2);
         if (bigNumber1 < Zero && bigNumber2 > Zero) return (-(-bigNumber1 + bigNumber2));
         if (bigNumber1 < Zero && bigNumber2 < Zero) return (-bigNumber2-(-bigNumber1));
         if (bigNumber1 < bigNumber2) return (-(bigNumber2-bigNumber1));        
@@ -113,7 +113,7 @@ class BigNumber
     public static BigNumber operator /(BigNumber bigNumber1, BigNumber bigNumber2)
     {
         if (bigNumber2 == Zero) throw new DivideByZeroException();
-        if (bigNumber1 > Zero && bigNumber1 < Zero) return -(-bigNumber1 / bigNumber2);
+        if (bigNumber1 > Zero && bigNumber2 < Zero) return -(-bigNumber1 / bigNumber2);
         if (bigNumber1 < Zero && bigNumber2 > Zero) return -(bigNumber1 / -bigNumber2);
         if (bigNumber1 < Zero && bigNumber2 < Zero) return (-bigNumber1 / -bigNumber2);
         if (bigNumber1 < bigNumber2) return Zero;
