@@ -132,7 +132,35 @@ namespace LinqLesson
             var similarAboutPersons = similarWords.MaxBy( x => x.Item1);
             WriteLine($"These persons have {similarAboutPersons.Item1} same words in theris about. "
                     + $"These persons are {similarAboutPersons.Item2.Name} and {similarAboutPersons.Item3.Name}");
-                    
+
+            //11. Find persons with same friends (compare by friend’s name)
+
+            var allFriends = persons.SelectMany(x => x.Friends);
+            var spareFriends = allFriends.GroupBy( x => x.Name);
+            var spareNames = spareFriends.Where( x => x.Count() > 1);
+            var spareNamesCollection = spareNames.Select( x => x.Key);
+            var uniqueCommonFriends = spareNamesCollection.Distinct();
+
+            var FriendWithCommonFriends = new List<Person>();
+
+             foreach (var commonFriend in uniqueCommonFriends)
+             {
+                 foreach (var person in persons)
+                {
+                    var personsFriend = person.Friends.Select( f => f.Name);
+                    if(personsFriend.Contains(commonFriend))
+                        FriendWithCommonFriends.Add(person);
+                }
+             }
+
+            WriteLine($"These persons have common friends:");
+
+            foreach (var person in FriendWithCommonFriends)
+            {
+                WriteLine($"{person.Name}");
+            }
+            
+
 		}
 	}
 
