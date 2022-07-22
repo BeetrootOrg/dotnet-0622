@@ -16,7 +16,7 @@ class BigNumber
         _number = number;
     }
 
-    public string ToString()
+    public override string ToString()
     {
         return _number;
     }
@@ -28,15 +28,15 @@ class BigNumber
         if (bigNumber1 < Zero && bigNumber2 < Zero) return (-(-bigNumber1 + -bigNumber2));
 
         string result = "";
-        int temp = 0;
+        int extra = 0;
         for (int i = 0; i < Math.Max(bigNumber1._number.Length, bigNumber2._number.Length); i++)
         {
             int d1 = bigNumber1._number.Length < 1+i ? 0 : bigNumber1._number[bigNumber1._number.Length-1-i] - '0';
             int d2 = bigNumber2._number.Length < 1+i ? 0 : bigNumber2._number[bigNumber2._number.Length-1-i] - '0';
-            result = result.Insert(0, ((d1+d2+temp)%10).ToString());
-            temp = (d1+d2+temp)/10;
+            result = result.Insert(0, ((d1+d2+extra)%10).ToString());
+            extra = (d1+d2+extra)/10;
         }
-        if (temp == 1) result = result.Insert(0, "1");
+        if (extra == 1) result = result.Insert(0, "1");
         return new BigNumber(result);
     }    
 
@@ -49,14 +49,14 @@ class BigNumber
         if (bigNumber1 < bigNumber2) return (-(bigNumber2-bigNumber1));        
 
         string result = "";
-        int temp = 0;
+        int extra = 0;
         for (int i = 0; i < Math.Max(bigNumber1._number.Length, bigNumber2._number.Length); i++)
         {
             int d1 = bigNumber1._number.Length < 1+i ? 0 : bigNumber1._number[bigNumber1._number.Length-1-i] - '0';
             int d2 = bigNumber2._number.Length < 1+i ? 0 : bigNumber2._number[bigNumber2._number.Length-1-i] - '0';
-            int subresult = d1+temp-d2>=0 ? d1+temp-d2 : 10+d1+temp-d2;
+            int subresult = d1+extra-d2>=0 ? d1+extra-d2 : 10+d1+extra-d2;
             result = result.Insert(0, subresult.ToString()); 
-            temp = d1+temp>=d2 ? 0 : -1;
+            extra = d1+extra>=d2 ? 0 : -1;
         }
         while (result[0] == '0')
         {
@@ -83,14 +83,14 @@ class BigNumber
         {
             int d2 = bigNumber2._number[i] - '0';
             string subresult = "";
-            int temp = 0;
+            int extra = 0;
             for (int j = bigNumber1._number.Length-1; j >= 0; j--)
             {
                 int d1 = bigNumber1._number[j] - '0';
-                subresult = subresult.Insert(0, ((d1*d2+temp)%10).ToString());
-                temp = (d1*d2+temp)/10;
+                subresult = subresult.Insert(0, ((d1*d2+extra)%10).ToString());
+                extra = (d1*d2+extra)/10;
             }
-            if (temp != 0) subresult = subresult.Insert(0, temp.ToString());
+            if (extra != 0) subresult = subresult.Insert(0, extra.ToString());
 
             for (int j = i; j < bigNumber2._number.Length-1; j++)
                 subresult += "0";
