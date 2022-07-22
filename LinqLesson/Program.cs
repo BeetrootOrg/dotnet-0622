@@ -66,7 +66,7 @@ namespace LinqLesson
 
             System.Console.WriteLine($"Northest person is {MaxLatitudePerson.Name}, latitude is {MaxLatitudePerson.Latitude}");
 
-			var MinLatitudePerson = persons.MinBy(x => x.Latitude);
+			var MinLatitudePerson = persons.MinBy(x => x.Latitude) ;
 
 			System.Console.WriteLine($"Southest person is {MinLatitudePerson.Name}, latitude is {MinLatitudePerson.Latitude}");
 
@@ -78,14 +78,16 @@ namespace LinqLesson
 
 			System.Console.WriteLine($"Eastest person is {MaxLongitudePerson.Name}, longitude is {MaxLongitudePerson.Longitude}");
 
-            System.Console.WriteLine($"MaxDistance is {(int)CalculateDistance(MaxLatitudePerson,MinLatitudePerson)} meters");
+            System.Console.WriteLine($"Max distance between 2 persons in list is {(int)MaxDistance(persons)}");
 
-			
+			System.Console.WriteLine($"Min distance between 2 persons in list is {(int)MinDistance(persons)}");
+
+
 		}
 		public static double CalculateDistance(Person person1, Person person2)
 		{
 
-			var EarthRadius = 6372795;
+			var  EarthRadius = 6372795;
 			//toRadians
 
 			var lat1 = person1.Latitude * 3.14 / 180;
@@ -115,6 +117,44 @@ namespace LinqLesson
 			var dist = ad * EarthRadius;
 
 			return dist;
+		}
+
+		public static double MaxDistance(IEnumerable<Person> persons)
+		{
+			var personslist = persons.ToList();
+
+			double MaxDistance = double.MinValue;
+
+            for (int i = 0; i < personslist.Count; i++)
+            {
+                for (int j = i + 1; j < personslist.Count; j++)
+                {
+					if (CalculateDistance(personslist[i], personslist[j]) > MaxDistance)
+					{
+						MaxDistance = CalculateDistance(personslist[i], personslist[j]);
+					}
+				}
+            }
+			return MaxDistance;
+		}
+
+		public static double MinDistance(IEnumerable<Person> persons)
+		{
+			var personslist = persons.ToList();
+
+			double MinDistance = double.MaxValue;
+
+			for (int i = 0; i < personslist.Count; i++)
+			{
+				for (int j = i + 1; j < personslist.Count; j++)
+				{
+					if (CalculateDistance(personslist[i], personslist[j]) < MinDistance)
+					{
+						MinDistance = CalculateDistance(personslist[i], personslist[j]);
+					}
+				}
+			}
+			return MinDistance;
 		}
 	}
 }
