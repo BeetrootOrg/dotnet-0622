@@ -89,13 +89,13 @@ foreach (var ctor in myType.GetConstructors(
     for (int i = 0; i < parameters.Length; i++)
     {
         var param = parameters[i];
-        Console.Write($"{param.ParameterType.Name} {param.Name}");
+        Console.Write($"Ctor: {param.ParameterType.Name} {param.Name}");
         if (i < parameters.Length - 1) Console.Write(", ");
     }
     Console.WriteLine(")");
 }
 
-foreach (MemberInfo member in myType.GetMembers())
+foreach (MemberInfo member in myType.GetMembers().Take(5))
 {
-    Console.WriteLine($"{member.DeclaringType} {member.MemberType} {member.Name}");
+    Console.WriteLine($"Element type{member.DeclaringType} {member.MemberType} {member.Name}");
 }
