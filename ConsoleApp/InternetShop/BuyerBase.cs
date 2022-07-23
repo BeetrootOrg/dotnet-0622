@@ -5,7 +5,7 @@ class BuyerBase : BuyerManagement
     {
         Buyers = buyers;
     }
-    public override object AddBuyer()
+    public override object AddBuyer(Buyer buyer)
     {
         throw new NotImplementedException();
     }
