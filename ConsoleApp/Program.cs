@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 using ConsoleApp;
@@ -10,7 +11,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        var testClass = new TestClass
+        var testClass = new TestClass()
         {
             Number = 42,
             Text = "this is text",
@@ -45,6 +46,60 @@ internal class Program
         {
             // ignore
         }
+
+        // 3.1. create class
+        var testClass1 = Activator.CreateInstance(typeof(TestClass));
+        foreach (var propertyInfo in typeof(TestClass).GetProperties())
+        {
+            if (propertyInfo.PropertyType == typeof(int))
+            {
+                propertyInfo.SetValue(testClass1, 42);
+            }
+            else if (propertyInfo.PropertyType == typeof(string))
+            {
+                propertyInfo.SetValue(testClass1, "test");
+            }
+            else if (propertyInfo.PropertyType == typeof(bool))
+            {
+                propertyInfo.SetValue(testClass1, true);
+            }
+            else if (propertyInfo.PropertyType == typeof(float))
+            {
+                propertyInfo.SetValue(testClass1, 2.5f);
+            }
+        }
+
+        values.Clear();
+        foreach (var propertyInfo in type.GetProperties())
+        {
+            values.Add(propertyInfo.GetValue(testClass1));
+        }
+
+        WriteLine(string.Join(',', values));
+
+        // 4. comparison get & get with reflection
+        var sw1 = new Stopwatch();
+        sw1.Start();
+        for (int i = 0; i < 1000000; i++)
+        {
+            var value = testClass.Number;
+            ++value;
+        }
+        sw1.Stop();
+
+        var sw2 = new Stopwatch();
+        var numberPropertyInfo = type.GetProperty("Number");
+
+        sw2.Start();
+        for (int i = 0; i < 1000000; i++)
+        {
+            var value = (int)numberPropertyInfo.GetValue(testClass);
+            ++value;
+        }
+        sw2.Stop();
+
+        WriteLine($"Simple get: {sw1.ElapsedMilliseconds}");
+        WriteLine($"Reflection get: {sw2.ElapsedMilliseconds}");
     }
 
     // 2.1 to rgb
