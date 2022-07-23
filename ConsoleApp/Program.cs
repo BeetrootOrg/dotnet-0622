@@ -23,3 +23,15 @@ foreach (FieldInfo field in myType.GetFields(
 
     Console.WriteLine($"{mod}{field.FieldType.Name} {field.Name}");
 }
+
+
+foreach (PropertyInfo prop in myType.GetProperties(
+    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static))
+{
+    Console.Write($"{prop.PropertyType} {prop.Name} {{");
+    if (prop.CanRead) Console.Write("get;");
+    if (prop.CanWrite) Console.Write("set;");
+    Console.WriteLine("}");
+}
+
+
