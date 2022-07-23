@@ -26,7 +26,10 @@ namespace LinqLesson
 			//east
             var maxWest = persons.MinBy( x => x.Longitude);
             WriteLine ($"The most Wast South: {maxWest.Name}");
+			//2. 
 
+			//3.
+			
 
 
         }
