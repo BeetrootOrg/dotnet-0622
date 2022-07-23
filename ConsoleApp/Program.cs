@@ -66,4 +66,31 @@ foreach (MethodInfo method in myType.GetMethods())
     Console.WriteLine(")");
 }
 
+Console.WriteLine("Ctor:");
+foreach (var ctor in myType.GetConstructors(
+    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public))
+{
+    string mod = "";
+    if (ctor.IsPublic)
+        mod += "public";
+    else if (ctor.IsPrivate)
+        mod += "private";
+    else if (ctor.IsAssembly)
+        mod += "internal";
+    else if (ctor.IsFamily)
+        mod += "protected";
+    else if (ctor.IsFamilyAndAssembly)
+        mod += "private protected";
+    else if (ctor.IsFamilyOrAssembly)
+        mod += "protected internal";
 
+    Console.Write($"{mod} {myType.Name}(");
+    ParameterInfo[] parameters = ctor.GetParameters();
+    for (int i = 0; i < parameters.Length; i++)
+    {
+        var param = parameters[i];
+        Console.Write($"{param.ParameterType.Name} {param.Name}");
+        if (i < parameters.Length - 1) Console.Write(", ");
+    }
+    Console.WriteLine(")");
+}
