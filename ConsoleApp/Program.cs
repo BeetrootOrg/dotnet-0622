@@ -100,6 +100,19 @@ internal class Program
 
         WriteLine($"Simple get: {sw1.ElapsedMilliseconds}");
         WriteLine($"Reflection get: {sw2.ElapsedMilliseconds}");
+
+        var intType = typeof(int);
+        var assembly = intType.Assembly;
+        WriteLine($"Assymbly {assembly.FullName}");
+        foreach (var assemblyType in assembly.GetTypes().Take(20))
+        {
+            WriteLine($"Type name: {assemblyType.Name}");
+
+            foreach (var methodInfo in assemblyType.GetMethods())
+            {
+                // ...
+            }
+        }
     }
 
     // 2.1 to rgb
