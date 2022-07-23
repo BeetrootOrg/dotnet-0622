@@ -45,4 +45,25 @@ foreach (MethodInfo method in myType.GetMethods())
     Console.WriteLine($"{mod}{method.ReturnType.Name} {method.Name} ()");
 }
 
+foreach (MethodInfo method in myType.GetMethods())
+{
+    Console.Write($"{method.ReturnType.Name} {method.Name} (");
+    ParameterInfo[] parameters = method.GetParameters();
+    for (int i = 0; i < parameters.Length; i++)
+    {
+        var param = parameters[i];
+        string mod = "";
+        if (param.IsIn)
+            mod = "in";
+        else if (param.IsOut)
+            mod = "out";
+        Console.Write($"{param.ParameterType.Name} {mod} {param.Name}");
+        if (param.HasDefaultValue)
+            Console.Write($"={param.DefaultValue}");
+        if (i < parameters.Length - 1)
+            Console.Write(", ");
+    }
+    Console.WriteLine(")");
+}
+
 
