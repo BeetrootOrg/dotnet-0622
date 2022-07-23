@@ -1,0 +1,5 @@
+https://us06web.zoom.us/j/88358344102
+
+
+cd
+cd ./academy/reposDotNet0622/dotnet-0622/ConsoleApp
