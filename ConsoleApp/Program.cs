@@ -15,11 +15,6 @@ foreach (var assemblyType in assembly.GetTypes().Take(5))
     foreach (var methodInfo in assemblyType.GetMethods())
     {
         System.Console.WriteLine($"Metod info: {methodInfo.Name}");
-
-        foreach (var argumentInfo in methodInfo.GetGenericArguments())
-        {
-            System.Console.WriteLine($"Arg info: {argumentInfo.Name}");
-        }
     }
 
 
