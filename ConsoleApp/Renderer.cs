@@ -13,9 +13,9 @@ class Renderer
         _timer = new Timer(Update, null, Timeout.InfiniteTimeSpan, TimeSpan.Zero);
     }
 
-    public void StartGame()
+    public void StartGame(double speed)
     {
-        _timer.Change(TimeSpan.Zero, TimeSpan.FromSeconds(1));
+        _timer.Change(TimeSpan.Zero, TimeSpan.FromSeconds(speed));
     }
 
     public void Show()
@@ -46,15 +46,45 @@ class Renderer
         }
 
         // food
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.SetCursorPosition(Field.Food.Position.X, Field.Food.Position.Y);
-        Console.Write("Y");
+        GenerateFood();
     }
 
     private void Update(object state)
     {
-        Field.Snake.Move();
+        CheckIfHeadOnBorder();
+        CheckIfHeadOnBody();
+        var snake = Field.Snake;        
+        if (snake.SnakeHead.X == Field.Food.Position.X && snake.SnakeHead.Y == Field.Food.Position.Y)
+        {
+            snake.Body.Insert(0, new Point(snake.SnakeTail.X, snake.SnakeTail.Y));
+            Field.Food = Food.Random(Field.Size);
+        }
+        snake.Move();        
         Console.Clear();
         Show();
+    }
+    private void CheckIfHeadOnBorder()
+    {
+        var snakeHead = Field.Snake.SnakeHead;
+        if (snakeHead.X == 0 || snakeHead.Y == 0 || snakeHead.X == Field.Size - 1 || snakeHead.Y == Field.Size - 1)
+        {
+            Environment.Exit(0);
+        }
+    }
+    private void CheckIfHeadOnBody()
+    {
+        for (int i = 0; i < Field.Snake.Body.Count - 1; i++)
+        {
+            if (Field.Snake.SnakeHead.X == Field.Snake.Body[i].X && Field.Snake.SnakeHead.Y == Field.Snake.Body[i].Y)
+            {
+                Environment.Exit(0);
+            }
+        }
+    }
+    private void GenerateFood()
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.SetCursorPosition(Field.Food.Position.X, Field.Food.Position.Y);
+        Console.Write("Y");
     }
 }
