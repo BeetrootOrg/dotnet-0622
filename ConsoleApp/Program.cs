@@ -34,4 +34,15 @@ foreach (PropertyInfo prop in myType.GetProperties(
     Console.WriteLine("}");
 }
 
+foreach (MethodInfo method in myType.GetMethods())
+{
+    string mod = "";
+
+    if (method.IsStatic)
+        mod += "static ";
+    if (method.IsVirtual)
+        mod += "virtual ";
+    Console.WriteLine($"{mod}{method.ReturnType.Name} {method.Name} ()");
+}
+
 
