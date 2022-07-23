@@ -16,8 +16,6 @@ namespace ConsoleApp;
 
         static void Main()
         {
-            // Console.SetWindowSize(x + 1, y + 1);
-            // Console.SetBufferSize(x + 1, y + 1);
             Console.CursorVisible = false;
             Console.Clear();
             
