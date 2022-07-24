@@ -8,32 +8,32 @@ namespace LinqLesson
         Female
     }
 
-    public class Friend
+    public record Friend
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int Id { get; init; }
+        public string Name { get; init; }
     }
 
-    public class Person
+    public record Person
     {
-        public string Id { get; set; }
-        public int Index { get; set; }
-        public Guid Guid { get; set; }
-        public bool IsActive { get; set; }
-        public string Balance { get; set; }
-        public int Age { get; set; }
-        public string EyeColor { get; set; }
-        public string Name { get; set; }
-        public Gender Gender { get; set; }
-        public string Company { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public string About { get; set; }
-        public DateTime Registered { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public string[] Tags { get; set; }
-        public Friend[] Friends { get; set; }
+        public string Id { get; init; }
+        public int Index { get; init; }
+        public Guid Guid { get; init; }
+        public bool IsActive { get; init; }
+        public string Balance { get; init; }
+        public int Age { get; init; }
+        public string EyeColor { get; init; }
+        public string Name { get; init; }
+        public Gender Gender { get; init; }
+        public string Company { get; init; }
+        public string Email { get; init; }
+        public string Phone { get; init; }
+        public string Address { get; init; }
+        public string About { get; init; }
+        public DateTime Registered { get; init; }
+        public double Latitude { get; init; }
+        public double Longitude { get; init; }
+        public string[] Tags { get; init; }
+        public Friend[] Friends { get; init; }
     }
 }
