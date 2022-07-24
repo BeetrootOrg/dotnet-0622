@@ -44,9 +44,6 @@ class Field
                     } while (foodOnSnake);
 
                     Food = newFood;
-                    // System.Console.WriteLine($"New Food, X: {Food.Position.X}, Y: {Food.Position.Y}");
-                    //    System.Console.ReadKey();
-                    //throw new ($"You ate the Food! The snake length now is {Snake.Body.Count()} ");
                 }
         }
 
