@@ -203,6 +203,9 @@ class BigNumber
             result.Insert(0, tempResult);
         }
 
+        while (result[0] == '0' && result.Length != 1)
+            result.Remove(0, 1);
+    
         if (!isFirstBigger) result.Insert(0, '-');
 
         return new BigNumber(result.ToString());
