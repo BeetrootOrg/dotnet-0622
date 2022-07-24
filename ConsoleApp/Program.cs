@@ -22,4 +22,6 @@ System.Console.Clear();
 renderer.Show();
 renderer.StartGame();
 
+
+
 Thread.Sleep(Timeout.Infinite);

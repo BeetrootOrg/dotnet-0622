@@ -54,7 +54,12 @@ class Renderer
     private void Update(object state)
     {
         Field.Snake.Move();
+        Field.HeadTracker();
         Console.Clear();
         Show();
+        while (true)
+        {
+            Field.Snake.OnArrowPressed(System.Console.ReadKey(true));
+        }
     }
 }
