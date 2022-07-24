@@ -5,21 +5,21 @@ class Snake : Figure
     public Snake(Point tail, int lenght, Direction direction)
     {
         _direction = direction;
-        pList = new List<Point>();
+        PointList = new List<Point>();
         for (int i = 0; i < lenght; i++)
         {
             Point p = new Point(tail);
             p.Move(i, direction);
-            pList.Add(p);
+            PointList.Add(p);
         }
     }
 
     public void Move()
     {
-        Point tail = pList.First();
-        pList.Remove(tail);
+        Point tail = PointList.First();
+        PointList.Remove(tail);
         Point head = GetNextPoint();
-        pList.Add(head);
+        PointList.Add(head);
 
         tail.Clear();
         head.Draw();
@@ -27,17 +27,17 @@ class Snake : Figure
 
     public Point GetNextPoint()
     {
-        Point head = pList.Last();
+        Point head = PointList.Last();
         Point nextPoint = new Point(head);
         nextPoint.Move(1, _direction);
         return nextPoint;
     }
     public bool IsHitTail()
     {
-        var head = pList.Last();
-        for (int i = 0; i < pList.Count - 2; i++)
+        var head = PointList.Last();
+        for (int i = 0; i < PointList.Count - 2; i++)
         {
-            if (head.IsHit(pList[i]))
+            if (head.IsHit(PointList[i]))
                 return true;
         }
         return false;
@@ -86,7 +86,7 @@ class Snake : Figure
         if (head.IsHit(food))
         {
             food.Sym = head.Sym;
-            pList.Add(food);
+            PointList.Add(food);
             return true;
         }
         else return false;
