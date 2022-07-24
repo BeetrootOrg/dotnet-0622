@@ -9,22 +9,22 @@ public class Board
 {
     public static DirectionMap DirectionMap { get; } = new DirectionMap();
 
-    private readonly string instructions = "How to Play: Avoid hitting walls or yourself. Grow by eating food (Y). Highest length wins.";
-    private readonly string commandBase = "Commands: {0}, Esc: Quit\n";
-    private readonly string lengthBase = "Length: {0}\n";
+    private readonly string _instructions = "How to Play: Avoid hitting walls or yourself. Grow by eating food (Y). Highest length wins.";
+    private readonly string _commandBase = "Commands: {0}, Esc: Quit\n";
+    private readonly string _lengthBase = "Length: {0}\n";
 
-    private Cell[,] grid;
-    private Random random = new Random();
-    private int leftEdgeX => 0;
-    private int rightEdgeX => Width - 1;
-    private int topEdgeY => 0;
-    private int bottomEdgeY => Height - 1;
+    private Cell[,] _grid;
+    private Random _random = new Random();
+    private int _leftEdgeX => 0;
+    private int _rightEdgeX => Width - 1;
+    private int _topEdgeY => 0;
+    private int _bottomEdgeY => Height - 1;
 
     public Snake Snake { get; private set; }
     public int Height { get; private set; }
     public int Width { get; private set; }
     public Cell Current => Snake.Head;
-    public Cell Center => get(Width / 2, Height / 2);
+    public Cell Center => Get(Width / 2, Height / 2);
     public Cell Food { get; private set; }
     public bool HasCollided { get; private set; }
 
@@ -32,18 +32,18 @@ public class Board
     {
         Width = width;
         Height = height;
-        grid = new Cell[Width, Height];
-        initGrid();
+        _grid = new Cell[Width, Height];
+        InitGrid();
     }
 
     public void DoTurn()
     {
-        doTurn(Snake.Direction, getDestination(Snake.Direction));
+        DoTurn(Snake.Direction, GetDestination(Snake.Direction));
     }
 
     public void DoTurn(Direction direction)
     {
-        doTurn(direction, getDestination(direction));
+        DoTurn(direction, GetDestination(direction));
     }
 
     public void Draw()
@@ -53,12 +53,12 @@ public class Board
     }
 
     public void Add(Snake snake) => Snake = snake;
-    public void AddFood() => randomCell().SetFood();
+    public void AddFood() => RandomCell().SetFood();
 
-    public Cell TopNeighbor(Cell cell) => grid[cell.X, cell.Y - 1];
-    public Cell RightNeighbor(Cell cell) => grid[cell.X + 1, cell.Y];
-    public Cell BottomNeighbor(Cell cell) => grid[cell.X, cell.Y + 1];
-    public Cell LeftNeighbor(Cell cell) => grid[cell.X - 1, cell.Y];
+    public Cell TopNeighbor(Cell cell) => _grid[cell.X, cell.Y - 1];
+    public Cell RightNeighbor(Cell cell) => _grid[cell.X + 1, cell.Y];
+    public Cell BottomNeighbor(Cell cell) => _grid[cell.X, cell.Y + 1];
+    public Cell LeftNeighbor(Cell cell) => _grid[cell.X - 1, cell.Y];
 
     public override string ToString()
     {
@@ -67,32 +67,32 @@ public class Board
         {
             for (int x = 0; x < Width; x++)
             {
-                sb.Append(grid[x, y].Value);
+                sb.Append(_grid[x, y].Value);
             }
             sb.Append("\n");
         }
-        sb.AppendFormat(lengthBase, Snake.Length);
-        sb.AppendLine(instructions);
-        sb.AppendFormat(commandBase, DirectionMap.ToString());
+        sb.AppendFormat(_lengthBase, Snake.Length);
+        sb.AppendLine(_instructions);
+        sb.AppendFormat(_commandBase, DirectionMap.ToString());
         return sb.ToString();
     }
 
-    private Cell get(int x, int y) => grid[x, y];
+    private Cell Get(int x, int y) => _grid[x, y];
 
-    private void add(Cell cell) => grid[cell.X, cell.Y] = cell;
+    private void Add(Cell cell) => _grid[cell.X, cell.Y] = cell;
 
-    private bool isBorder(Cell cell) => cell.X == leftEdgeX || cell.X >= rightEdgeX
-                                     || cell.Y == topEdgeY || cell.Y >= bottomEdgeY;
+    private bool IsBorder(Cell cell) => cell.X == _leftEdgeX || cell.X >= _rightEdgeX
+                                     || cell.Y == _topEdgeY || cell.Y >= _bottomEdgeY;
 
-    private void doTurn(Direction direction, Cell target)
+    private void DoTurn(Direction direction, Cell target)
     {
-        if (isLegalMove(direction, target))
+        if (IsLegalMove(direction, target))
         {
             Snake.Move(direction, target);
 
             if (Snake.HasEaten)
             {
-                Snake.Grow(getNewTail());
+                Snake.Grow(GetNewTail());
                 AddFood();
             }
 
@@ -100,7 +100,7 @@ public class Board
         }
     }
 
-    private bool isLegalMove(Direction direction, Cell target)
+    private bool IsLegalMove(Direction direction, Cell target)
     {
         if (direction.IsOpposite(Snake.Direction))
         {
@@ -112,11 +112,11 @@ public class Board
         return !HasCollided;
     }
 
-    private Cell getDestination(Direction direction) => getDirectionalNeighbor(Snake.Head, direction);
+    private Cell GetDestination(Direction direction) => GetDirectionalNeighbor(Snake.Head, direction);
 
-    private Cell getNewTail() => getDirectionalNeighbor(Snake.Tail, Snake.Direction.Opposite);
+    private Cell GetNewTail() => GetDirectionalNeighbor(Snake.Tail, Snake.Direction.Opposite);
 
-    private Cell getDirectionalNeighbor(Cell cell, Direction direction)
+    private Cell GetDirectionalNeighbor(Cell cell, Direction direction)
     {
         var neighbor = new Cell(-1, -1);
 
@@ -140,20 +140,20 @@ public class Board
         return neighbor;
     }
 
-    private Cell randomCell()
+    private Cell RandomCell()
     {
         bool isEmpty;
         var cell = new Cell(-1, -1);
         do
         {
-            cell = grid[random.Next(Width), random.Next(Height)];
+            cell = _grid[_random.Next(Width), _random.Next(Height)];
             isEmpty = cell.IsEmpty;
         } while (!isEmpty);
 
         return cell;
     }
 
-    private void initGrid()
+    private void InitGrid()
     {
         for (int y = 0; y < Height; y++)
         {
@@ -161,9 +161,9 @@ public class Board
             {
                 var cell = new Cell(x, y);
 
-                add(cell);
+                Add(cell);
 
-                if (isBorder(cell))
+                if (IsBorder(cell))
                 {
                     cell.SetBorder();
                 }

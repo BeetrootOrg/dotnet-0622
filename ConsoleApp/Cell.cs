@@ -7,22 +7,22 @@ using System.Threading;
 namespace SnakeGame;
 public class Cell
 {
-    private readonly char unitializedToken = char.MinValue;
-    private readonly char emptyToken = ' ';
-    private readonly char borderToken = '*';
-    private readonly char bodyToken = 'X';
-    private readonly char foodToken = 'Y';
+    private readonly char _unitializedToken = char.MinValue;
+    private readonly char _emptyToken = ' ';
+    private readonly char _borderToken = '*';
+    private readonly char _bodyToken = 'X';
+    private readonly char _foodToken = 'Y';
 
-    private int remaining;
+    private int _remaining;
 
     public int X { get; private set; }
     public int Y { get; private set; }
     public char Value { get; private set; }
 
-    public bool IsBorder => Value == borderToken;
-    public bool IsBody => Value == bodyToken;
-    public bool IsFood => Value == foodToken;
-    public bool IsEmpty => Value == emptyToken || Value == unitializedToken;
+    public bool IsBorder => Value == _borderToken;
+    public bool IsBody => Value == _bodyToken;
+    public bool IsFood => Value == _foodToken;
+    public bool IsEmpty => Value == _emptyToken || Value == _unitializedToken;
     public bool IsForbidden => IsBorder || IsBody;
 
     public Cell(int x, int y)
@@ -31,7 +31,7 @@ public class Cell
         Y = y;
     }
 
-    public void SetEmpty() => Update(emptyToken);
+    public void SetEmpty() => Update(_emptyToken);
 
     public void SetHead(char headToken)
     {
@@ -40,19 +40,19 @@ public class Cell
 
     public void SetBody(int length)
     {
-        Update(bodyToken);
-        remaining = length;
+        Update(_bodyToken);
+        _remaining = length;
     }
 
-    public void SetBorder() => Update(borderToken);
+    public void SetBorder() => Update(_borderToken);
 
-    public void SetFood() => Update(foodToken);
+    public void SetFood() => Update(_foodToken);
 
     public void Update(char newVal) => Value = newVal;
 
     public void Decay()
     {
-        if (--remaining == 0)
+        if (--_remaining == 0)
         {
             SetEmpty();
         }

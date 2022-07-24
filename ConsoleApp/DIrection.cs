@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 
 namespace SnakeGame;
-public enum eHeading
+public enum EHeading
 {
     Up = 0,
     Right = 90,
@@ -15,18 +15,18 @@ public enum eHeading
 
 public class Direction
 {
-    public eHeading Heading { get; private set; }
+    public EHeading Heading { get; private set; }
     public char KeyPress { get; private set; }
     public char HeadToken { get; private set; }
     public int Degrees => (int)Heading;
-    public Direction Opposite => Board.DirectionMap.Get((eHeading)(Degrees >= 180 ? Degrees - 180 : Degrees + 180));
+    public Direction Opposite => Board.DirectionMap.Get((EHeading)(Degrees >= 180 ? Degrees - 180 : Degrees + 180));
 
-    public bool IsUp => Heading == eHeading.Up;
-    public bool IsRight => Heading == eHeading.Right;
-    public bool IsDown => Heading == eHeading.Down;
-    public bool IsLeft => Heading == eHeading.Left;
+    public bool IsUp => Heading == EHeading.Up;
+    public bool IsRight => Heading == EHeading.Right;
+    public bool IsDown => Heading == EHeading.Down;
+    public bool IsLeft => Heading == EHeading.Left;
 
-    public Direction(eHeading vector, char keyPress, char headToken)
+    public Direction(EHeading vector, char keyPress, char headToken)
     {
         Heading = vector;
         KeyPress = keyPress;
@@ -47,17 +47,17 @@ public class DirectionMap
     {
         get
         {
-            _directionKeys = _directionKeys ?? directionKeyMap();
+            _directionKeys = _directionKeys ?? DirectionKeyMap();
             return _directionKeys;
         }
     }
 
-    private Dictionary<eHeading, Direction> _directionVectors;
-    private Dictionary<eHeading, Direction> directionVectors
+    private Dictionary<EHeading, Direction> _directionVectors;
+    private Dictionary<EHeading, Direction> directionVectors
     {
         get
         {
-            _directionVectors = _directionVectors ?? directionVectorMap();
+            _directionVectors = _directionVectors ?? DirectionVectorMap();
             return _directionVectors;
         }
     }
@@ -74,7 +74,7 @@ public class DirectionMap
         }
     }
 
-    public Direction Get(eHeading vector)
+    public Direction Get(EHeading vector)
     {
         if (directionVectors.TryGetValue(vector, out Direction direction))
         {
@@ -88,16 +88,16 @@ public class DirectionMap
 
     public override string ToString() => string.Join(", ", directionVectors.Select(v => v.Value.ToCommand()));
 
-    private Dictionary<eHeading, Direction> directionVectorMap()
+    private Dictionary<EHeading, Direction> DirectionVectorMap()
     {
-        return new Dictionary<eHeading, Direction>
+        return new Dictionary<EHeading, Direction>
             {
-                {eHeading.Left, new Direction(eHeading.Left , 'a', '<')},
-                {eHeading.Right, new Direction(eHeading.Right,'d', '>') },
-                {eHeading.Down, new Direction(eHeading.Down, 's', 'v') },
-                {eHeading.Up, new Direction(eHeading.Up, 'w', '^') }
+                {EHeading.Left, new Direction(EHeading.Left , 'a', '<')},
+                {EHeading.Right, new Direction(EHeading.Right,'d', '>') },
+                {EHeading.Down, new Direction(EHeading.Down, 's', 'v') },
+                {EHeading.Up, new Direction(EHeading.Up, 'w', '^') }
             };
     }
 
-    private Dictionary<char, Direction> directionKeyMap() => directionVectors.ToDictionary(d => d.Value.KeyPress, d => d.Value);
+    private Dictionary<char, Direction> DirectionKeyMap() => directionVectors.ToDictionary(d => d.Value.KeyPress, d => d.Value);
 }
