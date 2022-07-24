@@ -2,8 +2,8 @@ namespace Snake;
 class FoodCreator
 {
     private int _mapWidht;
-   private int _mapHeight;
-   private char _sym;
+    private int _mapHeight;
+    private char _sym;
 
     Random random = new Random();
 
