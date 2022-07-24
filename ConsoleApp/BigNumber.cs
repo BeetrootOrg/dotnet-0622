@@ -16,6 +16,14 @@ class BigNumber
         _number = number;
     }
 
+    private static void TrimNumbers (ref string number1, ref string number2)
+    {
+        number1 = number1.TrimStart('0');
+        number2 = number2.TrimStart('0');
+        if (number1.Length == 0) number1 = "0"; 
+        if (number2.Length == 0) number2 = "0"; 
+    }
+ 
     private static bool NumberComparing(string number1, string number2)
     {
         if (number1.Length > number2.Length)
@@ -68,6 +76,8 @@ class BigNumber
 
         string maxNumber, minNumber;
         int maxLength, minLength;
+
+        TrimNumbers(ref number1, ref number2);
 
         if(NumberComparing(number1, number2))
         {
@@ -143,11 +153,16 @@ class BigNumber
             number2 = number2.Substring(1);
         }
 
+        TrimNumbers(ref number1, ref number2);
+
         if (firstNegative && secondNegative) return new BigNumber(number2) - new BigNumber(number1);
 
         if (firstNegative && !secondNegative)
         {
          var positiveResult = new BigNumber(number2) + new BigNumber(number1);   
+         
+         if(positiveResult.ToString()[0] == '0') return new BigNumber(positiveResult.ToString());
+         
          return new BigNumber('-' + positiveResult.ToString());
         }
 
@@ -230,6 +245,8 @@ class BigNumber
             number2 = number2.Substring(1);
         }
 
+        TrimNumbers(ref number1, ref number2);
+        
         char symbol;
 
         int num1 = 0, num2 = 0, addLater = 0;
