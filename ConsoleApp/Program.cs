@@ -19,6 +19,8 @@ var renderer = new Renderer
     GameField = gameField
 };
 
+renderer.Init();
+
 var controller = new Game
 {
     Renderer = renderer

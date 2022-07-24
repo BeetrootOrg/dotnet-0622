@@ -12,7 +12,7 @@ class Food : IConsumable, IPositionable, IPositionComparable
 
     public int Y => _point.Y;
 
-    public Food(IPositionable positionable) : this(positionable.X, positionable.Y)
+    public Food(Point point) : this(point.X, point.Y)
     {
     }
 

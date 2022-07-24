@@ -1,3 +1,5 @@
+using System.Linq;
+
 using ConsoleApp.Interfaces;
 
 namespace ConsoleApp;
@@ -38,6 +40,14 @@ class GameField
         {
             Snake.Eat(FieldBorder);
             return FieldBorder;
+        }
+
+        var snakeHead = Snake.Head;
+        var snakeBody = Snake.Body.FirstOrDefault(bp => snakeHead.SamePosition(bp));
+        if (snakeBody != null)
+        {
+            Snake.Eat(snakeBody);
+            return snakeBody;
         }
 
         return null;

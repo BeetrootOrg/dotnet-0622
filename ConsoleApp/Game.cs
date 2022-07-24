@@ -7,8 +7,28 @@ class Game
 {
     private const double Accelarator = 0.9;
 
+    private Direction _direction = Direction.Right;
+    private Direction _lastMove = Direction.Right;
+
     public Renderer Renderer { get; init; }
-    public Direction Direction { get; set; } = Direction.Right;
+    public Direction Direction
+    {
+        get => _direction;
+        set
+        {
+            if (!(_lastMove == Direction.Up && value == Direction.Down ||
+                _lastMove == Direction.Down && value == Direction.Up ||
+                _lastMove == Direction.Left && value == Direction.Right ||
+                _lastMove == Direction.Right && value == Direction.Left))
+            {
+                _direction = value;
+            }
+            else
+            {
+                _direction = _lastMove;
+            }
+        }
+    }
 
     private TimeSpan _speed = TimeSpan.FromMilliseconds(800);
 
@@ -26,6 +46,7 @@ class Game
 
     private void Tick(object state)
     {
+        _lastMove = Direction;
         if (Renderer.GameField.MoveSnake(Direction) != null)
         {
             _speed *= Accelarator;

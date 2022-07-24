@@ -17,9 +17,13 @@ class Point : IPositionable, IPositionComparable
         Y = y;
     }
 
-    public Point(IPositionable positionable) : this(positionable.X, positionable.Y)
+    public Point(Point point) : this(point.X, point.Y)
     {
     }
+
+    public bool IsNeighbor(IPositionable positionable) =>
+        ((X == positionable.X - 1 || X == positionable.X + 1) && Y == positionable.Y) ||
+        ((Y == positionable.Y - 1 || Y == positionable.Y + 1) && X == positionable.X);
 
     public Point Up() => new Point(X, Y - 1);
     public Point Down() => new Point(X, Y + 1);

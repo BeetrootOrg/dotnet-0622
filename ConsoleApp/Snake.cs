@@ -7,16 +7,7 @@ using ConsoleApp.Interfaces;
 
 namespace ConsoleApp;
 
-enum Direction
-{
-    Up,
-    Right,
-    Down,
-    Left
-}
-
-
-class SnakeBody : IPositionable, IPositionComparable
+class SnakeBody : IPositionable, IPositionComparable, IConsumable
 {
     public int X => Position.X;
     public int Y => Position.Y;
@@ -36,6 +27,11 @@ class SnakeBody : IPositionable, IPositionComparable
 
     public void Move(Point position)
     {
+        if (!position.SamePosition(this) && !position.IsNeighbor(this))
+        {
+            throw new Exception("Cannot teleport");
+        }
+
         if (Next != null)
         {
             Next.Move(Position);
@@ -46,12 +42,22 @@ class SnakeBody : IPositionable, IPositionComparable
 
     public void Append(SnakeBody snakeBody)
     {
+        if (Next != null)
+        {
+            throw new Exception("Cannot cut snake");
+        }
+
         Next = snakeBody;
     }
 
     public bool SamePosition(IPositionable positionable)
     {
         return Position.SamePosition(positionable);
+    }
+
+    public IEffect Consume()
+    {
+        return DieEffect.Instance;
     }
 }
 
@@ -87,20 +93,21 @@ class SnakeHead : SnakeBody
 
 class Snake : IEnumerable<SnakeBody>, IEater, IPositionable, IPositionComparable
 {
-    public int X => _head.X;
+    public int X => Head.X;
 
-    public int Y => _head.Y;
+    public int Y => Head.Y;
 
-    private readonly SnakeHead _head;
+    public SnakeHead Head { get; }
+    public IEnumerable<SnakeBody> Body => this.Skip(1);
 
     private Snake(SnakeHead head)
     {
-        _head = head;
+        Head = head;
     }
 
     public void Move(Direction direction)
     {
-        _head.Move(direction);
+        Head.Move(direction);
     }
 
     public bool SamePosition(IPositionable positionable)
@@ -108,7 +115,7 @@ class Snake : IEnumerable<SnakeBody>, IEater, IPositionable, IPositionComparable
         return this.Any(b => b.SamePosition(positionable));
     }
 
-    public IEnumerator<SnakeBody> GetEnumerator() => AllBody().GetEnumerator();
+    public IEnumerator<SnakeBody> GetEnumerator() => WholeSnake().GetEnumerator();
 
     public void Eat(IConsumable consumable)
     {
@@ -148,9 +155,9 @@ class Snake : IEnumerable<SnakeBody>, IEater, IPositionable, IPositionComparable
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    private IEnumerable<SnakeBody> AllBody()
+    private IEnumerable<SnakeBody> WholeSnake()
     {
-        SnakeBody part = _head;
+        SnakeBody part = Head;
         while (part != null)
         {
             yield return part;
