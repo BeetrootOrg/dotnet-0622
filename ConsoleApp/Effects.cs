@@ -12,13 +12,22 @@ class GrowEffect : ISnakeEffect, IEffect
     {
     }
 
-    public void AffectSnake(Snake snake)
+
+    public void Affect(IEater eater)
+    {
+        if (eater is Snake snake)
+        {
+            Affect(snake);
+        }
+    }
+
+    public void Affect(Snake snake)
     {
         snake.Grow();
     }
 }
 
-class DieEffect : ISnakeEffect, IEffect
+class DieEffect : IEffect
 {
     public static readonly DieEffect Instance = new();
 
@@ -26,7 +35,7 @@ class DieEffect : ISnakeEffect, IEffect
     {
     }
 
-    public void AffectSnake(Snake snake)
+    public void Affect(IEater eater)
     {
         throw new ArgumentOutOfRangeException("You died!");
     }

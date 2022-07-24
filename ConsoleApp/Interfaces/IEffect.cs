@@ -2,9 +2,10 @@ namespace ConsoleApp.Interfaces;
 
 interface IEffect
 {
+    void Affect(IEater eater);
 }
 
-interface ISnakeEffect
+interface ISnakeEffect : IEffect
 {
-    void AffectSnake(Snake snake);
+    void Affect(Snake snake);
 }

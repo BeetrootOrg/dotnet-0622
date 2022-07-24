@@ -120,11 +120,7 @@ class Snake : IEnumerable<SnakeBody>, IEater, IPositionable, IPositionComparable
     public void Eat(IConsumable consumable)
     {
         var effect = consumable.Consume();
-
-        if (effect is ISnakeEffect snakeEffect)
-        {
-            snakeEffect.AffectSnake(this);
-        }
+        effect.Affect(this);
     }
 
     public void Grow()
