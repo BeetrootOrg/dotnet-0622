@@ -1,25 +1,50 @@
-﻿using System.Threading;
+﻿using System;
 
 using ConsoleApp;
 
 const int Size = 15;
 
-var snake = new Snake();
-var food = Food.Random(Size);
-var field = new Field
+var gameField = new GameField
 {
-    Food = food,
-    Size = Size,
-    Snake = snake
+    Food = Food.Random(Size),
+    Snake = Snake.Create(),
+    FieldBorder = new FieldBorder
+    {
+        Size = Size
+    }
 };
 
 var renderer = new Renderer
 {
-    Field = field
+    GameField = gameField
 };
 
-System.Console.Clear();
-renderer.Show();
-renderer.StartGame();
+var controller = new Game
+{
+    Renderer = renderer
+};
 
-Thread.Sleep(Timeout.Infinite);
+controller.StartGame();
+
+while (true)
+{
+    var key = Console.ReadKey(false);
+    switch (key.Key)
+    {
+        case ConsoleKey.UpArrow:
+            controller.Direction = Direction.Up;
+            break;
+        case ConsoleKey.DownArrow:
+            controller.Direction = Direction.Down;
+            break;
+        case ConsoleKey.LeftArrow:
+            controller.Direction = Direction.Left;
+            break;
+        case ConsoleKey.RightArrow:
+            controller.Direction = Direction.Right;
+            break;
+        case ConsoleKey.Escape:
+            Environment.Exit(0);
+            break;
+    }
+}
