@@ -1,69 +1,65 @@
-using System;
-
-namespace Snake
+namespace Snake;
+class Point
 {
-    class Point
+    public int X;
+    public int Y;
+    public char Sym;
+    public Point()
     {
-        public int x;
-        public int y;
-        public char sym;
-        public Point()
-        {
-        }
-        public Point(int _x, int _y, char _sym)
-        {
-            x = _x;
-            y = _y;
-            sym = _sym;
-        }
+    }
+    public Point(int x, int y, char sym)
+    {
+        X = x;
+        Y = y;
+        Sym = sym;
+    }
 
-        public Point(Point p)
-        {
-            x = p.x;
-            y = p.y;
-            sym = p.sym;
-        }
+    public Point(Point p)
+    {
+        X = p.X;
+        Y = p.Y;
+        Sym = p.Sym;
+    }
 
-        public void Move(int offset, Direction direction)
+    public void Move(int offset, Direction direction)
+    {
+        if (direction == Direction.RIGHT)
         {
-            if (direction == Direction.RIGHT)
-            {
-                x = x + offset;
-            }
-            else if (direction == Direction.LEFT)
-            {
-                x = x - offset;
-            }
-            else if (direction == Direction.UP)
-            {
-                y = y - offset;
-            }
-            else if (direction == Direction.DOWN)
-            {
-                y = y + offset;
-            }
+            X = X + offset;
         }
+        else if (direction == Direction.LEFT)
+        {
+            X = X - offset;
+        }
+        else if (direction == Direction.UP)
+        {
+            Y = Y - offset;
+        }
+        else if (direction == Direction.DOWN)
+        {
+            Y = Y + offset;
+        }
+    }
 
-        public void Clear()
-        {
-            sym = ' ';
-            Draw();
-        }
+    public void Clear()
+    {
+        Sym = ' ';
+        Draw();
+    }
 
-        public void Draw()
-        {
-            Console.SetCursorPosition(x, y);
-            Console.Write(sym);
-        }
+    public void Draw()
+    {
+        Console.SetCursorPosition(X, Y);
+        Console.Write(Sym);
+    }
 
-        public override string ToString()
-        {
-            return $"{x}, {y}, {sym}";
-        }
+    public override string ToString()
+    {
+        return $"{X}, {Y}, {Sym}";
+    }
 
-        public bool IsHit(Point p)
-        {
-            return p.x == this.x && p.y == this.y;
-        }
+    public bool IsHit(Point p)
+    {
+        return p.X == X && p.Y == Y;
     }
 }
