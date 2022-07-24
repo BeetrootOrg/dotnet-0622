@@ -14,7 +14,7 @@ public class SnakeGameApp
         var finished = false;
         while (!finished)
         {
-            var game = new Game();
+            var game = new NewGame();
             game.Play();
             finished = game.Quit;
             if (game.Lost)

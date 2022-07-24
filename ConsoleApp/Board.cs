@@ -9,7 +9,7 @@ public class Board
 {
     public static DirectionMap DirectionMap { get; } = new DirectionMap();
 
-    private readonly string instructions = "How to Play: Avoid hitting walls or yourself. Grow by eating food (%). Highest length wins.";
+    private readonly string instructions = "How to Play: Avoid hitting walls or yourself. Grow by eating food (Y). Highest length wins.";
     private readonly string commandBase = "Commands: {0}, Esc: Quit\n";
     private readonly string lengthBase = "Length: {0}\n";
 
@@ -36,7 +36,6 @@ public class Board
         initGrid();
     }
 
-    //continue in the same direction
     public void DoTurn()
     {
         doTurn(Snake.Direction, getDestination(Snake.Direction));
@@ -64,14 +63,13 @@ public class Board
     public override string ToString()
     {
         var sb = new StringBuilder();
-        //y is in outer loop, so we draw by rows
         for (int y = 0; y < Height; y++)
         {
             for (int x = 0; x < Width; x++)
             {
                 sb.Append(grid[x, y].Value);
             }
-            sb.Append("\n"); //terminate row
+            sb.Append("\n");
         }
         sb.AppendFormat(lengthBase, Snake.Length);
         sb.AppendLine(instructions);
@@ -120,7 +118,7 @@ public class Board
 
     private Cell getDirectionalNeighbor(Cell cell, Direction direction)
     {
-        var neighbor = new Cell(-1, -1); //initialize to dummy cell
+        var neighbor = new Cell(-1, -1);
 
         if (direction.IsUp)
         {
@@ -145,7 +143,7 @@ public class Board
     private Cell randomCell()
     {
         bool isEmpty;
-        var cell = new Cell(-1, -1); //initialize to dummy cell
+        var cell = new Cell(-1, -1);
         do
         {
             cell = grid[random.Next(Width), random.Next(Height)];

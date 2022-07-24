@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 
 namespace SnakeGame;
-public class Game
+public class NewGame
 {
     private readonly eHeading initialHeading = eHeading.Up;
     private DirectionMap directionMap = Board.DirectionMap;
@@ -14,7 +14,7 @@ public class Game
     public bool Lost { get; private set; } = false;
     public bool Quit { get; private set; } = false;
 
-    public Game(int snakeLength = 5)
+    public NewGame(int snakeLength = 5)
     {
         board = new Board();
         var head = board.Center;
@@ -22,7 +22,7 @@ public class Game
         board.AddFood();
         board.Draw();
     }
-
+    
     public void Play()
     {
         while (!Lost && !Quit)
