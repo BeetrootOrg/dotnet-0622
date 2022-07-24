@@ -51,10 +51,13 @@ class Renderer
         Console.Write("Y");
     }
 
-    private void Update(object state)
+    public void Update(object state)
     {
         Field.Snake.Move();
+        Field.CheckSnakePosition();
         Console.Clear();
         Show();
+        while(true) 
+            Field.Snake.ReadMovement(Console.ReadKey(true).Key);
     }
 }
