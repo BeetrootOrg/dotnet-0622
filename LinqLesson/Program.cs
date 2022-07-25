@@ -74,16 +74,7 @@ namespace LinqLesson
 			2) find max and min distance between 2 persons
 			3) find 2 persons whos ‘about’ have the most same words
 			4) find persons with same friends (compare by friend’s name) //Jeannie Waters
-
-			1) знайти персону що найпівнічніша , найпівденніша, найзахідніша, найпівденніша по координатам
-			2) знайти максимальну дистанцію між двома персонами по формулі і так само мінімальну
-			3) схоже робили на уроці - знайти персони у яких єбаут має найбільше схожих слів
-			запустити цикл перебрати для кожної персони усі інші персони і порівняти чи є ц них спільні друзі.. 
-			якщо є то такі персони записати в новий список ( френдліст список людей зі спільними друзями)
-
-			потім по списку френдліст пройтися 
-
-			4) знайти персон у кого є однакові друзі (порівнювати за іменем друга)
+			   знайти персон у кого є однакові друзі (порівнювати за іменем друга)
 			*/
 
             System.Console.Clear();
@@ -98,7 +89,7 @@ namespace LinqLesson
             var southPosition = persons.Max(person => person.Latitude);
             var southPerson = persons.MaxBy(person => person.Latitude);
             WriteLine("farthest south Position is " + southPosition + "  for person = " + southPerson.Name);
-            //1.3 farthest west person
+            //  1.3 farthest west person
             var westPosition = persons.Min(person => person.Longitude);
             var westPerson = persons.MinBy(person => person.Longitude);
             WriteLine("farthest west is " + westPosition + " for person = " + westPerson.Name);
@@ -199,6 +190,12 @@ namespace LinqLesson
             System.Console.WriteLine("4- find persons with same friends (compare by friend’s name) //Jeannie Waters");
 
 
+            var allFriendssSelected = persons.Select(x => x.Friends); //тут ми робило колекцію із всіх тегів які є в файлі 
+            var allFriends = persons.SelectMany(x => x.Friends);// тут ми групуємо все що знайшли в группи, і в кожній группі будуть тільки однакові теги.
+            var friendsGroups = allFriends.GroupBy(x => x);//
+            var mainFriend = friendsGroups.MaxBy(x => x.Count()).Key; //
+            var personsWithSameFriend = persons.Where(x => x.Friends.Contains(mainFriend)).Count();
+            WriteLine($"Persons with same tag '{mainFriend}' are {personsWithSameFriend}");
 
         }
 
