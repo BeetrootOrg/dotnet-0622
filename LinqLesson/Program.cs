@@ -58,11 +58,11 @@ namespace LinqLesson
                 WriteLine($"{item.Key} has {item.Count()} people");
             }
 
-            // 8. common tags
-            var allTagsSelected = persons.Select(x => x.Tags);
-            var allTags = persons.SelectMany(x => x.Tags);
-            var tagsGroups = allTags.GroupBy(x => x);
-            var mainTag = tagsGroups.MaxBy(x => x.Count()).Key;
+            // 8. common tags - знайти персон у яких є спільні теги і у яких спільних тегів найбільше
+            var allTagsSelected = persons.Select(x => x.Tags); //тут ми робило колекцію із всіх тегів які є в файлі 
+            var allTags = persons.SelectMany(x => x.Tags);// тут ми групуємо все що знайшли в группи, і в кожній группі будуть тільки однакові теги.
+            var tagsGroups = allTags.GroupBy(x => x);//
+            var mainTag = tagsGroups.MaxBy(x => x.Count()).Key; //
 
             var personsWithSameTag = persons.Where(x => x.Tags.Contains(mainTag)).Count();
             WriteLine($"Persons with same tag '{mainTag}' are {personsWithSameTag}");
@@ -130,6 +130,7 @@ namespace LinqLesson
                         P2 = (lnp2 - lnp1) * 2;
 
                         currentdistance = Math.Sqrt(P1 + P2);
+                      
                         if (totalMaxDistance < currentdistance)
                         {
                             totalMaxDistance = currentdistance;
@@ -149,7 +150,36 @@ namespace LinqLesson
             System.Console.WriteLine("MinDistans = " + totalMinDistance + " between person " + person1Min + " and " + person2Min);
 
             //3.0 find 2 persons whos ‘about’ have the most same words
-            System.Console.WriteLine("2- find max and min  distanse beetwen 2 persons");
+            System.Console.WriteLine("3- find 2 persons whos ‘about’ have the most same words");
+
+            string personAbout1 = "", personAbout2 = "";
+            foreach (var person1 in persons)
+            {
+                ///тут нужна коллекция всех слов которые есть в эбауте первой персоны
+
+                foreach (var person2 in persons)
+                {
+                    if (person1.Name != person2.Name)
+                    {
+                            //тут нужна коллекция всех слов которые есть в эбауте второй персоны
+
+                            /* тут должен быть код который возьмет каждое слово с колекции 1 и поищет его в коллекции 2 и если найдет то увеличит каунт
+                               дальше он должен проверить какое количество общих слов было в предыдущем сравнении других персон и если текущее больше то обновить макс кол тег и персон 1 и персон2
+
+                            */
+                    }
+
+                }
+
+
+
+
+
+            }
+
+
+
+
         }
     }
 }
