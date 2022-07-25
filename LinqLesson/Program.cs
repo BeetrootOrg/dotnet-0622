@@ -83,7 +83,7 @@ namespace LinqLesson
 			return true;
 		}
 
-		private static (Person, Person) MaxAboutSameWrodsCount(IEnumerable<Person> persons)
+		private static (Person, Person) MaxAboutSameWrods(IEnumerable<Person> persons)
 		{
 			int a = AboutSameWordsCount(persons.First(), persons.Last());
 			int maxSameWrodsCount = 0;
@@ -173,7 +173,7 @@ namespace LinqLesson
 			WriteLine($"Min distance is: {MinDistance(persons)}km");
 
 			//find 2 persons whos ‘about’ have the most same words
-			var personsWithMostAboutSameWrods = MaxAboutSameWrodsCount(persons);
+			var personsWithMostAboutSameWrods = MaxAboutSameWrods(persons);
 			WriteLine($"{personsWithMostAboutSameWrods.Item1.Name} and {personsWithMostAboutSameWrods.Item2.Name} have {AboutSameWordsCount(personsWithMostAboutSameWrods.Item1, personsWithMostAboutSameWrods.Item2)} same words is 'about'");
 
 			//find persons with same friends (compare by friend’s name)
