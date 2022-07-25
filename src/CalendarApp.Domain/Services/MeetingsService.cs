@@ -5,7 +5,7 @@ using CalendarApp.Domain.Services.Interfaces;
 
 namespace CalendarApp.Domain.Services;
 
-public class MeetingsService : IMeetingsService
+internal class MeetingsService : IMeetingsService
 {
 	private readonly IMeetingsRepository _repository;
 

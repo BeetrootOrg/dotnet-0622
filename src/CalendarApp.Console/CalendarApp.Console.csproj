@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\CalendarApp.Contracts\CalendarApp.Contracts.csproj" />
     <ProjectReference Include="..\CalendarApp.Domain\CalendarApp.Domain.csproj" />
-    <ProjectReference Include="..\CalendarApp.DataAccess\CalendarApp.DataAccess.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

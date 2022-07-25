@@ -1,8 +1,6 @@
 using CalendarApp.Console.Presenters.Interfaces;
 using CalendarApp.Domain.Services.Interfaces;
 
-using static System.Console;
-
 namespace CalendarApp.Console.Presenters;
 
 internal class ShowAllPresenter : IPresenter
