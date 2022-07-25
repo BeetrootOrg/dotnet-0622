@@ -70,7 +70,7 @@ namespace LinqLesson
 
             System.Console.Clear();
             System.Console.WriteLine();
-            
+
             // HOMEWORK 
             System.Console.WriteLine("1- find out who is located farthest north/south/west/east using latitude/longitude data");
             // --------------- 1.1 farthest north person
@@ -192,7 +192,7 @@ namespace LinqLesson
             }
             else 
             {
-                WriteLine(" No one have same friend ...... " );
+                WriteLine(" No one have same friend ....... " );
 
             }
         }
