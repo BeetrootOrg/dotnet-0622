@@ -6,4 +6,5 @@ namespace CalendarApp.DataAccess.Repositories.Interfaces;
 public interface IMeetingsRepository
 {
 	IEnumerable<Meeting> GetAllMeetings();
+	void AddMeeting(Meeting meeting);
 }

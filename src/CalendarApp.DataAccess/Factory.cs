@@ -5,5 +5,5 @@ namespace CalendarApp.DataAccess;
 
 public static class Factory
 {
-	public static IMeetingsRepository MeetingsRepository => new MeetingsRepository();
+	public static readonly IMeetingsRepository MeetingsRepository = new MeetingsRepository();
 }

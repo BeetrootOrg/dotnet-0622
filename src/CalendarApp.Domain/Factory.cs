@@ -7,5 +7,5 @@ namespace CalendarApp.Domain;
 
 public static class Factory
 {
-	public static IMeetingsService MeetingsService => new MeetingsService(DataAccessFactory.MeetingsRepository);
+	public static readonly IMeetingsService MeetingsService = new MeetingsService(DataAccessFactory.MeetingsRepository);
 }
