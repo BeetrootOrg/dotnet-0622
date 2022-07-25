@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System;
+using System.Text;
 
 
 using static System.Console;
@@ -67,38 +68,29 @@ namespace LinqLesson
             var personsWithSameTag = persons.Where(x => x.Tags.Contains(mainTag)).Count();
             WriteLine($"Persons with same tag '{mainTag}' are {personsWithSameTag}");
 
-            /*
-			finish all tasks from lesson using LinqExample.zip and do next:
-
-			1) find out who is located farthest north/south/west/east using latitude/longitude data
-			2) find max and min distance between 2 persons
-			3) find 2 persons whos ‘about’ have the most same words
-			4) find persons with same friends (compare by friend’s name) //Jeannie Waters
-			   знайти персон у кого є однакові друзі (порівнювати за іменем друга)
-			*/
-
             System.Console.Clear();
             System.Console.WriteLine();
+            
             // HOMEWORK 
             System.Console.WriteLine("1- find out who is located farthest north/south/west/east using latitude/longitude data");
-            //  1.1 farthest north person
+            // --------------- 1.1 farthest north person
             var nordestPosition = persons.Min(person => person.Latitude);
             var nordestPerson = persons.MinBy(person => person.Latitude);
             WriteLine("farthest north is " + nordestPosition + " for person = " + nordestPerson.Name);
-            //  1.2 farthest south person
+            //---------------  1.2 farthest south person
             var southPosition = persons.Max(person => person.Latitude);
             var southPerson = persons.MaxBy(person => person.Latitude);
             WriteLine("farthest south Position is " + southPosition + "  for person = " + southPerson.Name);
-            //  1.3 farthest west person
+            //---------------  1.3 farthest west person
             var westPosition = persons.Min(person => person.Longitude);
             var westPerson = persons.MinBy(person => person.Longitude);
             WriteLine("farthest west is " + westPosition + " for person = " + westPerson.Name);
-            //  1.4 farthest east  person
+            //---------------  1.4 farthest east  person
             var eastPosition = persons.Max(person => person.Longitude);
             var eastPerson = persons.MaxBy(person => person.Longitude);
             WriteLine("farthest east Position is " + eastPosition + "  for person = " + eastPerson.Name);
 
-            //2.0 find max and min  distanse beetwen 2 persons
+            //---------------  2.0 find max and min  distanse beetwen 2 persons
             System.Console.WriteLine();
             System.Console.WriteLine("2- find max and min  distanse beetwen 2 persons");
             double totalMaxDistance = 0, totalMinDistance = 0;
@@ -120,7 +112,6 @@ namespace LinqLesson
                         lnp2 = person2.Longitude;
                         P1 = (ltp2 - ltp1) * 2;
                         P2 = (lnp2 - lnp1) * 2;
-
                         currentdistance = Math.Sqrt(P1 + P2);
 
                         if (totalMaxDistance < currentdistance)
@@ -141,7 +132,7 @@ namespace LinqLesson
             System.Console.WriteLine("MaxDistans = " + totalMaxDistance + " between person " + person1Max + " and " + person2Max);
             System.Console.WriteLine("MinDistans = " + totalMinDistance + " between person " + person1Min + " and " + person2Min);
 
-            //3.0 find 2 persons whos ‘about’ have the most same words
+            // --------------- 3.0 find 2 persons whos ‘about’ have the most same words
             System.Console.WriteLine();
             System.Console.WriteLine("3- find 2 persons whos ‘about’ have the most same words");
 
@@ -151,27 +142,20 @@ namespace LinqLesson
 
             foreach (var person1 in persons)
             {
-
-                about1 = person1.About;// строка описание с персоны 1
-                                       //тут уже массив с слов котороые в эбауте персоны 1, без пробелов и без точек
-                                       // string[] words1 = about1.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-
-                ///тут нужна коллекция всех слов которые есть в эбауте первой персоны
-
+                about1 = person1.About;
                 foreach (var person2 in persons)
                 {
                     if (person1.Name != person2.Name)
                     {
                         int SameCount = 0;
-                        about2 = person2.About;                 
+                        about2 = person2.About;
                         string[] words2 = about2.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-                          foreach (string word in words2)
+                        foreach (string word in words2)
                         {
                             if (about1.Contains(word))
                             {
                                 SameCount = SameCount + 1;
                             }
-
                         }
                         if (SameCount > totalSameCount)
                         {
@@ -179,26 +163,39 @@ namespace LinqLesson
                             personAbout1 = person1.Name;
                             personAbout2 = person2.Name;
                         }
-
                     }
                 }
             }
-            System.Console.WriteLine("Max same words in About = "+ totalSameCount + ", between "+ personAbout1 + " and "+personAbout2);
+            System.Console.WriteLine("Max same words in About = " + totalSameCount + ", between " + personAbout1 + " and " + personAbout2);
 
-            //4.find persons with same friends (compare by friend’s name) //Jeannie Waters
+            //4.find persons with same friends (compare by friend’s name) 
             System.Console.WriteLine();
-            System.Console.WriteLine("4- find persons with same friends (compare by friend’s name) //Jeannie Waters");
+            System.Console.WriteLine("4- find persons with same friends (compare by friend’s name)");
+          
+            var allFriends = persons.SelectMany(x => x.Friends);
+            var friendsGroups = allFriends.GroupBy(x => x);
+            var mainFriend = friendsGroups.MaxBy(x => x.Count()).Key; 
+            var personsWithSameFriendCount = persons.Where(x => x.Friends.Contains(mainFriend)).Count();
+            var personsWithSameFriend = persons.Where(x => x.Friends.Contains(mainFriend));
+            
+            if (personsWithSameFriendCount >= 2)
+            {
+                StringBuilder myStringBuilder = new StringBuilder();
 
+                foreach (var person3 in personsWithSameFriend)
+                {
+                    myStringBuilder.Append(person3.Name + " ");
+                    
+                }
+                Console.WriteLine("The main friend is "+mainFriend.Name + " for this people: " + myStringBuilder);
 
-            var allFriendssSelected = persons.Select(x => x.Friends); //тут ми робило колекцію із всіх тегів які є в файлі 
-            var allFriends = persons.SelectMany(x => x.Friends);// тут ми групуємо все що знайшли в группи, і в кожній группі будуть тільки однакові теги.
-            var friendsGroups = allFriends.GroupBy(x => x);//
-            var mainFriend = friendsGroups.MaxBy(x => x.Count()).Key; //
-            var personsWithSameFriend = persons.Where(x => x.Friends.Contains(mainFriend)).Count();
-            WriteLine($"Persons with same tag '{mainFriend}' are {personsWithSameFriend}");
+            }
+            else 
+            {
+                WriteLine(" No one have same friend ...... " );
 
+            }
         }
-
     }
 }
 
