@@ -1,3 +1,4 @@
+using System;
 using CalendarApp.Console.Presenters.Interfaces;
 
 using static System.Console;
@@ -6,15 +7,18 @@ namespace CalendarApp.Console.Presenters;
 
 class MainMenuPresenter : IPresenter
 {
-	public void Action()
+	public IPresenter Action()
 	{
 		var key = ReadKey();
 
 		switch (key.Key)
 		{
+			case ConsoleKey.D1:
+				return new ShowAllPresenter();
 			case ConsoleKey.D0:
-				Environment.Exit(0);
-				break;
+				return null;
+			default:
+				return this;
 		}
 	}
 
@@ -24,7 +28,7 @@ class MainMenuPresenter : IPresenter
 
 		WriteLine("CalendarApp");
 		WriteLine();
-		// WriteLine("1 - Show all events");
+		WriteLine("1 - Show all events");
 		WriteLine("0 - Exit");
 	}
 }
