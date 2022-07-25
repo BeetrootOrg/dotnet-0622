@@ -1,6 +1,6 @@
 namespace CalendarApp.Console.Presenters.Interfaces;
 
-interface IPresenter
+internal interface IPresenter
 {
 	void Show();
 	IPresenter Action();
