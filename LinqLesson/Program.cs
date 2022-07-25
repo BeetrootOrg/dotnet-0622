@@ -108,6 +108,7 @@ namespace LinqLesson
             WriteLine("farthest east Position is " + eastPosition + "  for person = " + eastPerson.Name);
 
             //2.0 find max and min  distanse beetwen 2 persons
+            System.Console.WriteLine();
             System.Console.WriteLine("2- find max and min  distanse beetwen 2 persons");
             double totalMaxDistance = 0, totalMinDistance = 0;
             string person1Max = "", person2Max = "", person1Min = "", person2Min = "";
@@ -130,7 +131,7 @@ namespace LinqLesson
                         P2 = (lnp2 - lnp1) * 2;
 
                         currentdistance = Math.Sqrt(P1 + P2);
-                      
+
                         if (totalMaxDistance < currentdistance)
                         {
                             totalMaxDistance = currentdistance;
@@ -150,36 +151,57 @@ namespace LinqLesson
             System.Console.WriteLine("MinDistans = " + totalMinDistance + " between person " + person1Min + " and " + person2Min);
 
             //3.0 find 2 persons whos ‘about’ have the most same words
+            System.Console.WriteLine();
             System.Console.WriteLine("3- find 2 persons whos ‘about’ have the most same words");
 
-            string personAbout1 = "", personAbout2 = "";
+            string personAbout1 = "", personAbout2 = "", about1 = "", about2 = "";
+            int totalSameCount = 0;
+            char[] separators = new char[] { ' ', '.' };
+
             foreach (var person1 in persons)
             {
+
+                about1 = person1.About;// строка описание с персоны 1
+                                       //тут уже массив с слов котороые в эбауте персоны 1, без пробелов и без точек
+                                       // string[] words1 = about1.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
                 ///тут нужна коллекция всех слов которые есть в эбауте первой персоны
 
                 foreach (var person2 in persons)
                 {
                     if (person1.Name != person2.Name)
                     {
-                            //тут нужна коллекция всех слов которые есть в эбауте второй персоны
+                        int SameCount = 0;
+                        about2 = person2.About;                 
+                        string[] words2 = about2.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                          foreach (string word in words2)
+                        {
+                            if (about1.Contains(word))
+                            {
+                                SameCount = SameCount + 1;
+                            }
 
-                            /* тут должен быть код который возьмет каждое слово с колекции 1 и поищет его в коллекции 2 и если найдет то увеличит каунт
-                               дальше он должен проверить какое количество общих слов было в предыдущем сравнении других персон и если текущее больше то обновить макс кол тег и персон 1 и персон2
+                        }
+                        if (SameCount > totalSameCount)
+                        {
+                            totalSameCount = SameCount;
+                            personAbout1 = person1.Name;
+                            personAbout2 = person2.Name;
+                        }
 
-                            */
                     }
-
                 }
-
-
-
-
-
             }
+            System.Console.WriteLine("Max same words in About = "+ totalSameCount + ", between "+ personAbout1 + " and "+personAbout2);
 
+            //4.find persons with same friends (compare by friend’s name) //Jeannie Waters
+            System.Console.WriteLine();
+            System.Console.WriteLine("4- find persons with same friends (compare by friend’s name) //Jeannie Waters");
 
 
 
         }
+
     }
 }
+
