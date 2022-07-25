@@ -83,6 +83,28 @@ namespace LinqLesson
 			return true;
 		}
 
+		private static Dictionary<string, List<Person>> AtLeastOneSameFriend(IEnumerable<Person> persons)
+		{
+			Dictionary<string, List<Person>> friendLists =  new Dictionary<string, List<Person>>();
+			List<string> allFriends = new List<string>();
+			foreach(var person in persons)
+			{
+				var friendList = person.Friends.Select(x => x.Name).ToList();
+				foreach (var friend in friendList)
+					if (!allFriends.Contains(friend)) allFriends.Add(friend);
+			}
+			
+			foreach (var friend in allFriends)
+			{
+				List<Person> allPersonsWithCurrentFriend = new List<Person>();
+				foreach (var person in persons)
+					if (person.Friends.Select(x => x.Name).Contains(friend)) allPersonsWithCurrentFriend.Add(person);
+				if (allPersonsWithCurrentFriend.Count>1) friendLists.Add(friend, allPersonsWithCurrentFriend);
+			}
+
+			return friendLists;
+		}
+
 		private static (Person, Person) MaxAboutSameWrods(IEnumerable<Person> persons)
 		{
 			int a = AboutSameWordsCount(persons.First(), persons.Last());
@@ -189,6 +211,9 @@ namespace LinqLesson
 					WriteLine($"{string.Join(',', item)} have same friends");
 				}
 			}
+
+			//at least one same friend
+			AtLeastOneSameFriend(persons); //looks like there are no intersections between friends lists in persons
 		}
 	}
 }
