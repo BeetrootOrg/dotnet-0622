@@ -189,6 +189,10 @@ namespace LinqLesson
 			var southPerson = persons.MinBy(x => x.Latitude);
 			var westPerson = persons.MinBy(x => x.Longitude);
 			var eastPerson = persons.MaxBy(x => x.Longitude);
+			WriteLine($"Most farthest north person is {northPerson.Name} with coordinates: {northPerson.Latitude}, {northPerson.Longitude}");
+			WriteLine($"Most farthest south person is {southPerson.Name} with coordinates: {southPerson.Latitude}, {southPerson.Longitude}");
+			WriteLine($"Most farthest west person is {westPerson.Name} with coordinates: {westPerson.Latitude}, {westPerson.Longitude}");
+			WriteLine($"Most farthest east person is {eastPerson.Name} with coordinates: {eastPerson.Latitude}, {eastPerson.Longitude}");
 
 			//find max and min distance between 2 persons
 			WriteLine($"Max distance is: {MaxDistance(persons)}km");
@@ -213,7 +217,16 @@ namespace LinqLesson
 			}
 
 			//at least one same friend
-			AtLeastOneSameFriend(persons); //looks like there are no intersections between friends lists in persons
+			var personsWithSameFriend = AtLeastOneSameFriend(persons); //looks like there are no intersections between friends lists in persons
+			if (personsWithSameFriend.Count == 0)
+			{
+				WriteLine("There is no persons with same friend");
+			}
+			else
+			{
+				foreach (var item in personsWithSameFriend)
+					WriteLine($"{String.Join(", ",personsWithSameFriend[item.Key].Select(x => x.Name))} have same friend {item.Key}");
+			}
 		}
 	}
 }
