@@ -101,6 +101,11 @@ internal class Program
         WriteLine($"Simple get: {sw1.ElapsedMilliseconds}");
         WriteLine($"Reflection get: {sw2.ElapsedMilliseconds}");
 
+
+        System.Console.Clear();
+        System.Console.WriteLine();
+        System.Console.WriteLine("-------------------------------------------------------");
+
         var intType = typeof(int);
         var assembly = intType.Assembly;
         WriteLine($"Assymbly {assembly.FullName}");
@@ -111,10 +116,12 @@ internal class Program
             foreach (var methodInfo in assemblyType.GetMethods())
             {
                 // ...
+                System.Console.WriteLine("-- "+ methodInfo);
             }
         }
     }
-
+    // System.Console.WriteLine("");
+    // System.Console.WriteLine("--------------------------------------------------------------");
     // 2.1 to rgb
     public static string ToRgb(Color color)
     {
