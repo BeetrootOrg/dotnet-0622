@@ -212,7 +212,7 @@ namespace LinqLesson
 			{
 				foreach (var item in personsWithSameFriends)
 				{
-					WriteLine($"{string.Join(',', item)} have same friends");
+					WriteLine($"{String.Join(", ", item)} have same friends");
 				}
 			}
 
