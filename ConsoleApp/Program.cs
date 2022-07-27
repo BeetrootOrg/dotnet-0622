@@ -109,6 +109,7 @@ internal class Program
         var intType = typeof(int);
         var assembly = intType.Assembly;
         WriteLine($"Assymbly {assembly.FullName}");
+        
         foreach (var assemblyType in assembly.GetTypes().Take(20))
         {
             WriteLine($"Type name: {assemblyType.Name}");
@@ -118,10 +119,12 @@ internal class Program
                 // ...
                 System.Console.WriteLine("-- "+ methodInfo);
             }
+     
         }
+         System.Console.WriteLine("-------------------------------------------------------");
     }
-    // System.Console.WriteLine("");
-    // System.Console.WriteLine("--------------------------------------------------------------");
+    
+
     // 2.1 to rgb
     public static string ToRgb(Color color)
     {
