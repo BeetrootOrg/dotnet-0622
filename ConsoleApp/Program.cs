@@ -119,7 +119,6 @@ internal class Program
             WriteLine($"Is class: {assemblyType.IsClass}");
             WriteLine($"Is Interface: {assemblyType.IsInterface}");
 
-
             var allMethodsFromAssambly = assemblyType.GetMethods();
             foreach (var methodInfo in allMethodsFromAssambly)
             {
