@@ -32,20 +32,20 @@ internal class Program
 
         WriteLine(string.Join(',', values));
 
-        // 2.1
-        WriteLine(ToRgb(Color.Red));
+        // // 2.1
+        // WriteLine(ToRgb(Color.Red));
 
-        // 2.2
-        WriteLine(ToRgbReflection(Color.Blue));
+        // // 2.2
+        // WriteLine(ToRgbReflection(Color.Blue));
 
-        try
-        {
-            WriteLine(ToRgbReflection((Color)42));
-        }
-        catch
-        {
-            // ignore
-        }
+        // try
+        // {
+        //     WriteLine(ToRgbReflection((Color)42));
+        // }
+        // catch
+        // {
+        //     // ignore
+        // }
 
         // 3.1. create class
         var testClass1 = Activator.CreateInstance(typeof(TestClass));
@@ -101,55 +101,84 @@ internal class Program
         WriteLine($"Simple get: {sw1.ElapsedMilliseconds}");
         WriteLine($"Reflection get: {sw2.ElapsedMilliseconds}");
 
-
+        // HOMEWORK 
         System.Console.Clear();
         System.Console.WriteLine();
         System.Console.WriteLine("-------------------------------------------------------");
-
         var intType = typeof(int);
         var assembly = intType.Assembly;
         WriteLine($"Assymbly {assembly.FullName}");
-        
+
         foreach (var assemblyType in assembly.GetTypes().Take(20))
         {
+            System.Console.WriteLine("");
+            WriteLine("-------------------------------------------------------");
             WriteLine($"Type name: {assemblyType.Name}");
+            WriteLine($"Full Name: {assemblyType.FullName}");
+            WriteLine($"Is struct: {assemblyType.IsValueType}");
+            WriteLine($"Is class: {assemblyType.IsClass}");
+            WriteLine($"Is Interface: {assemblyType.IsInterface}");
 
-            foreach (var methodInfo in assemblyType.GetMethods())
+
+            var allMethodsFromAssambly = assemblyType.GetMethods();
+            foreach (var methodInfo in allMethodsFromAssambly)
             {
                 // ...
-                System.Console.WriteLine("-- "+ methodInfo);
+                WriteLine("methodInfo -- " + methodInfo);
+                var methodparams = methodInfo.GetParameters();
+                foreach (var param in methodparams)
+                {
+                    WriteLine("param name =  " + param.Name + "  type =  " + param.ParameterType);           
+                }
             }
-     
+
+            if (assemblyType.IsClass)
+            {
+                var classMembers = assemblyType.GetMembers();
+                System.Console.WriteLine("class members : ");
+                foreach (var memberInfo in classMembers)
+                {
+                    WriteLine("member name =  " + memberInfo.Name + " \ttype =  " + memberInfo.MemberType);                  
+                }
+
+                var classfields = assemblyType.GetFields();               
+                System.Console.WriteLine("class fields : ");
+                foreach (var fieldInfo in classfields)
+                {
+                    WriteLine("field name =  " + fieldInfo.Name + "   IsPrivate =  " + fieldInfo.IsPrivate);                         
+                }
+            }
         }
-         System.Console.WriteLine("-------------------------------------------------------");
-    }
-    
+        System.Console.WriteLine();
+        System.Console.WriteLine("-------------------------------------------------------");
 
-    // 2.1 to rgb
-    public static string ToRgb(Color color)
-    {
-        return color switch
-        {
-            Color.Blue => "#0000ff",
-            Color.Brown => "#964b00",
-            Color.Green => "#00ff00",
-            Color.Red => "#ff0000",
-            _ => throw new ArgumentOutOfRangeException(nameof(color))
-        };
     }
 
-    // 2.2 to rgb
-    public static string ToRgbReflection(Color color)
-    {
-        var type = typeof(Color);
-        var memberInfo = type.GetMember(color.ToString());
-        if (!memberInfo.Any())
-        {
-            throw new ArgumentOutOfRangeException(nameof(color));
-        }
+    // // 2.1 to rgb
+    // public static string ToRgb(Color color)
+    // {
+    //     return color switch
+    //     {
+    //         Color.Blue => "#0000ff",
+    //         Color.Brown => "#964b00",
+    //         Color.Green => "#00ff00",
+    //         Color.Red => "#ff0000",
+    //         _ => throw new ArgumentOutOfRangeException(nameof(color))
+    //     };
+    // }
 
-        var attributes = memberInfo[0].GetCustomAttributes(typeof(RgbCodeAttribute), false);
-        var rgbAttribute = (RgbCodeAttribute)attributes.Single();
-        return rgbAttribute.Code;
-    }
+    // // 2.2 to rgb
+    // public static string ToRgbReflection(Color color)
+    // {
+    //     var type = typeof(Color);
+    //     var memberInfo = type.GetMember(color.ToString());
+    //     if (!memberInfo.Any())
+    //     {
+    //         throw new ArgumentOutOfRangeException(nameof(color));
+    //     }
+
+    //     var attributes = memberInfo[0].GetCustomAttributes(typeof(RgbCodeAttribute), false);
+    //     var rgbAttribute = (RgbCodeAttribute)attributes.Single();
+    //     return rgbAttribute.Code;
+    // }
 }
