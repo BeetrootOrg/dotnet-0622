@@ -26,8 +26,8 @@ internal class ShowAllPresenter : IPresenter
 		foreach (var meeting in _meetingService.GetAllMeetings())
 		{
 			WriteLine("{0,-25}{1,-25}{2,-25}{3,-25}", meeting.Name,
-				meeting.Start.ToString("s"),
-				meeting.End.ToString("s"),
+				meeting.Timeframe.Start.ToString("s"),
+				meeting.Timeframe.End.ToString("s"),
 				meeting.Room.Name);
 		}
 

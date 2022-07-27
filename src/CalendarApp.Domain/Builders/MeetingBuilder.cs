@@ -69,8 +69,11 @@ public class MeetingBuilder
 		return new Meeting
 		{
 			Name = _name,
-			Start = _start.Value,
-			End = _end.Value,
+			Timeframe = new Timeframe
+			{
+				Start = _start.Value,
+				End = _end.Value,
+			},
 			Room = new Room
 			{
 				Name = _roomName
