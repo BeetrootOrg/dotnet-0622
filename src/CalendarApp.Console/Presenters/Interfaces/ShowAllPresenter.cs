@@ -3,7 +3,7 @@ using static System.Console;
 
 namespace CalendarApp.Console.Presenters;
 
-class ShowAllPresenter : IPresenter
+internal class ShowAllPresenter : IPresenter
 {
     public IPresenter Action()
     {
