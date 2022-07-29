@@ -1,21 +1,24 @@
 using CalendarApp.Console.Presenters.Interfaces;
-
+using System;
 namespace CalendarApp.Console.Presenters;
 using static System.Console;
 
 
 class MainMenuPresenter : IPresenter
 {
-    public void Action()
+    public IPresenter Action()
     {
         var key = System.Console.ReadKey();
 
         switch (key.Key)
         {
             case ConsoleKey.D0:
-                Environment.Exit(0);
-                break;
+                return null;
 
+            case ConsoleKey.D1:
+                return new ShowAllPresenter();
+            default:
+                return this;
         }
     }
 
