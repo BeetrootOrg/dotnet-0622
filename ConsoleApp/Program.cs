@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 
 using static System.Console;
@@ -13,6 +14,8 @@ internal class Program
         var stopwatch = new Stopwatch();
 
         await NoAwait();
+        var asyncTask = YieldExample();
+        var asyncTask2 = TaskRunExample();
 
         stopwatch.Start();
         var panTask = HeatUpAPan();
@@ -104,5 +107,24 @@ internal class Program
         Task.Delay(TimeSpan.FromSeconds(10));
         WriteLine("No await");
         return Task.CompletedTask;
+    }
+
+    private static async Task YieldExample()
+    {
+        await Task.Yield();
+        // long sync code
+        Thread.Sleep(TimeSpan.FromSeconds(3));
+        // then async code
+        await Task.Delay(TimeSpan.FromSeconds(3));
+        WriteLine("End of async");
+    }
+
+    private static async Task TaskRunExample()
+    {
+        // long sync code
+        await Task.Run(() => Thread.Sleep(TimeSpan.FromSeconds(3)));
+        // then async code
+        await Task.Delay(TimeSpan.FromSeconds(3));
+        WriteLine("End of async");
     }
 }
