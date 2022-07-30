@@ -30,7 +30,7 @@ internal class FoodClient : IFoodClient
 
     public async Task<FoodResponse> GetRandomFood(CancellationToken cancellationToken = default)
     {
-        var response = await _httpClient.GetAsync("/api", cancellationToken);
+        using var response = await _httpClient.GetAsync("/api", cancellationToken);
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadAsStringAsync(cancellationToken);
@@ -39,7 +39,7 @@ internal class FoodClient : IFoodClient
 
     public async Task<Stream> GetImage(string imageUrl, CancellationToken cancellationToken = default)
     {
-        var response = await _httpClient.GetAsync(imageUrl, cancellationToken);
+        var response = await _httpClient.GetAsync(imageUrl, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadAsStreamAsync(cancellationToken);
     }
