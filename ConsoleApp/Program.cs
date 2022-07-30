@@ -2,7 +2,18 @@
 using System.IO;
 using System.Net.Http;
 
+using static System.Console;
+
 using ConsoleApp;
+using System.Threading;
+
+using var cancellationTokenSource = new CancellationTokenSource();
+var cancellationToken = cancellationTokenSource.Token;
+
+Console.CancelKeyPress += (object sender, ConsoleCancelEventArgs e) =>
+{
+    cancellationTokenSource.Cancel();
+};
 
 using var httpClient = new HttpClient
 {
@@ -12,8 +23,12 @@ using var httpClient = new HttpClient
 
 var foodClient = new FoodClient(httpClient);
 
-var result = await foodClient.GetRandomFood();
-using var stream = await foodClient.GetImage(result.Image);
+var result = await foodClient.GetRandomFood(cancellationToken);
+WriteLine("Random image generated!");
+
+using var stream = await foodClient.GetImage(result.Image, cancellationToken);
+WriteLine("Image received!");
 
 using var fileStream = File.OpenWrite("food.jpg");
-await stream.CopyToAsync(fileStream);
+await stream.CopyToAsync(fileStream, cancellationToken);
+WriteLine("Image saved!");
