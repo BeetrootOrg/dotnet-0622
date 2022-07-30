@@ -1,28 +1,32 @@
 using System;
 using CalendarApp.Contracts;
 using CalendarApp.Domain.Exceptions;
+using CalendarApp.Domain.Services;
+using CalendarApp.Domain;
+using CalendarApp.DataAccess.Repositories.Interfaces;
+using CalendarApp.Domain.Services.Interfaces;
 
 namespace CalendarApp.Domain.Builders;
 
-public class MeetingBuilder
+public class MeetingUpdater
 {
 	private string _name;
 	private DateTime? _start;
 	private DateTime? _end;
 	private string _roomName;
 
-	public MeetingBuilder SetName(string name)
+	
+
+	public MeetingUpdater (Meeting meeting)
 	{
-		if (string.IsNullOrWhiteSpace(name))
-		{
-			throw new CalendarAppDomainException("Name should be not null or empty");
-		}
-
-		_name = name;
-		return this;
+		_name = meeting.Name;
+		_start = meeting.Timeframe.Start;
+		_end = meeting.Timeframe.End;
+		_roomName = meeting.Room.Name;
+		
 	}
-
-	public MeetingBuilder SetStart(string start)
+	
+	public MeetingUpdater SetStart(string start)
 	{
 		if (!DateTime.TryParse(start, out var startTime))
 		{
@@ -33,7 +37,7 @@ public class MeetingBuilder
 		return this;
 	}
 
-	public MeetingBuilder SetEnd(string end)
+	public MeetingUpdater SetEnd(string end)
 	{
 		if (!DateTime.TryParse(end, out var endTime))
 		{
@@ -44,16 +48,6 @@ public class MeetingBuilder
 		return this;
 	}
 
-	public MeetingBuilder SetRoomName(string roomName)
-	{
-		if (string.IsNullOrWhiteSpace(roomName))
-		{
-			throw new CalendarAppDomainException("Room name should be not null or empty");
-		}
-
-		_roomName = roomName;
-		return this;
-	}
 
 	public Meeting Build()
 	{
