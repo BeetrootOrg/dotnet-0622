@@ -5,7 +5,6 @@ internal class Program
     {
         Type stringType = typeof(ConsoleApp.Test.TestClass);
         System.Reflection.Assembly assembly = stringType.Assembly;
-        System.Console.WriteLine("New");
         Type[] types = assembly.GetTypes();
 
         string line = new string('-', 10);
