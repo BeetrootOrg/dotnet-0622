@@ -85,12 +85,11 @@ namespace LinqLesson
                 double deltaLong = ToRadians(personB.Longitude) - ToRadians(personA.Longitude);
                 double deltaLat = ToRadians(personB.Latitude) - ToRadians(personA.Latitude);
 
-                //double sinY1 = System.Math.Sin(ToRadians(personA.Latitude));
-                //double sinY2 = System.Math.Sin(ToRadians(personB.Latitude));
+
                 double cosY1 = System.Math.Cos(ToRadians(personA.Latitude));
                 double cosY2 = System.Math.Cos(ToRadians(personB.Latitude));
 
-                //double cosDelta = System.Math.Cos(ToRadians(delta));
+
 
                 double sinDeltaLat = System.Math.Sin(deltaLat / 2) * System.Math.Sin(deltaLat / 2);
                 double sinDeltaLong = System.Math.Sin(deltaLong / 2) * System.Math.Sin(deltaLong / 2);
@@ -136,16 +135,55 @@ namespace LinqLesson
             System.Console.WriteLine($"Min distance = {minDistance.Item1} betwen {minDistance.Item2.Name} and {minDistance.Item3.Name}");
 
             //3: find 2 persons whos ‘about’ have the most same words
-            
-			List<(Person, string, int)> wordCountDictionary = new List<(Person, string, int)>();
-            var wordList = persons.Select(x => x.About.Split().ToList());
-			
-			int counter = 0;
+            //4: find persons with same friends (compare by friend’s name)
+            Person personFirstWords = new Person();
+            Person personSecondWords = new Person();
 
+            int wordCounter = 0;
 
+            foreach (var person1 in persons)
+            {
+                foreach (var person2 in persons)
+                {
+                    if (person1.Name == person2.Name) continue;
 
+                    var person2About = person2.About.Split();
+                    int boofCounterWords = 0;
+                    int boofCounterFriends = 0;
+
+                    // for about words
+                    foreach (var word in person2About)
+                    {
+                        if (person1.About.Contains(word))
+                        {
+                            ++boofCounterWords;
+                        }
+                    }
+                    // for friends
+                    foreach (var friend in person2.Friends)
+                    {
+                        if (person1.Friends.Contains(friend))
+                        {
+                            ++boofCounterFriends;
+                        }
+                    }
+                    // for about words
+                    if (wordCounter < boofCounterWords)
+                    {
+                        wordCounter = boofCounterWords;
+                        personFirstWords = person1;
+                        personSecondWords = person2;
+                    }
+
+                    //for friends
+                    if (boofCounterFriends > 0)
+                    {
+                        System.Console.WriteLine($"Person {person1.Name} and {person2.Name} have {boofCounterFriends} same friends");
+                    }
+                }
+            }
+            System.Console.WriteLine($"The most same 'about' words: {wordCounter} have persons : {personFirstWords.Name} and {personSecondWords.Name}");
         }
-
 
     }
 }
