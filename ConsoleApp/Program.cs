@@ -11,11 +11,6 @@ WriteLine($"Type of Assembly = {assembly.FullName}");
 
 foreach (var assemblyTypes in assembly.GetTypes().Take(100))
 {
-    WriteLine($"Assembly name : {assemblyTypes.Name}");
-    WriteLine($"Assembly attributes: {assemblyTypes.Attributes}");
-    WriteLine($"Assemby class:  {assemblyTypes.IsClass}");
-    WriteLine($"Assembly Base Type: {assemblyTypes.BaseType}");
-
     var assemblyMethods = type.GetMethods();
 
     foreach (var method in assemblyMethods)
