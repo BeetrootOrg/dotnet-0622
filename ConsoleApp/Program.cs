@@ -12,6 +12,8 @@ internal class Program
     {
         var stopwatch = new Stopwatch();
 
+        await NoAwait();
+
         stopwatch.Start();
         var panTask = HeatUpAPan();
         var heatWaterTask = HeatUpWater();
@@ -83,9 +85,24 @@ internal class Program
         WriteLine("Water drunk!");
     }
 
+    private static Task DrinkWater2()
+    {
+        return Task.Delay(TimeSpan.FromSeconds(2)).ContinueWith((task) =>
+        {
+            WriteLine("Water drunk!");
+        });
+    }
+
     private static async Task EatBreakfast()
     {
         await Task.Delay(TimeSpan.FromSeconds(8));
         WriteLine("Breakfast done!");
+    }
+
+    private static Task NoAwait()
+    {
+        Task.Delay(TimeSpan.FromSeconds(10));
+        WriteLine("No await");
+        return Task.CompletedTask;
     }
 }
