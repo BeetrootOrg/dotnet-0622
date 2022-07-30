@@ -1,52 +1,83 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading;
 
-using ConsoleApp;
+using static System.Console;
 
-const int Size = 15;
+namespace ConsoleApp;
 
-var gameField = new GameField
+internal class Program
 {
-    Food = Food.Random(Size),
-    Snake = Snake.Create(),
-    FieldBorder = new FieldBorder
+    private static void Main()
     {
-        Size = Size
+        var stopwatch = new Stopwatch();
+
+        stopwatch.Start();
+        HeatUpAPan();
+        FryTwoEggs();
+        FrySliceOfBacon();
+        HeatUpWater();
+        MakeACupOfCoffee();
+        PourAGlassOfWater();
+        DrinkWater();
+        ServeDish();
+        EatBreakfast();
+        stopwatch.Stop();
+
+        WriteLine($"Breakfast last for {stopwatch.Elapsed}");
     }
-};
 
-var renderer = new Renderer
-{
-    GameField = gameField
-};
-
-renderer.Init();
-
-var controller = new Game
-{
-    Renderer = renderer
-};
-
-controller.StartGame();
-
-while (true)
-{
-    var key = Console.ReadKey(false);
-    switch (key.Key)
+    private static void HeatUpAPan()
     {
-        case ConsoleKey.UpArrow:
-            controller.Direction = Direction.Up;
-            break;
-        case ConsoleKey.DownArrow:
-            controller.Direction = Direction.Down;
-            break;
-        case ConsoleKey.LeftArrow:
-            controller.Direction = Direction.Left;
-            break;
-        case ConsoleKey.RightArrow:
-            controller.Direction = Direction.Right;
-            break;
-        case ConsoleKey.Escape:
-            Environment.Exit(0);
-            break;
+        Thread.Sleep(TimeSpan.FromSeconds(3));
+        WriteLine("Pan ready!");
+    }
+
+    private static void FryTwoEggs()
+    {
+        Thread.Sleep(TimeSpan.FromSeconds(5));
+        WriteLine("Eggs ready!");
+    }
+
+    private static void HeatUpWater()
+    {
+        Thread.Sleep(TimeSpan.FromSeconds(4));
+        WriteLine("Water ready!");
+    }
+
+    private static void MakeACupOfCoffee()
+    {
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+        WriteLine("Coffee ready!");
+    }
+
+    private static void FrySliceOfBacon()
+    {
+        Thread.Sleep(TimeSpan.FromSeconds(4));
+        WriteLine("Bacon ready!");
+    }
+
+    private static void ServeDish()
+    {
+        Thread.Sleep(TimeSpan.FromSeconds(1));
+        WriteLine("Dish ready!");
+    }
+
+    private static void PourAGlassOfWater()
+    {
+        Thread.Sleep(TimeSpan.FromSeconds(1));
+        WriteLine("Glass of water ready!");
+    }
+
+    private static void DrinkWater()
+    {
+        Thread.Sleep(TimeSpan.FromSeconds(1));
+        WriteLine("Water drunk!");
+    }
+
+    private static void EatBreakfast()
+    {
+        Thread.Sleep(TimeSpan.FromSeconds(8));
+        WriteLine("Breakfast done!");
     }
 }
