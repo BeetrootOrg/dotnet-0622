@@ -8,13 +8,13 @@ namespace LinqLesson
         Female
     }
 
-    public class Friend
+    public record Friend
     {
         public int Id { get; set; }
         public string Name { get; set; }
     }
 
-    public class Person
+    public record Person
     {
         public string Id { get; set; }
         public int Index { get; set; }
