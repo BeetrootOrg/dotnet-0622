@@ -66,9 +66,36 @@ namespace LinqLesson
             System.Console.WriteLine($"MinDistans {minDistance}  {person1Min}  &  {person2Min}");
 
             //3.
+            int sameWords = 0;
+			char[] separators = new char[] { ' ', ',' };
+			string personName1 = "", personName2 = "";
 
-
-
+			foreach (var person in persons)
+			{
+				var personAbout = person.About;
+				foreach (var person1 in persons)
+				{
+					if (person.Name != person1.Name)
+					{
+						var person1AboutWords = person1.About.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+						var tempCount = 0;
+						foreach (var word in person1AboutWords)
+						{
+							if (personAbout.Contains(word))
+							{
+								++tempCount;
+							}
+						}
+						if (sameWords < tempCount)
+						{
+							sameWords = tempCount;
+							personName1 = person.Name;
+							personName2 = person1.Name;
+						}
+					}
+				}
+			}
+			Console.WriteLine($"Person1: {personName1} Person2: {personName2} words: {sameWords}");
         }
     }
 }
