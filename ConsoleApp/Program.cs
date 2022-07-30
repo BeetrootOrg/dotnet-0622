@@ -3,7 +3,7 @@ using System.Threading;
 
 using ConsoleApp;
 
-internal class Program
+internal partial class Program
 {
     private static void Main(string[] args)
     {
