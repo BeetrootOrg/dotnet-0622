@@ -48,6 +48,10 @@
       {
         "id": 4,
         "name": "Rosanne Madden"
+      },
+      {
+        "id": 5,
+        "name": "Figueroa Contreras"
       }
     ]
   },
@@ -80,11 +84,27 @@
     "friends": [
       {
         "id": 0,
-        "name": "Callahan Morris"
+        "name": "Shawn Nixon"
       },
       {
         "id": 1,
-        "name": "Washington Mcclure"
+        "name": "Colette Roman"
+      },
+      {
+        "id": 2,
+        "name": "Shepard Waller"
+      },
+      {
+        "id": 3,
+        "name": "Concepcion Hardin"
+      },
+      {
+        "id": 4,
+        "name": "Rosanne Madden"
+      },
+      {
+        "id": 5,
+        "name": "Figueroa Contreras"
       }
     ]
   },
