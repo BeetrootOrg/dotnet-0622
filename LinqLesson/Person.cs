@@ -35,5 +35,10 @@ namespace LinqLesson
 		public double Longitude { get; init; }
 		public string[] Tags { get; init; }
 		public Friend[] Friends { get; init; }
-	}
+
+        public static implicit operator string(Person v)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
