@@ -64,7 +64,6 @@ namespace LinqLesson
 			WriteLine($"Persons with same tag '{mainTag}' are {personsWithSameTag}");
 
             // 9. Parts of World (max latitude)
-
             var maxNorth = persons.MaxBy( x => x.Latitude);
             WriteLine ($"Person who live the most North point is {maxNorth.Name}");
             
@@ -159,8 +158,6 @@ namespace LinqLesson
             {
                 WriteLine($"{person.Name}");
             }
-            
-
 		}
 	}
 
