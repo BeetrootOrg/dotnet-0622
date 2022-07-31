@@ -17,6 +17,10 @@ namespace ConsoleApp
         {
             _url = Url;
         }
+        public async Task RunAsync()
+        {
+            await Task.Run(() => Run());
+        }
         public void Run()
         {
             _request = (HttpWebRequest)WebRequest.Create(_url);
