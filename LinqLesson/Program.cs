@@ -87,7 +87,7 @@ namespace LinqLesson
                     }
                 }
             }
-            WriteLine($"Max same words {count} between {firstPerson} and  {secondPerson}");
+            WriteLine($"Max same words {count} between {firstPerson} and {secondPerson}");
 
             //4 - find persons with same friends (compare by friend’s name)
             string person1 = null;
