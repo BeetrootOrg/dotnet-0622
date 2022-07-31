@@ -147,6 +147,32 @@ namespace LinqLesson
             }
             WriteLine($"{person1} and {person2} have {counter} common words in their About information");
 
+            // 11. Persons with mutual friends
+
+            var friendsGroups = persons.GroupBy(x => x.Friends);
+            var friendsList = friendsGroups.ToList();
+            bool hasMutualFriends = false;
+            for (int i = 0; i < friendsList.Count - 1; i++)
+            {
+                for (int j = i + 1; j < friendsList.Count; j++)
+                {
+                    var mutualFriends = (friendsList[i].Key.Intersect(friendsList[j].Key).Count());
+
+                    if (mutualFriends > 0)
+                    {
+                        hasMutualFriends = true;
+                        var temp = friendsList.SelectMany(x => x);
+                        var tempList = temp.ToList();
+                        person1 = tempList[i].Name;
+                        person2 = tempList[j].Name;
+                        WriteLine($"{person1} and {person2} have {mutualFriends} number of same friends");
+                    }
+                }
+            }
+            if (!hasMutualFriends)
+            {
+                WriteLine("Nobody has mutual friends");
+            }
         }
     }
 }
