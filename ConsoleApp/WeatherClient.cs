@@ -53,7 +53,6 @@ internal class WeaterClient : IWeaterClient
         var temperature = weather["current_weather"]["temperature"];
         var windSpeed = weather["current_weather"]["windspeed"];
         var windDirection = weather["current_weather"]["winddirection"];
-        var a = JsonConvert.DeserializeObject<WeaterResponse>($"{{\"temperature\":\"{temperature}\",\"windspeed\":\"{windSpeed}\",\"winddirection\":\"{windDirection}\"}}");
-        return a;
+        return JsonConvert.DeserializeObject<WeaterResponse>($"{{\"temperature\":\"{temperature}\",\"windspeed\":\"{windSpeed}\",\"winddirection\":\"{windDirection}\"}}");
     }
 }
