@@ -73,6 +73,7 @@ namespace LinqLesson
 
                     if (commonFriends > 0)
                     {
+                        isAnyFriendInCommon = true;
                         firstPerson = groupedFriendList.SelectMany(x => x).ToList()[i];
                         secondPerson = groupedFriendList.SelectMany(x => x).ToList()[j];
                         System.Console.WriteLine($"{firstPerson.Name} and {secondPerson.Name} has {commonFriends} in common");
