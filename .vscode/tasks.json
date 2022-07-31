@@ -1,0 +1,101 @@
+{
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+<<<<<<< HEAD
+				"${workspaceFolder}/ConsoleApp/ConsoleApp.csproj",
+=======
+				"${workspaceFolder}/LinqLesson/LinqLesson.csproj",
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "publish",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"publish",
+<<<<<<< HEAD
+				"${workspaceFolder}/ConsoleApp/ConsoleApp.csproj",
+=======
+				"${workspaceFolder}/LinqLesson/LinqLesson.csproj",
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "watch",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"watch",
+				"run",
+				"--project",
+<<<<<<< HEAD
+				"${workspaceFolder}/ConsoleApp/ConsoleApp.csproj"
+=======
+				"${workspaceFolder}/LinqLesson/LinqLesson.csproj"
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
+			],
+			"problemMatcher": "$msCompile"
+		}
+	]
+<<<<<<< HEAD
+=======
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/ConsoleApp/ConsoleApp.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/ConsoleApp/ConsoleApp.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/ConsoleApp/ConsoleApp.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+>>>>>>> 57ac2d78065123921bf228991220ccd51a2c6685
+=======
+>>>>>>> 4204ace26474654af8b3c0e6e094fe1647f91b85
+}
