@@ -17,7 +17,16 @@ internal class Program
 
     foreach (Type type in myAssembly.GetTypes())
     {
-        if(type.IsClass) WriteLine(type.FullName);
+        if(type.IsClass)
+        {   
+            WriteLine(type.FullName);
+            var thisType = type.GetType();
+            foreach (var propertyInfo in thisType.GetProperties())
+            {
+                WriteLine($"The property type: {propertyInfo}");
+            }
+
+        } 
 
         var parameters = type.GetFields();
                foreach (var parameter in parameters)
