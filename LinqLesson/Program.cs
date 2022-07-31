@@ -46,12 +46,13 @@ namespace LinqLesson
 			double phi1 = person1.Latitude * Math.PI/180;
 			double phi2 = person2.Latitude * Math.PI/180;
 			double dphi = phi2 - phi1;
-			double dlambda = (person2.Longitude-person1.Longitude)*Math.PI/180;
-			double a = Math.Sin(dphi/2)*Math.Sin(dphi/2) + Math.Cos(phi1)*Math.Cos(phi2)*Math.Sin(dlambda/2)*Math.Sin(dlambda/2);
+			double lDiff = (person2.Longitude-person1.Longitude)*Math.PI/180;
+			double a = Math.Sin(dphi/2)*Math.Sin(dphi/2) + 
+				Math.Cos(phi1)*Math.Cos(phi2)*Math.Sin(lDiff/2)*Math.Sin(lDiff/2);
 			return 6371*2*Math.Atan2(Math.Sqrt(a), Math.Sqrt(1-a)); 
 		}
 
-		private static List<List<Person>> PersonsWithSameFriends(IEnumerable<Person> persons)
+		private static List<List<Person>> SameFriends(IEnumerable<Person> persons)
 		{
 			List<List<Person>> personsWithSameFriends = new List<List<Person>>();
 			var personsCopy = persons;
@@ -64,7 +65,7 @@ namespace LinqLesson
 
 				foreach(var person2 in personsCopy)
 				{
-					if (IsSameFriendList(person1, person2)) tempPersons.Add(person2); 
+					if (IsSameFriend(person1, person2)) tempPersons.Add(person2); 
 				}
 
 				if (tempPersons.Count>1) personsWithSameFriends.Add(tempPersons);
@@ -73,7 +74,7 @@ namespace LinqLesson
 			return personsWithSameFriends;
 		}
 
-		private static bool IsSameFriendList(Person person1, Person person2)
+		private static bool IsSameFriend(Person person1, Person person2)
 		{
 			var friendList1 = person1.Friends.Select(x => x.Name).Where(x => x != person2.Name).ToList();
 			var friendList2 = person2.Friends.Select(x => x.Name).Where(x => x != person1.Name).ToList();
@@ -107,7 +108,7 @@ namespace LinqLesson
 
 		private static (Person, Person) MaxAboutSameWrods(IEnumerable<Person> persons)
 		{
-			int a = AboutSameWordsCount(persons.First(), persons.Last());
+			int a = SameWordsCount(persons.First(), persons.Last());
 			int maxSameWrodsCount = 0;
 			Person personResult1 = new Person();
 			Person personResult2 = new Person();
@@ -118,7 +119,7 @@ namespace LinqLesson
 				personsCopy = personsCopy.Where(x => x.Guid != person1.Guid);
 				foreach(var person2 in personsCopy)
 				{
-					int sameWordsCount = AboutSameWordsCount(person1, person2);
+					int sameWordsCount = SameWordsCount(person1, person2);
 					if (sameWordsCount>maxSameWrodsCount)
 					{
 						personResult1 = person1;
@@ -130,10 +131,12 @@ namespace LinqLesson
 
 			return (personResult1, personResult2);
 		}
-		private static int AboutSameWordsCount(Person person1, Person person2)
+		private static int SameWordsCount(Person person1, Person person2)
 		{
-			var about1 = (new string(person1.About.Where(x => !char.IsPunctuation(x)).ToArray())).ToLower().Split(' ').Distinct();
-			var about2 = (new string(person2.About.Where(x => !char.IsPunctuation(x)).ToArray())).ToLower().Split(' ').Distinct();
+			var about1 = (new string(person1.About.Where(x => 
+				!char.IsPunctuation(x)).ToArray())).ToLower().Split(' ').Distinct();
+			var about2 = (new string(person2.About.Where(x => 
+				!char.IsPunctuation(x)).ToArray())).ToLower().Split(' ').Distinct();
 			var sameWords = about1.Where(x => about2.Contains(x));
 			return sameWords.Count();
 		}		
@@ -183,30 +186,30 @@ namespace LinqLesson
 				WriteLine($"{item.Key} has {item.Count()} people");
 			}
 
-			//homework
-			//find out who is located farthest north/south/west/east using latitude/longitude data
+			
+			// 8. find out who is located farthest north/south/west/east 
 			var northPerson = persons.MaxBy(x => x.Latitude);
 			var southPerson = persons.MinBy(x => x.Latitude);
 			var westPerson = persons.MinBy(x => x.Longitude);
 			var eastPerson = persons.MaxBy(x => x.Longitude);
-			WriteLine($"Most farthest north person is {northPerson.Name} with coordinates: {northPerson.Latitude}, {northPerson.Longitude}");
-			WriteLine($"Most farthest south person is {southPerson.Name} with coordinates: {southPerson.Latitude}, {southPerson.Longitude}");
-			WriteLine($"Most farthest west person is {westPerson.Name} with coordinates: {westPerson.Latitude}, {westPerson.Longitude}");
-			WriteLine($"Most farthest east person is {eastPerson.Name} with coordinates: {eastPerson.Latitude}, {eastPerson.Longitude}");
+			WriteLine($"Most farthest north person is {northPerson.Name}");
+			WriteLine($"Most farthest south person is {southPerson.Name}");
+			WriteLine($"Most farthest west person is {westPerson.Name}");
+			WriteLine($"Most farthest east person is {eastPerson.Name}");
 
-			//find max and min distance between 2 persons
+			//8.1. find max and min distance between 2 persons
 			WriteLine($"Max distance is: {MaxDistance(persons)}km");
 			WriteLine($"Min distance is: {MinDistance(persons)}km");
 
-			//find 2 persons whos ‘about’ have the most same words
-			var personsWithMostAboutSameWrods = MaxAboutSameWrods(persons);
-			WriteLine($"{personsWithMostAboutSameWrods.Item1.Name} and {personsWithMostAboutSameWrods.Item2.Name} have {AboutSameWordsCount(personsWithMostAboutSameWrods.Item1, personsWithMostAboutSameWrods.Item2)} same words is 'about'");
+			// 9. find 2 persons whos ‘about’ have the most same words
+			var personsWithSimilarAbout = MaxAboutSameWrods(persons);
+			WriteLine($"{personsWithSimilarAbout.Item1.Name} and {personsWithSimilarAbout.Item2.Name} have {SameWordsCount(personsWithSimilarAbout.Item1, personsWithSimilarAbout.Item2)} same words in 'about'");
 
-			//find persons with same friends (compare by friend’s name)
+			// 10. find persons with same friends
 			var personsWithSameFriends = PersonsWithSameFriends(persons);
 			if (personsWithSameFriends.Count == 0)
 			{
-				WriteLine("There is no persons with same friends");
+				WriteLine("Persons with same friends not detected");
 			}
 			else
 			{
@@ -216,11 +219,11 @@ namespace LinqLesson
 				}
 			}
 
-			//at least one same friend
-			var personsWithSameFriend = AtLeastOneSameFriend(persons); //looks like there are no intersections between friends lists in persons
+			// 10.1 persons who have at least one same friend
+			var personsWithSameFriend = AtLeastOneSameFriend(persons);
 			if (personsWithSameFriend.Count == 0)
 			{
-				WriteLine("There is no persons with same friend");
+				WriteLine("Persons with same friends not detected");
 			}
 			else
 			{
