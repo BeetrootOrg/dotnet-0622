@@ -2,6 +2,7 @@ using System;
 using Bogus;
 using CalendarApp.Contracts;
 using CalendarApp.DataAccess.Repositories.Interfaces;
+using CalendarApp.Domain.Exceptions;
 using CalendarApp.Domain.Services;
 using CalendarApp.Domain.Services.Interfaces;
 using Moq;
@@ -57,7 +58,6 @@ public class MeetingsServiceTests
 		result.ShouldBeSameAs(meetings);
 	}
 
-
 	[Fact]
 	public void AddMeetingShouldAddItifNotOverlap()
 	{
@@ -87,5 +87,30 @@ public class MeetingsServiceTests
 
 		// Assert
 		_meetingsRepository.Verify(x => x.AddMeeting(newMeeting), Times.Once());
+	}
+
+	[Fact]
+	public void AddMeetingShouldRaiseExceptionIfOverlap()
+	{
+		// Arrange
+		var meetings = _meetingFaker.GenerateBetween(5, 15);
+
+		var meetingStart = _commonFaker.Date.Future().Add(TimeSpan.FromHours(2));
+		var newMeeting = new Meeting
+		{
+			Name = _commonFaker.Random.Word(),
+			Room = meetings[0].Room,
+			Timeframe = meetings[0].Timeframe
+		};
+
+		_meetingsRepository.Setup(x => x.GetAllMeetings())
+			.Returns(meetings);
+
+		// Act
+		Action action = () => _meetingsService.AddMeeting(newMeeting);
+
+		// Assert
+		action.ShouldThrow<CalendarAppDomainException>();
+		_meetingsRepository.Verify(x => x.AddMeeting(newMeeting), Times.Never());
 	}
 }
