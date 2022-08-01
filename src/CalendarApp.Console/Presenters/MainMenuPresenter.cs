@@ -1,5 +1,6 @@
 using System;
 using CalendarApp.Console.Presenters.Interfaces;
+using CalendarApp.Console.Views;
 using CalendarApp.Domain.Builders;
 using DomainFactory = CalendarApp.Domain.Factory;
 
@@ -14,7 +15,7 @@ internal class MainMenuPresenter : IPresenter
 		switch (key.Key)
 		{
 			case ConsoleKey.D1:
-				return new ShowAllPresenter(DomainFactory.MeetingsService);
+				return new ShowAllPresenter(DomainFactory.MeetingsService, new ConsoleView());
 			case ConsoleKey.D2:
 				return new CreateMeetingNamePresenter(new MeetingBuilder());
 			case ConsoleKey.D0:
