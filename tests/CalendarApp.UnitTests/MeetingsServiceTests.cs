@@ -14,6 +14,7 @@ public class MeetingsServiceTests
 	private readonly Mock<IMeetingsRepository> _meetingsRepository;
 	private readonly IMeetingsService _meetingsService;
 	private readonly Faker<Meeting> _meetingFaker;
+	private readonly Faker _commonFaker;
 
 	public MeetingsServiceTests()
 	{
@@ -36,6 +37,8 @@ public class MeetingsServiceTests
 			{
 				Name = f.Random.Word()
 			});
+
+		_commonFaker = new Faker();
 	}
 
 	[Fact]
@@ -52,5 +55,37 @@ public class MeetingsServiceTests
 
 		// Assert
 		result.ShouldBeSameAs(meetings);
+	}
+
+
+	[Fact]
+	public void AddMeetingShouldAddItifNotOverlap()
+	{
+		// Arrange
+		var meetings = _meetingFaker.GenerateBetween(5, 15);
+
+		var meetingStart = _commonFaker.Date.Future().Add(TimeSpan.FromHours(2));
+		var newMeeting = new Meeting
+		{
+			Name = _commonFaker.Random.Word(),
+			Room = new Room
+			{
+				Name = _commonFaker.Random.Word(),
+			},
+			Timeframe = new Timeframe
+			{
+				Start = meetingStart,
+				End = meetingStart.Add(_commonFaker.Date.Timespan())
+			}
+		};
+
+		_meetingsRepository.Setup(x => x.GetAllMeetings())
+			.Returns(meetings);
+
+		// Act
+		_meetingsService.AddMeeting(newMeeting);
+
+		// Assert
+		_meetingsRepository.Verify(x => x.AddMeeting(newMeeting), Times.Once());
 	}
 }
