@@ -28,6 +28,11 @@ class Vehicle
     public Wheel[] Wheels { get; init; }
     public int Year { get; init; }
 
+    public virtual float MeasurementBrakeForce(float factor)
+    {
+        throw new ArgumentException("Parameter cannot be null", nameof(factor));
+    }
+
     internal Vehicle(Body body, Engine engine, Wheel[] wheels)
     {
         Body = body;
