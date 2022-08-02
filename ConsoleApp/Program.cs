@@ -1,28 +1,38 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 using ConsoleApp;
 
-const int Size = 15;
+using static System.Console;
 
-var snake = new Snake();
-var food = Food.Random(Size);
-var field = new Field
+internal class Program
 {
-    Food = food,
-    Size = Size,
-    Snake = snake
-};
+    private static void Main(string[] args)
+    {
+        var intType = typeof(int);
+        var assembly = intType.Assembly;
+        WriteLine($"Assembly {assembly.FullName}");
+        foreach (var assemblyType in assembly.GetTypes().Take(30))
+        {
+            WriteLine($"Type name: {assemblyType.Name}");
 
-var renderer = new Renderer
-{
-    Field = field
-};
+            foreach (var methodInfo in assemblyType.GetMethods())
+            {
+                WriteLine($"Method info: {methodInfo}");
+                WriteLine($"Method return type: {methodInfo.ReturnType}");
 
-System.Console.Clear();
-renderer.Show();
-renderer.StartGame();
+                var methodParameters = methodInfo.GetParameters();
+                foreach (var parameter in methodParameters)
+                {
+                    WriteLine($"Method parameters: {parameter.ParameterType}");
+                }
+            }
+        }
+    }
+}
 
-Thread.Sleep(Timeout.Infinite);
 
 
 
