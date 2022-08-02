@@ -1,58 +1,50 @@
-using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ConsoleApp;
 
-internal class WeaterResponse
+internal class Weather
 {
     [JsonProperty("temperature")]
-    public string Temperature {get;init;}
+    public string Temperature { get; init; }
 
     [JsonProperty("windspeed")]
-    public string WindSpeed {get;init;}
+    public string WindSpeed { get; init; }
 
     [JsonProperty("winddirection")]
-    public string WindDirection {get;init;}
+    public string WindDirection { get; init; }
 }
 
-internal interface IWeaterClient
+internal class WeatherResponse
 {
-    Task<WeaterResponse> GetWeather(CancellationToken cancellationToken = default);
+    [JsonProperty("current_weather")]
+    public Weather CurrentWeather { get; set; }
 }
 
-internal class WeaterClient : IWeaterClient
+internal interface IWeatherClient
+{
+    Task<Weather> GetWeather(string latitude, string longitude, CancellationToken cancellationToken = default);
+}
+
+internal class WeatherClient : IWeatherClient
 {
     private readonly HttpClient _httpClient;
-    private string _lat = "50.41";
-    private string _lon = "30.51";
 
-    public WeaterClient(HttpClient httpClient)
+    public WeatherClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
 
-    public WeaterClient(HttpClient httpClient, string lat, string lon)
+    public async Task<Weather> GetWeather(string latitude, string longitude, CancellationToken cancellationToken = default)
     {
-        _httpClient = httpClient;
-        _lat = lat;
-        _lon = lon;
-    }
-
-    public async Task<WeaterResponse> GetWeather(CancellationToken cancellationToken = default)
-    {
-        using var response = await _httpClient.GetAsync($"/v1/forecast?latitude={_lat}&longitude={_lon}&current_weather=true", cancellationToken);
+        using var response = await _httpClient.GetAsync($"/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true", cancellationToken);
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadAsStringAsync(cancellationToken);
-        JObject weather = JObject.Parse(content);
-        var temperature = weather["current_weather"]["temperature"];
-        var windSpeed = weather["current_weather"]["windspeed"];
-        var windDirection = weather["current_weather"]["winddirection"];
-        return JsonConvert.DeserializeObject<WeaterResponse>($"{{\"temperature\":\"{temperature}\",\"windspeed\":\"{windSpeed}\",\"winddirection\":\"{windDirection}\"}}");
+        var result = JsonConvert.DeserializeObject<WeatherResponse>(content);
+        return result?.CurrentWeather;
     }
 }
