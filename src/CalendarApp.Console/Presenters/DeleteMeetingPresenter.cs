@@ -28,7 +28,7 @@ internal class DeleteMeetingPresenter : IPresenter
 		{
 			_meetingService.DeleteMeeting(meetingName);
 			_view.Print($"All meetings with mane '{meetingName}' was deleted");
-}        
+		}
 
 		_view.Print("Press any key to continue...");
 		_view.ReadKey();
