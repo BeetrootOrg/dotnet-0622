@@ -7,7 +7,7 @@ namespace CalendarApp.Console.Presenters;
 internal class DeleteMeetingPresenter : IPresenter
 {
 	private readonly IMeetingsService _meetingService;
-    private readonly IView _view;
+	private readonly IView _view;
 
 	public DeleteMeetingPresenter(IMeetingsService meetingsService, IView view)
 	{
@@ -40,6 +40,5 @@ internal class DeleteMeetingPresenter : IPresenter
 	{
        _view.Clear();
        _view.Print("Enter meeting name:");
-
 	}
 }

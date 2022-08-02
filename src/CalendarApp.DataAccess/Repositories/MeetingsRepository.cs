@@ -27,9 +27,7 @@ internal class MeetingsRepository : IMeetingsRepository
 
 	public void DeleteMeeting(string meetingName)
 	{
-		var deletedMeeings = _meetings.Where(x => x.Name == meetingName).ToList();
-		foreach (var meeting in deletedMeeings)
-			_meetings.Remove(meeting);
+		_meetings.Remove(_meetings.First(x => x.Name == meetingName));
 		var serialized = JsonConvert.SerializeObject(_meetings);
 		File.WriteAllText(Filename, serialized);
 	}
