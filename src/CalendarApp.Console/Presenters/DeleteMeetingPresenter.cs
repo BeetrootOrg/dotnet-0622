@@ -16,19 +16,19 @@ internal class DeleteMeetingPresenter : IPresenter
 	}
 
 	public IPresenter Action()
-	{        
+	{
 		var meetingName = _view.ReadRow();
-        var meetings = _meetingService.GetAllMeetings();
-        
-        if (meetings.Where(x => x.Name == meetingName).Count() == 0)
-        {
-            _view.Print($"There is no meeting with name '{meetingName}'");
-        }
-        else
-        {
-            _meetingService.DeleteMeeting(meetingName);
-            _view.Print($"All meetings with mane '{meetingName}' was deleted");
-        }        
+		var meetings = _meetingService.GetAllMeetings();
+
+		if (meetings.Where(x => x.Name == meetingName).Count() == 0)
+		{
+			_view.Print($"There is no meeting with name '{meetingName}'");
+		}
+		else
+		{
+			_meetingService.DeleteMeeting(meetingName);
+			_view.Print($"All meetings with mane '{meetingName}' was deleted");
+}        
 
 		_view.Print("Press any key to continue...");
 		_view.ReadKey();
@@ -38,7 +38,7 @@ internal class DeleteMeetingPresenter : IPresenter
 
 	public void Show()
 	{
-       _view.Clear();
-       _view.Print("Enter meeting name:");
+		_view.Clear();
+		_view.Print("Enter meeting name:");
 	}
 }
