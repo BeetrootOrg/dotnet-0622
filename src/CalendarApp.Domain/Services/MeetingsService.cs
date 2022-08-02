@@ -37,6 +37,11 @@ internal class MeetingsService : IMeetingsService
 			point >= timeframe.Start && point < timeframe.End;
 	}
 
+	public void DeleteMeeting(string meetingName)
+	{
+		_repository.DeleteMeeting(meetingName);
+	}
+
 	public IEnumerable<Meeting> GetAllMeetings()
 	{
 		return _repository.GetAllMeetings();

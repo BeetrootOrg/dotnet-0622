@@ -7,4 +7,5 @@ public interface IMeetingsRepository
 {
 	IEnumerable<Meeting> GetAllMeetings();
 	void AddMeeting(Meeting meeting);
+	void DeleteMeeting(string meetingName);
 }
