@@ -6,17 +6,6 @@ using Newtonsoft.Json;
 
 namespace ConsoleApp;
 
-internal class FactResponse
-{
-    [JsonProperty("data")]
-    public string[] Fact { get; init; }
-}
-
-internal interface IFactClient
-{
-    Task<FactResponse> GetRandomFact(CancellationToken cancellationToken = default);
-}
-
 internal class FactClient : IFactClient
 {
     private readonly HttpClient _httpClient;
