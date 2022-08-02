@@ -19,7 +19,7 @@ internal class MainMenuPresenter : IPresenter
 				return new CreateMeetingNamePresenter(new MeetingBuilder());
 			case ConsoleKey.D3:
 				return new DeleteMeetingByNamePresenter(DomainFactory.MeetingsService);
-				case ConsoleKey.D4:
+			case ConsoleKey.D4:
 				return new UpdateMeetingByNamePresenter(DomainFactory.MeetingsService);
 			case ConsoleKey.D0:
 				return null;

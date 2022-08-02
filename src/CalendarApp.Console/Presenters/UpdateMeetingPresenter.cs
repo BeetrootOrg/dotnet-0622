@@ -15,7 +15,7 @@ internal class UpdateMeetingPresenter : IPresenter
 		_meetingUpdater = meetingUpdater;
 		_meetingService = meetingsService;
 	}
-
+	
 	public IPresenter Action()
 	{
 		try

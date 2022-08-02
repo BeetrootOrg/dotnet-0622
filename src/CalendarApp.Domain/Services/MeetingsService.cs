@@ -28,6 +28,7 @@ internal class MeetingsService : IMeetingsService
 	public void UpdateMeeting(Meeting meeting)
 	{	
 		_repository.UpdateMeeting(meeting);
+		GetAllMeetings();
 	}
 		public void DeleteMeeting(string name)
 	{	

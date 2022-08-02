@@ -1,6 +1,7 @@
 using CalendarApp.Console.Presenters.Interfaces;
 using CalendarApp.Domain.Builders;
 using CalendarApp.Domain.Exceptions;
+using DomainFactory = CalendarApp.Domain.Factory;
 
 namespace CalendarApp.Console.Presenters;
 
@@ -20,8 +21,8 @@ internal class UpdateMeetingEndPresenter : IPresenter
 			try
 			{
 				var endTime = ReadLine();
-				_meetingUpdater.SetStart(endTime);
-				return new UpdateMeetingEndPresenter(_meetingUpdater);
+				_meetingUpdater.SetEnd(endTime);
+				return new UpdateMeetingPresenter(_meetingUpdater, DomainFactory.MeetingsService);
 			}
 			catch (CalendarAppDomainException exc)
 			{
@@ -33,6 +34,6 @@ internal class UpdateMeetingEndPresenter : IPresenter
 	public void Show()
 	{
 		Clear();
-		WriteLine("Enter meeting start date:");
+		WriteLine("Enter meeting end date:");
 	}
 }

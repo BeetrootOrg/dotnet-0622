@@ -26,10 +26,10 @@ internal class MeetingsRepository : IMeetingsRepository
 	}
 		public void UpdateMeeting(Meeting meeting)
 	{	
-		var meetingOld = _meetings.First(x => x.Name == meeting.Name);
-		meetingOld = meeting;
-		var serialized = JsonConvert.SerializeObject(_meetings);
+		var newMeetings = _meetings.Select(x => x.Name == meeting.Name ? meeting : x);
+		var serialized = JsonConvert.SerializeObject(newMeetings);
 		File.WriteAllText(Filename, serialized);
+		Create();
 	}
 
 		public void DeleteMeeting(Meeting meeting)
