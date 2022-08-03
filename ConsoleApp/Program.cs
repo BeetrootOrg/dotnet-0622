@@ -1,44 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-
-using ConsoleApp;
+using System.IO;
+using System.Net.Http;
 
 using static System.Console;
 
-internal class Program
+using ConsoleApp;
+using System.Threading;
+
+using var cancellationTokenSource = new CancellationTokenSource();
+
+var cancellationToken = cancellationTokenSource.Token;
+
+Console.CancelKeyPress += (object sender, ConsoleCancelEventArgs e) =>
 {
-    private static void Main(string[] args)
-    {
-        var intType = typeof(int);
-        var assembly = intType.Assembly;
-        WriteLine($"Assembly {assembly.FullName}");
-        foreach (var assemblyType in assembly.GetTypes().Take(30))
-        {
-            WriteLine($"Type name: {assemblyType.Name}");
+    cancellationTokenSource.Cancel();
+};
 
-            foreach (var methodInfo in assemblyType.GetMethods())
-            {
-                WriteLine($"Method info: {methodInfo}");
-                WriteLine($"Method return type: {methodInfo.ReturnType}");
+using var httpClient = new HttpClient
+{
+    BaseAddress = new Uri("https://meowfacts.herokuapp.com/"),
+    Timeout = TimeSpan.FromSeconds(5)
+};
 
-                var methodParameters = methodInfo.GetParameters();
-                foreach (var parameter in methodParameters)
-                {
-                    WriteLine($"Method parameters: {parameter.ParameterType}");
-                }
-            }
-        }
-    }
-}
+var meowClient = new MeowClient(httpClient);
 
-
-
-
-
-
-
-
-
+var result = await meowClient.GetRandomFact(cancellationToken);
+WriteLine("Random fact generated!");
 
