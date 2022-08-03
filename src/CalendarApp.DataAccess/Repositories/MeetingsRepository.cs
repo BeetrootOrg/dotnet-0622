@@ -25,6 +25,15 @@ internal class MeetingsRepository : IMeetingsRepository
 		File.WriteAllText(Filename, serialized);
 	}
 
+	public void UpdateMeeting(Meeting meeting)
+	{
+		var meetingToUpdate = _meetings.First(x => x.Name == meeting.Name);
+		int index = _meetings.IndexOf(meetingToUpdate);
+		_meetings[index] = meeting;
+		var serialized = JsonConvert.SerializeObject(_meetings);
+		File.WriteAllText(Filename, serialized);
+	}
+
 	public void DeleteMeeting(string meetingName)
 	{
 		_meetings.Remove(_meetings.First(x => x.Name == meetingName));

@@ -49,11 +49,10 @@ internal class MeetingsService : IMeetingsService
 
 		if (overlaps)
 		{
-			throw new CalendarAppDomainException("Meeting overlaps with anouther");
+			throw new CalendarAppDomainException("Meeting overlaps with another");
 		}
-
-		_repository.DeleteMeeting(meetingToUpdate.Name);
-		_repository.AddMeeting(meeting);
+		
+		_repository.UpdateMeeting(meeting);
 
 		static bool IsInsideTimeFrame(DateTime point, Timeframe timeframe) =>
 			point >= timeframe.Start && point < timeframe.End;
