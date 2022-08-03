@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -62,6 +63,38 @@ namespace LinqLesson
 
 			var personsWithSameTag = persons.Where(x => x.Tags.Contains(mainTag)).Count();
 			WriteLine($"Persons with same tag '{mainTag}' are {personsWithSameTag}");
+
+			// 9. find persons with most common about words
+			var result = persons
+				.Join(persons,
+					person => true,
+					person => true,
+					(person1, person2) => new
+					{
+						Person1 = person1,
+						Person2 = person2
+					})
+				.Where(x => !Object.ReferenceEquals(x.Person1, x.Person2))
+				.Select(x =>
+				{
+					var person1 = x.Person1;
+					var person2 = x.Person2;
+
+					var about1 = person1.About.Split(' ');
+					var about2 = person2.About.Split(' ');
+
+					var intersection = about1.Intersect(about2).ToArray();
+
+					return new
+					{
+						Person1 = person1,
+						Person2 = person2,
+						CommonWordsInAbout = intersection
+					};
+				})
+				.MaxBy(x => x.CommonWordsInAbout.Length);
+
+			Console.WriteLine($"Max number of common words between two persons are {result.CommonWordsInAbout.Length}");
 		}
 	}
 }
