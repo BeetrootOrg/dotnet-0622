@@ -21,7 +21,7 @@ internal class UpdateMeetingPresenter : IPresenter
 		try
 		{
 			var meeting = _meetingBuilder.Build();
-			_meetingService.AddMeeting(meeting);
+			_meetingService.UpdateMeeting(meeting);
 
 			WriteLine("Meeting successfully updated!");
 		}

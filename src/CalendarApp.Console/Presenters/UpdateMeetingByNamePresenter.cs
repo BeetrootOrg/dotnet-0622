@@ -1,4 +1,5 @@
 using CalendarApp.Console.Presenters.Interfaces;
+using CalendarApp.Contracts;
 using CalendarApp.Domain.Builders;
 using CalendarApp.Domain.Services.Interfaces;
 
@@ -26,7 +27,6 @@ internal class UpdateMeetingByNamePresenter : IPresenter
 		else
 		{
 			var oldMeeting = _meetingService.GetAllMeetings().First(x => x.Name == meetingName);
-            _meetingService.DeleteMeeting(meetingName);
             _meetingBuilder.SetName(oldMeeting.Name);
             _meetingBuilder.SetRoomName(oldMeeting.Room.Name);
             return new UpdateMeetingStartPresenter(_meetingBuilder);
@@ -41,6 +41,6 @@ internal class UpdateMeetingByNamePresenter : IPresenter
 	public void Show()
 	{
 		Clear();
-		WriteLine("Enter meeting end date:");
+		WriteLine("Enter meeting name:");
 	}
 }
