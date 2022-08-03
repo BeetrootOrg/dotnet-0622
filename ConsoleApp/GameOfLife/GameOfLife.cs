@@ -1,6 +1,6 @@
 public class GameOfLife
 {
-    private int[] Range(int start, int end)
+    private int[] GenerateRange(int start, int end)
     {
         int[] range = new int[] { 0 };
         if (start < end)
@@ -15,65 +15,65 @@ public class GameOfLife
     }
     public char[,] Execute(char[,] cells)
     {
-        int maxRows = cells.Rank - 1;
+        int maxRows = 0;
         int maxColumns = 0;
         int num = 0;
-        char[,] life = cells;
-        if (life.Rank == 2)
+        int[] rangeInRow;
+        int[] rangeInColumn;
+        char[,] action = CopyArray(cells);
+        maxRows = action.GetLength(0) - 1;
+        for (int a = 0; a < action.GetLength(0); ++a)
         {
-
-            maxRows = life.GetLength(0) - 1;
-            for (int a = 0; a < life.GetLength(0); ++a)
+            for (int b = 0; b < action.GetLength(1); ++b)
             {
-                for (int b = 0; b < life.GetLength(1); ++b)
+                num = 0;
+                rangeInRow = GenerateRange(Math.Max(0, a - 1), Math.Min(a + 1, maxRows));
+                foreach (int c in rangeInRow)
                 {
-                    num = 0;
-                    var positionInRow = Range(Math.Max(0, a - 1), Math.Min(a + 1, maxRows));
-                    foreach (int c in positionInRow)
+                    maxColumns = action.GetLength(1) - 1;
+                    rangeInColumn = GenerateRange(Math.Max(0, b - 1), Math.Min(b + 1, maxColumns));
+                    foreach (int d in rangeInColumn)
                     {
-                        maxColumns = life.GetLength(1) - 1;
-                        var positionInColumn = Range(Math.Max(0, b - 1), Math.Min(b + 1, maxColumns));
-                        foreach (int d in positionInColumn)
+                        if (action[c, d] == '*')
                         {
-                            if (life[c, d] == '*')
-                            {
-                                ++num;
-                            }
+                            ++num;
                         }
                     }
-                    if (life[a, b] == '*')
-                    {
-                        --num;
-                    }
-                    if (num == 3)
-                    {
-                        life[a, b] = '*';
-                    }
-                    else if (num < 2 || num > 3)
-                    {
-                        life[a, b] = '.';
-                    }
+                }
+                if (action[a, b] == '*')
+                {
+                    --num;
+                }
+                if (num == 3)
+                {
+                    action[a, b] = '*';
+                }
+                else if (num < 2 || num > 3)
+                {
+                    action[a, b] = '.';
                 }
             }
         }
-        return life;
+        return action;
     }
 
     char[,] CopyArray(char[,] cells)
     {
-        char[,] field = new char[0, 0];
+        char[,] copyCells = new char[0, 0];
         if (Validate(cells))
         {
-            Array.Copy(cells, field, cells.Length);
+            copyCells = new char[cells.GetLength(0), cells.GetLength(1)];
+            Array.Copy(cells, copyCells, cells.Length);
         }
-        return field;
+        return copyCells;
     }
 
     bool Validate(char[,] cells)
     {
         if (cells is not null &&
-        cells.Rank > 0 &&
-        cells.GetLength(0) > 0)
+            cells.Rank == 2 &&
+            cells.GetLength(0) > 0 &&
+            cells.GetLength(1) > 0)
         {
             return true;
         }
