@@ -33,18 +33,18 @@ Console.CancelKeyPress += (object sender, ConsoleCancelEventArgs e) =>
 
 using var httpClient = new HttpClient
 {
-    BaseAddress = new Uri("https://foodish-api.herokuapp.com"),
-    Timeout = TimeSpan.FromSeconds(5)
+    BaseAddress = new Uri("https://api.waifu.im/")
 };
 
-var foodClient = new FoodClient(httpClient);
+var waifuClient = new WaifuClient(httpClient);
 
-var result = await foodClient.GetRandomFood(cancellationToken);
-WriteLine("Random image generated!");
+var result = await waifuClient.GetRandomWaifu(cancellationToken);
+WriteLine("Your waifu was found!");
 
-using var stream = await foodClient.GetImage(result.Image, cancellationToken);
+using var stream = await waifuClient.GetImage(result.Images[0].Url, cancellationToken);
 WriteLine("Image received!");
-
-using var fileStream = File.OpenWrite("food.jpg");
+var fileName = "waifu" + result.Images[0].Extension;
+using var fileStream = File.OpenWrite(fileName);
 await stream.CopyToAsync(fileStream, cancellationToken);
-WriteLine("Image saved!");
+
+WriteLine($"Image saved to {fileName}");
