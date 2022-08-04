@@ -29,7 +29,7 @@ internal class MeowClient : IClient
 
     public async Task<FactResponse> GetRandomFact(CancellationToken cancellationToken = default)
     {
-        using var response = await _httpClient.GetAsync("/api", cancellationToken);
+        using var response = await _httpClient.GetAsync("", cancellationToken);
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadAsStringAsync(cancellationToken);
