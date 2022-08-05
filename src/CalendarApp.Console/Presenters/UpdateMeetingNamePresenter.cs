@@ -1,22 +1,24 @@
 using CalendarApp.Console.Presenters.Interfaces;
 using CalendarApp.Domain.Services.Interfaces;
+using CalendarApp.Domain.Builders;
 using CalendarApp.Domain.Exceptions;
 using System.Linq;
 
-
 namespace CalendarApp.Console.Presenters;
-class DeleteMeetingPresenter : IPresenter
+
+class UpdateMeetingNamePresenter : IPresenter
 {
     private readonly IMeetingsService _meetingService;
-
-    public DeleteMeetingPresenter(IMeetingsService meetingsService)
+    private readonly MeetingBuilder _meetingBuilder;
+    public UpdateMeetingNamePresenter(IMeetingsService meetingsService, MeetingBuilder meetingBuilder)
     {
+        _meetingBuilder = meetingBuilder;
         _meetingService = meetingsService;
     }
     public void Show()
     {
         Clear();
-        WriteLine("Enter Meeting Name to delete: ");
+        WriteLine("Write meeting name to update: ");
     }
 
     public IPresenter Action()
@@ -34,7 +36,6 @@ class DeleteMeetingPresenter : IPresenter
             pressAnyKey();
             return new MainMenuPresenter();
         }
-
         if (!_meetingService.GetAllMeetings().Where(x => x.Name == meetingName).Any())
         {
             WriteLine($"There`s no such meeting with name:  {meetingName}");
@@ -42,10 +43,10 @@ class DeleteMeetingPresenter : IPresenter
             return new MainMenuPresenter();
         }
 
-        _meetingService.DeleteMeeting(meetingName);
-        WriteLine($"Meeting with name '{meetingName}' was deleted");
+        var getMeeting = _meetingService.GetAllMeetings().First(x => x.Name == meetingName);
 
-        pressAnyKey();
-        return new MainMenuPresenter();
+        _meetingBuilder.SetName(getMeeting.Name);
+        _meetingBuilder.SetRoomName(getMeeting.Room.Name);
+        return new UpdateMeetingStartPresenter(_meetingBuilder);
     }
 }
