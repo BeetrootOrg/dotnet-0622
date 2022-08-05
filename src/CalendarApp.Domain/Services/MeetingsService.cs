@@ -41,4 +41,9 @@ internal class MeetingsService : IMeetingsService
 	{
 		return _repository.GetAllMeetings();
 	}
+
+	public void DeleteMeeting(string meetingName)
+	{
+		_repository.DeleteMeeting(meetingName);
+	}
 }

@@ -3,6 +3,7 @@ using System.IO;
 using CalendarApp.Contracts;
 using CalendarApp.DataAccess.Repositories.Interfaces;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace CalendarApp.DataAccess.Repositories;
 
@@ -43,5 +44,12 @@ internal class MeetingsRepository : IMeetingsRepository
 		}
 
 		return new MeetingsRepository(meetings);
+	}
+
+	public void DeleteMeeting(string meetingName)
+	{
+		_meetings.Remove(_meetings.First(x => x.Name == meetingName));
+		var serialized = JsonConvert.SerializeObject(_meetings);
+		File.WriteAllText(Filename, serialized);
 	}
 }
