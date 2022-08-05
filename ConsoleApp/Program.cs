@@ -8,22 +8,7 @@ using ConsoleApp;
 using System.Threading;
 
 using var cancellationTokenSource = new CancellationTokenSource();
-// analogue to above
-CancellationTokenSource cancellationTokenSource2 = default;
-try
-{
-    cancellationTokenSource2 = new CancellationTokenSource();
-    // work with it
-}
-finally
-{
-    cancellationTokenSource2?.Dispose();
-    // the above equivalent to
-    // if (cancellationTokenSource2 != null)
-    // {
-    //     cancellationTokenSource2.Dispose();
-    // }
-}
+
 var cancellationToken = cancellationTokenSource.Token;
 
 Console.CancelKeyPress += (object sender, ConsoleCancelEventArgs e) =>
