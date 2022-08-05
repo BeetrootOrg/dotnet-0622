@@ -1,16 +1,19 @@
 using CalendarApp.Console.Presenters.Interfaces;
+using CalendarApp.Console.Views.Interfaces;
 using CalendarApp.Domain.Builders;
 using CalendarApp.Domain.Exceptions;
+using CalendarApp.Domain.Services.Interfaces;
+using DomainFactory = CalendarApp.Domain.Factory;
 
 namespace CalendarApp.Console.Presenters;
 
-internal class CreateMeetingEndPresenter : IPresenter
+internal class UpdateMeetingEndPreseneter : IPresenter
 {
-	private readonly MeetingBuilder _meetingBuilder;
+    private readonly MeetingBuilder _meetingBuilder;
 
-	public CreateMeetingEndPresenter(MeetingBuilder meetingBuilder)
+	public UpdateMeetingEndPreseneter(MeetingBuilder meetingBuilder)
 	{
-		_meetingBuilder = meetingBuilder;
+        _meetingBuilder = meetingBuilder;
 	}
 
 	public IPresenter Action()
@@ -21,7 +24,7 @@ internal class CreateMeetingEndPresenter : IPresenter
 			{
 				var endDate = ReadLine();
 				_meetingBuilder.SetEnd(endDate);
-				return new CreateMeetingRoomNamePresenter(_meetingBuilder);
+                return new UpdateMeetingPresenter(DomainFactory.MeetingsService, _meetingBuilder);
 			}
 			catch (CalendarAppDomainException exc)
 			{

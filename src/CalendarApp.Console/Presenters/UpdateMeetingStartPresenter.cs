@@ -4,13 +4,13 @@ using CalendarApp.Domain.Exceptions;
 
 namespace CalendarApp.Console.Presenters;
 
-internal class CreateMeetingStartPresenter : IPresenter
+internal class UpdateMeetingStartPresenter : IPresenter
 {
-	private readonly MeetingBuilder _meetingBuilder;
+    private readonly MeetingBuilder _meetingBuilder;
 
-	public CreateMeetingStartPresenter(MeetingBuilder meetingBuilder)
+	public UpdateMeetingStartPresenter(MeetingBuilder meetingBuilder)
 	{
-		_meetingBuilder = meetingBuilder;
+        _meetingBuilder = meetingBuilder;
 	}
 
 	public IPresenter Action()
@@ -21,7 +21,7 @@ internal class CreateMeetingStartPresenter : IPresenter
 			{
 				var startDate = ReadLine();
 				_meetingBuilder.SetStart(startDate);
-				return new CreateMeetingEndPresenter(_meetingBuilder);
+				return new UpdateMeetingEndPreseneter(_meetingBuilder);
 			}
 			catch (CalendarAppDomainException exc)
 			{

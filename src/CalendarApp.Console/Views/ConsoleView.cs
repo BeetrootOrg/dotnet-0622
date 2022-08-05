@@ -20,4 +20,10 @@ internal class ConsoleView : IView
 		var key = System.Console.ReadKey();
 		return key.Key;
 	}
+
+	public string ReadRow()
+	{
+		var line = ReadLine();
+		return line;
+	}
 }

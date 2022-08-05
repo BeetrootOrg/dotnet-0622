@@ -20,8 +20,8 @@ internal class CreateMeetingRoomNamePresenter : IPresenter
 		{
 			try
 			{
-				var name = ReadLine();
-				_meetingBuilder.SetRoomName(name);
+				var roomName = ReadLine();
+				_meetingBuilder.SetRoomName(roomName);
 				return new CreateMeetingPresenter(_meetingBuilder, DomainFactory.MeetingsService);
 			}
 			catch (CalendarAppDomainException exc)
