@@ -36,6 +36,23 @@ internal class MeetingsService : IMeetingsService
 		static bool IsInsideTimeFrame(DateTime point, Timeframe timeframe) =>
 			point >= timeframe.Start && point < timeframe.End;
 	}
+	public void DeleteMeeting(string name)
+	{
+		var list = _repository.GetAllMeetings();
+        try
+        {
+			var meeting = list.First(x => x.Name == name);
+			_repository.DeleteMeeting(meeting);
+            Console.WriteLine("Meeting successfully deleted!");
+		}
+        catch (System.InvalidOperationException)
+        {
+
+            Console.WriteLine("Meeting does not exist");
+        }
+		
+		
+	}
 
 	public IEnumerable<Meeting> GetAllMeetings()
 	{
