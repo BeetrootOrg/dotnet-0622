@@ -10,35 +10,60 @@ namespace CalendarApp.Domain.Services;
 
 internal class MeetingsService : IMeetingsService
 {
-	private readonly IMeetingsRepository _repository;
+    private readonly IMeetingsRepository _repository;
 
-	public MeetingsService(IMeetingsRepository repository)
-	{
-		_repository = repository;
-	}
+    public MeetingsService(IMeetingsRepository repository)
+    {
+        _repository = repository;
+    }
 
-	public void AddMeeting(Meeting meeting)
-	{
-		var meetings = GetAllMeetings();
+    public void AddMeeting(Meeting meeting)
+    {
+        var meetings = GetAllMeetings();
 
-		var overlaps = meetings
-			.Where(m => m.Room.Equals(meeting.Room))
-			.Any(m => IsInsideTimeFrame(meeting.Timeframe.Start, m.Timeframe) ||
-				IsInsideTimeFrame(m.Timeframe.Start, meeting.Timeframe));
+        var overlaps = meetings
+            .Where(m => m.Room.Equals(meeting.Room))
+            .Any(m => IsInsideTimeFrame(meeting.Timeframe.Start, m.Timeframe) ||
+                IsInsideTimeFrame(m.Timeframe.Start, meeting.Timeframe));
 
-		if (overlaps)
-		{
-			throw new CalendarAppDomainException("Meeting overlaps with another");
-		}
+        if (overlaps)
+        {
+            throw new CalendarAppDomainException("Meeting overlaps with another");
+        }
 
-		_repository.AddMeeting(meeting);
+        _repository.AddMeeting(meeting);
 
-		static bool IsInsideTimeFrame(DateTime point, Timeframe timeframe) =>
-			point >= timeframe.Start && point < timeframe.End;
-	}
+        static bool IsInsideTimeFrame(DateTime point, Timeframe timeframe) =>
+            point >= timeframe.Start && point < timeframe.End;
+    }
 
-	public IEnumerable<Meeting> GetAllMeetings()
-	{
-		return _repository.GetAllMeetings();
-	}
+    public void DeleteMeeting(Meeting meeting)
+    {
+        _repository.DeleteMeeting(meeting);
+    }
+
+    public IEnumerable<Meeting> GetAllMeetings()
+    {
+        return _repository.GetAllMeetings();
+    }
+
+    public void UpdateMeeting(Meeting meeting, int index)
+    {
+        var meetings = GetAllMeetings();
+
+        var overlaps = meetings
+            .Where(m => m.Room.Equals(meeting.Room))
+            .Any(m => IsInsideTimeFrame(meeting.Timeframe.Start, m.Timeframe) ||
+                IsInsideTimeFrame(m.Timeframe.Start, meeting.Timeframe));
+
+        if (overlaps)
+        {
+            throw new CalendarAppDomainException("Meeting overlaps with another");
+        }
+
+        _repository.UpdateMeeting(meeting, index);
+
+        static bool IsInsideTimeFrame(DateTime point, Timeframe timeframe) =>
+          point >= timeframe.Start && point < timeframe.End;
+    }
 }
