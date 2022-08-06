@@ -13,8 +13,18 @@ internal class MeetingsRepository : IMeetingsRepository
 		_meetings.Add(meeting);
 	}
 
-	public IEnumerable<Meeting> GetAllMeetings()
+    public void DeleteMeeting(Meeting meeting)
+    {
+        _meetings.Remove(meeting);
+    }
+
+    public IEnumerable<Meeting> GetAllMeetings()
 	{
 		return _meetings;
 	}
+
+    public Meeting UpdateMeeting(Meeting meeting)
+    {
+        throw new System.NotImplementedException();
+    }
 }

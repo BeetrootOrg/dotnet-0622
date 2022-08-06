@@ -19,8 +19,18 @@ internal class MeetingsService : IMeetingsService
 		_repository.AddMeeting(meeting);
 	}
 
-	public IEnumerable<Meeting> GetAllMeetings()
+    public void DeleteMeeting(Meeting meeting)
+    {
+        _repository.DeleteMeeting(meeting);
+    }
+
+    public IEnumerable<Meeting> GetAllMeetings()
 	{
 		return _repository.GetAllMeetings();
 	}
+
+    public Meeting UpdateMeeting(Meeting meeting)
+    {
+        return _repository.UpdateMeeting(meeting);
+    }
 }
