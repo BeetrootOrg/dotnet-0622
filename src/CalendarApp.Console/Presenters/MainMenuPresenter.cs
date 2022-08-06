@@ -17,6 +17,8 @@ internal class MainMenuPresenter : IPresenter
 				return new ShowAllPresenter(DomainFactory.MeetingsService);
 			case ConsoleKey.D2:
 				return new CreateMeetingNamePresenter(new MeetingBuilder());
+			case ConsoleKey.D3:
+				return new DeleteMeetingPresenter();
 			case ConsoleKey.D0:
 				return null;
 			default:
@@ -32,6 +34,7 @@ internal class MainMenuPresenter : IPresenter
 		WriteLine();
 		WriteLine("1 - Show all meetings");
 		WriteLine("2 - Add meeting");
+		WriteLine("3 - Delete meeting");
 		WriteLine("0 - Exit");
 	}
 }

@@ -44,4 +44,11 @@ internal class MeetingsRepository : IMeetingsRepository
 
 		return new MeetingsRepository(meetings);
 	}
+
+    public void DeleteMeeting(Meeting meeting)
+    {
+        _meetings.Remove(meeting);
+		var serialized = JsonConvert.SerializeObject(_meetings);
+		File.WriteAllText(Filename, serialized);
+    }
 }
