@@ -8,23 +8,26 @@ class PostGamePresenter : IPresenter
 {
     private readonly int _lastScore;
     private readonly IHighscoresService _highscoresService;
-    public PostGamePresenter(int lastScore, IHighscoresService _highscoresService)
+    public PostGamePresenter(int lastScore, IHighscoresService highscoresService)
     {
-        _highscoresService = _highscoresService;
+        _highscoresService = highscoresService;
         _lastScore = lastScore;
     }
     public IPresenter Action()
     {
-        var name = ReadLine();
+        var name = ReadLine();        
+
         _highscoresService.AddHighscore(new Highscore{
             Name = name,
             Score = _lastScore
         });
+        
         return new MainMenuPresenter();
     }
 
     public void Show()
     {
+        Clear();
         WriteLine($"Score: {_lastScore}");
         Write("Enter your name: ");
     }

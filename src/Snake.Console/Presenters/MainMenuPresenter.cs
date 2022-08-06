@@ -1,5 +1,7 @@
 using Snake.Console.Presenters.Interfaces;
 
+using DomainFactory = Snake.Domain.Factory;
+
 namespace Snake.Console.Presenters;
 
 class MainMenuPresenter : IPresenter
@@ -12,7 +14,7 @@ class MainMenuPresenter : IPresenter
             case (ConsoleKey.D1):
                 return new GamePresenter();
             case (ConsoleKey.D2):
-                return new HighscoresPresenter();
+                return new HighscoresPresenter(DomainFactory.HighscoresService);
             case (ConsoleKey.D0):
                 return null;
             default:

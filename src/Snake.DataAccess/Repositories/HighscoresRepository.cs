@@ -18,13 +18,14 @@ internal class HighscoresRepository : IHighscoresRepository
 	public void AddHighscore(Highscore highscore)
 	{
 		_highscores.Add(highscore);
-		var serialized = JsonConvert.SerializeObject(_highscores);
+		var orderedHighscores = _highscores.OrderByDescending(f => f.Score).ToList();
+		var serialized = JsonConvert.SerializeObject(orderedHighscores);
 		File.WriteAllText(Filename, serialized);
 	}
 
 	public IEnumerable<Highscore> GetAllHighscores()
 	{
-		return _highscores;
+		return _highscores.OrderByDescending(f => f.Score).ToList();
 	}
 
 	public static HighscoresRepository Create()
