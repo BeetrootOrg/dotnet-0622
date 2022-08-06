@@ -1,4 +1,4 @@
-namespace ConsoleApp;
+namespace Snake.Console.Presenter.GameProcess;
 
 class Food
 {
@@ -13,8 +13,8 @@ class Food
 
     public void Render()
     {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.SetCursorPosition(_point.X, _point.Y);
-        Console.Write('@');
+        ForegroundColor = ConsoleColor.Red;
+        SetCursorPosition(_point.X, _point.Y);
+        Write('@');
     }
 }

@@ -1,4 +1,4 @@
-namespace ConsoleApp;
+namespace Snake.Console.Presenter.GameProcess;
 
 class Point
 {

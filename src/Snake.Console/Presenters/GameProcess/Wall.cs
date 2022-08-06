@@ -1,4 +1,4 @@
-namespace ConsoleApp;
+namespace Snake.Console.Presenter.GameProcess;
 
 class Wall
 {
@@ -24,11 +24,11 @@ class Wall
     }
     public void Render()
     {
-        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        ForegroundColor = ConsoleColor.DarkYellow;
         foreach(var wall in _walls)
         {
-            Console.SetCursorPosition(wall.X, wall.Y);
-            Console.Write('#');
+            SetCursorPosition(wall.X, wall.Y);
+            Write('#');
         }
     }
 }

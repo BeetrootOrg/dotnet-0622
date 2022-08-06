@@ -1,4 +1,4 @@
-namespace ConsoleApp;
+namespace Snake.Console.Presenter.GameProcess;
 
 class Field
 {
@@ -33,9 +33,9 @@ class Field
 
     private void RenderScore()
     {
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.SetCursorPosition(0, _size);
-        Console.Write($"Score: {_score}");
+        ForegroundColor = ConsoleColor.White;
+        SetCursorPosition(0, _size);
+        Write($"Score: {_score}");
     }
 
     public bool Update()

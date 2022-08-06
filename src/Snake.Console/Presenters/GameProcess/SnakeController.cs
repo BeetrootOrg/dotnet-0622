@@ -1,24 +1,24 @@
 using System;
 using System.Threading;
 
-namespace ConsoleApp;
+namespace Snake.Console.Presenter.GameProcess;
 
-class Controller
+class SnakeController
 {
      private Timer _timer;
 
      public ConsoleKeyInfo Key {get; protected set;} = new ConsoleKeyInfo();
 
-     public Controller()
+     public SnakeController()
      {
-        _timer = new Timer(ReadKey, null, Timeout.InfiniteTimeSpan, TimeSpan.Zero);
+        _timer = new Timer(Move, null, Timeout.InfiniteTimeSpan, TimeSpan.Zero);
         _timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(10));
      }
-     public void ReadKey(object state)
+     public void Move(object state)
      {
-        if (Console.KeyAvailable)
+        if (KeyAvailable)
         {
-            Key = Console.ReadKey();
+            Key = ReadKey();
         }
      }
 

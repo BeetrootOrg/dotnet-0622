@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 
-namespace ConsoleApp;
+namespace Snake.Console.Presenter.GameProcess;
 
 class SnakeGame
 {
@@ -14,11 +14,6 @@ class SnakeGame
     public SnakeGame()
     {
         _field = new Field();
-    }
-
-    public SnakeGame(Field filed)
-    {
-        _field = filed;
     }
 
     public void StartGame()
@@ -35,7 +30,7 @@ class SnakeGame
     public void Show()
     {
         _field.Render();      
-        Console.CursorVisible = false;
+        CursorVisible = false;
     }
     
     private void Update(object state)
@@ -43,7 +38,7 @@ class SnakeGame
         if (_isOnRunnig)
         {
             _isOnRunnig = _field.Update();
-            Console.Clear();
+            Clear();
             Show();
         } 
         else 

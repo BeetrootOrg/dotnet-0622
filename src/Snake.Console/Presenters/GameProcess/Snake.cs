@@ -1,4 +1,4 @@
-namespace ConsoleApp;
+namespace Snake.Console.Presenter.GameProcess;
 
 enum Direction
 {
@@ -11,7 +11,7 @@ class Snake
 {
     private List<Point> _body;
     private Direction _direction = Direction.Right;
-    private Controller _controller = new Controller();
+    private SnakeController _controller = new SnakeController();
 
     public Snake(int size = 3)
     {
@@ -44,17 +44,17 @@ class Snake
     
     public void Render()
     {
-        Console.ForegroundColor = ConsoleColor.Green;
+        ForegroundColor = ConsoleColor.Green;
         for(int i = 0; i<_body.Count-1; i++)
         {
-            Console.SetCursorPosition(_body[i].X, _body[i].Y);
-            Console.Write('O');
+            SetCursorPosition(_body[i].X, _body[i].Y);
+            Write('O');
         }
-        Console.SetCursorPosition(_body[_body.Count-1].X, _body[_body.Count-1].Y);
-        if (_direction == Direction.Right) Console.Write('>');
-        if (_direction == Direction.Left) Console.Write('<');
-        if (_direction == Direction.Up) Console.Write('^');
-        if (_direction == Direction.Down) Console.Write('v');
+        SetCursorPosition(_body[_body.Count-1].X, _body[_body.Count-1].Y);
+        if (_direction == Direction.Right) Write('>');
+        if (_direction == Direction.Left) Write('<');
+        if (_direction == Direction.Up) Write('^');
+        if (_direction == Direction.Down) Write('v');
     }
     
     public void Grow()
