@@ -13,26 +13,32 @@ public class GameOfLife
         }
         return range;
     }
+
+    private int[] GenerateSubRange(int index, int limit)
+    {
+        return GenerateRange((0 > index - 1 ? 0 : index - 1), (index + 1 < limit ? index + 1 : limit));
+    }
+
     public char[,] Execute(char[,] cells)
     {
         int maxRows = 0;
         int maxColumns = 0;
         int num = 0;
-        int[] rangeInRow;
-        int[] rangeInColumn;
+        int[] subRangeInRow;
+        int[] subRangeInColumn;
         char[,] action = CopyArray(cells);
         maxRows = action.GetLength(0) - 1;
+        maxColumns = action.GetLength(1) - 1;
         for (int a = 0; a < action.GetLength(0); ++a)
         {
             for (int b = 0; b < action.GetLength(1); ++b)
             {
                 num = 0;
-                rangeInRow = GenerateRange(Math.Max(0, a - 1), Math.Min(a + 1, maxRows));
-                foreach (int c in rangeInRow)
+                subRangeInRow = GenerateSubRange(a, maxRows);
+                foreach (int c in subRangeInRow)
                 {
-                    maxColumns = action.GetLength(1) - 1;
-                    rangeInColumn = GenerateRange(Math.Max(0, b - 1), Math.Min(b + 1, maxColumns));
-                    foreach (int d in rangeInColumn)
+                    subRangeInColumn = GenerateSubRange(b, maxColumns);
+                    foreach (int d in subRangeInColumn)
                     {
                         if (action[c, d] == '*')
                         {
