@@ -51,4 +51,11 @@ internal class MeetingsRepository : IMeetingsRepository
 		var serialized = JsonConvert.SerializeObject(_meetings);
 		File.WriteAllText(Filename, serialized);
     }
+
+    public void UpdateMeeting(Meeting meeting, int meetingIndex)
+    {
+        _meetings[meetingIndex] = meeting;
+		var serialized = JsonConvert.SerializeObject(_meetings);
+		File.WriteAllText(Filename, serialized);
+    }
 }

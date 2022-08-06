@@ -46,4 +46,29 @@ internal class MeetingsService : IMeetingsService
 	{
 		return _repository.GetAllMeetings();
 	}
+
+    public void UpdateMeeting(Meeting meeting)
+    {
+		var meetings = GetAllMeetings();
+
+		var overlaps = meetings
+			.Where(m => m.Room.Equals(meeting.Room))
+			.Any(m => IsInsideTimeFrame(meeting.Timeframe.Start, m.Timeframe) ||
+				IsInsideTimeFrame(m.Timeframe.Start, meeting.Timeframe));
+
+		if (overlaps)
+		{
+			throw new CalendarAppDomainException("Meeting overlaps with another");
+		}
+
+        Meeting meetingToUpdate = MeetingUpdaterService.FindMeetingByName(meeting.Name);
+		List<Meeting> allMeetings = (List<Meeting>)Factory.MeetingsService.GetAllMeetings();
+
+		int indexOfMeetingToUpdate = allMeetings.IndexOf(meetingToUpdate);
+
+		_repository.UpdateMeeting(meeting, indexOfMeetingToUpdate);
+
+		static bool IsInsideTimeFrame(DateTime point, Timeframe timeframe) =>
+			point >= timeframe.Start && point < timeframe.End;
+    }
 }
