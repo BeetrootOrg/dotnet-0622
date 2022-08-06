@@ -41,9 +41,13 @@ internal class MeetingsService : IMeetingsService
 		var list = _repository.GetAllMeetings();
         try
         {
-			var meeting = list.First(x => x.Name == name);
-			_repository.DeleteMeeting(meeting);
-            Console.WriteLine("Meeting successfully deleted!");
+            while (list.Any(x => x.Name == name))
+            {
+					var meeting = list.First(x => x.Name == name);
+					_repository.DeleteMeeting(meeting);
+            }
+			Console.WriteLine("Meeting successfully deleted!");
+
 		}
         catch (System.InvalidOperationException)
         {
