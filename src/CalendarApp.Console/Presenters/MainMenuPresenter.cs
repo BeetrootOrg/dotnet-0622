@@ -1,5 +1,6 @@
 using System;
 using CalendarApp.Console.Presenters.Interfaces;
+using CalendarApp.Console.Views;
 using CalendarApp.Domain.Builders;
 using DomainFactory = CalendarApp.Domain.Factory;
 
@@ -14,13 +15,9 @@ internal class MainMenuPresenter : IPresenter
 		switch (key.Key)
 		{
 			case ConsoleKey.D1:
-				return new ShowAllPresenter(DomainFactory.MeetingsService);
+				return new ShowAllPresenter(DomainFactory.MeetingsService, new ConsoleView());
 			case ConsoleKey.D2:
 				return new CreateMeetingNamePresenter(new MeetingBuilder());
-			case ConsoleKey.D3:
-				return new DeleteMeetingByNamePresenter(DomainFactory.MeetingsService);
-			case ConsoleKey.D4:
-				return new UpdateMeetingByNamePresenter(DomainFactory.MeetingsService);
 			case ConsoleKey.D0:
 				return null;
 			default:
@@ -36,8 +33,6 @@ internal class MainMenuPresenter : IPresenter
 		WriteLine();
 		WriteLine("1 - Show all meetings");
 		WriteLine("2 - Add meeting");
-		WriteLine("3 - Delete meeting");
-		WriteLine("4 - Update meeting");
 		WriteLine("0 - Exit");
 	}
 }
