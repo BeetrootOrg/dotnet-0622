@@ -9,4 +9,4 @@ public interface IMeetingsRepository
 	void AddMeeting(Meeting meeting);
 	void DeleteMeeting(Meeting meeting);
 	void UpdateMeeting(Meeting meeting, int meetingIndex);
-} 
+}

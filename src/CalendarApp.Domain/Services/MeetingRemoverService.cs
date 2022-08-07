@@ -32,4 +32,4 @@ public class MeetingRemoverService : IMeetingRemoverService
 
         return $"{counter} meeting(s) with name \"{meetingName}\" was(were) successfully deleted";
     }
-} 
+}

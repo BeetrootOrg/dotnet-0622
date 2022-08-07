@@ -71,4 +71,4 @@ internal class MeetingsService : IMeetingsService
 		static bool IsInsideTimeFrame(DateTime point, Timeframe timeframe) =>
 			point >= timeframe.Start && point < timeframe.End;
     }
-} 
+}

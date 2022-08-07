@@ -36,4 +36,4 @@ internal class CreateMeetingRoomNamePresenter : IPresenter
 		Clear();
 		WriteLine("Enter room name:");
 	}
-}
+} 

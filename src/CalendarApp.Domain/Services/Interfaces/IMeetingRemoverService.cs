@@ -6,4 +6,4 @@ namespace CalendarApp.Domain.Services.Interfaces;
 public interface IMeetingRemoverService
 {
 	string DeleteMeeting(string meetnigName);
-} 
+}
