@@ -1,57 +1,57 @@
 namespace CodeConvention
 {
-    public class PublicClass
+    public class Class
     {
-        private static int _privateStaticIntValue;
-        public static int PublicStaticIntValue;
-        protected static int ProtectedStaticIntValue;
-        internal static int InternalStaticIntValue;
+        private static int _private;
+        public static int Public;
+        protected static int Protected;
+        internal static int Internal;
 
-        private const int PrivateConstant = 0;
-        public const int PublicConstant = 0;
-        protected const int ProtectedConstant = 0;
-        internal const int InternalConstant = 0;
+        private const int PrivateConst = 0;
+        public const int PublicConst = 0;
+        protected const int ProtectedConst = 0;
+        internal const int InternalConst = 0;
 
-        private int _privateIntValue;
-        public int PublicIntValue;
-        protected int ProtectedIntValue;
-        internal int InternalIntValue;
+        private int _privateInt;
+        public int PublicInt;
+        protected int ProtectedInt;
+        internal int InternalInt;
 
-        public enum PublicEnum
+        public enum Enum
         {
-            FirstValue,
-            SecondValue,
-            ThirdValue
+            One,
+            Two,
+            Three
         }
 
-        private int PrivateIntFunction(int firstParameter, int secondParameter)
+        private int PrivateFunction(int int1, int int2)
         {
-            var localVariable = firstParameter + secondParameter;
+            var Variable = int1 + int2;
             return 1;
         }
 
-        public int PublicIntFunction(int firstParameter, int secondParameter)
+        public int PublicFunction(int int1, int int2)
         {
-            var localVariable = firstParameter + secondParameter;
+            var Variable = int1 + int2;
             return 1;
         }
 
-        protected int ProtectedIntFunction(int firstParameter, int secondParameter)
+        protected int ProtectedFunction(int int1, int int2)
         {
-            var localVariable = firstParameter + secondParameter;
+            var Variable = int1 + int2;
             return 1;
         }
 
-        internal int InternalIntFunction(int firstParameter, int secondParameter)
+        internal int InternalFunction(int int1, int int2)
         {
-            var localVariable = firstParameter + secondParameter;
+            var Variable = int1 + int2;
             return 1;
         }
 
-        private void PrivateVoidFunction(int firstParameter, int secondParameter){}
-        public void PublicVoidFunction(int firstParameter, int secondParameter){}
-        protected void ProtectedVoidFunction(int firstParameter, int secondParameter){}
-        internal void InternalVoidFunction(int firstParameter, int secondParameter){}        
+        private void PrivateVoidFunction(int int1, int int2){}
+        public void PublicVoidFunction(int int1, int int2){}
+        protected void ProtectedVoidFunction(int int1, int int2){}
+        internal void InternalVoidFunction(int int1, int int2){}        
 
     }
     private class PrivateClass{}
