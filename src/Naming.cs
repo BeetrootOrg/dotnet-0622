@@ -1,6 +1,6 @@
 namespace CodeConventions;
 
-public interface Naming
+public interface INaming
 {
     void InterfaceMethod();
     public int InterfaceProperty { get; set; }
