@@ -1,3 +1,5 @@
+namespace ConsoleApp.GameOfLife;
+
 public class GameOfLife
 {
     private int[] GenerateRange(int start, int end)
@@ -27,11 +29,11 @@ public class GameOfLife
         int[] subRangeInRow;
         int[] subRangeInColumn;
         char[,] action = CopyArray(cells);
-        maxRows = action.GetLength(0) - 1;
-        maxColumns = action.GetLength(1) - 1;
-        for (int a = 0; a < action.GetLength(0); ++a)
+        maxRows = cells.GetLength(0) - 1;
+        maxColumns = cells.GetLength(1) - 1;
+        for (int a = 0; a < cells.GetLength(0); ++a)
         {
-            for (int b = 0; b < action.GetLength(1); ++b)
+            for (int b = 0; b < cells.GetLength(1); ++b)
             {
                 num = 0;
                 subRangeInRow = GenerateSubRange(a, maxRows);
@@ -40,7 +42,7 @@ public class GameOfLife
                     subRangeInColumn = GenerateSubRange(b, maxColumns);
                     foreach (int d in subRangeInColumn)
                     {
-                        if (action[c, d] == '*')
+                        if (cells[c, d] == '*')
                         {
                             ++num;
                         }

@@ -1,4 +1,6 @@
-﻿internal class Program
+﻿namespace ConsoleApp.GameOfLife;
+
+internal class Program
 {
     private static void Main(string[] args)
     {
