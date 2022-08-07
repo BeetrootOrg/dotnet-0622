@@ -33,8 +33,15 @@ internal class MeetingsService : IMeetingsService
 		public void DeleteMeeting(string name)
 	{	
 		var list = _repository.GetAllMeetings();
-		var meeting = list.First( x => x.Name == name);
-		_repository.DeleteMeeting(meeting);
+		var meetingsToDelete = list.Where( x => x.Name == name);
+			
+			while (meetingsToDelete.Count() > 0 )
+			{
+				_repository.DeleteMeeting(meetingsToDelete.ElementAt(0));		
+			}
+			
+		
+		
 	}
 
 	public IEnumerable<Meeting> GetAllMeetings()
