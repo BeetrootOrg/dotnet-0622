@@ -8,12 +8,12 @@ namespace CalendarApp.Console.Presenters;
 
 internal class UpdateMeetingUsingNamePresenter : IPresenter
 {
-	private readonly MeetingBuilder _meetingBuilder;
+    private readonly MeetingBuilder _meetingBuilder;
 
-	public UpdateMeetingUsingNamePresenter(MeetingBuilder meetingBuilder)
-	{
-		_meetingBuilder = meetingBuilder;
-	}
+    public UpdateMeetingUsingNamePresenter(MeetingBuilder meetingBuilder)
+    {
+        _meetingBuilder = meetingBuilder;
+    }
 
     public IPresenter Action()
     {
