@@ -32,6 +32,7 @@ internal class MainMenuPresenter : IPresenter
 		WriteLine();
 		WriteLine("1 - Show all meetings");
 		WriteLine("2 - Add meeting");
+		WriteLine("1 - Show all meetings");
 		WriteLine("0 - Exit");
 	}
 }
