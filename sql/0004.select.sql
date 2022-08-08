@@ -12,6 +12,7 @@ ORDER BY age;
 SELECT *
 FROM tbl_persons
 WHERE address IS NULL;
+
 SELECT *
 FROM tbl_persons
 WHERE address IS NULL;
@@ -26,6 +27,15 @@ GROUP BY first_name
 HAVING COUNT(1) > 1;
 
 SELECT *
+FROM tbl_persons
+WHERE first_name IN (
+		SELECT first_name
+		FROM tbl_persons
+		GROUP BY first_name
+		HAVING COUNT(1) > 1
+	);
+
+SELECT COUNT(1)
 FROM tbl_persons
 WHERE first_name IN (
 		SELECT first_name
