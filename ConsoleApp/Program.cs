@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp.GameOfLife;
+﻿namespace GameOfLife.GameOfLife;
 
 internal class Program
 {

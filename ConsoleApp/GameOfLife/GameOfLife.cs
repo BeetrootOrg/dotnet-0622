@@ -1,10 +1,16 @@
-namespace ConsoleApp.GameOfLife;
+namespace GameOfLife.GameOfLife;
 
 public class GameOfLife
 {
+    private int[] range { get; set; }
+
+    private char[,] action { get; set; }
+
     private int[] GenerateRange(int start, int end)
     {
-        int[] range = new int[] { 0 };
+        end = start + 1 < end ? start + 1 : end;
+        start = 0 > start - 1 ? 0 : start - 1;
+
         if (start < end)
         {
             range = new int[end - start + 1];
@@ -13,12 +19,8 @@ public class GameOfLife
                 range[a] = start + a;
             }
         }
-        return range;
-    }
 
-    private int[] GenerateSubRange(int index, int limit)
-    {
-        return GenerateRange((0 > index - 1 ? 0 : index - 1), (index + 1 < limit ? index + 1 : limit));
+        return range;
     }
 
     public char[,] Execute(char[,] cells)
@@ -28,52 +30,59 @@ public class GameOfLife
         int num = 0;
         int[] subRangeInRow;
         int[] subRangeInColumn;
-        char[,] action = CopyArray(cells);
-        maxRows = cells.GetLength(0) - 1;
-        maxColumns = cells.GetLength(1) - 1;
-        for (int a = 0; a < cells.GetLength(0); ++a)
+
+        if (CopyArray(cells))
         {
-            for (int b = 0; b < cells.GetLength(1); ++b)
+            maxRows = cells.GetLength(0) - 1;
+            maxColumns = cells.GetLength(1) - 1;
+
+            for (int a = 0; a < action.GetLength(0); ++a)
             {
-                num = 0;
-                subRangeInRow = GenerateSubRange(a, maxRows);
-                foreach (int c in subRangeInRow)
+                for (int b = 0; b < action.GetLength(1); ++b)
                 {
-                    subRangeInColumn = GenerateSubRange(b, maxColumns);
-                    foreach (int d in subRangeInColumn)
+                    num = 0;
+                    subRangeInRow = GenerateRange(a, maxRows);
+                    foreach (int c in subRangeInRow)
                     {
-                        if (cells[c, d] == '*')
+                        subRangeInColumn = GenerateRange(b, maxColumns);
+                        foreach (int d in subRangeInColumn)
                         {
-                            ++num;
+                            if (cells[c, d] == '*')
+                            {
+                                ++num;
+                            }
                         }
                     }
-                }
-                if (action[a, b] == '*')
-                {
-                    --num;
-                }
-                if (num == 3)
-                {
-                    action[a, b] = '*';
-                }
-                else if (num < 2 || num > 3)
-                {
-                    action[a, b] = '.';
+                    if (action[a, b] == '*')
+                    {
+                        --num;
+                    }
+                    if (num == 3)
+                    {
+                        action[a, b] = '*';
+                    }
+                    else if (num < 2 || num > 3)
+                    {
+                        action[a, b] = '.';
+                    }
                 }
             }
         }
+        
         return action;
     }
 
-    char[,] CopyArray(char[,] cells)
+    private bool CopyArray(char[,] cells)
     {
-        char[,] copyCells = new char[0, 0];
         if (Validate(cells))
         {
-            copyCells = new char[cells.GetLength(0), cells.GetLength(1)];
-            Array.Copy(cells, copyCells, cells.Length);
+            action = new char[cells.GetLength(0), cells.GetLength(1)];
+            Array.Copy(cells, action, cells.Length);
+            return true;
         }
-        return copyCells;
+
+        action = new char[0, 0];
+        return false;
     }
 
     bool Validate(char[,] cells)
@@ -85,6 +94,7 @@ public class GameOfLife
         {
             return true;
         }
+
         return false;
     }
 }
