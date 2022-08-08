@@ -43,3 +43,13 @@ WHERE first_name IN (
 		GROUP BY first_name
 		HAVING COUNT(1) > 1
 	);
+
+SELECT *
+FROM tbl_persons
+ORDER BY id OFFSET 2
+LIMIT 2;
+
+SELECT *, LEFT(first_name, 1) AS first_first_name 
+	FROM tbl_persons 
+	WHERE LEFT(first_name, 1) >= 'a' AND 
+		LEFT(first_name, 1) <= 'z';
