@@ -40,15 +40,15 @@ public class ClassName
 
     }
 
-    public void PublicMethod(int FirstArgument, int SecondArgument);
-    private void PrivateMethod(int FirstArgument, int SecondArgument);
-    internal void InternalMethod(int FirstArgument, int SecondArgument);
-    protected void ProtectedMethod(int FirstArgument, int SecondArgument);
+    public void PublicMethod(int FirstArgument, int SecondArgument){}
+    private void PrivateMethod(int FirstArgument, int SecondArgument){}
+    internal void InternalMethod(int FirstArgument, int SecondArgument){}
+    protected void ProtectedMethod(int FirstArgument, int SecondArgument){}
 
-    public static void PublicStaticMethod(int FirstArgument, int SecondArgument);
-    private static void PrivateStaticMethod(int FirstArgument, int SecondndArgument);
-    internal static void InternalStaticMethod(int FirstArgument, int Secorgument);
-    protected static void ProtectedStaticMethod(int FirstArgument, int SecondAgument);
+    public static void PublicStaticMethod(int FirstArgument, int SecondArgument){}
+    private static void PrivateStaticMethod(int FirstArgument, int SecondndArgument){}
+    internal static void InternalStaticMethod(int FirstArgument, int Secorgument){}
+    protected static void ProtectedStaticMethod(int FirstArgument, int SecondAgument){}
 
 
     public int PublicConstantValue = 0;
