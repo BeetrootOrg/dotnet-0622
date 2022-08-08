@@ -7,20 +7,25 @@ namespace CalendarApp.Domain.Services;
 
 internal class MeetingsService : IMeetingsService
 {
-	private readonly IMeetingsRepository _repository;
+    private readonly IMeetingsRepository _repository;
 
-	public MeetingsService(IMeetingsRepository repository)
-	{
-		_repository = repository;
-	}
+    public MeetingsService(IMeetingsRepository repository)
+    {
+        _repository = repository;
+    }
 
-	public void AddMeeting(Meeting meeting)
-	{
-		_repository.AddMeeting(meeting);
-	}
+    public void AddMeeting(Meeting meeting)
+    {
+        _repository.AddMeeting(meeting);
+    }
 
-	public IEnumerable<Meeting> GetAllMeetings()
-	{
-		return _repository.GetAllMeetings();
-	}
+    public IEnumerable<Meeting> GetAllMeetings()
+    {
+        return _repository.GetAllMeetings();
+    }
+    public bool DeleteMeeting(string name)
+    {
+        return _repository.DeleteMeeting(name);
+    }
+
 }
