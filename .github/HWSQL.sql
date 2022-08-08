@@ -24,6 +24,6 @@ SELECT COUNT(*)
 FROM tbl_persons
 
 SELECT age,
-	COUNT(1)
+	COUNT(*)
 FROM tbl_persons
 GROUP BY age;
