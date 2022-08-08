@@ -92,4 +92,56 @@ public class MeetingsServiceTests
 		action.ShouldThrow<CalendarAppDomainException>();
 		_meetingsRepository.Verify(x => x.AddMeeting(newMeeting), Times.Never());
 	}
+
+	[Fact]
+	public void UpdateMeetingShouldUpdateItifNotOverlap()
+	{
+		// Arrange
+		var meetings = Factory.MeetingFaker.GenerateBetween(5, 15);
+
+		var meetingStart = Factory.CommonFaker.Date.Future().Add(TimeSpan.FromHours(2));
+		var newMeeting = new Meeting
+		{
+			Name = Factory.CommonFaker.Random.Word(),
+			Room = new Room
+			{
+				Name = Factory.CommonFaker.Random.Word(),
+			},
+			Timeframe = new Timeframe
+			{
+				Start = meetingStart,
+				End = meetingStart.Add(Factory.CommonFaker.Date.Timespan())
+			}
+		};
+
+		_meetingsRepository.Setup(x => x.GetAllMeetings())
+			.Returns(meetings);
+
+		// Act
+		_meetingsService.UpdateMeeting(newMeeting);
+
+		// Assert
+		_meetingsRepository.Verify(x => x.UpdateMeeting(newMeeting), Times.Once());
+	}
+
+		[Fact]
+	public void DeleteMeetingShouldDeleteItIfItExist()
+	{
+		// Arrange
+		var meetings = Factory.MeetingFaker.GenerateBetween(5, 15);
+
+		var random = new Random();
+		int randomIndex = random.Next(meetings.Count);
+
+		var randomMeetingName = meetings[randomIndex].Name;
+		
+		_meetingsRepository.Setup(x => x.GetAllMeetings())
+			.Returns(meetings);
+
+		// Act
+		_meetingsService.DeleteMeeting(randomMeetingName);
+
+		// Assert
+		_meetingsRepository.Verify(x => x.DeleteMeeting(meetings[randomIndex]));
+	}
 }
