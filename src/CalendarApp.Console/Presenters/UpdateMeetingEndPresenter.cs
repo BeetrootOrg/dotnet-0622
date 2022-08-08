@@ -31,7 +31,7 @@ class UpdateMeetingEndPresenter : IPresenter
             {
                 var endTime = ReadLine();
                 _meetingBuilder.SetEnd(endTime);
-                return new UpdateMeetingPresenter(DomainFactory.MeetingsService,_meetingBuilder);
+                return new UpdateMeetingPresenter(DomainFactory.MeetingsService, _meetingBuilder);
             }
             catch (CalendarAppDomainException exc)
             {

@@ -63,8 +63,8 @@ internal class MeetingsService : IMeetingsService
         }
 
 
-		_repository.UpdateMeeting(meeting);
-		
+        _repository.UpdateMeeting(meeting);
+
         static bool IsInsideTimeFrame(DateTime point, Timeframe timeframe) =>
         point >= timeframe.Start && point < timeframe.End;
     }

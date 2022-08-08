@@ -30,7 +30,7 @@ class UpdateMeetingPresenter : IPresenter
 
             WriteLine($"Meeting {buildMeeting.Name} was successfully updated");
         }
-        catch(CalendarAppDomainException exc)
+        catch (CalendarAppDomainException exc)
         {
             WriteLine(exc.Message);
         }
