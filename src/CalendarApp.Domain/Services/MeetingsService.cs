@@ -24,7 +24,6 @@ internal class MeetingsService : IMeetingsService
 		{
 			throw new CalendarAppDomainException("Meeting overlaps with another");
 		}
-
 		_repository.AddMeeting(meeting);
 	}
 
