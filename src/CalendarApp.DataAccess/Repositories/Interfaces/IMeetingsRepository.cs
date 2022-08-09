@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CalendarApp.Contracts;
 
@@ -7,4 +8,6 @@ public interface IMeetingsRepository
 {
 	IEnumerable<Meeting> GetAllMeetings();
 	void AddMeeting(Meeting meeting);
+	void RemoveMeeting(Meeting nameOfMeeting);
+	void ChangeMeetingTime(Meeting meeting);
 }
