@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CalendarApp.Contracts;
 
@@ -7,4 +8,5 @@ public interface IMeetingsService
 {
 	IEnumerable<Meeting> GetAllMeetings();
 	void AddMeeting(Meeting meeting);
+	void UpdateMeetingsByName(string name, DateTime start, DateTime end);
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using CalendarApp.Contracts;
 using CalendarApp.DataAccess.Repositories.Interfaces;
 using Newtonsoft.Json;
@@ -20,13 +21,25 @@ internal class MeetingsRepository : IMeetingsRepository
 	public void AddMeeting(Meeting meeting)
 	{
 		_meetings.Add(meeting);
-		var serialized = JsonConvert.SerializeObject(_meetings);
-		File.WriteAllText(Filename, serialized);
+		Flush();
 	}
 
 	public IEnumerable<Meeting> GetAllMeetings()
 	{
 		return _meetings;
+	}
+
+	public void DeleteMeetingByName(string name)
+	{
+		var meetingsToRemove = _meetings.Where(x => x.Name != name).ToList();
+		meetingsToRemove.ForEach(meeting => _meetings.Remove(meeting));
+		Flush();
+	}
+
+	public void Flush()
+	{
+		var serialized = JsonConvert.SerializeObject(_meetings);
+		File.WriteAllText(Filename, serialized);
 	}
 
 	public static MeetingsRepository Create()
