@@ -1,14 +1,16 @@
 using CalendarApp.Console.Presenters.Interfaces;
+using CalendarApp.Contracts;
 using CalendarApp.Domain.Builders;
 using CalendarApp.Domain.Exceptions;
+using CalendarApp.Domain.Services;
 
 namespace CalendarApp.Console.Presenters;
 
-internal class CreateMeetingNamePresenter : IPresenter
+internal class UpdateMeetingStartPresenter : IPresenter
 {
     private readonly MeetingBuilder _meetingBuilder;
 
-    public CreateMeetingNamePresenter(MeetingBuilder meetingBuilder)
+    public UpdateMeetingStartPresenter(MeetingBuilder meetingBuilder)
     {
         _meetingBuilder = meetingBuilder;
     }
@@ -19,9 +21,9 @@ internal class CreateMeetingNamePresenter : IPresenter
         {
             try
             {
-                var name = ReadLine();
-                _meetingBuilder.SetName(name);
-                return new CreateMeetingStartPresenter(_meetingBuilder);
+                var meetingStart = ReadLine();
+                _meetingBuilder.SetStart(meetingStart);
+                return new UpdateMeetingEndPresenter(_meetingBuilder);
             }
             catch (CalendarAppDomainException exc)
             {
@@ -33,6 +35,6 @@ internal class CreateMeetingNamePresenter : IPresenter
     public void Show()
     {
         Clear();
-        WriteLine("Enter meeting name:");
+        WriteLine("Enter new meeting start:");
     }
 }
