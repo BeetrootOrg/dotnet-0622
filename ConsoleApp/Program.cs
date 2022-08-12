@@ -8,22 +8,7 @@ using ConsoleApp;
 using System.Threading;
 
 using var cancellationTokenSource = new CancellationTokenSource();
-// analogue to above
-CancellationTokenSource cancellationTokenSource2 = default;
-try
-{
-    cancellationTokenSource2 = new CancellationTokenSource();
-    // work with it
-}
-finally
-{
-    cancellationTokenSource2?.Dispose();
-    // the above equivalent to
-    // if (cancellationTokenSource2 != null)
-    // {
-    //     cancellationTokenSource2.Dispose();
-    // }
-}
+
 var cancellationToken = cancellationTokenSource.Token;
 
 Console.CancelKeyPress += (object sender, ConsoleCancelEventArgs e) =>
@@ -33,18 +18,52 @@ Console.CancelKeyPress += (object sender, ConsoleCancelEventArgs e) =>
 
 using var httpClient = new HttpClient
 {
-    BaseAddress = new Uri("https://foodish-api.herokuapp.com"),
+    BaseAddress = new Uri("https://uselessfacts.jsph.pl"),
     Timeout = TimeSpan.FromSeconds(5)
 };
 
-var foodClient = new FoodClient(httpClient);
+var randomFactClient = new RandomFactClient(httpClient);
 
-var result = await foodClient.GetRandomFood(cancellationToken);
-WriteLine("Random image generated!");
 
-using var stream = await foodClient.GetImage(result.Image, cancellationToken);
-WriteLine("Image received!");
+System.Console.WriteLine("Please, select language:");
+System.Console.WriteLine("English - '1'");
+System.Console.WriteLine("German - '2'");
+string language = "?language=";
+int lang = 0;
+Int32.TryParse(Console.ReadLine(), out lang);
+switch (lang)
+{
+    case 1:
+    language += "en";
+        break;
+    case 2: 
+    language += "de";
+        break;
+    default:
+    language += "en";
+        break;
+}
 
-using var fileStream = File.OpenWrite("food.jpg");
-await stream.CopyToAsync(fileStream, cancellationToken);
-WriteLine("Image saved!");
+System.Console.WriteLine("Please, select random or today fact:");
+System.Console.WriteLine("Random - '0'");
+System.Console.WriteLine("Today - '1'");
+string type = ".json";
+int tempType = 0;
+Int32.TryParse(Console.ReadLine(), out tempType);
+switch (tempType)
+{
+    case 0:
+    type = type.Insert(0, "/random");
+        break;
+    case 1: 
+    type = type.Insert(0, "/today");
+        break;
+    default:
+    type = type.Insert(0, "/random");
+        break;
+}
+
+var message = type == "/random.json"? "Random fact:" : "Today fact:";
+System.Console.WriteLine(message);
+var result = await randomFactClient.GetRandomFact(type + language, cancellationToken);
+System.Console.WriteLine(result.Fact);
