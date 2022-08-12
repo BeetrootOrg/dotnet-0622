@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CalendarApp.Contracts;
 using CalendarApp.DataAccess.Repositories.Interfaces;
@@ -31,4 +32,20 @@ internal class MeetingsRepository : IMeetingsRepository
         }
         return false;
     }
+     public bool UpdateMeeting(string name, DateTime start, DateTime end)
+     {
+         for (int i = 0; i < _meetings.Count; i++)
+        {
+            if (_meetings[i].Name == name)
+            {
+                _meetings[i].Start = start;
+                _meetings[i].End = end;
+
+                return true;
+            }
+
+        }
+        return false;
+
+     }
 }

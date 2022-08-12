@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CalendarApp.Contracts;
 using CalendarApp.DataAccess.Repositories.Interfaces;
@@ -23,6 +24,11 @@ internal class MeetingsService : IMeetingsService
     {
         return _repository.GetAllMeetings();
     }
+    public bool UpdateMeeting(string name, DateTime start, DateTime end)
+     {
+        return _repository.UpdateMeeting(name, start, end);
+     }
+
     public bool DeleteMeeting(string name)
     {
         return _repository.DeleteMeeting(name);

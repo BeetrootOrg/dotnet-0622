@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CalendarApp.Contracts;
 
@@ -9,4 +10,6 @@ public interface IMeetingsRepository
     void AddMeeting(Meeting meeting);
 
     bool DeleteMeeting(string name);
+
+    bool UpdateMeeting(string name, DateTime start, DateTime end);
 }

@@ -1,31 +1,33 @@
 using CalendarApp.Console.Presenters.Interfaces;
-using CalendarApp.Domain.Builders;
-using CalendarApp.Domain.Exceptions;
+using CalendarApp.Domain.Services.Interfaces;
 
 namespace CalendarApp.Console.Presenters;
 
 internal class DeleteMeetingPresenter : IPresenter
 {
+    private readonly IMeetingsService _meetingService;
+    public DeleteMeetingPresenter(IMeetingsService meetingsService)
+    {
+        _meetingService = meetingsService;
+    }
     public void Show()
     {
         Clear();
         WriteLine("Enter meeting name to delete:");
     }
 
-
-   IPresenter Action()
+    public IPresenter Action()
     {
-  
-			try
-			{
-				var name = ReadLine();
-				
-			
-			}
-			catch (CalendarAppDomainException exc)
-			{
-				WriteLine(exc.Message);
-			}
+        var name = ReadLine();
+        if (_meetingService.DeleteMeeting(name))
+            WriteLine("Meeting successfully deleted!");
+        else
+            WriteLine("The meeting could not be deleted");
+
+        WriteLine("Press any key to continue...");
+        ReadKey();
+
+        return new MainMenuPresenter();
 
     }
 
