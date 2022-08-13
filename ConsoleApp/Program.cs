@@ -1,7 +1,7 @@
-﻿using System;
+﻿
+using System;
 using System.Diagnostics;
 using System.Threading;
-using System.Threading.Tasks;
 
 using static System.Console;
 
@@ -9,122 +9,66 @@ namespace ConsoleApp;
 
 internal class Program
 {
-    private static async Task Main()
+    private static void Main()
     {
         var stopwatch = new Stopwatch();
-
-        await NoAwait();
-        var asyncTask = YieldExample();
-        var asyncTask2 = TaskRunExample();
-
         stopwatch.Start();
-        var panTask = HeatUpAPan();
-        var heatWaterTask = HeatUpWater();
-        await PourAGlassOfWater();
-        await DrinkWater();
-
-        await panTask;
-
-        var twoEggsTask = FryTwoEggs();
-        var baconTask = FrySliceOfBacon();
-
-        await heatWaterTask;
-        await MakeACupOfCoffee();
-
-        await Task.WhenAll(twoEggsTask, baconTask);
-
-        await ServeDish();
-        await EatBreakfast();
+        HeatUpAPan();
+        FryTwoEggs();
+        FrySliceOfBeacon();
+        HeatUpWater();
+        MakeACupOfCoffee();
+        PourAGlassOfWater();
+        DrinkWater();
+        ServeDish();
+        EatBreakfast();
         stopwatch.Stop();
 
         WriteLine($"Breakfast last for {stopwatch.Elapsed}");
     }
-
-    private static async Task HeatUpAPan()
+    private static void HeatUpAPan()
     {
-        await Task.Delay(TimeSpan.FromSeconds(3));
-        WriteLine("Pan ready!");
+        Thread.Sleep(TimeSpan.FromSeconds(3));
+        WriteLine("Pen ready!");
     }
-
-    private static async Task FryTwoEggs()
+    private static void FryTwoEggs()
     {
-        await Task.Delay(TimeSpan.FromSeconds(5));
+        Thread.Sleep(TimeSpan.FromSeconds(5));
         WriteLine("Eggs ready!");
     }
-
-    private static async Task HeatUpWater()
+    private static void HeatUpWater()
     {
-        await Task.Delay(TimeSpan.FromSeconds(4));
+        Thread.Sleep(TimeSpan.FromSeconds(4));
         WriteLine("Water ready!");
     }
-
-    private static async Task MakeACupOfCoffee()
+    private static void MakeACupOfCoffee()
     {
-        await Task.Delay(TimeSpan.FromSeconds(2));
+        Thread.Sleep(TimeSpan.FromSeconds(2));
         WriteLine("Coffee ready!");
     }
-
-    private static async Task FrySliceOfBacon()
+    private static void FrySliceOfBeacon()
     {
-        await Task.Delay(TimeSpan.FromSeconds(4));
-        WriteLine("Bacon ready!");
+        Thread.Sleep(TimeSpan.FromSeconds(4));
+        WriteLine("Beacon ready!");
     }
-
-    private static async Task ServeDish()
+    private static void ServeDish()
     {
-        await Task.Delay(TimeSpan.FromSeconds(1));
+        Thread.Sleep(TimeSpan.FromSeconds(1));
         WriteLine("Dish ready!");
     }
-
-    private static async Task PourAGlassOfWater()
+    private static void PourAGlassOfWater()
     {
-        await Task.Delay(TimeSpan.FromSeconds(1));
+        Thread.Sleep(TimeSpan.FromSeconds(1));
         WriteLine("Glass of water ready!");
     }
-
-    private static async Task DrinkWater()
+    private static void DrinkWater()
     {
-        await Task.Delay(TimeSpan.FromSeconds(1));
+        Thread.Sleep(TimeSpan.FromSeconds(1));
         WriteLine("Water drunk!");
     }
-
-    private static Task DrinkWater2()
+    private static void EatBreakfast()
     {
-        return Task.Delay(TimeSpan.FromSeconds(2)).ContinueWith((task) =>
-        {
-            WriteLine("Water drunk!");
-        });
-    }
-
-    private static async Task EatBreakfast()
-    {
-        await Task.Delay(TimeSpan.FromSeconds(8));
+        Thread.Sleep(TimeSpan.FromSeconds(8));
         WriteLine("Breakfast done!");
-    }
-
-    private static Task NoAwait()
-    {
-        Task.Delay(TimeSpan.FromSeconds(10));
-        WriteLine("No await");
-        return Task.CompletedTask;
-    }
-
-    private static async Task YieldExample()
-    {
-        await Task.Yield();
-        // long sync code
-        Thread.Sleep(TimeSpan.FromSeconds(3));
-        // then async code
-        await Task.Delay(TimeSpan.FromSeconds(3));
-        WriteLine("End of async");
-    }
-
-    private static async Task TaskRunExample()
-    {
-        // long sync code
-        await Task.Run(() => Thread.Sleep(TimeSpan.FromSeconds(3)));
-        // then async code
-        await Task.Delay(TimeSpan.FromSeconds(3));
-        WriteLine("End of async");
     }
 }
