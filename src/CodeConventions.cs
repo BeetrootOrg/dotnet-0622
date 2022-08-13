@@ -16,8 +16,8 @@ public class ClassName
 
     public static int PublicStaticIntField;
     private static int _privateStaticIntField;
-    internal static int _internalStaticIntField;
-    protected static int _protectedStaticIntField;
+    internal static int InternalStaticIntField;
+    protected static int ProtectedStaticIntField;
 
     public int PublicIntProperty { get; set; }
     private int PrivateIntProperty { get; set; }
@@ -26,8 +26,8 @@ public class ClassName
 
     public int PublicIntField;
     private int _privateIntField;
-    internal int _internalField;
-    protected int _protectedIntField;
+    internal int InternalField;
+    protected int ProtectedIntField;
 
 
     public ClassName(int FirstArgument, int SecondArgument, int ThirdArgument, int ForthArgument, int FifthArgument)
@@ -35,20 +35,20 @@ public class ClassName
         PublicIntField = FifthArgument;
         PublicStaticIntField = SecondArgument;
         _privateIntField = ThirdArgument;
-        _protectedIntField = ForthArgument;
-        _internalStaticIntField = FifthArgumentl;
+        ProtectedIntField = ForthArgument;
+        InternalStaticIntField = FifthArgumentl;
 
     }
 
-    public void PublicMethod(int FirstArgument, int SecondArgument){}
-    private void PrivateMethod(int FirstArgument, int SecondArgument){}
-    internal void InternalMethod(int FirstArgument, int SecondArgument){}
-    protected void ProtectedMethod(int FirstArgument, int SecondArgument){}
+    public void PublicMethod(int firstArgument, int secondArgument){}
+    private void PrivateMethod(int firstArgument, int secondArgument){}
+    internal void InternalMethod(int firstArgument, int secondArgument){}
+    protected void ProtectedMethod(int firstArgument, int secondArgument){}
 
-    public static void PublicStaticMethod(int FirstArgument, int SecondArgument){}
-    private static void PrivateStaticMethod(int FirstArgument, int SecondndArgument){}
-    internal static void InternalStaticMethod(int FirstArgument, int Secorgument){}
-    protected static void ProtectedStaticMethod(int FirstArgument, int SecondAgument){}
+    public static void PublicStaticMethod(int firstArgument, int secondArgument){}
+    private static void PrivateStaticMethod(int firstArgument, int secondndArgument){}
+    internal static void InternalStaticMethod(int firstArgument, int secorgument){}
+    protected static void ProtectedStaticMethod(int firstArgument, int secondAgument){}
 
 
     public int PublicConstantValue = 0;
