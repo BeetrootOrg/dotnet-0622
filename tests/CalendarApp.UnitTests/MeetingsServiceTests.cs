@@ -146,7 +146,7 @@ public class MeetingsServiceTests
 		Random random = new Random();
 		var meetingForUpdate = meetings[random.Next(0,meetings.Count)];
 		
-		var newMeetingStart = Factory.CommonFaker.Date.Future().Add(TimeSpan.FromHours(2));
+		var newMeetingStart = Factory.CommonFaker.Date.Future().Add(TimeSpan.FromHours(1));
 		var newMeeting = new Meeting
 		{
 			Name = meetingForUpdate.Name,
@@ -196,7 +196,7 @@ public class MeetingsServiceTests
 		while (allMeetingNames.Contains(meetingNameForUpdate))
 			meetingNameForUpdate = Factory.MeetingFaker.Generate().Name;	
 		
-		var newMeetingStart = Factory.CommonFaker.Date.Future().Add(TimeSpan.FromHours(2));
+		var newMeetingStart = Factory.CommonFaker.Date.Future().Add(TimeSpan.FromHours(1));
 		var meetingForUpdate = new Meeting
 		{
 			Name = meetingNameForUpdate,
