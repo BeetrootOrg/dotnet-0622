@@ -40,7 +40,7 @@ internal class FoxClient : IFoxClient
     {
         using (WebClient client = new WebClient())
         {
-            client.DownloadFile(new Uri(imageLink), @"D:\Study\C#\dotnet-0622\ConsoleApp\foxImage.jpg");
+            client.DownloadFile(new Uri(imageLink), @"foxImage.jpg");
         }
     }
 }
