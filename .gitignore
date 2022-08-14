@@ -99,6 +99,7 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*.csv
 
 # Chutzpah Test files
 _Chutzpah*
@@ -443,7 +444,7 @@ $RECYCLE.BIN/
 # JetBrains Rider
 .idea/
 *.sln.iml
-
+*.jpg
 ##
 ## Visual Studio Code
 ##
