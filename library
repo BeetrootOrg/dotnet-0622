@@ -32,3 +32,38 @@ CREATE TABLE IF NOT EXISTS tbl_authors (
     last_name VARCHAR (255) NOT NULL,
     UNIQUE (first_name, last_name)
 );
+
+
+SELECT * FROM tbl_authors
+
+SELECT * FROM tbl_books
+
+SELECT * FROM tbl_transactions
+
+SELECT * FROM tbl_readers
+
+SELECT * FROM tbl_transactions
+
+--скільки книжок всього в бібліотеці?
+SELECT SUM(initial_quantity) FROM tbl_books
+
+-- і скільки є на даний момент?
+SELECT SUM(quantity) FROM
+    (
+  SELECT quantity
+  FROM tbl_transactions
+  UNION ALL
+  SELECT initial_quantity FROM tbl_books 
+  ) x
+  
+--хто є автором кожної з книжок?
+SELECT tbl_books.tittle,
+    tbl_authors.first_name, tbl_authors.last_name
+    FROM tbl_books
+    JOIN tbl_authors ON tbl_authors.id = tbl_books.author
+
+--які книжки читачі брали і повернули?
+SELECT bk.tittle
+    FROM tbl_books bk
+    JOIN tbl_transactions tr ON tr.book = bk.id
+    WHERE tr.quantity > 0
