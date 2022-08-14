@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS tbl_book_gets (
 CREATE TABLE IF NOT EXISTS tbl_book_returns (
 	id SERIAL PRIMARY KEY,
     return_time DATE,
+	book_gets INT REFERENCES tbl_book_gets(id) NOT NULL,
 	customer_id INT REFERENCES tbl_customers(id) NOT NULL,
 	books_id INT REFERENCES tbl_books(id) NOT NULL
 );
