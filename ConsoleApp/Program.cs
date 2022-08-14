@@ -1,29 +1,16 @@
 ﻿using System;
-using System.Linq;
+using System.Net.Http;
+using System.IO;
+using ConsoleApp;
 
-using static System.Console;
-
-
-
-var type = typeof(string);
-var assembly = type.Assembly;
-WriteLine($"Type of Assembly = {assembly.FullName}");
-
-foreach (var assemblyTypes in assembly.GetTypes().Take(100))
+using var httpclient = new HttpClient
 {
-    var assemblyMethods = type.GetMethods();
+    BaseAddress = new Uri("https://randomfox.ca/floof/"),
+    Timeout = TimeSpan.FromSeconds(5)
+};
 
-    foreach (var method in assemblyMethods)
-    {
-        WriteLine($"Mehod Name: {method.Name}");
-        WriteLine($"Method Atributes: {method.Attributes}");
-        WriteLine($"Method return type: {method.ReturnType}");
+var foxClient = new FoxClient(httpclient);
 
-        var methodParams = method.GetParameters().ToList();
-        foreach (var parameters in methodParams)
-        {
-            WriteLine($"Method {method.Name} parameters: {parameters.ParameterType}");
-        }
-    }
-}
+var result = await foxClient.GetRandomFox();
 
+await foxClient.GetImage(result.Image);
