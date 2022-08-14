@@ -1,0 +1,34 @@
+CREATE TABLE IF NOT EXISTS tbl_readers (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR (255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tbl_books (
+	id SERIAL PRIMARY KEY,
+    tittle VARCHAR(255) NOT NULL,
+	author SERIAL NOT NULL REFERENCES tbl_authors(id),
+    genre SERIAL NOT NULL REFERENCES tbl_genres(id),
+    year SERIAL NOT NULL,
+    initial_quantity SERIAL NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tbl_borrowings (
+    id SERIAL PRIMARY KEY,
+    book SERIAL NOT NULL REFERENCES tbl_books(id),
+    reader SERIAL NOT NULL REFERENCES tbl_readers(id),
+    quantity SMALLINT DEFAULT 1 NOT NULL,
+    is_borrowed BOOLEAN DEFAULT TRUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tbl_genres (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE
+);
+    
+CREATE TABLE IF NOT EXISTS tbl_authors (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR (255) NOT NULL,
+    UNIQUE (first_name, last_name)
+);
