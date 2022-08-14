@@ -13,12 +13,12 @@ CREATE TABLE IF NOT EXISTS tbl_books (
     initial_quantity SERIAL NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS tbl_borrowings (
+CREATE TABLE IF NOT EXISTS tbl_transactions (
     id SERIAL PRIMARY KEY,
     book SERIAL NOT NULL REFERENCES tbl_books(id),
     reader SERIAL NOT NULL REFERENCES tbl_readers(id),
-    quantity SMALLINT DEFAULT 1 NOT NULL,
-    is_borrowed BOOLEAN DEFAULT TRUE NOT NULL
+    quantity SMALLINT NOT NULL,
+    time TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS tbl_genres (
@@ -34,18 +34,53 @@ CREATE TABLE IF NOT EXISTS tbl_authors (
 );
 
 
-SELECT * FROM tbl_authors
-
-SELECT * FROM tbl_books
-
-SELECT * FROM tbl_transactions
-
-SELECT * FROM tbl_readers
-
-SELECT * FROM tbl_transactions
-
 --скільки книжок всього в бібліотеці?
 SELECT SUM(initial_quantity) FROM tbl_books
+
+-- і скільки є на даний момент?
+SELECT SUM(quantity) FROM
+    (
+  SELECT quantity
+  FROM tbl_transactions
+  UNION ALL
+  SELECT initial_quantity FROM tbl_books 
+  ) x
+  
+--хто є автором кожної з книжок?
+SELECT tbl_books.tittle,
+    tbl_authors.first_name, tbl_authors.last_name
+    FROM tbl_books
+    JOIN tbl_authors ON tbl_authors.id = tbl_books.author
+
+--які книжки читачі брали і повернули?
+SELECT bk.tittle
+    FROM tbl_books bk
+    JOIN tbl_transactions tr ON tr.book = bk.id
+    WHERE tr.quantity > 0
+
+--які книжки на руках у читачів?
+SELECT tittle FROM
+    (
+        SELECT bk.tittle,
+        SUM(tr.quantity) AS sum
+        FROM tbl_books bk
+        JOIN tbl_transactions tr ON tr.book = bk.id
+        GROUP BY bk.tittle
+     ) tittle
+     WHERE sum < 0
+     
+--дата коли книжку брали і який читач
+SELECT bk.tittle, rd.first_name, rd.last_name, tr.time
+    FROM tbl_transactions tr
+    JOIN tbl_books bk ON tr.book = bk.id
+    JOIN tbl_readers rd ON tr.reader = rd.id
+    WHERE tr.quantity < 0
+    
+--коли повернули книжку
+SELECT bk.tittle, tr.time
+    FROM tbl_transactions tr
+    JOIN tbl_books bk ON tr.book = bk.id
+    WHERE tr.quantity < 0
 
 -- і скільки є на даний момент?
 SELECT SUM(quantity) FROM
