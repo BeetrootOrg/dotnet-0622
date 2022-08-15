@@ -1,61 +1,195 @@
-using System;
-using EfExample.Models;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using EfExample.Models;
 
-namespace EfExample.Contexts;
-
-public class ShopContext : DbContext
+namespace EfExample.Contexts
 {
-	public DbSet<Customer> Customers { get; init; }
-	public DbSet<Employee> Employees { get; init; }
-	public DbSet<Position> Positions { get; init; }
-	public DbSet<Product> Products { get; init; }
-	public DbSet<Receipt> Receipts { get; init; }
+    public partial class ShopContext : DbContext
+    {
+        public ShopContext()
+        {
+        }
 
-	public ShopContext() : base()
-	{
-	}
+        public ShopContext(DbContextOptions<ShopContext> options)
+            : base(options)
+        {
+        }
 
-	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-	{
-		optionsBuilder.UseNpgsql("User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=shop;")
-			.LogTo(Console.WriteLine)
-			;
-	}
+        public virtual DbSet<TblCustomer> TblCustomers { get; set; }
+        public virtual DbSet<TblEmployee> TblEmployees { get; set; }
+        public virtual DbSet<TblPosition> TblPositions { get; set; }
+        public virtual DbSet<TblProduct> TblProducts { get; set; }
+        public virtual DbSet<TblReceipt> TblReceipts { get; set; }
+        public virtual DbSet<TblReceiptsProduct> TblReceiptsProducts { get; set; }
+        public virtual DbSet<ViewReceipt> ViewReceipts { get; set; }
 
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
-	{
-		modelBuilder.Entity<Employee>()
-			.HasOne<Position>(x => x.Position)
-			.WithMany(x => x.Employees)
-			.HasForeignKey(x => x.PositionId)
-			.IsRequired();
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseNpgsql("User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=shop;");
+            }
+        }
 
-		modelBuilder.Entity<Employee>()
-			.HasMany<Receipt>(x => x.Receipts)
-			.WithOne(x => x.Employee)
-			.HasForeignKey(x => x.EmployeeId);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TblCustomer>(entity =>
+            {
+                entity.ToTable("tbl_customers");
 
-		modelBuilder.Entity<Customer>()
-			.HasMany<Receipt>(x => x.Receipts)
-			.WithOne(x => x.Customer)
-			.HasForeignKey(x => x.CustomerId);
+                entity.Property(e => e.Id).HasColumnName("id");
 
-		modelBuilder.Entity<Receipt>()
-			.HasMany<Product>(x => x.Products)
-			.WithMany(x => x.Receipts)
-			.UsingEntity<ReceiptProduct>(
-				builder =>
-					builder.HasOne<Product>(x => x.Product)
-						.WithMany()
-						.HasForeignKey(x => x.ProductId)
-						.IsRequired(),
-				builder =>
-					builder.HasOne<Receipt>(x => x.Receipt)
-						.WithMany()
-						.HasForeignKey(x => x.ReceiptId)
-						.IsRequired());
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("first_name");
 
-		base.OnModelCreating(modelBuilder);
-	}
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnName("last_name");
+            });
+
+            modelBuilder.Entity<TblEmployee>(entity =>
+            {
+                entity.ToTable("tbl_employees");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("first_name");
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("last_name");
+
+                entity.Property(e => e.PositionId).HasColumnName("position_id");
+
+                entity.Property(e => e.Salary)
+                    .HasColumnType("money")
+                    .HasColumnName("salary");
+
+                entity.HasOne(d => d.Position)
+                    .WithMany(p => p.TblEmployees)
+                    .HasForeignKey(d => d.PositionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("tbl_employees_position_id_fkey");
+            });
+
+            modelBuilder.Entity<TblPosition>(entity =>
+            {
+                entity.ToTable("tbl_positions");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("name");
+            });
+
+            modelBuilder.Entity<TblProduct>(entity =>
+            {
+                entity.ToTable("tbl_products");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(500)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Price)
+                    .HasColumnType("money")
+                    .HasColumnName("price");
+            });
+
+            modelBuilder.Entity<TblReceipt>(entity =>
+            {
+                entity.ToTable("tbl_receipts");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CustomerId).HasColumnName("customer_id");
+
+                entity.Property(e => e.EmployeeId).HasColumnName("employee_id");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.TblReceipts)
+                    .HasForeignKey(d => d.CustomerId)
+                    .HasConstraintName("tbl_receipts_customer_id_fkey");
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.TblReceipts)
+                    .HasForeignKey(d => d.EmployeeId)
+                    .HasConstraintName("tbl_receipts_employee_id_fkey");
+            });
+
+            modelBuilder.Entity<TblReceiptsProduct>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("tbl_receipts_products");
+
+                entity.Property(e => e.ProductId).HasColumnName("product_id");
+
+                entity.Property(e => e.ReceiptId).HasColumnName("receipt_id");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany()
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("tbl_receipts_products_product_id_fkey");
+
+                entity.HasOne(d => d.Receipt)
+                    .WithMany()
+                    .HasForeignKey(d => d.ReceiptId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("tbl_receipts_products_receipt_id_fkey");
+            });
+
+            modelBuilder.Entity<ViewReceipt>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("view_receipts");
+
+                entity.Property(e => e.CustomerFirstName)
+                    .HasMaxLength(100)
+                    .HasColumnName("customer_first_name");
+
+                entity.Property(e => e.CustomerLastName)
+                    .HasMaxLength(100)
+                    .HasColumnName("customer_last_name");
+
+                entity.Property(e => e.EmployeeFirstName)
+                    .HasMaxLength(50)
+                    .HasColumnName("employee_first_name");
+
+                entity.Property(e => e.EmployeeLastName)
+                    .HasMaxLength(50)
+                    .HasColumnName("employee_last_name");
+
+                entity.Property(e => e.ProductName)
+                    .HasMaxLength(500)
+                    .HasColumnName("product_name");
+
+                entity.Property(e => e.ProductPrice)
+                    .HasColumnType("money")
+                    .HasColumnName("product_price");
+
+                entity.Property(e => e.ReceiptId).HasColumnName("receipt_id");
+            });
+
+            OnModelCreatingPartial(modelBuilder);
+        }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    }
 }
