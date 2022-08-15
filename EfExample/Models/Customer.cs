@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,4 +21,6 @@ public class Customer
 	[Required]
 	[MaxLength(100)]
 	public string LastName { get; set; }
+
+	public virtual IEnumerable<Receipt> Receipts { get; set; }
 }

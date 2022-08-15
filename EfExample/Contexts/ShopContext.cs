@@ -27,7 +27,34 @@ public class ShopContext : DbContext
 	{
 		modelBuilder.Entity<Employee>()
 			.HasOne<Position>(x => x.Position)
-			.WithMany(x => x.Employees);
+			.WithMany(x => x.Employees)
+			.HasForeignKey(x => x.PositionId)
+			.IsRequired();
+
+		modelBuilder.Entity<Employee>()
+			.HasMany<Receipt>(x => x.Receipts)
+			.WithOne(x => x.Employee)
+			.HasForeignKey(x => x.EmployeeId);
+
+		modelBuilder.Entity<Customer>()
+			.HasMany<Receipt>(x => x.Receipts)
+			.WithOne(x => x.Customer)
+			.HasForeignKey(x => x.CustomerId);
+
+		modelBuilder.Entity<Receipt>()
+			.HasMany<Product>(x => x.Products)
+			.WithMany(x => x.Receipts)
+			.UsingEntity<ReceiptProduct>(
+				builder =>
+					builder.HasOne<Product>(x => x.Product)
+						.WithMany()
+						.HasForeignKey(x => x.ProductId)
+						.IsRequired(),
+				builder =>
+					builder.HasOne<Receipt>(x => x.Receipt)
+						.WithMany()
+						.HasForeignKey(x => x.ReceiptId)
+						.IsRequired());
 
 		base.OnModelCreating(modelBuilder);
 	}

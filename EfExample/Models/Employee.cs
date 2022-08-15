@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,4 +29,6 @@ public class Employee
 
 	[Column("salary")]
 	public decimal Salary { get; set; }
+
+	public virtual IEnumerable<Receipt> Receipts { get; set; }
 }
