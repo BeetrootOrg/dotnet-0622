@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net.Http;
 using static System.Console;
 
@@ -16,18 +15,11 @@ Console.CancelKeyPress += (object? sender, ConsoleCancelEventArgs e) =>
 
 using var httpClient = new HttpClient
 {
-    BaseAddress = new Uri("https://foodish-api.herokuapp.com"),
+    BaseAddress = new Uri("https://meowfacts.herokuapp.com/"),
     Timeout = TimeSpan.FromSeconds(5)
 };
 
-var foodClient = new FoodClient(httpClient);
-
-var result = await foodClient.GetRandomFood(cancellationToken);
-WriteLine("Random image generated");
-
-using var stream = await foodClient.GetImage(result.Image, cancellationToken);
-WriteLine("Image received");
-
-using var fileStream = File.OpenWrite("food.jpg");
-await stream.CopyToAsync(fileStream, cancellationToken);
-WriteLine("Image saved");
+var factClient = new FactClient(httpClient);
+WriteLine("Random meowfacts generation!");
+var result = await factClient.GetRandomFact(cancellationToken);
+WriteLine($"Random meowfacts generated: {result.Data[0]}");
