@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS tbl_phonebook
+(
+	first_name VARCHAR(150) NOT NULL,
+	last_name VARCHAR(150) NOT NULL,
+	country VARCHAR(100) NOT NULL,
+	city VARCHAR(100) NOT NULL,
+	address VARCHAR(250) NOT NULL,
+	phone_number VARCHAR(20) PRIMARY KEY NOT NULL
+);
