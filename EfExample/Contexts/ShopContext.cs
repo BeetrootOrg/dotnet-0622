@@ -19,6 +19,16 @@ public class ShopContext : DbContext
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
 		optionsBuilder.UseNpgsql("User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=shop;")
-			.LogTo(Console.WriteLine);
+			.LogTo(Console.WriteLine)
+			;
+	}
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	{
+		modelBuilder.Entity<Employee>()
+			.HasOne<Position>(x => x.Position)
+			.WithMany(x => x.Employees);
+
+		base.OnModelCreating(modelBuilder);
 	}
 }

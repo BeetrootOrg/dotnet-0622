@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,4 +16,6 @@ public class Position
 	[Required]
 	[MaxLength(50)]
 	public string Name { get; init; }
+
+	public virtual IEnumerable<Employee> Employees { get; set; }
 }

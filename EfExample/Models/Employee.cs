@@ -24,6 +24,8 @@ public class Employee
 	[Column("position_id")]
 	public int PositionId { get; set; }
 
+	public Position Position { get; set; }
+
 	[Column("salary")]
 	public decimal Salary { get; set; }
 }
