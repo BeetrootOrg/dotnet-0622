@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using EfExample.Contexts;
+using EfExample.Models;
 using Microsoft.EntityFrameworkCore;
 
 await using var context = new ShopContext();
@@ -30,3 +31,26 @@ foreach (var position in positions)
 {
 	Console.WriteLine($@"Position: {position.Name}. Employees count: {position.Employees.Count()}");
 }
+
+var newEmployee = new Employee
+{
+	FirstName = Guid.NewGuid().ToString(),
+	LastName = Guid.NewGuid().ToString(),
+	Salary = 1234.56m,
+	Position = new Position
+	{
+		Name = "Test Position"
+	}
+};
+
+await context.Employees.AddAsync(newEmployee);
+
+var employeeToUpdate = employees.First(x => x.Id == 3);
+var employeeToDelete = employees.First(x => x.Id == 4);
+employeeToUpdate.FirstName = "TestName";
+employeeToUpdate.LastName = "TestLastName";
+
+context.Employees.Attach(employeeToUpdate).State = EntityState.Modified;
+context.Employees.Attach(employeeToDelete).State = EntityState.Deleted;
+
+await context.SaveChangesAsync();
