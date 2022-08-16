@@ -2,8 +2,8 @@
 using CalendarApp.Console.Presenters.interfaces;
 
 IPresenter presenter = new MainMenuPresenter();
-while(true)
+while(presenter != null)
 {
     presenter.Show();
-    presenter.Action();
+    presenter = presenter.Action();
 }
