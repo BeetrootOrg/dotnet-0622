@@ -5,7 +5,7 @@ using static System.Console;
 
 namespace CalendarApp.Console.Presenters;
 
-class MainMenuPresenter : IPresenter
+internal class MainMenuPresenter : IPresenter
 {
     public IPresenter Action()
     {
