@@ -22,10 +22,10 @@ CREATE TABLE IF NOT EXISTS tbl_loans (
 	librarian_id INT NOT NULL REFERENCES tbl_librarians(librarian_id)
 );
 CREATE TABLE IF NOT EXISTS tbl_cutomers (
-	cutomers_id SERIAL PRIMARY KEY,
-	cutomers_name VARCHAR(255) NOT NULL,
-	cutomers_address VARCHAR(255) NOT NULL,
-	cutomers_phone VARCHAR(50) NOT NULL
+	cutomer_id SERIAL PRIMARY KEY,
+	cutomer_name VARCHAR(255) NOT NULL,
+	cutomer_address VARCHAR(255) NOT NULL,
+	cutomer_phone VARCHAR(50) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS tbl_librarians (
 	librarian_id SERIAL PRIMARY KEY,
