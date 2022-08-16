@@ -16,7 +16,3 @@ class Librarian
     [MaxLength(255)]
     public string LibrarianName { get; set; }
 }
-// CREATE TABLE IF NOT EXISTS tbl_librarians (
-// 	librarian_id SERIAL PRIMARY KEY,
-// 	librarian_name VARCHAR(255) NOT NULL
-// );

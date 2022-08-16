@@ -6,7 +6,7 @@ namespace EntityFramework.Models;
 
 [Table("tbl_loans", Schema = "public")]
 class Loan
-{   
+{
     [Column("loan_date")]
     [Required]
     public DateTime LoanDate { get; set; }
@@ -15,18 +15,18 @@ class Loan
     [Required]
     [MaxLength(50)]
     public bool BookName { get; set; }
-    
+
     [Column("book_isbn")]
     [Required]
     [MaxLength(50)]
     public string LoanIsActive { get; set; }
+
+    [Column("custumer_id")]
+    public Customer CustomerId { get; set; }
+
+    [Column("book_id")]
+    public Book BookId { get; set; }
+
+    [Column("librarian_id")]
+    public Librarian LibrarianId { get; set; }
 }
-
-// CREATE TABLE IF NOT EXISTS tbl_loans (
-// 	loan_date DATETIME NOT NULL,
-// 	loans_is_active BOOLEAN NOT NULL,
-
-// 	custumer_id INT NOT NULL REFERENCES tbl_customers(customer_id),
-// 	book_id INT NOT NULL REFERENCES tbl_books(book_id),
-// 	librarian_id INT NOT NULL REFERENCES tbl_librarians(librarian_id)
-// );

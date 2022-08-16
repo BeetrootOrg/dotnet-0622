@@ -17,8 +17,3 @@ class Publisher
     public string PublisherName { get; set; }
 
 }
-
-// CREATE TABLE IF NOT EXISTS tbl_publishers (
-// 	publisher_id SERIAL PRIMARY KEY,
-// 	publisher_name VARCHAR(255) NOT NULL
-// );

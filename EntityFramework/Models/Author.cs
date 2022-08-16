@@ -16,7 +16,3 @@ class Author
     [MaxLength(255)]
     public string AuthorName { get; set; }
 }
-// CREATE TABLE IF NOT EXISTS tbl_authors (
-// 	author_id SERIAL PRIMARY KEY,
-// 	author_name VARCHAR(255) NOT NULL
-// );

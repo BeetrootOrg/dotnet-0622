@@ -25,7 +25,10 @@ class Book
     [Required]
     [MaxLength(20)]
     public int BookEdition { get; set; }
-}
 
-// author_id INT NOT NULL REFERENCES tbl_authors(author_id),
-// publisher_id INT NOT NULL REFERENCES tbl_publishers(publisher_id)
+    [Column("author_id")]
+    public Author AuthorId { get; set; }
+
+    [Column("publisher_id")]
+    public Publisher PublisherId { get; set; }
+}

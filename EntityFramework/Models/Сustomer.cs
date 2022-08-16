@@ -26,10 +26,3 @@ class Customer
     [MaxLength(50)]
     public string CustomerPhone { get; set; }
 }
-
-// CREATE TABLE IF NOT EXISTS tbl_customers (
-// 	customers_id SERIAL PRIMARY KEY,
-// 	customers_name VARCHAR(255) NOT NULL,
-// 	customers_address VARCHAR(255) NOT NULL,
-// 	customers_phone VARCHAR(50) NOT NULL
-// );
