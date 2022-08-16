@@ -17,15 +17,15 @@ CREATE TABLE IF NOT EXISTS tbl_publishers (
 CREATE TABLE IF NOT EXISTS tbl_loans (
 	loan_date DATETIME NOT NULL,
 	loans_is_active BOOLEAN NOT NULL,
-	custumer_id INT NOT NULL REFERENCES tbl_customers(customer_id),
+	customer_id INT NOT NULL REFERENCES tbl_customers(customer_id),
 	book_id INT NOT NULL REFERENCES tbl_books(book_id),
 	librarian_id INT NOT NULL REFERENCES tbl_librarians(librarian_id)
 );
-CREATE TABLE IF NOT EXISTS tbl_cutomers (
-	cutomer_id SERIAL PRIMARY KEY,
-	cutomer_name VARCHAR(255) NOT NULL,
-	cutomer_address VARCHAR(255) NOT NULL,
-	cutomer_phone VARCHAR(50) NOT NULL
+CREATE TABLE IF NOT EXISTS tbl_customers (
+	customer_id SERIAL PRIMARY KEY,
+	customer_name VARCHAR(255) NOT NULL,
+	customer_address VARCHAR(255) NOT NULL,
+	customer_phone VARCHAR(50) NOT NULL
 );
 CREATE TABLE IF NOT EXISTS tbl_librarians (
 	librarian_id SERIAL PRIMARY KEY,
