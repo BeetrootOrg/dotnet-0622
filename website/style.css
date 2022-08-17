@@ -1,7 +1,26 @@
 .half-container {
-	margin: 0 16em;
+  margin: 0 16em;
 }
 
 #mainText {
-	color: red
+  color: red;
+}
+
+#ourTable {
+  /* border: 4px solid black; */
+  border-collapse: collapse;
+}
+
+#ourTable td,
+#ourTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#ourTable tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#ourTable tr:hover {
+  background-color: #ddd;
 }
