@@ -130,8 +130,7 @@ public class MeetingsServiceTests
 		// Arrange
 		var meetings = Factory.MeetingFaker.GenerateBetween(5, 15);
 
-		var random = new Random();
-		int randomIndex = random.Next(meetings.Count);
+		int randomIndex = new Random().Next(meetings.Count);
 
 		var randomMeetingName = meetings[randomIndex].Name;
 		
