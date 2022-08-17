@@ -3,7 +3,7 @@ using CalendarApp.Contracts;
 
 namespace CalendarApp.DataAccess.Repositories.Interfaces;
 
-public interface IMeetingRepository
+public interface IMeetingsRepository
 {
    IEnumerable<Meeting> GetAllMeetings();
 }

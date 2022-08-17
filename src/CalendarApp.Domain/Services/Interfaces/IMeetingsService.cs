@@ -5,5 +5,5 @@ namespace CalendarApp.Domain.Services.Interfaces;
 
 public interface IMeetingsService
 {
-    IEnumerable<Meeting> GetAll();
+    IEnumerable<Meeting> GetAllMeetings();
 }
