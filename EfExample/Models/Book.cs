@@ -15,7 +15,7 @@ public class Book
 	[Column("book_title")]
 	[Required]
 	[MaxLength(50)]
-	public string BookTitle { get; set; }
+	public string Book_Title { get; set; }
 
 	[Column("book_genre")]
     [Required]
@@ -26,7 +26,8 @@ public class Book
     [Required]
 	public short BookPublicationYear { get; set; }
 
-	[Column("authors_id")]
+	[Column("autors_id")]
 	[Required]
-	public int? AuthorId { get; set; }
+	public int? Author { get; set; }
+	public virtual Author Authors { get; set; }
 }
