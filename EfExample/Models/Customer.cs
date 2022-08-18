@@ -21,4 +21,7 @@ public class Customer
 	[Required]
 	[MaxLength(50)]
 	public string LastName { get; set; }
+
+	public virtual IEnumerable<Book> Books { get; set; }
+
 }

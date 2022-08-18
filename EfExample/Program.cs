@@ -14,15 +14,26 @@ foreach (var customer in customers)
 }
 
 var books = await context.Books
-    .Include(x => x.Authors)
+    .Include(x => x.Author)
     .ToArrayAsync(); 
 
 foreach (var book in books)
 {
-    Console.WriteLine($"title {book.Book_Title} genre {book.Book_Genre} author {book.Authors.FirstName} {book.Authors.LastName}");
+    Console.WriteLine($"title {book.Book_Title} genre {book.Book_Genre} author {book.Author.FirstName} {book.Author.LastName}");
 }
 
-	
+var authors = await context.Authors
+    .Include(x => x.Books)
+    .ToArrayAsync();
+
+foreach (var author in authors)
+{
+    Console.WriteLine();
+    Console.WriteLine($"FirstName {author.FirstName} LastName {author.LastName} Count {author.Books.Count()}");
+}
+
+
+
 
 //foreach (var employee in employees)
 //{

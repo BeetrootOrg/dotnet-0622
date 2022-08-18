@@ -29,5 +29,10 @@ public class Book
 	[Column("autors_id")]
 	[Required]
 	public int? AuthorId { get; set; }
-	public virtual Author Authors { get; set; }
+	public virtual Author Author { get; set; }
+
+	[Column("customer_id")]
+	[Required]
+	public int? CustomerId { get; set; }
+	public virtual Customer Customer { get; set; }
 }

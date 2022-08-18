@@ -25,6 +25,12 @@ namespace EfExample.Models
 
         public virtual GetTime GetTime { get; set; }
 
+        public virtual IEnumerable<Book> Books { get; set; }
+
+        public virtual IEnumerable<Customer> Customers { get; set; }
+
+        public virtual IEnumerable<GetTime> Gettimes { get; set;}
+
         [Column("customer_id")]
         [Required]
         public int? CustomerId { get; set; }

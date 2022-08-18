@@ -26,14 +26,29 @@ public class LibraryContext : DbContext
     {
         modelBuilder.Entity<Book>()
             .HasOne<Author>(x => x.Author)
-            .WithMany(x => x.Authors);
-        .HasForeignKey(x => x.)
+            .WithMany(x => x.Books)
+        .HasForeignKey(x => x.AuthorId)
         .IsRequired();
 
-        //	modelBuilder.Entity<Employee>()
-        //		.HasMany<Receipt>(x => x.Receipts)
-        //		.WithOne(x => x.Employee)
-        //		.HasForeignKey(x => x.EmployeeId);
+        modelBuilder.Entity<Book>()
+            .HasOne<Customer>(x => x.Customer)
+            .WithMany(x => x.Books)
+        .HasForeignKey(x => x.CustomerId)
+        .IsRequired();
+
+        modelBuilder.Entity<Author>()
+            .HasMany<Book>(x => x.Books)
+            .WithOne(x => x.Author)
+            .HasForeignKey(x => x.AuthorId);
+
+        modelBuilder.Entity<Customer>()
+            .HasMany<Book>(x => x.Books)
+            .WithOne(x => x.Customer)
+            .HasForeignKey(x => x.CustomerId);
+
+
+
+
 
         //	modelBuilder.Entity<Customer>()
         //		.HasMany<Receipt>(x => x.Receipts)

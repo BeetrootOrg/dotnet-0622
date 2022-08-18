@@ -28,4 +28,8 @@ public class GetTime
 	public int? BookId { get; set; }
 
 	public virtual Book Book { get; set; }
+
+	public virtual IEnumerable<Book> Books { get; set; }
+
+	public virtual IEnumerable<Customer> Customers { get; set; }
 }
