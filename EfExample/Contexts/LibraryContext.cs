@@ -18,17 +18,17 @@ public class LibraryContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql("User ID=postgres;Password=qwerty;Host=localhost;Port=5432;Database=Library;")
-            //.LogTo(Console.WriteLine)
+            .LogTo(Console.WriteLine)
             ;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Book>()
-            .HasOne<Author>(x => x.Authors)
-            .WithMany(x => x.Books);
-        //.HasForeignKey(x => x.)
-        //.IsRequired();
+            .HasOne<Author>(x => x.Author)
+            .WithMany(x => x.Authors);
+        .HasForeignKey(x => x.)
+        .IsRequired();
 
         //	modelBuilder.Entity<Employee>()
         //		.HasMany<Receipt>(x => x.Receipts)

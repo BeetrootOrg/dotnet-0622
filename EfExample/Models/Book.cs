@@ -28,6 +28,6 @@ public class Book
 
 	[Column("autors_id")]
 	[Required]
-	public int? Author { get; set; }
+	public int? AuthorId { get; set; }
 	public virtual Author Authors { get; set; }
 }
