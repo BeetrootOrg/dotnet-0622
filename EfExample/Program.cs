@@ -31,22 +31,3 @@ foreach (var author in authors)
     Console.WriteLine();
     Console.WriteLine($"FirstName {author.FirstName} LastName {author.LastName} Count {author.Books.Count()}");
 }
-
-
-
-
-//foreach (var employee in employees)
-//{
-//	Console.WriteLine($@"{employee.Id}: {employee.FirstName} {employee.LastName}. 
-//	Salary: {employee.Salary}. 
-//	Position Name: {employee.Position.Name}");
-//}
-
-//var positions = await context.Positions
-//	.Include(x => x.Employees)
-//	.ToArrayAsync();
-
-//foreach (var position in positions)
-//{
-//	Console.WriteLine($@"Position: {position.Name}. Employees count: {position.Employees.Count()}");
-//}
