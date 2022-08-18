@@ -14,13 +14,11 @@ public class Customer
 
 	[Column("first_name")]
 	[Required]
-	[MaxLength(100)]
+	[MaxLength(50)]
 	public string FirstName { get; set; }
 
 	[Column("last_name")]
 	[Required]
-	[MaxLength(100)]
+	[MaxLength(50)]
 	public string LastName { get; set; }
-
-	public virtual IEnumerable<Receipt> Receipts { get; set; }
 }
