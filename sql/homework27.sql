@@ -27,5 +27,5 @@ CREATE TABLE IF NOT EXISTS tbl_main_journal (
 	customer_id INT REFERENCES tbl_customers(id),
 	book_id INT REFERENCES tbl_books(id),
 	taken_date DATE NOT NULL DEFAULT CURRENT_DATE, 
-	return_date DATE NOT NULL DEFAULT CURRENT_DATE
+	return_date DATE
 );
