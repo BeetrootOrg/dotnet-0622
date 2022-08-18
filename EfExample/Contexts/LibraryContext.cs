@@ -30,47 +30,28 @@ public class LibraryContext : DbContext
         .HasForeignKey(x => x.AuthorId)
         .IsRequired();
 
-        modelBuilder.Entity<Book>()
-            .HasOne<Customer>(x => x.Customer)
-            .WithMany(x => x.Books)
-        .HasForeignKey(x => x.CustomerId)
-        .IsRequired();
-
         modelBuilder.Entity<Author>()
             .HasMany<Book>(x => x.Books)
             .WithOne(x => x.Author)
             .HasForeignKey(x => x.AuthorId);
 
-        modelBuilder.Entity<Customer>()
-            .HasMany<Book>(x => x.Books)
-            .WithOne(x => x.Customer)
-            .HasForeignKey(x => x.CustomerId);
+        modelBuilder.Entity<GetTime>()
+           .HasMany<Book>(x => x.Books)
+           .WithOne(x => x.GetTime)
+           .HasForeignKey(x => x.Author);
 
+        modelBuilder.Entity<GetTime>()
+           .HasMany<Customer>(x => x.Customers)
+           .WithOne(x => x.GetTime);
 
+        modelBuilder.Entity<BookReturn>()
+           .HasMany<Customer>(x => x.Customers)
+           .WithOne(x => x.BookReturn);
 
+        modelBuilder.Entity<BookReturn>()
+           .HasMany<Book>(x => x.Books)
+           .WithOne(x => x.BookReturn)
+           .HasForeignKey(x => x.Author);
 
-
-        //	modelBuilder.Entity<Customer>()
-        //		.HasMany<Receipt>(x => x.Receipts)
-        //		.WithOne(x => x.Customer)
-        //		.HasForeignKey(x => x.CustomerId);
-
-        //	modelBuilder.Entity<Receipt>()
-        //		.HasMany<Product>(x => x.Products)
-        //		.WithMany(x => x.Receipts)
-        //		.UsingEntity<ReceiptProduct>(
-        //			builder =>
-        //				builder.HasOne<Product>(x => x.Product)
-        //					.WithMany()
-        //					.HasForeignKey(x => x.ProductId)
-        //					.IsRequired(),
-        //			builder =>
-        //				builder.HasOne<Receipt>(x => x.Receipt)
-        //					.WithMany()
-        //					.HasForeignKey(x => x.ReceiptId)
-        //					.IsRequired());
-
-        //	base.OnModelCreating(modelBuilder);
-        //}
     }
 }

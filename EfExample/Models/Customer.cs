@@ -22,6 +22,8 @@ public class Customer
 	[MaxLength(50)]
 	public string LastName { get; set; }
 
-	public virtual IEnumerable<Book> Books { get; set; }
+	public virtual GetTime GetTime { get; set; }
+
+	public virtual BookReturn BookReturn { get; set; }
 
 }

@@ -21,15 +21,13 @@ public class GetTime
 	[Required]
 	public int? CustomerId { get; set; }
 
-	public virtual Customer Customer { get; set; }
+	public virtual Customer Customer { get; init; }
 
 	[Column("books_id")]
 	[Required]
 	public int? BookId { get; set; }
 
-	public virtual Book Book { get; set; }
+	public virtual IEnumerable<Book> Books { get; init; }
 
-	public virtual IEnumerable<Book> Books { get; set; }
-
-	public virtual IEnumerable<Customer> Customers { get; set; }
+	public virtual IEnumerable<Customer> Customers { get; init; }
 }
