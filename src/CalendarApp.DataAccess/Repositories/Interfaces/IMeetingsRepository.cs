@@ -7,4 +7,6 @@ public interface IMeetingsRepository
 {
 	IEnumerable<Meeting> GetAllMeetings();
 	void AddMeeting(Meeting meeting);
+	void DeleteMeeting(Meeting meeting);
+    void UpdateMeeting(Meeting meeting, int index);
 }
