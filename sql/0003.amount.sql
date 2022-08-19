@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS tbl_books_ammounts (
+	id SERIAL PRIMARY KEY,
+	book INTEGER REFERENCES tbl_books(id) NOT NULL,
+	amount INTEGER NOT NULL
+);
