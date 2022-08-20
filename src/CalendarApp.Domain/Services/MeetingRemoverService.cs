@@ -29,7 +29,7 @@ public class MeetingRemoverService : IMeetingRemoverService
         {
             return $"Meeting with name \"{meetingName}\" was not found";
         }
-        
+
         return $"{counter} meeting(s) with name \"{meetingName}\" was(were) successfully deleted";
     }
 }
