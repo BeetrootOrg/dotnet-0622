@@ -79,19 +79,12 @@ beeper.addEventListener('click', beep);
 const tableBody = document.querySelector("#table table tbody");
 const addRowButton = document.querySelector("#table button");
 
+const tdNumber = 3;
 addRowButton.addEventListener('click', () => {
 	const tr = document.createElement('tr');
-	const tds = [
-		document.createElement('td'),
-		document.createElement('td'),
-		document.createElement('td'),
-	];
-
-	tds[0].innerText = '42';
-	tds[1].innerText = 'I am column';
-	tds[2].innerText = 'Hiiii';
-
-	for (const td of tds) {
+	for (let i = 0; i < tdNumber; ++i) {
+		const td = document.createElement('td');
+		td.innerHTML = i;
 		tr.appendChild(td);
 	}
 
