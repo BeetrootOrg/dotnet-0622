@@ -1,5 +1,6 @@
 using CalendarApp.Console.Presenters.Interfaces;
 using CalendarApp.Contracts;
+using CalendarApp.Domain;
 using CalendarApp.Domain.Builders;
 using CalendarApp.Domain.Exceptions;
 using CalendarApp.Domain.Services;
@@ -20,6 +21,7 @@ internal class UpdateMeetingPresenter : IPresenter
         try
 		{
 			var meeting = _meetingBuilder.Build();
+			Factory.MeetingsService.UpdateMeeting(meeting);
 
 			WriteLine("Meeting successfully updated!");
 		}

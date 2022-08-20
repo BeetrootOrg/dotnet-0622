@@ -25,6 +25,21 @@ public class MeetingUpdaterService
         return null;
     }
 
+    public static Meeting FindMeetingByName(string meetingName, IMeetingsService meetingsService)
+    {
+        IEnumerable<Meeting> allMeetings = meetingsService.GetAllMeetings();
+
+        foreach (Meeting meeting in allMeetings)
+        {
+            if (meeting.Name.Equals(meetingName))
+            {
+                return meeting;
+            }
+        }
+
+        return null;
+    }
+
     public void UpdateMeeting(Meeting meeting)
     {
         Factory.MeetingsService.UpdateMeeting(meeting);

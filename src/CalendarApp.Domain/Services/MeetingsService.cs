@@ -61,8 +61,8 @@ internal class MeetingsService : IMeetingsService
 			throw new CalendarAppDomainException("Meeting overlaps with another");
 		}
 
-        Meeting meetingToUpdate = MeetingUpdaterService.FindMeetingByName(meeting.Name);
-		List<Meeting> allMeetings = (List<Meeting>)Factory.MeetingsService.GetAllMeetings();
+        Meeting meetingToUpdate = MeetingUpdaterService.FindMeetingByName(meeting.Name, this);
+		List<Meeting> allMeetings = (List<Meeting>)GetAllMeetings();
 
 		int indexOfMeetingToUpdate = allMeetings.IndexOf(meetingToUpdate);
 
