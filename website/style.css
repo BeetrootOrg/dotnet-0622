@@ -1,0 +1,14 @@
+.cat-container {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.feed-container {
+  display: block;
+  margin-left: 45%;
+  margin-right: 55%;
+  width: 70%;
+}
+
