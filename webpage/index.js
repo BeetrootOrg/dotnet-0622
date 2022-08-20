@@ -89,4 +89,4 @@ addRowButton.addEventListener('click', () => {
 	}
 
 	tableBody.appendChild(tr);
-})
+});
