@@ -91,6 +91,21 @@ addRowButton.addEventListener('click', () => {
 	tableBody.appendChild(tr);
 });
 
-alert('Alert message');
+const stylerButton = document.querySelector("#styler button");
+const stylerText = document.querySelector("#styler p");
 
-window.onbeforeunload = () => "Are you sure you want to exit the page?"
+stylerButton.addEventListener('keypress', (e) => {
+	const key = e.key;
+
+	if (key === '1') {
+		stylerText.style.color = '#FF0000';
+	} else if (key === '2') {
+		stylerText.style.color = '#00FF00';
+	} else if (key === '3') {
+		stylerText.style.color = '#0000FF';
+	}
+})
+
+// alert('Alert message');
+
+// window.onbeforeunload = () => "Are you sure you want to exit the page?"
