@@ -1,8 +1,0 @@
-CREATE TABLE IF NOT EXISTS tbl_persons(
-	id SERIAL PRIMARY KEY,
-	first_name VARCHAR(100) NOT NULL,
-	last_name VARCHAR(100) NOT NULL,
-	age SMALLINT NOT NULL,
-	gender VARCHAR(1) NOT NULL,
-	address VARCHAR(255)
-);
