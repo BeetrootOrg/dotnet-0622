@@ -83,7 +83,7 @@ public class MeetingsServiceTests
         };
 
         _meetingsRepository.Setup(x => x.GetAllMeetings())
-            .Returns(meetings);
+                            .Returns(meetings);
 
         // Act
         Action action = () => _meetingsService.AddMeeting(newMeeting);
@@ -110,16 +110,17 @@ public class MeetingsServiceTests
     }
 
     [Fact]
-    public void UpdateMeetingShouldUpdateDateAndTimeIfNotOverlap()
+    public void UpdateMeetingShouldThrowExceptionIfOverlap()
     {
         // Arrange
         var meetings = Factory.MeetingFaker.GenerateBetween(5, 15);
+
         var meetingToUpdate = meetings[0];
         meetingToUpdate.Room = meetings[1].Room;
         meetingToUpdate.Timeframe = meetings[1].Timeframe;
 
         _meetingsRepository.Setup(x => x.GetAllMeetings())
-            .Returns(meetings);
+                    .Returns(meetings);
 
         Action action = () => _meetingsService.UpdateMeeting(meetingToUpdate, 0);
 
@@ -128,16 +129,21 @@ public class MeetingsServiceTests
         _meetingsRepository.Verify(x => x.UpdateMeeting(meetingToUpdate, 0), Times.Never());
     }
 
-    public void UpdateMeetingShouldThrowExceptionIfOverlap()
+    [Fact]
+    public void UpdateMeetingShouldUpdateTimeframeIfNotOverlap()
     {
         // Arrange
         var meetings = Factory.MeetingFaker.GenerateBetween(5, 15);
+
         var meetingToUpdate = meetings[0];
         meetingToUpdate.Timeframe = new Timeframe
         {
             Start = DateTime.Now,
             End = DateTime.Now.AddHours(2)
         };
+
+        _meetingsRepository.Setup(x => x.GetAllMeetings())
+                    .Returns(meetings);
 
         // Act 
         _meetingsService.UpdateMeeting(meetingToUpdate, 0);
