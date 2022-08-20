@@ -132,7 +132,6 @@ public class MeetingsServiceTests
     {
         // Arrange
         var meetings = Factory.MeetingFaker.GenerateBetween(5, 15);
-        // var newMeeting = CreateRandomFakeMeeting();
         var meetingToUpdate = meetings[0];
         meetingToUpdate.Timeframe = new Timeframe
         {
