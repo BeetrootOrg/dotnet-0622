@@ -5,7 +5,7 @@ using CalendarApp.DataAccess.Repositories.Interfaces;
 
 namespace CalendarApp.DataAccess.Repositories;
 
-public class MeetingsRepository : IMeetingsRepository
+internal class MeetingsRepository : IMeetingsRepository
 {
     public IEnumerable<Meeting> GetAllMeetings()
     {

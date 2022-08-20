@@ -1,6 +1,5 @@
 using CalendarApp.Console.Presenters.interfaces;
 using CalendarApp.Domain.Services.Interfaces;
-using static System.Console;
 
 namespace CalendarApp.Console.Presenters;
 

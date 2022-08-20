@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CalendarApp.DataAccess\CalendarApp.DataAccess.csproj" />
-    <ProjectReference Include="..\CalendarApp.Contracts\CalendarApp.Contracts.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

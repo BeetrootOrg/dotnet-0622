@@ -1,7 +1,7 @@
 using System;
 using CalendarApp.Console.Presenters.interfaces;
-using CalendarApp.DataAccess.Repositories;
-using CalendarApp.Domain.Services;
+
+using DomainFactory = CalendarApp.Domain.Factory;
 
 using static System.Console;
 
@@ -16,7 +16,7 @@ internal class MainMenuPresenter : IPresenter
         switch(key.Key)
         {
             case ConsoleKey.D1:
-                return new ShowAllPresenter(new MeetingsService(new MeetingsRepository()));
+                return new ShowAllPresenter(DomainFactory.MeetingsService);
             case ConsoleKey.D0:
                 return null;
             default:
