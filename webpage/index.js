@@ -90,3 +90,7 @@ addRowButton.addEventListener('click', () => {
 
 	tableBody.appendChild(tr);
 });
+
+alert('Alert message');
+
+window.onbeforeunload = () => "Are you sure you want to exit the page?"
