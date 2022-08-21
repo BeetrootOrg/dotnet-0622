@@ -1,40 +1,31 @@
-CREATE TABLE IF NOT EXISTS tbl_phonebook(
-  id SERIAL PRIMARY KEY,
-  first_name VARCHAR(100) NOT NULL,
-  last_name VARCHAR(100) NOT NULL,
-    address VARCHAR(100) NOT NULL,
-    phone_number VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS tbl_school(
-    class_number SMALLINT PRIMARY KEY NOT NULL,
-    date DATE NOT NULL,
-    start_time TIME NOT NULL,
-    end_time TIME NOT NULL,
-    subject VARCHAR(100) NOT NULL,
-    group_number SMALLINT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS tbl_logingistory(
+CREATE TABLE IF NOT EXISTS tbl_autors(
     id SERIAL PRIMARY KEY,
-    login VARCHAR(20) NOT NULL,
-    login_date DATE,
-    logout_date DATE
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS tbl_bankaccounts(
+CREATE TABLE IF NOT EXISTS tbl_books(
     id SERIAL PRIMARY KEY,
-    first_name VARCHAR(255),
-    last_name VARCHAR(255),
-    bankaccount_number INTEGER NOT NULL,
-    bankaccount_money MONEY
+    autor_id INT REFERENCES tbl_autors(id),
+    book_name VARCHAR(255) NOT NULL,
+    book_genre VARCHAR(255) NOT NULL,
+    book_year DATE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS tbl_transaction(
+CREATE TABLE IF NOT EXISTS tbl_books_count(
+    book_id INT REFERENCES tbl_books(id),
+    book_count INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS tbl_customers(
     id SERIAL PRIMARY KEY,
-    sender_id INTEGER NOT NULL,
-    recieve_id INTEGER NOT NULL,
-    send_date DATE NOT NULL,
-    recieve_date DATE NOT NULL,
-    isreceive BOOL NOT NULL DEFAULT FALSE 
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tbl_library(
+    customer_id INT REFERENCES tbl_customers(id),
+    book_id INT REFERENCES tbl_books(id),
+    book_taken DATE NOT NULL DEFAULT CURRENT_DATE,
+    book_returned DATE
 );
