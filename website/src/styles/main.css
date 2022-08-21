@@ -1,0 +1,47 @@
+.header div
+{
+    text-align: center;
+}
+
+.full-width div
+{
+    width: 100%;
+}
+
+div.left-container
+{
+    float: left;
+    width: 25%;
+    max-height: 500px;
+}
+
+div.right-container
+{
+    float: right;
+    width: 75%;
+    max-height: 500px;
+}
+
+button.right-container 
+{
+    text-align: center;
+}
+
+.footer div
+{
+    float: left;
+    text-align: center;
+}
+img
+{
+    width: 90%;
+    padding: 25 25;
+}
+
+#click-me
+{
+    text-align: center;
+}
+
+
+
