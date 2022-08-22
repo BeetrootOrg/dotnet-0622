@@ -24,8 +24,24 @@ const renderRegistrations = () => {
 		const passwordData = document.createElement('td');
 		passwordData.innerText = registration.password;
 
+		const deleteButton = document.createElement('button');
+		deleteButton.innerText = 'Delete';
+		deleteButton.className = 'btn btn-outline-danger';
+		deleteButton.onclick = () => {
+			const registrations = getRegistrations();
+			setRegistrations(registrations
+				.filter((element) => !(element.email === registration.email &&
+					element.password === registration.password)));
+
+			renderRegistrations();
+		};
+
+		const deleteData = document.createElement('td');
+		deleteData.appendChild(deleteButton);
+
 		tr.appendChild(emailData);
 		tr.appendChild(passwordData);
+		tr.appendChild(deleteData);
 
 		registrationsTableBody.appendChild(tr);
 	});
