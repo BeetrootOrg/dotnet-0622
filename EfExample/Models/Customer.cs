@@ -12,15 +12,16 @@ public class Customer
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public int Id { get; init; }
 
-	[Column("first_name")]
+	[Column("name")]
 	[Required]
-	[MaxLength(100)]
-	public string FirstName { get; set; }
+	[MaxLength(50)]
+	public string Name { get; set; }
 
 	[Column("last_name")]
 	[Required]
-	[MaxLength(100)]
+	[MaxLength(50)]
 	public string LastName { get; set; }
 
-	public virtual IEnumerable<Receipt> Receipts { get; set; }
+	//public virtual IEnumerable<Receipt> Receipts { get; set; }
 }
+
