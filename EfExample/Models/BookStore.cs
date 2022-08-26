@@ -16,7 +16,5 @@ public class BookStore
 
 	[Column("instock")]
 	public bool InStock { get; set; }
-
-
 }
 
