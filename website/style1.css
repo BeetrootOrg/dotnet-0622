@@ -1,3 +1,7 @@
+body {
+    background-color: bisque;
+}
+
 .half-container {
     margin: 0 16em; 
 }
