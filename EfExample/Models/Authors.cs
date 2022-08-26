@@ -3,19 +3,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EfExample.Models;
 
-[Table("tbl_products", Schema = "public")]
-public class Product
+[Table("tbl_tbl_authors", Schema = "public")]
+public class Authors
 {
 	[Key]
 	[Column("id")]
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public int Id { get; init; }
 
-	[Column("name")]
+	[Column("first_name")]
 	[Required]
-	[MaxLength(500)]
-	public string Name { get; set; }
+	[MaxLength(255)]
+	public string FirstName { get; set; }
 
-	[Column("price")]
-	public decimal Price { get; set; }
+	[Column("last_name")]
+	[Required]
+	[MaxLength(255)]
+	public string LastName { get; set; }
 }

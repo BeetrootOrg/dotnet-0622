@@ -1,21 +1,23 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EfExample.Models;
 
-[Table("tbl_positions", Schema = "public")]
-public class Position
+[Table("tbl_customers", Schema = "public")]
+public class Customers
 {
 	[Key]
 	[Column("id")]
 	[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 	public int Id { get; init; }
 
-	[Column("name")]
+	[Column("first_name")]
 	[Required]
-	[MaxLength(50)]
-	public string Name { get; init; }
+	[MaxLength(255)]
+	public string FirstName { get; set; }
 
-	public virtual IEnumerable<Employee> Employees { get; set; }
+	[Column("last_name")]
+	[Required]
+	[MaxLength(255)]
+	public string LastName { get; set; }
 }
