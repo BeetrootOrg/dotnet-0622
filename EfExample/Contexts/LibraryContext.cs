@@ -18,9 +18,11 @@ public class LibraryContext : DbContext
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
-		optionsBuilder.UseNpgsql("User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=shop;")
+		optionsBuilder.UseNpgsql("User ID=postgres;Password=qwerty;Host=localhost;Port=5432;Database=library;")
 			.LogTo(Console.WriteLine)
 			;
+
+			System.Console.WriteLine("------------ ********************* -----------------------------");
 	}
 
 	// protected override void OnModelCreating(ModelBuilder modelBuilder)
