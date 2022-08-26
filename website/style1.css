@@ -1,0 +1,13 @@
+.half-container {
+    margin: 0 16em; 
+}
+#mainText {
+    color: brown;
+}
+
+#table1 {
+    border: 2px solid black;
+}
+#table1 td {
+    border: 1px solid black;
+}
