@@ -1,7 +1,6 @@
 using System;
 using EfExample.Models;
 using Microsoft.EntityFrameworkCore;
-
 namespace EfExample.Contexts;
 
 public class LibraryContext : DbContext
@@ -19,7 +18,7 @@ public class LibraryContext : DbContext
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
 		optionsBuilder.UseNpgsql("User ID=postgres;Password=qwerty;Host=localhost;Port=5432;Database=library;")
-			//.LogTo(Console.WriteLine)
+			.LogTo(Console.WriteLine)
 			;
 	}
 }
