@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS tbl_books (
     book_total INT NOT NULL,
     author_id INT NOT NULL REFERENCES tbl_authors(id),
     genre_id INT NOT NULL REFERENCES tbl_genres(id)
-)
+);
