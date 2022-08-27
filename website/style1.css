@@ -1,0 +1,27 @@
+body {
+    background-color:thistle;
+}
+
+.header1 {
+    margin: 0 16em;
+}
+.header2 {
+    margin: 0 16em;
+}
+
+.photo-container {
+    margin: 0 16em; 
+}
+.age-container {
+    margin: 0 16em; 
+}
+.dream-container {
+    margin: 0 16em; 
+}
+#phototext {
+    color: brown;
+}
+
+#agetext {
+    color:chartreuse; 
+}
