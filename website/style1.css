@@ -25,11 +25,3 @@ body {
 #agetext {
     color:chartreuse; 
 }
-
-
-#table1 {
-    border: 2px solid black;
-}
-#table1 td {
-    border: 1px solid black;
-}
