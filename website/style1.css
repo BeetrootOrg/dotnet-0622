@@ -1,5 +1,5 @@
 body {
-    background-color: bisque;
+    background-color:thistle;
 }
 
 .header1 {
@@ -15,9 +15,17 @@ body {
 .age-container {
     margin: 0 16em; 
 }
-#mainText {
+.dream-container {
+    margin: 0 16em; 
+}
+#phototext {
     color: brown;
 }
+
+#agetext {
+    color:chartreuse; 
+}
+
 
 #table1 {
     border: 2px solid black;
