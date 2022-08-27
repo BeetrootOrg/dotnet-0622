@@ -1,1 +1,1 @@
-﻿System.Console.WriteLine("Hello, world!");
+﻿System.Console.WriteLine("DB-first");
