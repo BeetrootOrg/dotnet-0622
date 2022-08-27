@@ -2,6 +2,13 @@ body {
     background-color: bisque;
 }
 
+.header1 {
+    margin: 0 16em;
+}
+.header2 {
+    margin: 0 16em;
+}
+
 .half-container {
     margin: 0 16em; 
 }
