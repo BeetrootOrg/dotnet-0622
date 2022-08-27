@@ -1,0 +1,10 @@
+curl --location --request PATCH 'http://localhost:5000/api/Persons/1' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "firstName": "D",
+  "lastName": "M",
+  "dob": "2022-08-27T07:42:47.695Z",
+  "verified": true,
+  "email": "a@email.com",
+  "age": 42
+}'
