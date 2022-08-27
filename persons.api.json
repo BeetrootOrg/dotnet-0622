@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "6a146dd5-2b1a-4b85-a5eb-37cb938184c1",
+		"name": "Persons API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Persons",
+			"id": "489007e5-b7f6-4a1b-8436-9ca32fee3b79",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/api/Persons"
+			},
+			"response": []
+		},
+		{
+			"name": "Save Person",
+			"id": "4e820bb5-c485-426c-9174-cf4a3a37d818",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"D\",\r\n  \"lastName\": \"M\",\r\n  \"dob\": \"1996-07-11T16:30:00.000Z\",\r\n  \"verified\": false,\r\n  \"email\": \"123\",\r\n  \"age\": 26\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5000/api/Persons"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Person",
+			"id": "fdd8a0ad-dc92-44f2-8492-d053835b6f13",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"D\",\r\n  \"lastName\": \"M\",\r\n  \"dob\": \"2022-08-27T07:42:47.695Z\",\r\n  \"verified\": true,\r\n  \"email\": \"a@email.com\",\r\n  \"age\": 42\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5000/api/Persons/1"
+			},
+			"response": []
+		}
+	]
+}
