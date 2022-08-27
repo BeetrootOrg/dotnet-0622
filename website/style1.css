@@ -9,7 +9,10 @@ body {
     margin: 0 16em;
 }
 
-.half-container {
+.photo-container {
+    margin: 0 16em; 
+}
+.age-container {
     margin: 0 16em; 
 }
 #mainText {
