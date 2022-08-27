@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "b0ff914c-12a4-4271-80a6-370a935a3a3a",
+		"name": "Bhagavad Gita",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Root",
+			"id": "b4fb5e76-3d0f-4412-8156-e62ed027de88",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "text/html"
+					}
+				],
+				"url": "https://gita-api.vercel.app/"
+			},
+			"response": []
+		},
+		{
+			"name": "Text",
+			"id": "aa6f914d-ac77-4252-a110-3de9e6bf578e",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": "https://gita-api.vercel.app/{{language}}/verse/{{chapter}}/{{verse}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Verse",
+			"id": "075a4692-73d1-4b97-a169-84f596c1c34b",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": "https://gita-api.vercel.app/{{language}}/verse/{{verse}}"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a2c3254f-ee9b-4190-bd90-e17c787fa70e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5372d786-d6aa-4275-bc15-9bf5da60b746",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "6534fb43-8b04-4506-ab44-9f2407b5ee9c",
+			"key": "language",
+			"value": "tel"
+		},
+		{
+			"id": "bd9ee14e-4475-4ecf-bacf-20f1b33089fd",
+			"key": "chapter",
+			"value": "1"
+		},
+		{
+			"id": "ac34f232-6d80-4df4-92a2-3dd8ee93e9b1",
+			"key": "verse",
+			"value": "1"
+		}
+	]
+}
