@@ -15,7 +15,7 @@ public class LibraryContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("User ID=postgres;Password=Excusemeforgetting97;Host=localhost;Port=5432;Database=library;")
+        optionsBuilder.UseNpgsql("User ID=postgres;Password=1234;Host=localhost;Port=5432;Database=library;")
                 .LogTo(Console.WriteLine);
 
     }
