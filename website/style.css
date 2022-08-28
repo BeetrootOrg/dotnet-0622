@@ -1,0 +1,23 @@
+#mainText {
+    color: red;
+}
+
+.filters__img {
+    height: 428px;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.filters__img img {
+    width: initial;
+    height: 100%;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+}
+
+.backcolor{
+    background: linear-gradient(to bottom, yellow 50%, blue 50%);
+}
