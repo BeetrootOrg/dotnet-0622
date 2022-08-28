@@ -1,0 +1,29 @@
+body{
+    background-image: url(assets/Lil-Uzi-Vert-projects.jpg);
+}
+
+.container{
+    margin: 0em 5em 0em 5em;
+    font-size: x-large;
+}
+
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 18%;
+    border-radius: 50%;
+}
+
+#text{
+    color: rgb(64, 226, 24);
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    margin: auto;
+}
+#header{
+    color: rgb(226, 12, 180);
+    font-family: Copperplate, Papyrus, fantasy;
+    text-align: center;
+    margin: auto;
+}
