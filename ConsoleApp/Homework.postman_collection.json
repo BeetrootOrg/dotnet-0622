@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "9de7758e-04b5-40ed-a4a9-a4c41edfc7a9",
+		"name": "Homework",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21157681"
+	},
+	"item": [
+		{
+			"name": "Get all vehicles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://parallelum.com.br/fipe/api/v1/{{vehicle}}/marcas",
+					"protocol": "https",
+					"host": [
+						"parallelum",
+						"com",
+						"br"
+					],
+					"path": [
+						"fipe",
+						"api",
+						"v1",
+						"{{vehicle}}",
+						"marcas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get exact model",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://parallelum.com.br/fipe/api/v1/{{vehicle}}/marcas/{{model}}/modelos",
+					"protocol": "https",
+					"host": [
+						"parallelum",
+						"com",
+						"br"
+					],
+					"path": [
+						"fipe",
+						"api",
+						"v1",
+						"{{vehicle}}",
+						"marcas",
+						"{{model}}",
+						"modelos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get raw of a exact model of car",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://parallelum.com.br/fipe/api/v1/{{vehicle}}/marcas/{{model}}/modelos/{{car}}/anos",
+					"protocol": "https",
+					"host": [
+						"parallelum",
+						"com",
+						"br"
+					],
+					"path": [
+						"fipe",
+						"api",
+						"v1",
+						"{{vehicle}}",
+						"marcas",
+						"{{model}}",
+						"modelos",
+						"{{car}}",
+						"anos"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "vehicle",
+			"value": "caros"
+		},
+		{
+			"key": "model",
+			"value": "59"
+		},
+		{
+			"key": "car",
+			"value": "5940"
+		}
+	]
+}
