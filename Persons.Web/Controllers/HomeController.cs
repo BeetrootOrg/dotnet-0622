@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+
 using Microsoft.AspNetCore.Mvc;
+
 using Persons.Web.Models;
 
 namespace Persons.Web.Controllers;
