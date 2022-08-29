@@ -17,7 +17,7 @@ public class PersonsController : Controller
 
     public async Task<IActionResult> Index(CancellationToken token = default)
     {
-        var persons = await _personsContext.Persons!.ToArrayAsync(token);
+        var persons = await _personsContext.Persons!.OrderBy(p => p.Id).ToArrayAsync(token);
         return View(persons);
     }
 
