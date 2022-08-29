@@ -1,7 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Persons.Web.Configuration;
+using Persons.Web.Database;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.Configure<AppConfiguration>(builder.Configuration);
+builder.Services.AddDbContext<PersonsContext>((sp, options) =>
+{
+	var configuration = sp.GetRequiredService<IOptionsMonitor<AppConfiguration>>();
+	options.UseNpgsql(configuration.CurrentValue.ConnectionString);
+});
 
 var app = builder.Build();
 
