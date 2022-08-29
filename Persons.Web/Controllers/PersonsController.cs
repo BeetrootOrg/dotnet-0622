@@ -15,10 +15,16 @@ public class PersonsController : Controller
         _personsContext = personsContext;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(CancellationToken token = default)
     {
-        var persons = await _personsContext.Persons!.ToArrayAsync();
+        var persons = await _personsContext.Persons!.ToArrayAsync(token);
         return View(persons);
+    }
+
+    public async Task<IActionResult> Details(int? id, CancellationToken token = default)
+    {
+        var person = await _personsContext.Persons!.FirstOrDefaultAsync(p => p.Id == id, token);
+        return View(person);
     }
 
     public IActionResult Create()
@@ -40,15 +46,39 @@ public class PersonsController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    public async Task<IActionResult> Delete(int? id)
+    public async Task<IActionResult> Delete(int? id, CancellationToken token = default)
     {
-        var person = await _personsContext.Persons!.FirstOrDefaultAsync(p => p.Id == id);
+        var person = await _personsContext.Persons!.FirstOrDefaultAsync(p => p.Id == id, token);
         return View(person);
     }
 
-    public async Task<IActionResult> Edit(int? id)
+    [HttpPost]
+    [ActionName("Delete")]
+    public async Task<IActionResult> DeletePerson(int id, CancellationToken token = default)
     {
-        var person = await _personsContext.Persons!.FirstOrDefaultAsync(p => p.Id == id);
+        _personsContext.Remove(new Person { Id = id });
+        await _personsContext.SaveChangesAsync(token);
+
+        return RedirectToAction(nameof(Index));
+    }
+
+    public async Task<IActionResult> Edit(int? id, CancellationToken token = default)
+    {
+        var person = await _personsContext.Persons!.FirstOrDefaultAsync(p => p.Id == id, token);
         return View(person);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit([FromForm] Person person, CancellationToken token = default)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(person);
+        }
+
+        _personsContext.Update(person);
+        await _personsContext.SaveChangesAsync(token);
+
+        return RedirectToAction(nameof(Index));
     }
 }
