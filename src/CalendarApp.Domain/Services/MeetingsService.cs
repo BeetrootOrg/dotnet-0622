@@ -36,6 +36,11 @@ internal class MeetingsService : IMeetingsService
 		static bool IsInsideTimeFrame(DateTime point, Timeframe timeframe) =>
 			point >= timeframe.Start && point < timeframe.End;
 	}
+	public void DeleteMeeting(string meetingName)
+	{
+		_repository.DeleteMeeting(meetingName);
+	}
+
 
 	public IEnumerable<Meeting> GetAllMeetings()
 	{
