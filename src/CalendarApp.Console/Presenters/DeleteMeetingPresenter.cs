@@ -17,9 +17,10 @@ internal class DeleteMeetingPresenter : IPresenter
     {
         var meetingName = ReadLine();
 
-        if (_meetingService.GetAllMeetings().Any(x => x.Name == meetingName))
+        if (_meetingService.GetAllMeetings().Any(x => x.Name != meetingName))
+
         {
-            WriteLine($"There is no meeting with name '{meetingName}'");
+            WriteLine($"There is not name: '{meetingName}'");
         }
         else
         {

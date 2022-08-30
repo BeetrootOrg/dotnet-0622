@@ -7,4 +7,6 @@ public interface IMeetingsService
 {
 	IEnumerable<Meeting> GetAllMeetings();
 	void AddMeeting(Meeting meeting);
+    void UpdateMeeting(Meeting meeting);
+    void DeleteMeeting(string meetingName);
 }
