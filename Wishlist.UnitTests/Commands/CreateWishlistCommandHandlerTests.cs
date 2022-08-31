@@ -14,7 +14,7 @@ using Wishlist.Domain.Database;
 
 namespace Wishlist.UnitTests.Commands;
 
-public class CreateWishlistCommandHandlerTests
+public class CreateWishlistCommandHandlerTests : IDisposable
 {
     private readonly WishlistDbContext _dbContext;
 
@@ -50,5 +50,11 @@ public class CreateWishlistCommandHandlerTests
         // Assert
         result.ShouldNotBeNull();
         result.WishlistId.ShouldBeGreaterThan(0);
+    }
+
+    public void Dispose()
+    {
+        _dbContext.Database.EnsureDeleted();
+        _dbContext.Dispose();
     }
 }
