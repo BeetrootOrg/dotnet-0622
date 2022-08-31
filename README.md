@@ -27,16 +27,16 @@ This repository describes Wishlist API
 
 ### class Wishlist
 
-	- id
-	- name
-	- createdDate
-	- presents
-	
+- id
+- name
+- createdDate
+- presents
+
 ### class Present
 
-	- id
-	- name
-	- comment
-	- wishlist
-	- createdDate
-	- bookedAt
+- id
+- name
+- comment
+- wishlist
+- createdDate
+- bookedAt
