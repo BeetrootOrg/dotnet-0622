@@ -1,4 +1,5 @@
 using CalendarApp.Console.Presenters.Interfaces;
+using CalendarApp.Console.Views.Interfaces;
 using CalendarApp.Domain.Services.Interfaces;
 
 namespace CalendarApp.Console.Presenters;
@@ -6,31 +7,33 @@ namespace CalendarApp.Console.Presenters;
 internal class ShowAllPresenter : IPresenter
 {
 	private readonly IMeetingsService _meetingService;
+	private readonly IView _view;
 
-	public ShowAllPresenter(IMeetingsService meetingService)
+	public ShowAllPresenter(IMeetingsService meetingService, IView view)
 	{
 		_meetingService = meetingService;
+		_view = view;
 	}
 
 	public IPresenter Action()
 	{
-		ReadKey();
+		_view.ReadKey();
 		return new MainMenuPresenter();
 	}
 
 	public void Show()
 	{
-		Clear();
+		_view.Clear();
 
-		WriteLine("{0,-25}{1,-25}{2,-25}{3,-25}", "Name", "Start", "End", "Room");
+		_view.Print(string.Format("{0,-25}{1,-25}{2,-25}{3,-25}", "Name", "Start", "End", "Room"));
 		foreach (var meeting in _meetingService.GetAllMeetings())
 		{
-			WriteLine("{0,-25}{1,-25}{2,-25}{3,-25}", meeting.Name,
+			_view.Print(string.Format("{0,-25}{1,-25}{2,-25}{3,-25}", meeting.Name,
 				meeting.Timeframe.Start.ToString("s"),
 				meeting.Timeframe.End.ToString("s"),
-				meeting.Room.Name);
+				meeting.Room.Name));
 		}
 
-		WriteLine("Press any key to continue...");
+		_view.Print("Press any key to continue...");
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using Bogus;
 using CalendarApp.Contracts;
 using CalendarApp.DataAccess.Repositories.Interfaces;
@@ -13,36 +14,17 @@ public class MeetingsServiceTests
 {
     private readonly Mock<IMeetingsRepository> _meetingsRepository;
     private readonly IMeetingsService _meetingsService;
-    private readonly Faker<Meeting> _meetingFaker;
-    private readonly Faker _commonFaker;
 
     public MeetingsServiceTests()
     {
         _meetingsRepository = new Mock<IMeetingsRepository>();
         _meetingsService = new MeetingsService(_meetingsRepository.Object);
-        _meetingFaker = new Faker<Meeting>()
-            .RuleFor(x => x.Name, f => f.Random.Word())
-            .RuleFor(x => x.Timeframe, f =>
-            {
-                var start = f.Date.Past();
-                return new Timeframe
-                {
-                    Start = start,
-                    End = start.Add(f.Date.Timespan(TimeSpan.FromHours(2)))
-                };
-            })
-            .RuleFor(x => x.Room, f => new Room
-            {
-                Name = f.Random.Word()
-            });
-
-            _commonFaker = new Faker();
     }
     [Fact]
     public void GetAllMeetingsShouldReturnThem()
     {
         // Arrange
-        var meetings = _meetingFaker.GenerateBetween(5, 15);
+        var meetings = Factory.MeetingFaker.GenerateBetween(5, 15);
         _meetingsRepository.Setup(x => x.GetAllMeetings())
             .Returns(meetings);
         
@@ -57,20 +39,20 @@ public class MeetingsServiceTests
     public void AddMeetingShouldAddItifNotOverlap()
     {
         // Arrange
-        var meetings = _meetingFaker.GenerateBetween(5, 15);
+        var meetings = Factory.MeetingFaker.GenerateBetween(5, 15);
         
-        var meetingStart = _commonFaker.Date.Future().Add(TimeSpan.FromHours(2));
+        var meetingStart = Factory.CommonFaker.Date.Future().Add(TimeSpan.FromHours(2));
         var newMeeting = new Meeting
         {
-            Name = _commonFaker.Random.Word(),
+            Name = Factory.CommonFaker.Random.Word(),
             Room = new Room
             {
-                Name = _commonFaker.Random.Word(),
+                Name = Factory.CommonFaker.Random.Word(),
             },
             Timeframe = new Timeframe
             {
                 Start = meetingStart,
-                End = meetingStart.Add(_commonFaker.Date.Timespan())
+                End = meetingStart.Add(Factory.CommonFaker.Date.Timespan())
             }
         };
         _meetingsRepository.Setup(x => x.GetAllMeetings())
@@ -87,12 +69,12 @@ public class MeetingsServiceTests
     public void AddMeetingShouldRaiseExceptionIfNotOverlap()
     {
         // Arrange
-        var meetings = _meetingFaker.GenerateBetween(5, 15);
+        var meetings = Factory.MeetingFaker.GenerateBetween(5, 15);
         
-        var meetingStart = _commonFaker.Date.Future().Add(TimeSpan.FromHours(2));
+        var meetingStart = Factory.CommonFaker.Date.Future().Add(TimeSpan.FromHours(2));
         var newMeeting = new Meeting
         {
-            Name = _commonFaker.Random.Word(),
+            Name = Factory.CommonFaker.Random.Word(),
             Room = meetings[0].Room,
             Timeframe = meetings[0].Timeframe
         };
