@@ -1,0 +1,31 @@
+body {
+  background: url(src/prapor.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.half-container {
+  margin: 0 16em;
+}
+
+#mainText {
+  color: white;
+  font-size: 22px;
+  text-align: center;
+}
+#secondText {
+  color: black;
+  font-size: 22px;
+  text-align: center;
+}
+#secondText span {
+  padding: 0 22px;
+	background: white;
+}
+.center-img{
+  text-align: center;
+}
+
+.button {
+  color: white;
+  text-align: center;
+}
