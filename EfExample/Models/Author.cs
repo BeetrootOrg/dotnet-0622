@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EfExample.Models;
 
-[Table("tbl_customer", Schema = "public")]
-public class Customer
+[Table("tbl_authors", Schema = "public")]
+public class Author
 {
     [Key]
     [Column("id")]
@@ -21,11 +21,16 @@ public class Customer
     [MaxLength(255)]
     public string LastName { get; set; }
 
-    [Column("phone_number")]
-    [MaxLength(25)]
-    public string PhoneNumber { get; set; }
+    [Column("date_of_birth")]
+    [Required]
+    [MaxLength(4)]
+    public string DateOfBirth { get; set; }
 
-    [Column("email")]
-    [MaxLength(255)]
-    public string Email { get; set; }
+    [Column("date_of_death")]
+    [Required]
+    [MaxLength(4)]
+    public string DateOfDeath { get; set; }
+
+    [Column("biography")]
+    public string Biography { get; set; }
 }
