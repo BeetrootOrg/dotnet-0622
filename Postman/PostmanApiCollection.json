@@ -1,0 +1,209 @@
+{
+    "info": {
+        "_postman_id": "f4abe825-7409-45a7-bc46-effe3e83073f",
+        "name": "Jira Integration Copy",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Get All Jira Issues Created or Updated since some time",
+            "id": "043ac3a9-8dd0-4e58-af4b-9ef3c102034b",
+            "request": {
+                "auth": {
+                    "type": "basic",
+                    "basic": {
+                        "username": "{{username}}",
+                        "password": "{{jira-api-token}}",
+                        "showPassword": false
+                    }
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://{{your-instance-name}}.atlassian.net/rest/api/2/search?jql=created>={{time-ago}}%20OR%20updated>={{time-ago}}",
+                    "protocol": "https",
+                    "host": [
+                        "{{your-instance-name}}",
+                        "atlassian",
+                        "net"
+                    ],
+                    "path": [
+                        "rest",
+                        "api",
+                        "2",
+                        "search"
+                    ],
+                    "query": [
+                        {
+                            "key": "jql",
+                            "value": "created>={{time-ago}}%20OR%20updated>={{time-ago}}"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get All Jira Worklogs Created or Update since some time",
+            "id": "f225bd8b-fae3-40e0-91d0-cbbdad3de85f",
+            "request": {
+                "auth": {
+                    "type": "basic",
+                    "basic": {
+                        "username": "{{username}}",
+                        "password": "{{jira-api-token}}",
+                        "showPassword": false
+                    }
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://{{your-instance-name}}.atlassian.net/rest/api/3/worklog/updated?since={{milliseconds}}",
+                    "protocol": "https",
+                    "host": [
+                        "{{your-instance-name}}",
+                        "atlassian",
+                        "net"
+                    ],
+                    "path": [
+                        "rest",
+                        "api",
+                        "3",
+                        "worklog",
+                        "updated"
+                    ],
+                    "query": [
+                        {
+                            "key": "since",
+                            "value": "{{milliseconds}}"
+                        }
+                    ]
+                },
+                "description": "Get Updated Worklogs"
+            },
+            "response": []
+        },
+        {
+            "name": "Get All Jira Worklogs Deleted since some time",
+            "id": "d222af75-4984-411f-b108-3380f6995065",
+            "request": {
+                "auth": {
+                    "type": "basic",
+                    "basic": {
+                        "username": "{{username}}",
+                        "password": "{{jira-api-token}}",
+                        "showPassword": false
+                    }
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://{{your-instance-name}}.atlassian.net/rest/api/3/worklog/deleted?since={{milliseconds}}",
+                    "protocol": "https",
+                    "host": [
+                        "{{your-instance-name}}",
+                        "atlassian",
+                        "net"
+                    ],
+                    "path": [
+                        "rest",
+                        "api",
+                        "3",
+                        "worklog",
+                        "deleted"
+                    ],
+                    "query": [
+                        {
+                            "key": "since",
+                            "value": "{{milliseconds}}"
+                        }
+                    ]
+                },
+                "description": "Get latest deleted worklogs"
+            },
+            "response": []
+        },
+        {
+            "name": "Get Full Information About specific Jira Worklogs by Ids in Request Body",
+            "id": "f820edcb-0e25-47d6-9277-72d19661963e",
+            "request": {
+                "auth": {
+                    "type": "basic",
+                    "basic": {
+                        "username": "{{username}}",
+                        "password": "{{jira-api-token}}",
+                        "showPassword": false
+                    }
+                },
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n  \"ids\": [\r\n    1,\r\n    2\r\n  ]\r\n}"
+                },
+                "url": "https://{{your-instance-name}}.atlassian.net/rest/api/3/worklog/list"
+            },
+            "response": []
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "id": "680f2fb9-b3c3-4350-990d-0b7878de2e38",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "id": "136d1c73-9a3a-486c-b388-d0edf7b69f19",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "id": "5f39f9b9-af19-4c94-b217-ef6846a6307d",
+            "key": "your-instance-name",
+            "value": "dwandry"
+        },
+        {
+            "id": "439610f1-be2d-4f51-b60d-65b8a5f43940",
+            "key": "time-ago",
+            "value": "-1h"
+        },
+        {
+            "id": "3143c23f-93b1-4800-80dd-cea72401caf6",
+            "key": "username",
+            "value": "tihon.lavrov@gmail.com"
+        },
+        {
+            "id": "9b3535ca-8f45-4c22-8aae-c86cadd8dca9",
+            "key": "jira-api-token",
+            "value": "0PV91OVSqqFeIAUKap2603E6"
+        },
+        {
+            "id": "1dd2b4d5-e909-4851-a154-712f1bfdccb4",
+            "key": "milliseconds",
+            "value": "1657090764157"
+        }
+    ]
+}
