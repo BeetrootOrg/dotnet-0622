@@ -1,5 +1,6 @@
 body {
-  background-image: url(assets/catdog.jpg);
+  background: url(src/prapor.jpg) no-repeat center center fixed;
+  background-size: cover;
 }
 
 .half-container {
@@ -7,28 +8,24 @@ body {
 }
 
 #mainText {
-  color: red;
-}
-
-#ourTable {
-  border-collapse: collapse;
-  cursor: pointer;
-}
-
-#ourTable td,
-#ourTable th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-#ourTable tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-#ourTable tr:hover {
-  background-color: #ddd;
-}
-
-a {
   color: white;
+  font-size: 22px;
+  text-align: center;
+}
+#secondText {
+  color: black;
+  font-size: 22px;
+  text-align: center;
+}
+#secondText span {
+  padding: 0 22px;
+	background: white;
+}
+.center-img{
+  text-align: center;
+}
+
+.button {
+  color: white;
+  text-align: center;
 }
