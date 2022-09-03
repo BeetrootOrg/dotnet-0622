@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Homework</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+
+<body class="orderbody">
+    <div class="container-fluid">
+        <div class="w3-display-middle">
+            <div class="text-center">
+                <h1 style="font-family:'Cyber', sans-serif; color: aliceblue;">Registration</h1>
+            </div>
+            <form>
+                <div class="mb-2">
+                    <label for="FirstName" class="form-label" style="color: aliceblue;">First Name</label>
+                    <input type="firstName" class="form-control" id="inputFirstName" aria-describedby="firstName"
+                        placeholder="John" required style="width: 300px;">
+                </div>
+                <div class="mb-2">
+                    <label for="LastName" class="form-label" style="color: aliceblue;">Last Name</label>
+                    <input type="lastName" class="form-control" id="inputLastName" aria-describedby="lastname"
+                        placeholder="Doe" required>
+                </div>
+                <div class="mb-2">
+                    <label for="DOB" class="form-label" style="color: aliceblue;">Date Of Birth</label>
+                    <input type="date" class="form-control" id="inputDob" aria-describedby="dob" required>
+                </div>
+                <div class="mb-2">
+                    <label for="Gender" class="form-label" style="color: aliceblue;">Gender</label>
+                    <select class="form-select" aria-label="Default select example" required>
+                        <option selected>Male</option>
+                        <option value="1">Female</option>
+                        <option value="2">Other</option>
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <label for="Email1" class="form-label" style="color: aliceblue;">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="johndoe@mail.com" required>
+                </div>
+                <div class="mb-2">
+                    <label for="Password1" class="form-label" style="color: aliceblue;">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="*****" required>
+                </div>
+                <div class="mb-2">
+                    <label for="Password1" class="form-label" style="color: aliceblue;">Confirm password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="*****" required>
+                </div> <br>
+                <div class="mb-2 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                    <label class="form-check-label" for="exampleCheck1" style="color: aliceblue;">I agree to the Terms and
+                        Conditions</label>
+                </div> <br>
+                <button class="cybr-btn">
+                    Register<span aria-hidden>_</span>
+                    <span aria-hidden class="cybr-btn__glitch">Register_</span>
+                    <span aria-hidden class="cybr-btn__tag">R25</span>
+                  </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+</body>
