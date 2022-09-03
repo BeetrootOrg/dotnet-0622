@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,15 +6,14 @@ using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
-using Npgsql;
-
 using Wishlist.Contracts.Http;
 using Wishlist.Domain.Commands;
+using Wishlist.Domain.Queries;
 
 namespace Wishlist.Api.Controllers;
 
 [Route("api/wishlist")]
-public class WishlistController : ControllerBase
+public class WishlistController : BaseController
 {
     private readonly IMediator _mediator;
 
@@ -23,11 +22,43 @@ public class WishlistController : ControllerBase
         _mediator = mediator;
     }
 
+    [HttpGet("{wishlistId}")]
+    public Task<IActionResult> GetWishlist([FromRoute] int wishlistId,
+        CancellationToken cancellationToken) =>
+        SafeExecute(async () =>
+        {
+            var query = new WishlistQuery
+            {
+                WishlistId = wishlistId
+            };
+
+            var result = await _mediator.Send(query, cancellationToken);
+            var wishlist = result.Wishlist;
+            var response = new WishlistResponse
+            {
+                Wishlist = new Contracts.Http.Wishlist
+                {
+                    Id = wishlist.Id,
+                    CreatedAt = wishlist.CreatedAt,
+                    Name = wishlist.Name,
+                    Presents = wishlist.Presents.Select(present => new Present
+                    {
+                        BookedAt = present.BookedAt,
+                        Comment = present.Comment,
+                        CreatedAt = present.CreatedAt,
+                        Id = present.Id,
+                        Name = present.Name
+                    })
+                }
+            };
+
+            return Ok(response);
+        }, cancellationToken);
+
     [HttpPut]
-    public async Task<IActionResult> CreateWishlist([FromBody] CreateWishlistRequest request,
-        CancellationToken cancellationToken)
-    {
-        try
+    public Task<IActionResult> CreateWishlist([FromBody] CreateWishlistRequest request,
+        CancellationToken cancellationToken) =>
+        SafeExecute(async () =>
         {
             var command = new CreateWishlistCommand
             {
@@ -40,32 +71,6 @@ public class WishlistController : ControllerBase
                 Id = result.Wishlist.Id
             };
 
-            return Created("http://todo.com", response);
-        }
-        catch (InvalidOperationException ioe) when (ioe.InnerException is NpgsqlException)
-        {
-            var response = new ErrorResponse
-            {
-                Code = ErrorCode.DbFailureError,
-                Message = "DB failure"
-            };
-
-            return ToActionResult(response);
-        }
-        catch (Exception)
-        {
-            var response = new ErrorResponse
-            {
-                Code = ErrorCode.InternalServerError,
-                Message = "Unhandled error"
-            };
-
-            return ToActionResult(response);
-        }
-    }
-
-    private IActionResult ToActionResult(ErrorResponse errorResponse)
-    {
-        return StatusCode((int)errorResponse.Code / 100, errorResponse);
-    }
+            return Created($"http://{Request.Host}/api/wishlist/{response.Id}", response);
+        }, cancellationToken);
 }

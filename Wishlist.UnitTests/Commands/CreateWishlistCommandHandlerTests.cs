@@ -1,11 +1,8 @@
 using System;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
 using MediatR;
-
-using Microsoft.EntityFrameworkCore;
 
 using Moq;
 
@@ -14,6 +11,7 @@ using Shouldly;
 using Wishlist.Domain.Commands;
 using Wishlist.Domain.Database;
 using Wishlist.Domain.Helpers.Interfaces;
+using Wishlist.UnitTests.Helpers;
 
 namespace Wishlist.UnitTests.Commands;
 
@@ -26,15 +24,7 @@ public class CreateWishlistCommandHandlerTests : IDisposable
 
     public CreateWishlistCommandHandlerTests()
     {
-        var tempFile = Path.GetTempFileName();
-
-        var options = new DbContextOptionsBuilder<WishlistDbContext>()
-            .UseSqlite($"Data Source={tempFile};")
-            .Options;
-
-        _dbContext = new WishlistDbContext(options);
-        _dbContext.Database.Migrate();
-
+        _dbContext = DbContextHelper.CreateTestDb();
         _dateTimeProvider = new Mock<IDateTimeProvider>();
 
         _handler = new CreateWishlistCommandHandler(_dbContext, _dateTimeProvider.Object);
