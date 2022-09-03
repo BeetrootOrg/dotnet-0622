@@ -1,0 +1,74 @@
+{
+    "info": {
+        "_postman_id": "41384e47-2116-49df-99c5-3922560095ad",
+        "name": "Homework-HTTP",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Get Disney character by ID",
+            "id": "b71609d0-72cd-483f-9821-204f487bdaeb",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://api.disneyapi.dev/characters/{{id}}"
+            },
+            "response": []
+        },
+        {
+            "name": "random dark joke request",
+            "id": "924879d8-bef8-4f53-aec1-22f348f07e8b",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://v2.jokeapi.dev/joke/{{category}}"
+            },
+            "response": []
+        },
+        {
+            "name": "Rick and Morty Alive Characters Request",
+            "id": "c5903eec-22ee-4624-ba78-61b518707890",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://rickandmortyapi.com/api/character/?status={{status}}",
+                    "protocol": "https",
+                    "host": [
+                        "rickandmortyapi",
+                        "com"
+                    ],
+                    "path": [
+                        "api",
+                        "character",
+                        ""
+                    ],
+                    "query": [
+                        {
+                            "key": "status",
+                            "value": "{{status}}"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        }
+    ],
+    "variable": [
+        {
+            "id": "2e3bd20a-cc0a-441f-b843-c4e469c2c9ef",
+            "key": "id",
+            "value": "25"
+        },
+        {
+            "id": "ea625a84-bcd8-42dc-8994-a74298e93278",
+            "key": "status",
+            "value": "Alive"
+        },
+        {
+            "id": "854d6cd6-53d7-4e09-9b0c-27bcbe70e717",
+            "key": "category",
+            "value": "Dark"
+        }
+    ]
+}
