@@ -1,9 +1,12 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
+
+using Npgsql;
 
 using Wishlist.Contracts.Http;
 using Wishlist.Domain.Commands;
@@ -24,17 +27,45 @@ public class WishlistController : ControllerBase
     public async Task<IActionResult> CreateWishlist([FromBody] CreateWishlistRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new CreateWishlistCommand
+        try
         {
-            Name = request.Name
-        };
+            var command = new CreateWishlistCommand
+            {
+                Name = request.Name
+            };
 
-        var result = await _mediator.Send(command, cancellationToken);
-        var response = new CreateWishlistResponse
+            var result = await _mediator.Send(command, cancellationToken);
+            var response = new CreateWishlistResponse
+            {
+                Id = result.Wishlist.Id
+            };
+
+            return Created("http://todo.com", response);
+        }
+        catch (InvalidOperationException ioe) when (ioe.InnerException is NpgsqlException)
         {
-            Id = result.Wishlist.Id
-        };
+            var response = new ErrorResponse
+            {
+                Code = ErrorCode.DbFailureError,
+                Message = "DB failure"
+            };
 
-        return Created("http://todo.com", response);
+            return ToActionResult(response);
+        }
+        catch (Exception)
+        {
+            var response = new ErrorResponse
+            {
+                Code = ErrorCode.InternalServerError,
+                Message = "Unhandled error"
+            };
+
+            return ToActionResult(response);
+        }
+    }
+
+    private IActionResult ToActionResult(ErrorResponse errorResponse)
+    {
+        return StatusCode((int)errorResponse.Code / 100, errorResponse);
     }
 }
