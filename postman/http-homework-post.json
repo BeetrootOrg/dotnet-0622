@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "bd0d4126-ac5d-4e47-973c-f3ca9d93706e",
+		"name": "http-homework-post",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23042952"
+	},
+	"item": [
+		{
+			"name": "generate_crush",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "dd199dd71583d08c93609d6985b1d7f4def52c64f623b3e178095a55da2a5091e0a575ca65d5e186afe66b2ddd1abaf4828287e3a6e3705deb9f1e711432ce3f",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://media-exp1.licdn.com/dms/image/C4E03AQEP5kl-c6l81w/profile-displayphoto-shrink_200_200/0/1633375136767?e=2147483647&v=beta&t=DMxDDLX43dPOMa3XBP6dtAtBPoD4PuxjAa_bz74JmV4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://v1.api.amethyste.moe/generate/crush",
+					"protocol": "https",
+					"host": [
+						"v1",
+						"api",
+						"amethyste",
+						"moe"
+					],
+					"path": [
+						"generate",
+						"crush"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate_greyple",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "dd199dd71583d08c93609d6985b1d7f4def52c64f623b3e178095a55da2a5091e0a575ca65d5e186afe66b2ddd1abaf4828287e3a6e3705deb9f1e711432ce3f",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://i.pinimg.com/236x/a4/31/6a/a4316a6e1bc6715297f32835751f6aa6.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://v1.api.amethyste.moe/generate/greyple",
+					"protocol": "https",
+					"host": [
+						"v1",
+						"api",
+						"amethyste",
+						"moe"
+					],
+					"path": [
+						"generate",
+						"greyple"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "dd199dd71583d08c93609d6985b1d7f4def52c64f623b3e178095a55da2a5091e0a575ca65d5e186afe66b2ddd1abaf4828287e3a6e3705deb9f1e711432ce3f",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\": \"https://i.pinimg.com/originals/7d/ed/15/7ded1515673d2011173094cfcffd535c.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://v1.api.amethyste.moe/generate/posterize",
+					"protocol": "https",
+					"host": [
+						"v1",
+						"api",
+						"amethyste",
+						"moe"
+					],
+					"path": [
+						"generate",
+						"posterize"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
