@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "c56674ca-230c-490d-ac4f-5a8969df15b0",
+		"name": "http-homework",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23042952"
+	},
+	"item": [
+		{
+			"name": "get_endpoint",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "get_languages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.dnd5eapi.co/api/languages/{{language}}",
+					"protocol": "https",
+					"host": [
+						"www",
+						"dnd5eapi",
+						"co"
+					],
+					"path": [
+						"api",
+						"languages",
+						"{{language}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_proficiencies",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "endpoint",
+			"value": "monsters"
+		},
+		{
+			"key": "language",
+			"value": "sylvan"
+		},
+		{
+			"key": "skill_name",
+			"value": "all-armor"
+		}
+	]
+}
