@@ -1,0 +1,40 @@
+{
+    "info": {
+        "_postman_id": "919324f8-bc95-4739-a514-fdf058c116c7",
+        "name": "Hungary Tenders",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "GET All tenders",
+            "id": "3ab668a3-e001-4c2d-8ed3-8ede34b05c25",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://tenders.guru/api/hu/tenders"
+            },
+            "response": []
+        },
+        {
+            "name": "GET 100 tender",
+            "id": "6bcf2b0c-b9da-4c19-a5fd-58c30cdf1038",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://tenders.guru/api/hu/tenders/100"
+            },
+            "response": []
+        },
+        {
+            "name": "GET List documents 100 tender ",
+            "id": "aa7cd923-6ba0-496b-b678-d752048e8e54",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://tenders.guru/api/hu/tenders/100/docs"
+            },
+            "response": []
+        }
+        
+    ] 
+}
