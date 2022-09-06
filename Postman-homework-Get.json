@@ -1,0 +1,90 @@
+{
+    "info": {
+        "_postman_id": "d62620b4-ba59-4f75-8688-31ecf2ec02a0",
+        "name": "Postman-Homework",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Postman-Homework-Get",
+            "id": "ce21b3de-1c12-4d43-bc8e-9c39060838fd",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://api.coinstats.app/public/v1/coins?skip=0&limit=5&currency=EUR",
+                    "protocol": "https",
+                    "host": [
+                        "api",
+                        "coinstats",
+                        "app"
+                    ],
+                    "path": [
+                        "public",
+                        "v1",
+                        "coins"
+                    ],
+                    "query": [
+                        {
+                            "key": "skip",
+                            "value": "0"
+                        },
+                        {
+                            "key": "limit",
+                            "value": "5"
+                        },
+                        {
+                            "key": "currency",
+                            "value": "EUR"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Postman-Homework-Get",
+            "id": "b388341d-a3b4-4ce6-a277-eb50abb30e1b",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": "https://api.coinstats.app/public/v1/exchanges"
+            },
+            "response": []
+        },
+        {
+            "name": "Postman-Homework-Get",
+            "id": "36921ded-8baf-4e03-aef0-88eeb6827b6e",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://api.coinstats.app/public/v1/news/handpicked?skip=0&limit=20",
+                    "protocol": "https",
+                    "host": [
+                        "api",
+                        "coinstats",
+                        "app"
+                    ],
+                    "path": [
+                        "public",
+                        "v1",
+                        "news",
+                        "handpicked"
+                    ],
+                    "query": [
+                        {
+                            "key": "skip",
+                            "value": "0"
+                        },
+                        {
+                            "key": "limit",
+                            "value": "20"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}
