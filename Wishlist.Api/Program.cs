@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
+using Serilog;
+
 using Wishlist.Api.Configuration;
 using Wishlist.Domain.Commands;
 using Wishlist.Domain.Database;
@@ -18,6 +20,11 @@ using Wishlist.Domain.Helpers.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Host.UseSerilog((ctx, lc) =>
+{
+    lc.ReadFrom.Configuration(builder.Configuration);
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
