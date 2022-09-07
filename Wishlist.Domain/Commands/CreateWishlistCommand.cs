@@ -4,7 +4,10 @@ using System.Threading.Tasks;
 
 using MediatR;
 
+using Microsoft.Extensions.Logging;
+
 using Wishlist.Contracts.Database;
+using Wishlist.Domain.Base;
 using Wishlist.Domain.Database;
 using Wishlist.Domain.Helpers.Interfaces;
 
@@ -22,18 +25,21 @@ public class CreateWishlistCommandResult
     public WishlistModel Wishlist { get; init; }
 }
 
-public class CreateWishlistCommandHandler : IRequestHandler<CreateWishlistCommand, CreateWishlistCommandResult>
+public class CreateWishlistCommandHandler : BaseHandler<CreateWishlistCommand, CreateWishlistCommandResult>
 {
     private readonly WishlistDbContext _dbContext;
     private readonly IDateTimeProvider _dateTimeProvider;
 
-    public CreateWishlistCommandHandler(WishlistDbContext dbContext, IDateTimeProvider dateTimeProvider)
+    public CreateWishlistCommandHandler(WishlistDbContext dbContext,
+        IDateTimeProvider dateTimeProvider,
+        ILogger<CreateWishlistCommandHandler> logger) : base(logger)
     {
         _dbContext = dbContext;
         _dateTimeProvider = dateTimeProvider;
     }
 
-    public async Task<CreateWishlistCommandResult> Handle(CreateWishlistCommand request, CancellationToken cancellationToken)
+    protected override async Task<CreateWishlistCommandResult> HandleInternal(CreateWishlistCommand request,
+        CancellationToken cancellationToken)
     {
         var wishlist = new WishlistModel
         {

@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 using MediatR;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 using Wishlist.Contracts.Http;
+using Wishlist.Domain.Base;
 using Wishlist.Domain.Database;
 using Wishlist.Domain.Exceptions;
 
@@ -23,16 +25,17 @@ public class WishlistQueryResult
     public WishlistModel Wishlist { get; set; }
 }
 
-public class WishlistQueryHandler : IRequestHandler<WishlistQuery, WishlistQueryResult>
+public class WishlistQueryHandler : BaseHandler<WishlistQuery, WishlistQueryResult>
 {
     private readonly WishlistDbContext _dbContext;
 
-    public WishlistQueryHandler(WishlistDbContext dbContext)
+    public WishlistQueryHandler(WishlistDbContext dbContext, ILogger<WishlistQueryHandler> logger) : base(logger)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<WishlistQueryResult> Handle(WishlistQuery request, CancellationToken cancellationToken)
+    protected override async Task<WishlistQueryResult> HandleInternal(WishlistQuery request,
+        CancellationToken cancellationToken)
     {
         var wishlistId = request.WishlistId;
 

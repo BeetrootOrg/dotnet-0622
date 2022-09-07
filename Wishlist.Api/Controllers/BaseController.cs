@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 using Npgsql;
 
@@ -13,6 +14,13 @@ namespace Wishlist.Api.Controllers;
 
 public class BaseController : ControllerBase
 {
+    private readonly ILogger _logger;
+
+    protected BaseController(ILogger logger)
+    {
+        _logger = logger;
+    }
+
     protected async Task<IActionResult> SafeExecute(Func<Task<IActionResult>> action,
         CancellationToken cancellationToken)
     {
@@ -22,6 +30,8 @@ public class BaseController : ControllerBase
         }
         catch (WishlistException we)
         {
+            _logger.LogError(we, "Wishlist exception raised");
+
             var response = new ErrorResponse
             {
                 Code = we.ErrorCode,
@@ -32,6 +42,8 @@ public class BaseController : ControllerBase
         }
         catch (InvalidOperationException ioe) when (ioe.InnerException is NpgsqlException)
         {
+            _logger.LogError(ioe, "DB exception raised");
+
             var response = new ErrorResponse
             {
                 Code = ErrorCode.DbFailureError,
@@ -40,8 +52,10 @@ public class BaseController : ControllerBase
 
             return ToActionResult(response);
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            _logger.LogError(e, "Unhandled exception raised");
+
             var response = new ErrorResponse
             {
                 Code = ErrorCode.InternalServerError,

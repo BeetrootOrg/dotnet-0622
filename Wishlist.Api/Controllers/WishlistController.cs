@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 using Wishlist.Contracts.Http;
 using Wishlist.Domain.Commands;
@@ -17,7 +18,7 @@ public class WishlistController : BaseController
 {
     private readonly IMediator _mediator;
 
-    public WishlistController(IMediator mediator)
+    public WishlistController(IMediator mediator, ILogger<WishlistController> logger) : base(logger)
     {
         _mediator = mediator;
     }

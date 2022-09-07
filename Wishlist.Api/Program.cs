@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 using Wishlist.Api.Configuration;
@@ -37,7 +38,10 @@ builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 builder.Services.AddDbContext<WishlistDbContext>((sp, options) =>
 {
     var configuration = sp.GetRequiredService<IOptionsMonitor<AppConfiguration>>();
-    options.UseNpgsql(configuration.CurrentValue.ConnectionString);
+    var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
+
+    options.UseNpgsql(configuration.CurrentValue.ConnectionString)
+        .UseLoggerFactory(loggerFactory);
 });
 
 var app = builder.Build();
