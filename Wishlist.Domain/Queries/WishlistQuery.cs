@@ -25,7 +25,7 @@ public class WishlistQueryResult
     public WishlistModel Wishlist { get; set; }
 }
 
-public class WishlistQueryHandler : BaseHandler<WishlistQuery, WishlistQueryResult>
+internal class WishlistQueryHandler : BaseHandler<WishlistQuery, WishlistQueryResult>
 {
     private readonly WishlistDbContext _dbContext;
 

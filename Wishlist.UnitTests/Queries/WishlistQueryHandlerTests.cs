@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using MediatR;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+
+using Moq;
 
 using Shouldly;
 
@@ -28,7 +31,8 @@ public class WishlistQueryHandlerTests : IDisposable
     public WishlistQueryHandlerTests()
     {
         _dbContext = DbContextHelper.CreateTestDb();
-        _handler = new WishlistQueryHandler(_dbContext);
+        _handler = new WishlistQueryHandler(_dbContext,
+            new Mock<ILogger<WishlistQueryHandler>>().Object);
     }
 
     [Fact]

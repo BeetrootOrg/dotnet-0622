@@ -1,7 +1,5 @@
 using System;
 
-using MediatR;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,10 +10,7 @@ using Microsoft.Extensions.Options;
 using Serilog;
 
 using Wishlist.Api.Configuration;
-using Wishlist.Domain.Commands;
-using Wishlist.Domain.Database;
-using Wishlist.Domain.Helpers;
-using Wishlist.Domain.Helpers.Interfaces;
+using Wishlist.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,9 +35,7 @@ builder.Services.AddHealthChecks()
 
 builder.Services.Configure<AppConfiguration>(builder.Configuration);
 
-builder.Services.AddMediatR(typeof(CreateWishlistCommand));
-builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-builder.Services.AddDbContext<WishlistDbContext>((sp, options) =>
+builder.Services.AddDomainServices((sp, options) =>
 {
     var configuration = sp.GetRequiredService<IOptionsMonitor<AppConfiguration>>();
     var loggerFactory = sp.GetRequiredService<ILoggerFactory>();

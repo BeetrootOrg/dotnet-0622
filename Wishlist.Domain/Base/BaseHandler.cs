@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Wishlist.Domain.Base;
 
-public abstract class BaseHandler<TRequest, TResult> : IRequestHandler<TRequest, TResult>
+internal abstract class BaseHandler<TRequest, TResult> : IRequestHandler<TRequest, TResult>
     where TRequest : IRequest<TResult>
 {
     protected readonly ILogger Logger;

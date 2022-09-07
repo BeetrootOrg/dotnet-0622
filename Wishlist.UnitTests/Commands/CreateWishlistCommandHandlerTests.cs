@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 
 using MediatR;
 
+using Microsoft.Extensions.Logging;
+
 using Moq;
 
 using Shouldly;
@@ -27,7 +29,9 @@ public class CreateWishlistCommandHandlerTests : IDisposable
         _dbContext = DbContextHelper.CreateTestDb();
         _dateTimeProvider = new Mock<IDateTimeProvider>();
 
-        _handler = new CreateWishlistCommandHandler(_dbContext, _dateTimeProvider.Object);
+        _handler = new CreateWishlistCommandHandler(_dbContext,
+            _dateTimeProvider.Object,
+            new Mock<ILogger<CreateWishlistCommandHandler>>().Object);
     }
 
     [Fact]

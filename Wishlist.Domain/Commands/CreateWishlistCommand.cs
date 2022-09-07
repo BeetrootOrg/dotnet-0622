@@ -25,7 +25,7 @@ public class CreateWishlistCommandResult
     public WishlistModel Wishlist { get; init; }
 }
 
-public class CreateWishlistCommandHandler : BaseHandler<CreateWishlistCommand, CreateWishlistCommandResult>
+internal class CreateWishlistCommandHandler : BaseHandler<CreateWishlistCommand, CreateWishlistCommandResult>
 {
     private readonly WishlistDbContext _dbContext;
     private readonly IDateTimeProvider _dateTimeProvider;
