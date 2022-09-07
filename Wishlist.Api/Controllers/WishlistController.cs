@@ -60,6 +60,15 @@ public class WishlistController : BaseController
         CancellationToken cancellationToken) =>
         SafeExecute(async () =>
         {
+            if (!ModelState.IsValid)
+            {
+                return ToActionResult(new ErrorResponse
+                {
+                    Code = ErrorCode.BadRequest,
+                    Message = "invalid request"
+                });
+            }
+
             var command = new CreateWishlistCommand
             {
                 Name = request.Name

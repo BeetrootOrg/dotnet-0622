@@ -9,13 +9,13 @@ using Microsoft.EntityFrameworkCore;
 
 using Shouldly;
 
-using Wishlist.Contracts.Database;
 using Wishlist.Contracts.Http;
 using Wishlist.Domain.Database;
 using Wishlist.Domain.Exceptions;
 using Wishlist.Domain.Queries;
 using Wishlist.UnitTests.Helpers;
 
+using Present = Wishlist.Contracts.Database.Present;
 using WishlistModel = Wishlist.Contracts.Database.Wishlist;
 
 namespace Wishlist.UnitTests.Queries;
