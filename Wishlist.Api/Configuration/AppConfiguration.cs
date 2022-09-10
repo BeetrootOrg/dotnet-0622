@@ -1,6 +1,6 @@
 namespace Wishlist.Api.Configuration;
 
-public class AppConfiguration
+internal class AppConfiguration
 {
     public string ConnectionString { get; set; }
 }

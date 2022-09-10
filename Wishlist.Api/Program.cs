@@ -1,5 +1,8 @@
 using System;
 
+using FluentValidation;
+using FluentValidation.AspNetCore;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Serilog;
 
 using Wishlist.Api.Configuration;
+using Wishlist.Api.Validation;
+using Wishlist.Contracts.Http;
 using Wishlist.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,6 +48,9 @@ builder.Services.AddDomainServices((sp, options) =>
     options.UseNpgsql(configuration.CurrentValue.ConnectionString)
         .UseLoggerFactory(loggerFactory);
 });
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddScoped<IValidator<CreateWishlistRequest>, CreateWishlistRequestValidator>();
 
 var app = builder.Build();
 
