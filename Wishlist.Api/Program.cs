@@ -51,6 +51,7 @@ builder.Services.AddDomainServices((sp, options) =>
 
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddScoped<IValidator<CreateWishlistRequest>, CreateWishlistRequestValidator>();
+builder.Services.AddScoped<IValidator<CreatePresentRequest>, CreatePresentRequestValidator>();
 
 var app = builder.Build();
 

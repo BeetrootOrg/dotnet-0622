@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wishlist.Domain.Database;
@@ -11,9 +12,10 @@ using Wishlist.Domain.Database;
 namespace Wishlist.Domain.Migrations
 {
     [DbContext(typeof(WishlistDbContext))]
-    partial class WishlistDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220910084528_RemoveNullConstraintFromComment")]
+    partial class RemoveNullConstraintFromComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

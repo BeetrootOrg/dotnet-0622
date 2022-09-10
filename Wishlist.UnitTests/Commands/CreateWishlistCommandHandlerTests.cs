@@ -11,25 +11,22 @@ using Moq;
 using Shouldly;
 
 using Wishlist.Domain.Commands;
-using Wishlist.Domain.Database;
 using Wishlist.Domain.Helpers.Interfaces;
-using Wishlist.UnitTests.Helpers;
+using Wishlist.UnitTests.Base;
 
 namespace Wishlist.UnitTests.Commands;
 
-public class CreateWishlistCommandHandlerTests : IDisposable
+public class CreateWishlistCommandHandlerTests : BaseHandlerTest<CreateWishlistCommand, CreateWishlistCommandResult>
 {
-    private readonly WishlistDbContext _dbContext;
-    private readonly Mock<IDateTimeProvider> _dateTimeProvider;
+    private readonly Mock<IDateTimeProvider> _dateTimeProvider = new Mock<IDateTimeProvider>();
 
-    private readonly IRequestHandler<CreateWishlistCommand, CreateWishlistCommandResult> _handler;
-
-    public CreateWishlistCommandHandlerTests()
+    public CreateWishlistCommandHandlerTests() : base()
     {
-        _dbContext = DbContextHelper.CreateTestDb();
-        _dateTimeProvider = new Mock<IDateTimeProvider>();
+    }
 
-        _handler = new CreateWishlistCommandHandler(_dbContext,
+    protected override IRequestHandler<CreateWishlistCommand, CreateWishlistCommandResult> CreateHandler()
+    {
+        return new CreateWishlistCommandHandler(DbContext,
             _dateTimeProvider.Object,
             new Mock<ILogger<CreateWishlistCommandHandler>>().Object);
     }
@@ -48,7 +45,7 @@ public class CreateWishlistCommandHandlerTests : IDisposable
         _dateTimeProvider.SetupGet(x => x.Now).Returns(now);
 
         // Act
-        var result = await _handler.Handle(command, CancellationToken.None);
+        var result = await Handler.Handle(command, CancellationToken.None);
 
         // Assert
         result.ShouldNotBeNull();
@@ -57,11 +54,5 @@ public class CreateWishlistCommandHandlerTests : IDisposable
         result.Wishlist.CreatedAt.ShouldBe(now);
         result.Wishlist.Name.ShouldBe(wishlistName);
         result.Wishlist.Presents.ShouldBeEmpty();
-    }
-
-    public void Dispose()
-    {
-        _dbContext.Database.EnsureDeleted();
-        _dbContext.Dispose();
     }
 }

@@ -22,5 +22,5 @@ public class Wishlist
     public DateTime CreatedAt { get; set; }
 
     [InverseProperty(nameof(Present.Wishlist))]
-    public virtual IEnumerable<Present> Presents { get; set; }
+    public virtual ICollection<Present> Presents { get; set; }
 }

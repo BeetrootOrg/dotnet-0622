@@ -17,7 +17,6 @@ public class Present
     [Column("name")]
     public string Name { get; set; }
 
-    [Required]
     [MaxLength(500)]
     [Column("comment")]
     public string Comment { get; set; }

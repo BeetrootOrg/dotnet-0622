@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -45,7 +45,7 @@ internal class CreateWishlistCommandHandler : BaseHandler<CreateWishlistCommand,
         {
             Name = request.Name,
             CreatedAt = _dateTimeProvider.Now,
-            Presents = Enumerable.Empty<Present>()
+            Presents = new List<Present>()
         };
 
         await _dbContext.AddAsync(wishlist, cancellationToken);

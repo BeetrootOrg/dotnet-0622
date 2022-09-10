@@ -13,9 +13,9 @@ using Moq;
 using Shouldly;
 
 using Wishlist.Contracts.Http;
-using Wishlist.Domain.Database;
 using Wishlist.Domain.Exceptions;
 using Wishlist.Domain.Queries;
+using Wishlist.UnitTests.Base;
 using Wishlist.UnitTests.Helpers;
 
 using Present = Wishlist.Contracts.Database.Present;
@@ -23,15 +23,15 @@ using WishlistModel = Wishlist.Contracts.Database.Wishlist;
 
 namespace Wishlist.UnitTests.Queries;
 
-public class WishlistQueryHandlerTests : IDisposable
+public class WishlistQueryHandlerTests : BaseHandlerTest<WishlistQuery, WishlistQueryResult>
 {
-    private readonly WishlistDbContext _dbContext;
-    private readonly IRequestHandler<WishlistQuery, WishlistQueryResult> _handler;
-
-    public WishlistQueryHandlerTests()
+    public WishlistQueryHandlerTests() : base()
     {
-        _dbContext = DbContextHelper.CreateTestDb();
-        _handler = new WishlistQueryHandler(_dbContext,
+    }
+
+    protected override IRequestHandler<WishlistQuery, WishlistQueryResult> CreateHandler()
+    {
+        return new WishlistQueryHandler(DbContext,
             new Mock<ILogger<WishlistQueryHandler>>().Object);
     }
 
@@ -39,7 +39,7 @@ public class WishlistQueryHandlerTests : IDisposable
     public async Task HandlerShouldReturnWishlist()
     {
         // Arrange
-        var dbContext = DbContextHelper.CreateTestDb(_dbContext.Database.GetDbConnection().ConnectionString);
+        var dbContext = DbContextHelper.CreateTestDb(DbContext.Database.GetDbConnection().ConnectionString);
         var wishlist = new WishlistModel
         {
             CreatedAt = new DateTime(2005, 01, 02),
@@ -72,7 +72,7 @@ public class WishlistQueryHandlerTests : IDisposable
         };
 
         // Act
-        var result = await _handler.Handle(query, CancellationToken.None);
+        var result = await Handler.Handle(query, CancellationToken.None);
 
         // Assert
         result.ShouldNotBeNull();
@@ -108,19 +108,13 @@ public class WishlistQueryHandlerTests : IDisposable
         try
         {
             // Act
-            await _handler.Handle(query, CancellationToken.None);
+            await Handler.Handle(query, CancellationToken.None);
         }
-        catch (WishlistException we) when (we.ErrorCode == ErrorCode.WishlistNotFound
-            && we.Message == $"Wishlist {wishlistId} not found")
+        catch (WishlistException we) when (we.ErrorCode == ErrorCode.WishlistNotFound &&
+            we.Message == $"Wishlist {wishlistId} not found")
         {
-            // Arrange
+            // Assert
             // ignore
         }
-    }
-
-    public void Dispose()
-    {
-        _dbContext.Database.EnsureDeleted();
-        _dbContext.Dispose();
     }
 }

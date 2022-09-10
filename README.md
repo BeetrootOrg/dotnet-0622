@@ -18,7 +18,7 @@ This repository describes Wishlist API
 ## HTTP API
 
 - PUT /api/wishlist -> Returns 201 with withslist ID
-- PUT /api/present BODY=present details + wishlist id -> Returns 204 No content / 400 Bad Request if no such wishlist
+- PUT /api/present BODY=present details + wishlist id -> Returns 201 with Present ID / 404 Not Found if no such wishlist
 - DELETE /api/present/{presentId} -> Returns 204 No content
 - GET /api/wishlist/{wishlistId} -> Returns 200 OK / 404 Not Found if no such wishlist
 - POST /api/present/{presentId} BODY=book/unbook -> Returns 200 OK / 400 Bad Request if can't be booked/unbooked / 404 Not Found if no such present
