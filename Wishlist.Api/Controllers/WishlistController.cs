@@ -13,7 +13,9 @@ using Wishlist.Domain.Queries;
 
 namespace Wishlist.Api.Controllers;
 
+[ApiController]
 [Route("api/wishlist")]
+[Produces("application/json")]
 public class WishlistController : BaseController
 {
     private readonly IMediator _mediator;
@@ -23,7 +25,19 @@ public class WishlistController : BaseController
         _mediator = mediator;
     }
 
+    /// <summary>
+    /// Returns wishlist by id
+    /// </summary>
+    /// <param name="wishlistId">Wishlist ID</param>
+    /// <param name="cancellationToken">Cancellation Token</param>
+    /// <returns>Wishlist with presents</returns>
+    /// <response code="200">Returns wishlist with all it's presents</response>
+    /// <response code="404">Wishlist not found</response>
+    /// <response code="500">Internal Server Error</response>
     [HttpGet("{wishlistId}")]
+    [ProducesResponseType(typeof(WishlistResponse), 200)]
+    [ProducesResponseType(typeof(ErrorResponse), 404)]
+    [ProducesResponseType(typeof(ErrorResponse), 500)]
     public Task<IActionResult> GetWishlist([FromRoute] int wishlistId,
         CancellationToken cancellationToken) =>
         SafeExecute(async () =>
