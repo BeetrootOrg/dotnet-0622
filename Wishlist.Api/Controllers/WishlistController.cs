@@ -1,6 +1,7 @@
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
+using AutoMapper;
 
 using MediatR;
 
@@ -19,10 +20,14 @@ namespace Wishlist.Api.Controllers;
 public class WishlistController : BaseController
 {
     private readonly IMediator _mediator;
+    private readonly IMapper _mapper;
 
-    public WishlistController(IMediator mediator, ILogger<WishlistController> logger) : base(logger)
+    public WishlistController(IMediator mediator,
+        IMapper mapper,
+        ILogger<WishlistController> logger) : base(logger)
     {
         _mediator = mediator;
+        _mapper = mapper;
     }
 
     /// <summary>
@@ -51,20 +56,7 @@ public class WishlistController : BaseController
             var wishlist = result.Wishlist;
             var response = new WishlistResponse
             {
-                Wishlist = new Contracts.Http.Wishlist
-                {
-                    Id = wishlist.Id,
-                    CreatedAt = wishlist.CreatedAt,
-                    Name = wishlist.Name,
-                    Presents = wishlist.Presents.Select(present => new Present
-                    {
-                        BookedAt = present.BookedAt,
-                        Comment = present.Comment,
-                        CreatedAt = present.CreatedAt,
-                        Id = present.Id,
-                        Name = present.Name
-                    })
-                }
+                Wishlist = _mapper.Map<Contracts.Http.Wishlist>(wishlist)
             };
 
             return Ok(response);
