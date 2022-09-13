@@ -33,13 +33,43 @@ public class MainField
 
     private bool ValidateField(char[,] field)
     {
+        bool white = false;
+        bool black = false;
+        int emptyCell = 0;
+        bool otrheSymbol = false;
         if (field is not null &&
             field.Rank == 2 &&
             field.GetLength(0) == 8 &&
             field.GetLength(1) == 8)
         {
-            return true;
+            for (int a = 0; a < 8; ++a)
+            {
+                for (int b = 0; b < 8; ++b)
+                {
+                    if (field[a, b] == '.')
+                    {
+                        ++emptyCell;
+                    }
+                    else if (field[a, b] == 'W')
+                    {
+                        white = true;
+                    }
+                    else if (field[a, b] == 'B')
+                    {
+                        black = true;
+                    }
+                    else
+                    {
+                        otrheSymbol = true;
+                    }
+                }
+            }
+            if (emptyCell > 8 && white && black && !otrheSymbol)
+            {
+                return true;
+            }
         }
+        Console.WriteLine("\nChoose a different field.\n");
         return false;
     }
 
