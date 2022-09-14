@@ -11,7 +11,7 @@ signInBtn.onclick = async (event) => {
 	const queryParams = new Proxy(new URLSearchParams(window.location.search), {
 		get: (searchParams, prop) => searchParams.get(prop),
 	});
-	let returnUrl = queryParams.ReturnUrl || '';
+	let returnUrl = queryParams.returnUrl || '';
 
 	const response = await fetch(`/sign-in?returnUrl=${returnUrl}`, {
 		method: 'POST',
@@ -21,8 +21,7 @@ signInBtn.onclick = async (event) => {
 		}),
 		headers: {
 			'content-type': 'application/json'
-		},
-		'redirect': 'manual'
+		}
 	});
 
 	if (!response.ok) {

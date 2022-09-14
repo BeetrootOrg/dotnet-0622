@@ -1,9 +1,7 @@
 (async () => {
-	const response = await fetch("me", {
-		redirect: 'manual'
-	});
+	const response = await fetch("me");
 
-	if (response.type === 'opaqueredirect') {
-		window.location.href = 'me'
+	if (response.status === 401) {
+		window.location.href = `/login.html?returnUrl=${encodeURIComponent(window.location.href)}`
 	}
 })();

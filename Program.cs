@@ -26,6 +26,21 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 		options.SlidingExpiration = true;
 	});
 
+builder.Services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+{
+	options.Events.OnRedirectToAccessDenied = context =>
+	{
+		context.Response.StatusCode = StatusCodes.Status403Forbidden;
+		return context.Response.CompleteAsync();
+	};
+
+	options.Events.OnRedirectToLogin = context =>
+	{
+		context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+		return context.Response.CompleteAsync();
+	};
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
