@@ -30,6 +30,5 @@ signInBtn.onclick = async (event) => {
 		throw new Error(`status code is ${response.status}`);
 	}
 
-	const result = await response.json();
-	window.location.href = result.location;
+	window.location.href = returnUrl;
 }

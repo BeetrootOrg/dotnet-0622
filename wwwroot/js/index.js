@@ -5,3 +5,8 @@
 		window.location.href = `/login.html?returnUrl=${encodeURIComponent(window.location.href)}`
 	}
 })();
+
+const signOutBtn = document.getElementById("signOut");
+signOutBtn.onclick = () => {
+	window.location.href = '/sign-out'
+} 

@@ -23,7 +23,6 @@ public class UserController : ControllerBase
 
 	[HttpPost("sign-in")]
 	public async Task<IActionResult> SignIn([FromBody] LoginRequest request,
-		[FromQuery] string returnUrl = null,
 		CancellationToken token = default)
 	{
 		if (!ModelState.IsValid)
@@ -58,10 +57,7 @@ public class UserController : ControllerBase
 			claimsPrincipal,
 			authProperties);
 
-		return Ok(new
-		{
-			Location = returnUrl ?? "/"
-		});
+		return Ok();
 	}
 
 	[HttpGet("sign-out")]
