@@ -33,7 +33,7 @@ public class UserController : ControllerBase
 		var username = request.Username;
 		var password = request.Password;
 
-		var user = await _dbContext.Users.SingleOrDefaultAsync(user => user.Username == username && user.Password == user.Password);
+		var user = await _dbContext.Users.SingleOrDefaultAsync(user => user.Username == username && user.Password == password);
 
 		if (user == null)
 		{
