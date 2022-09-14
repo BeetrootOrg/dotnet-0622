@@ -2,16 +2,25 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using AspNetTest.Database;
 using AspNetTest.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetTest.Controllers;
 
 public class UserController : ControllerBase
 {
+	private readonly UsersDbContext _dbContext;
+
+	public UserController(UsersDbContext dbContext)
+	{
+		_dbContext = dbContext;
+	}
+
 	[HttpPost("sign-in")]
 	public async Task<IActionResult> SignIn([FromBody] LoginRequest request,
 		[FromQuery] string returnUrl = null,
@@ -24,31 +33,34 @@ public class UserController : ControllerBase
 
 		var username = request.Username;
 		var password = request.Password;
-		if (username == "admin" && password == "123456")
+
+		var user = await _dbContext.Users.SingleOrDefaultAsync(user => user.Username == username && user.Password == user.Password);
+
+		if (user == null)
 		{
-			var claims = new[]
+			return BadRequest(new
 			{
-				new Claim(ClaimTypes.Name, request.Username),
-			};
-
-			var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-			var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-			var authProperties = new AuthenticationProperties();
-
-			await HttpContext.SignInAsync(
-				CookieAuthenticationDefaults.AuthenticationScheme,
-				claimsPrincipal,
-				authProperties);
-
-			return Ok(new
-			{
-				Location = returnUrl ?? "/"
+				Message = "wrong username or password"
 			});
 		}
 
-		return BadRequest(new
+		var claims = new[]
 		{
-			Message = "wrong username or password"
+			new Claim(ClaimTypes.Name, request.Username),
+		};
+
+		var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+		var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+		var authProperties = new AuthenticationProperties();
+
+		await HttpContext.SignInAsync(
+			CookieAuthenticationDefaults.AuthenticationScheme,
+			claimsPrincipal,
+			authProperties);
+
+		return Ok(new
+		{
+			Location = returnUrl ?? "/"
 		});
 	}
 

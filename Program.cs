@@ -1,7 +1,9 @@
 using System;
+using AspNetTest.Database;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<UsersDbContext>((options) =>
+{
+	options.UseNpgsql("User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=users;");
+});
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 	.AddCookie(options =>
