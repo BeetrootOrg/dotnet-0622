@@ -1,7 +1,7 @@
 
 public class SimpleList<T>
 {
-    private T Value { get; set; }
+    public T Value { get; set; }
 
     public SimpleList<T> Next { get; set; }
 

@@ -1,9 +1,11 @@
 class Stack<T>
 {
-    public SimpleList<object> Top { get; set; }
+    public SimpleList<T> Top { get; set; }
 
-    void Push(obj)
+    public void Push(T obj)
     {
-        
+        SimpleList<T> newTop = new SimpleList<T>(obj);
+        newTop.Next = Top;
+        Top = newTop;
     }
 }
