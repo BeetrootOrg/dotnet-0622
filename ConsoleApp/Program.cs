@@ -20,7 +20,7 @@ void MainMenu()
     Console.WriteLine("1 - Create vote");
     Console.WriteLine("2 - Vote for something");
     Console.WriteLine("3 - Show Results");
-    Console.WriteLine("4 - Exit");
+    Console.WriteLine("4 - Exit");  a
 
 
     void TopicCreator()
