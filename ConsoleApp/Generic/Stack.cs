@@ -8,4 +8,11 @@ class Stack<T>
         newTop.Next = Top;
         Top = newTop;
     }
+
+    public T Pop()
+    {
+        SimpleList<T> res = Top;
+        Top = Top.Next;
+        return res.Value;
+    }
 }
