@@ -21,13 +21,9 @@ class Stack<T>
         --Count;
     }
 
-    public T Peek()
+    public SimpleList<T> Peek()
     {
-        if (Top != null)
-        {
-            return Top.Value;
-        }
-        throw new NullReferenceException();
+        return Top;
     }
 
     public void Clear()
@@ -41,6 +37,15 @@ class Stack<T>
         Clear();
     }
 
+    public void CopyTo(T[] arr)
+    {
+        var item = Top;
+        for (int a = 0; a < arr.Length && item != null; ++a)
+        {
+            arr[a] = item.Value;
+            item = item.Next;
+        }
+    }
 
     public Stack(SimpleList<T> obj)
     {
