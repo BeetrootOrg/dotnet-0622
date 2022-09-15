@@ -5,5 +5,8 @@ public class SimpleList<T>
 
     public SimpleList<T> Next { get; set; }
 
-    public SimpleList(T value) => Value = value;
+    public SimpleList(T value) 
+    { 
+        Value = value;
+    }
 }
