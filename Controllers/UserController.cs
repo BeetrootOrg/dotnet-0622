@@ -63,6 +63,38 @@ namespace AspNetTest.Controllers
             return Ok();
         }
 
+        [HttpPost("registration")]
+        public async Task<IActionResult> Register([FromBody] RegistrationRequest request,
+            CancellationToken cancellationToken)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            string username = request.Username;
+            string password = request.Password;
+
+            bool userExists = await _dbContext.Users.AnyAsync(x => x.Username == username, cancellationToken);
+            if (userExists)
+            {
+                return BadRequest(new
+                {
+                    Message = "user already exist"
+                });
+            }
+
+            _ = await _dbContext.Users.AddAsync(new User
+            {
+                Username = username,
+                Password = password
+            }, cancellationToken);
+
+            _ = await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return NoContent();
+        }
+
         [HttpGet("sign-out")]
         public new async Task<IActionResult> SignOut()
         {

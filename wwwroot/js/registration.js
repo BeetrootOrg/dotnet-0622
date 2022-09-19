@@ -1,4 +1,4 @@
-const signUpBtn = document.getElementById("signIn");
+const signUpBtn = document.getElementById("signUp");
 const usernameField = document.getElementById("username");
 const passwordField = document.getElementById("password");
 
@@ -8,12 +8,7 @@ signUpBtn.onclick = async (event) => {
 	const username = usernameField.value;
 	const password = passwordField.value;
 
-	const queryParams = new Proxy(new URLSearchParams(window.location.search), {
-		get: (searchParams, prop) => searchParams.get(prop),
-	});
-	let returnUrl = queryParams.returnUrl || '';
-
-	const response = await fetch(`/sign-in?returnUrl=${returnUrl}`, {
+	const response = await fetch(`/registration`, {
 		method: 'POST',
 		body: JSON.stringify({
 			username,
@@ -30,5 +25,5 @@ signUpBtn.onclick = async (event) => {
 		throw new Error(`status code is ${response.status}`);
 	}
 
-	window.location.href = returnUrl;
+	window.location.href = '/login.html';
 }
