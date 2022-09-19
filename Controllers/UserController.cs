@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
+using AspNetTest.Clients;
 using AspNetTest.Database;
 using AspNetTest.Models;
 
@@ -17,10 +18,12 @@ namespace AspNetTest.Controllers
     public class UserController : ControllerBase
     {
         private readonly UsersDbContext _dbContext;
+        private readonly GoogleAuthClient _googleAuthClient;
 
-        public UserController(UsersDbContext dbContext)
+        public UserController(UsersDbContext dbContext, GoogleAuthClient googleAuthClient)
         {
             _dbContext = dbContext;
+            _googleAuthClient = googleAuthClient;
         }
 
         [HttpPost("sign-in")]
@@ -43,6 +46,15 @@ namespace AspNetTest.Controllers
                 return BadRequest(new
                 {
                     Message = "wrong username or password"
+                });
+            }
+
+            bool isValid = await _googleAuthClient.IsValid(request.Code, token);
+            if (!isValid)
+            {
+                return BadRequest(new
+                {
+                    Message = "invalid code"
                 });
             }
 

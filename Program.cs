@@ -1,5 +1,7 @@
 using System;
+using System.Net.Http;
 
+using AspNetTest.Clients;
 using AspNetTest.Database;
 
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -39,6 +41,11 @@ builder.Services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefa
         return context.Response.CompleteAsync();
     };
 });
+
+builder.Services.AddSingleton(_ => new GoogleAuthClient(new HttpClient
+{
+    BaseAddress = new Uri("https://www.authenticatorApi.com")
+}, "AspNetTest", "vh4t2uygryu4rtiuewgufvicyis6d"));
 
 WebApplication app = builder.Build();
 

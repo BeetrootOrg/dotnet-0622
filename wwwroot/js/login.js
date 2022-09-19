@@ -1,12 +1,14 @@
 const signUpBtn = document.getElementById("signIn");
 const usernameField = document.getElementById("username");
 const passwordField = document.getElementById("password");
+const codeField = document.getElementById("code");
 
 signUpBtn.onclick = async (event) => {
 	event.preventDefault();
 
 	const username = usernameField.value;
 	const password = passwordField.value;
+	const code = codeField.value;
 
 	const queryParams = new Proxy(new URLSearchParams(window.location.search), {
 		get: (searchParams, prop) => searchParams.get(prop),
@@ -17,7 +19,8 @@ signUpBtn.onclick = async (event) => {
 		method: 'POST',
 		body: JSON.stringify({
 			username,
-			password
+			password,
+            code
 		}),
 		headers: {
 			'content-type': 'application/json'
