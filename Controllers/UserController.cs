@@ -48,8 +48,8 @@ namespace AspNetTest.Controllers
 
             Claim[] claims = new[]
             {
-            new Claim(ClaimTypes.Name, request.Username),
-        };
+                new Claim(ClaimTypes.Name, request.Username),
+            };
 
             ClaimsIdentity claimsIdentity = new(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             ClaimsPrincipal claimsPrincipal = new(claimsIdentity);
