@@ -7,6 +7,8 @@ using AspNetTest.Clients;
 using AspNetTest.Database;
 using AspNetTest.Models;
 
+using Google.Apis.Auth.AspNetCore3;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -24,6 +26,14 @@ namespace AspNetTest.Controllers
         {
             _dbContext = dbContext;
             _googleAuthClient = googleAuthClient;
+        }
+
+        [HttpGet("sign-in-google")]
+        public Task GoogleSignIn()
+        {
+            return HttpContext.User?.Identity?.IsAuthenticated != true
+                ? HttpContext.ChallengeAsync(GoogleOpenIdConnectDefaults.AuthenticationScheme)
+                : Task.CompletedTask;
         }
 
         [HttpPost("sign-in")]
@@ -121,6 +131,7 @@ namespace AspNetTest.Controllers
             return Ok(new
             {
                 Username = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value
+                    ?? HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value
             });
         }
     }

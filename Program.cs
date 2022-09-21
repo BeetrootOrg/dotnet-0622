@@ -4,6 +4,8 @@ using System.Net.Http;
 using AspNetTest.Clients;
 using AspNetTest.Database;
 
+using Google.Apis.Auth.AspNetCore3;
+
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +19,13 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<UsersDbContext>((options) => _ = options.UseNpgsql("User ID=postgres;Password=123456;Host=localhost;Port=5432;Database=users;"));
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultChallengeScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
+        options.DefaultForbidScheme = GoogleOpenIdConnectDefaults.AuthenticationScheme;
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    })
     .AddCookie(options =>
     {
         options.LoginPath = new PathString("/login.html");
@@ -25,6 +33,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.Cookie.Name = "TestSignIn";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
         options.SlidingExpiration = true;
+    })
+    .AddGoogleOpenIdConnect(options =>
+    {
+        options.ClientId = builder.Configuration["ClientId"];
+        options.ClientSecret = builder.Configuration["ClientSecret"];
     });
 
 builder.Services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme, options =>
