@@ -39,7 +39,7 @@ This repository describes Password Manager API
 - password(encrypted, to compare while authorizing with a server)
 - passwords(collection of encrypted passwords)
 
-### lass Password
+### class Password
 
 - id
 - website name
