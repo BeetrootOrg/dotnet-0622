@@ -1,4 +1,4 @@
-#Password manager
+#Password Manager
 
 This repository describes Password Manager API
 
@@ -19,19 +19,15 @@ This repository describes Password Manager API
 ###user
 
 -PUT /api/users/ BODY - user details -> Reterns 204 No content
-GET /api/users/(master password) ->Reterns 200 OK /
-400 Not Found if no such user
--POST /api/users/(master password) ->Reterns 200 OK /
-400 Not Found if no such user
+-GET /api/users/(master password) ->Reterns 200 OK / 400 Not Found if no such user
+-POST /api/users/(master password) ->Reterns 200 OK / 400 Not Found if no such user
 
 ###password
 
 -PUT /api/password/ BODY - password details -> Reterns 204 No content
 -DELETE /api/password/(passwordId) - Reterns 204 No content
--GET /api/password/(passwordId) -> Reterns 200 OK / 
-400 Not Found if no such password 
--POST /api/password/(passwordId) BODY - password details -> Reterns 200 OK /
-400 Not Found if no such password
+-GET /api/password/(passwordId) -> Reterns 200 OK / 400 Not Found if no such password 
+-POST /api/password/(passwordId) BODY - password details -> Reterns 200 OK / 400 Not Found if no such password
 
 ##Models
 
