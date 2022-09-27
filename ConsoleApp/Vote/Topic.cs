@@ -1,44 +1,66 @@
 
 internal class Topic
 {
+    private string _name;
+
+    private long _no;
+
+    private long _yes;
+
     public string Name
     {
-        private set
+        get
+        {
+            return _name;
+        }
+        init
         {
             if (value != null && value.Length > 0)
             {
-                Name = value;
+                _name = value;
             }
             else
             {
-                Name = string.Empty;
+                _name = string.Empty;
             }
         }
+    }
+
+    public long No
+    {
         get
         {
-            return Name;
+            return _no;
+        }
+        set
+        {
+            if (value - _no == 1)
+            {
+                _no = value;
+            }
         }
     }
 
-    public long[] Choice { get; init; }
-
-
-    internal Topic(string value)
+    public long Yes
     {
-        Name = value;
-        Choice = new long[2];
+        get
+        {
+            return _yes;
+        }
+        set
+        {
+            if (value - _yes == 1)
+            {
+                _yes = value;
+            }
+        }
     }
 
-
-
-
-
-
-
-
-
-
-
-
+    internal Topic(string name)
+    {
+        Name = name;
+        No = 0;
+        Yes = 0;
+    }
 
 }

@@ -11,11 +11,11 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Vote votes =  Vote.Instance();
-        ConsoleInterface user = new ConsoleInterface(ref votes);
+        Vote vote = Vote.Instance();
+        ConsoleInterface user = new ConsoleInterface(ref vote);
         while (true)
         {
-             user.MainMenu();
+            user.MainMenu();
         }
     }
 }

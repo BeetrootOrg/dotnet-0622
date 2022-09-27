@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 
 class Vote
 {
@@ -5,49 +6,43 @@ class Vote
 
     public List<Topic> Topics { get; private set; }
 
-    // public void Create(Topic topic)
-    // {
-    //     Topics.Clear();
-    //     Topics.Add(topic);
-    // }
-
-    // public void Create(Topic[] topics)
-    // {
-    //     Topics.Clear();
-    //     foreach (var topic in topics)
-    //     {
-    //         Topics.Add(topic);
-    //     }
-    // }
-
-    public void Add(Topic topic)
+    public void Add(string topic)
     {
-        if (!Topics.Contains(topic))
+        if (Topics.FindIndex(top => top.Name == topic) == -1)
         {
-            Topics.Add(topic);
+            Topics.Add(new Topic(topic));
         }
     }
 
-    public void AddRange(Topic[] topics)
+    public void AddRange(string[] topics)
     {
         foreach (var topic in topics)
         {
-            Add(topic);
+            if (topic != string.Empty)
+            {
+                Add(topic);
+            }
         }
     }
 
-    public void DoVote(int topic, int choice)
+    public void DoVote(int topic, bool choice)
     {
-        ++Topics[topic].Choice[choice];
+        if (choice)
+        {
+            ++Topics[topic].Yes;
+        }
+        else
+        {
+            ++Topics[topic].No;
+        }
     }
 
-    public string[] Show(int topic)
+    public string Show(int index)
     {
-        return new string[]
-        {
-            $"1. Yes - {Topics[topic].Choice[1]} votes",
-            $"2. No - {Topics[topic].Choice[0]} votes"
-        };
+        return
+            $"{Topics[index].Name}" + Environment.NewLine +
+            $"1. Yes - {Topics[index].Yes} votes" + Environment.NewLine +
+            $"2. No - {Topics[index].No} votes";
     }
 
     private Vote()
@@ -63,4 +58,5 @@ class Vote
         }
         return _instance;
     }
+
 }
