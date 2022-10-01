@@ -5,6 +5,7 @@ namespace ConsoleApp;
 class Renderer
 {
     public Field Field { get; init; }
+
     private Timer _timer;
 
     public Renderer()
@@ -48,7 +49,7 @@ class Renderer
 
     private void Update(object state)
     {
-        Field.Snake.Move(new Point() { X = 1, Y = 0 }, Field.Size);
+        Field.Snake.Move();
         Console.Clear();
         Show();
     }
