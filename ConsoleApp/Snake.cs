@@ -21,55 +21,30 @@ class Snake
 
     private int _indexBorder;
 
-    public Point Action => _action;
-
     public IEnumerable<Point> Body => _body;
 
-    public int BodySize => _bodySize;
-
-    public Direction Direction => _direction;
-
-    public int IndexBorder
+    public bool Eat(Point food)
     {
-        get
-        {
-            return _indexBorder;
-        }
-        set
-        {
-            _indexBorder = value;
-        }
-    }
-
-    public Snake(int bodySize = 3, int indexBorder = 7)
-    {
-        _action = new Point()
-        {
-            X = 1,
-            Y = 0
-        };
-        _bodySize = bodySize;
-
-        _body = new List<Point>();
-        for (int a = 0; a < _bodySize; ++a)
+        if (food.X == _body[_body.Count - 1].X + _action.X &&
+            food.Y == _body[_body.Count - 1].Y + _action.Y)
         {
             _body.Add(new Point
             {
-                X = a + 1,
-                Y = 1
+                X = food.X,
+                Y = food.Y
+
             });
+            return true;
         }
-
-        _direction = Direction.Left;
-
-        _indexBorder = indexBorder;
-
+        return false;
     }
 
-    public void Move()
+    public bool Move(Point food, ConsoleKey key)
     {
-        SetDirection();
-        if (_action.X != 0 || _action.Y != 0)
+        var eat = false;
+        ReadDirection(key);
+        eat = Eat(food);
+        if (!eat && (_action.X != 0 || _action.Y != 0))
         {
             for (var a = 0; a < _body.Count - 1; ++a)
             {
@@ -78,8 +53,10 @@ class Snake
             }
             _body[_body.Count - 1].X += _action.X;
             _body[_body.Count - 1].Y += _action.Y;
+
+            Teleport();
         }
-        Teleport();
+        return eat;
     }
 
     public void Teleport()
@@ -90,7 +67,7 @@ class Snake
         }
         if (_body[_body.Count - 1].X < 1)
         {
-            _body[_body.Count - 1].X = _indexBorder;
+            _body[_body.Count - 1].X = _indexBorder - 1;
         }
 
         if (_body[_body.Count - 1].Y >= _indexBorder)
@@ -99,11 +76,11 @@ class Snake
         }
         if (_body[_body.Count - 1].Y < 1)
         {
-            _body[_body.Count - 1].Y = _indexBorder;
+            _body[_body.Count - 1].Y = _indexBorder - 1;
         }
     }
 
-    public void ReadDirection(object sender, ConsoleKey key)
+    public void ReadDirection(ConsoleKey key)
     {
         if (key == ConsoleKey.DownArrow || key == ConsoleKey.S)
         {
@@ -121,10 +98,15 @@ class Snake
         {
             _direction = Direction.Up;
         }
-        else
+        else if (key == ConsoleKey.P)
         {
             _direction = Direction.OnThePot;
         }
+        else
+        {
+
+        }
+        SetDirection();
     }
 
     public void SetDirection()
@@ -173,4 +155,30 @@ class Snake
             _action.Y = 0;
         }
     }
+
+    public Snake(int bodySize = 3, int indexBorder = 7)
+    {
+        _bodySize = bodySize;
+
+        _action = new Point()
+        {
+            X = 0,
+            Y = 0
+        };
+
+        _body = new List<Point>();
+        for (int a = 0; a < _bodySize; ++a)
+        {
+            _body.Add(new Point
+            {
+                X = a + 1,
+                Y = 1
+            });
+        }
+
+        _direction = Direction.OnThePot;
+
+        _indexBorder = indexBorder;
+    }
+
 }
