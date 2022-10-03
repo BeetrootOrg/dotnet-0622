@@ -25,7 +25,7 @@ class Renderer
     {
         System.Console.Clear();
         Show();
-        _timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(750));
+        _timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(1000));
     }
 
     public void Show()
@@ -70,7 +70,12 @@ class Renderer
 
     private void Update(object state)
     {
-        if (Snake.Move(Food.Position, Console.ReadKey().Key))
+        var key = Console.ReadKey().Key;
+        if (key == ConsoleKey.Escape)
+        {
+            Environment.Exit(0);
+        }
+        if (Snake.Move(Food.Position, key))
         {
             NewFood();
         }
