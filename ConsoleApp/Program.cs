@@ -11,8 +11,6 @@ internal class Program
     private static void Main(string[] args)
     {
         var renderer = new Renderer(Size);
-        System.Console.Clear();
-        renderer.Show();
         renderer.StartGame();
         Thread.Sleep(Timeout.Infinite);
     }
