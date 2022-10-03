@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace PasswordManager.Domain.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,7 +21,8 @@ namespace PasswordManager.Domain.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     email = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    password = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false)
+                    password = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    password_salt = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -37,6 +38,7 @@ namespace PasswordManager.Domain.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     website_name = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     password = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
+                    password_salt = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: false),
                     user_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>

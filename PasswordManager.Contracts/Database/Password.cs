@@ -21,6 +21,11 @@ public class Password
     [Column("password")]
     public string EncryptedPassword { get; set; }
 
+    [Required]
+    [MaxLength(512)]
+    [Column("password_salt")]
+    public string EncryptedPasswordSalt { get; set; }
+
     [ForeignKey(nameof(User))]
     [Column("user_id")]
     public int UserId { get; set; }

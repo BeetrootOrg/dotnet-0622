@@ -26,6 +26,11 @@ public class User
     [Column("password")]
     public string Password { get; set; }
 
+    [Required]
+    [MaxLength(512)]
+    [Column("password_salt")]
+    public string PasswordSalt { get; set; }
+
     [InverseProperty("User")]
     public  virtual IEnumerable<Password> Passwords { get; set; }
 }

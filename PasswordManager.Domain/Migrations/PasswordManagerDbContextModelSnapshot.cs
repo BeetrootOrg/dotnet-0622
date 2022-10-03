@@ -36,6 +36,12 @@ namespace PasswordManager.Domain.Migrations
                         .HasColumnType("character varying(512)")
                         .HasColumnName("password");
 
+                    b.Property<string>("EncryptedPasswordSalt")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)")
+                        .HasColumnName("password_salt");
+
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
                         .HasColumnName("user_id");
@@ -79,6 +85,12 @@ namespace PasswordManager.Domain.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("character varying(512)")
                         .HasColumnName("password");
+
+                    b.Property<string>("PasswordSalt")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)")
+                        .HasColumnName("password_salt");
 
                     b.HasKey("Id");
 

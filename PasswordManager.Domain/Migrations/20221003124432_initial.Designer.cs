@@ -11,8 +11,8 @@ using PasswordManager.Domain.Database;
 namespace PasswordManager.Domain.Migrations
 {
     [DbContext(typeof(PasswordManagerDbContext))]
-    [Migration("20220924161926_Initial")]
-    partial class Initial
+    [Migration("20221003124432_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,12 @@ namespace PasswordManager.Domain.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("character varying(512)")
                         .HasColumnName("password");
+
+                    b.Property<string>("EncryptedPasswordSalt")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)")
+                        .HasColumnName("password_salt");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
@@ -81,6 +87,12 @@ namespace PasswordManager.Domain.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("character varying(512)")
                         .HasColumnName("password");
+
+                    b.Property<string>("PasswordSalt")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)")
+                        .HasColumnName("password_salt");
 
                     b.HasKey("Id");
 
