@@ -15,7 +15,8 @@ public class RegisterUserCommand : IRequest<RegisterUserCommandResult>
 
 public class RegisterUserCommandResult
 {
-    public int Id { get; set; }
+    public string UserName { get; set; }
+    public string Email { get; set; }
 }
 
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisterUserCommandResult>
@@ -42,7 +43,8 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
 
         return new RegisterUserCommandResult
         {
-            Id = user.Id
+            UserName = user.Name,
+            Email = user.Email
         };
     }
 }
