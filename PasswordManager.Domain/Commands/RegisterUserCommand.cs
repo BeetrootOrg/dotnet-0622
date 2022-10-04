@@ -38,6 +38,10 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
             PasswordSalt = request.PasswordSalt
         };
 
+        if(_dbContext.Users.SingleOrDefault(user => user.Email == request.Email) != null)
+        {
+            throw new Exception("User with this email is already existed.");
+        }
         await _dbContext.AddAsync(user, cancellationToken);
         await _dbContext.SaveChangesAsync();
 
