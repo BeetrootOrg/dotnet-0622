@@ -1,0 +1,22 @@
+{
+  "name": "dotnet-0622",
+  "version": "1.0.0",
+  "description": "Test Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -p 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BeetrootOrg/dotnet-0622.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BeetrootOrg/dotnet-0622/issues"
+  },
+  "homepage": "https://github.com/BeetrootOrg/dotnet-0622#readme",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
