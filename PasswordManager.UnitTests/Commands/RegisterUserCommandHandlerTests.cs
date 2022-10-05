@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 using PasswordManager.Domain.Commands;
 using PasswordManager.Domain.Database;
+using PasswordManager.UnitTests.Helpers;
 
 using Shouldly;
 
@@ -15,12 +16,7 @@ public class RegisterUserCommandHandlerTests : IDisposable
     private readonly IRequestHandler<RegisterUserCommand, RegisterUserCommandResult> _handler;
     public RegisterUserCommandHandlerTests()
     {
-        var tempFile = Path.GetTempFileName();
-        var options = new DbContextOptionsBuilder<PasswordManagerDbContext>().UseSqlite($"Data Source={tempFile};").Options;
-
-        _dbContext = new PasswordManagerDbContext(options);
-        _dbContext.Database.Migrate();
-
+        _dbContext = DbContextHelper.CreateDbContext();
         _handler = new RegisterUserCommandHandler(_dbContext);
     }
 
@@ -38,6 +34,7 @@ public class RegisterUserCommandHandlerTests : IDisposable
         var password = Guid.NewGuid().ToString();
         var email = Guid.NewGuid().ToString();
         var passwordSalt = Guid.NewGuid().ToString();
+        
         var command = new RegisterUserCommand
         {
             UserName = userName,
@@ -51,6 +48,7 @@ public class RegisterUserCommandHandlerTests : IDisposable
 
         //Assert
         result.ShouldNotBeNull();
-        //result.Id.ShouldBeGreaterThan(0);
+        result.Email.ShouldBe(email);
+        result.UserName.ShouldBe(userName);
     }
 }

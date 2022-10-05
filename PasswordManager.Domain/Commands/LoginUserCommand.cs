@@ -9,7 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 using PasswordManager.Contracts.Database;
+using PasswordManager.Contracts.Http;
 using PasswordManager.Domain.Database;
+using PasswordManager.Domain.Exceptions;
 
 namespace PasswordManager.Domain.Commands;
 
@@ -49,7 +51,7 @@ public class LoginUserCommandhandler : IRequestHandler<LoginUserCommand, LoginUs
         var findUser = _dbContext.Users.SingleOrDefault(user => user.Email == request.Email && user.Name == request.UserName);
         if(findUser == null)
         {
-            throw new Exception("User has not been found");
+            throw new PasswordManagerException(ErrorCode.UserHasNotBeenFound, "User has not been found");
         }
         var compare = Convert.ToBase64String(Rfc2898DeriveBytes.Pbkdf2(
                 Encoding.UTF8.GetBytes(user.Password), Encoding.UTF8.GetBytes(findUser.PasswordSalt), 
@@ -57,7 +59,7 @@ public class LoginUserCommandhandler : IRequestHandler<LoginUserCommand, LoginUs
 
         if(compare != findUser.Password)
         {
-            throw new Exception("Incorrect email or password");
+            throw new PasswordManagerException(ErrorCode.IncorrectEmailOrPassword, "Incorrect email or password");
         }
 
         var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));

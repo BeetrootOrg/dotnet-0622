@@ -1,7 +1,9 @@
 using MediatR;
 
 using PasswordManager.Contracts.Database;
+using PasswordManager.Contracts.Http;
 using PasswordManager.Domain.Database;
+using PasswordManager.Domain.Exceptions;
 
 namespace PasswordManager.Domain.Commands;
 
@@ -38,9 +40,11 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
             PasswordSalt = request.PasswordSalt
         };
 
-        if(_dbContext.Users.SingleOrDefault(user => user.Email == request.Email) != null)
+        var findUser = _dbContext.Users.SingleOrDefault(user => user.Email == request.Email);
+
+        if(findUser != null)
         {
-            throw new Exception("User with this email is already existed.");
+            throw new PasswordManagerException(ErrorCode.UserAlreadyExisted, "User with this email is already existed");
         }
         await _dbContext.AddAsync(user, cancellationToken);
         await _dbContext.SaveChangesAsync();

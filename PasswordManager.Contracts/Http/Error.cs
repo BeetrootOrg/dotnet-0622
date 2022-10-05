@@ -2,6 +2,10 @@ namespace PasswordManager.Contracts.Http;
 
 public enum ErrorCode
 {
+    UserNotFound = 40401,
+    UserAlreadyExisted = 40402,
+    IncorrectEmailOrPassword = 40403,
+    UserHasNotBeenFound = 40404,
     InternalServerError = 50000,
     DbFailureError = 50001
 }
