@@ -26,6 +26,14 @@ public class UserController : BottomControler
     {
         return SafeExecute(async () => 
         {
+            if(!ModelState.IsValid)
+            {
+                return ToActionResult(new ErrorResponse
+                {
+                    Code = ErrorCode.BadRequest,
+                    MessageInfo = "Invalid request"
+                });
+            }
             var passwordSalt = Convert.ToBase64String(RandomNumberGenerator.GetBytes(256));
             var command = new RegisterUserCommand
             {
