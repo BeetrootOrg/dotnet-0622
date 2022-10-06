@@ -63,7 +63,8 @@ builder.Services.AddMediatR(typeof(RegisterUserCommand));
 builder.Services.AddDbContext<PasswordManagerDbContext>((sp, options) => 
 {
     var configuration = sp.GetRequiredService<IOptionsMonitor<AppConfiguration>>();
-    options.UseNpgsql(configuration.CurrentValue.ConnectionString);
+    var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
+    options.UseNpgsql(configuration.CurrentValue.ConnectionString).UseLoggerFactory(loggerFactory);
 });
 
 var app = builder.Build();

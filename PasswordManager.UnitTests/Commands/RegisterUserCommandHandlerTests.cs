@@ -1,6 +1,7 @@
 using MediatR;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 using PasswordManager.Domain.Commands;
 using PasswordManager.Domain.Database;
@@ -13,11 +14,13 @@ namespace PasswordManager.UnitTests.Commands;
 public class RegisterUserCommandHandlerTests : IDisposable
 {
     private readonly PasswordManagerDbContext _dbContext;
+    private readonly ILogger<RegisterUserCommandHandler> _logger;
     private readonly IRequestHandler<RegisterUserCommand, RegisterUserCommandResult> _handler;
     public RegisterUserCommandHandlerTests()
     {
         _dbContext = DbContextHelper.CreateDbContext();
-        _handler = new RegisterUserCommandHandler(_dbContext);
+        //_logger = new ILogger<RegisterUserCommandHandler>();
+        _handler = new RegisterUserCommandHandler(_dbContext, _logger);
     }
 
     public void Dispose()

@@ -16,7 +16,7 @@ public class UserController : BottomControler
 {
     private readonly IMediator _mediator;
 
-    public UserController(IMediator mediator)
+    public UserController(IMediator mediator, ILogger<UserController> logger) : base(logger)
     {
         _mediator = mediator;
     }

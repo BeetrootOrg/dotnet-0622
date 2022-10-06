@@ -1,7 +1,10 @@
 using MediatR;
 
+using Microsoft.Extensions.Logging;
+
 using PasswordManager.Contracts.Database;
 using PasswordManager.Contracts.Http;
+using PasswordManager.Domain.Base;
 using PasswordManager.Domain.Database;
 using PasswordManager.Domain.Exceptions;
 
@@ -21,16 +24,18 @@ public class RegisterUserCommandResult
     public string Email { get; set; }
 }
 
-public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, RegisterUserCommandResult>
+public class RegisterUserCommandHandler : BaseHandler<RegisterUserCommand, RegisterUserCommandResult>
 {
     private readonly PasswordManagerDbContext _dbContext;
+    private readonly ILogger<RegisterUserCommandHandler> _logger;
 
-    public RegisterUserCommandHandler(PasswordManagerDbContext dbContext)
+    public RegisterUserCommandHandler(PasswordManagerDbContext dbContext, 
+        ILogger<RegisterUserCommandHandler> logger) : base(logger)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<RegisterUserCommandResult> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    protected override async Task<RegisterUserCommandResult> HandleInternal(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         var user = new User
         {

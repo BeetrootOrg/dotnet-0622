@@ -9,6 +9,13 @@ namespace PasswordManager.Api.Controllers;
 
 public class BottomControler : ControllerBase
 {
+    private readonly ILogger _logger;
+
+    protected BottomControler(ILogger logger)
+    {
+        _logger = logger;
+    }
+
     protected async Task<IActionResult> SafeExecute(Func<Task<IActionResult>> action, CancellationToken cancellationToken)
     {
         try
@@ -17,6 +24,8 @@ public class BottomControler : ControllerBase
         }
         catch(PasswordManagerException pme)
         {
+            _logger.LogError(pme, "PasswordManager exception raised");
+
             var response = new ErrorResponse
             {
                 Code = pme.ErrorCode,
@@ -27,6 +36,8 @@ public class BottomControler : ControllerBase
         }
         catch(InvalidOperationException ioe) when (ioe.InnerException is NpgsqlException)
         {
+            _logger.LogError(ioe, "DB exception raised");
+
             var response = new ErrorResponse
             {
                 Code = ErrorCode.DbFailureError,
@@ -35,8 +46,10 @@ public class BottomControler : ControllerBase
 
             return ToActionResult(response);
         }
-        catch(Exception)
+        catch(Exception e)
         {
+            _logger.LogError(e, "Unhandled exception raised");
+
             var response = new ErrorResponse
             {
                 Code = ErrorCode.InternalServerError,

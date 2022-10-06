@@ -6,10 +6,12 @@ using System.Text;
 using MediatR;
 
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
 using PasswordManager.Contracts.Database;
 using PasswordManager.Contracts.Http;
+using PasswordManager.Domain.Base;
 using PasswordManager.Domain.Database;
 using PasswordManager.Domain.Exceptions;
 
@@ -28,18 +30,20 @@ public class LoginUserCommandResult
     public string Token { get; set; }
 }
 
-public class LoginUserCommandhandler : IRequestHandler<LoginUserCommand, LoginUserCommandResult>
+public class LoginUserCommandhandler : BaseHandler<LoginUserCommand, LoginUserCommandResult>
 {
     private readonly PasswordManagerDbContext _dbContext;
     private readonly IConfiguration _configuration;
+    private readonly ILogger<LoginUserCommandhandler> _logger;
 
-    public LoginUserCommandhandler(PasswordManagerDbContext dbContext, IConfiguration configuration)
+    public LoginUserCommandhandler(PasswordManagerDbContext dbContext, 
+        IConfiguration configuration, ILogger<LoginUserCommandhandler> logger) : base(logger)
     {
         _dbContext = dbContext;
         _configuration = configuration;
     }
 
-    public Task<LoginUserCommandResult> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+    protected override Task<LoginUserCommandResult> HandleInternal(LoginUserCommand request, CancellationToken cancellationToken)
     {
         var user = new User
         {
