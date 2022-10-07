@@ -1,25 +1,26 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 using MediatR;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 using Moq;
 
 using Shouldly;
+
 using Wishlist.Contracts.Http;
 using Wishlist.Domain.Commands;
 using Wishlist.Domain.Exceptions;
 using Wishlist.Domain.Helpers.Interfaces;
+using Wishlist.UnitTests.Base;
 using Wishlist.UnitTests.Helpers;
 
-using WishlistModel = Wishlist.Contracts.Database.Wishlist;
 using Present = Wishlist.Contracts.Database.Present;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Wishlist.UnitTests.Base;
+using WishlistModel = Wishlist.Contracts.Database.Wishlist;
 
 namespace Wishlist.UnitTests.Commands;
 
