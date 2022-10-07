@@ -10,11 +10,17 @@ using PasswordManager.Api.Configuration;
 using PasswordManager.Domain.Commands;
 using PasswordManager.Domain.Database;
 
+using Serilog;
+
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Host.UseSerilog((ctx, lc) => 
+{
+    lc.ReadFrom.Configuration(builder.Configuration);
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
