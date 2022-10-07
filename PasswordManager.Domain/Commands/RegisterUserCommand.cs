@@ -24,7 +24,7 @@ public class RegisterUserCommandResult
     public string Email { get; set; }
 }
 
-public class RegisterUserCommandHandler : BaseHandler<RegisterUserCommand, RegisterUserCommandResult>
+internal class RegisterUserCommandHandler : BaseHandler<RegisterUserCommand, RegisterUserCommandResult>
 {
     private readonly PasswordManagerDbContext _dbContext;
     private readonly ILogger<RegisterUserCommandHandler> _logger;

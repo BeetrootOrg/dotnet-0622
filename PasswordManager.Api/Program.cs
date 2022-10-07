@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using PasswordManager.Api.Configuration;
+using PasswordManager.Domain;
 using PasswordManager.Domain.Commands;
 using PasswordManager.Domain.Database;
 
@@ -65,8 +66,7 @@ builder.Services.AddHealthChecks().AddNpgSql(sp =>
 
 builder.Services.Configure<AppConfiguration>(builder.Configuration);
 
-builder.Services.AddMediatR(typeof(RegisterUserCommand));
-builder.Services.AddDbContext<PasswordManagerDbContext>((sp, options) => 
+builder.Services.AddDomainServices((sp, options) => 
 {
     var configuration = sp.GetRequiredService<IOptionsMonitor<AppConfiguration>>();
     var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
@@ -91,3 +91,5 @@ app.MapControllers();
 app.MapHealthChecks("/health");
 
 app.Run();
+
+public partial class Program { }

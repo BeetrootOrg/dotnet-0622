@@ -12,6 +12,7 @@ using PasswordManager.Domain.Commands;
 
 namespace PasswordManager.Api.Controllers;
 
+//[Route("api/user")]
 public class UserController : BottomControler
 {
     private readonly IMediator _mediator;

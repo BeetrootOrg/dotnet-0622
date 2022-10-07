@@ -3,6 +3,8 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
+using Moq;
+
 using PasswordManager.Domain.Commands;
 using PasswordManager.Domain.Database;
 using PasswordManager.UnitTests.Helpers;
@@ -14,13 +16,12 @@ namespace PasswordManager.UnitTests.Commands;
 public class RegisterUserCommandHandlerTests : IDisposable
 {
     private readonly PasswordManagerDbContext _dbContext;
-    private readonly ILogger<RegisterUserCommandHandler> _logger;
+    //private readonly ILogger<RegisterUserCommandHandler> _logger;
     private readonly IRequestHandler<RegisterUserCommand, RegisterUserCommandResult> _handler;
     public RegisterUserCommandHandlerTests()
     {
         _dbContext = DbContextHelper.CreateDbContext();
-        //_logger = new ILogger<RegisterUserCommandHandler>();
-        _handler = new RegisterUserCommandHandler(_dbContext, _logger);
+        _handler = new RegisterUserCommandHandler(_dbContext, new Mock<ILogger<RegisterUserCommandHandler>>().Object);
     }
 
     public void Dispose()

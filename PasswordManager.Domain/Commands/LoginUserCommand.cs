@@ -30,7 +30,7 @@ public class LoginUserCommandResult
     public string Token { get; set; }
 }
 
-public class LoginUserCommandhandler : BaseHandler<LoginUserCommand, LoginUserCommandResult>
+internal class LoginUserCommandhandler : BaseHandler<LoginUserCommand, LoginUserCommandResult>
 {
     private readonly PasswordManagerDbContext _dbContext;
     private readonly IConfiguration _configuration;
